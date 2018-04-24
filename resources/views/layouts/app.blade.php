@@ -45,6 +45,10 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('driver-profile') }}">Profil kierowcy</a>
+                                    <a class="dropdown-item" href="{{ route('pilot-profile') }}">Profil pilota</a>
+                                    <a class="dropdown-item" href="{{ route('car') }}">Samochód</a>
+                                    <a class="dropdown-item" href="{{ route('settings') }}">Ustawienia konta</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

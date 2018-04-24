@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function driver()
+    {
+        return $this->hasOne(Driver::class);
+    }
+
+    public function pilot()
+    {
+        return $this->hasOne(Pilot::class);
+    }
+
+    public function car()
+    {
+        return $this->hasOne(Car::class);
+    }
 }

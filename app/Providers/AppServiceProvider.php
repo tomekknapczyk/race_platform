@@ -15,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        \Carbon\Carbon::setLocale('pl');
+        $translator = \Carbon\Carbon::getTranslator();
+        $resources = $translator->getCatalogue('pl')->all('messages');
+        $resources['after'] = ':time temu';
+        $resources['before'] = 'za :time';
+        $translator->addResource('array', $resources, 'pl');
     }
 
     /**
