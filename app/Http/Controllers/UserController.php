@@ -57,17 +57,27 @@ class UserController extends Controller
         return view('car');
     }
 
+    public function pilots()
+    {
+        return view('pilots');
+    }
+
+    public function cars()
+    {
+        return view('cars');
+    }
+
     public function saveDriver(Request $request)
     {
         $this->validate($request, [
-            'name' => 'nullable|string|max:255',
-            'lastname' => 'nullable|string|max:255',
-            'address' => 'nullable|max:500',
-            'id_card' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'driving_license' => 'nullable|string|max:255',
-            'oc' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'address' => 'required|max:500',
+            'id_card' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'driving_license' => 'required|string|max:255',
+            'oc' => 'required|string|max:255',
             'nw' => 'nullable|string|max:255',
         ]);
 
@@ -96,8 +106,8 @@ class UserController extends Controller
     public function savePilot(Request $request)
     {
         $this->validate($request, [
-            'name' => 'nullable|string|max:255',
-            'lastname' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
             'address' => 'nullable|max:500',
             'id_card' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
@@ -107,9 +117,10 @@ class UserController extends Controller
             'nw' => 'nullable|string|max:255',
         ]);
 
-        $pilot = Pilot::where('user_id', auth()->user()->id)->first();
-
-        if(!$pilot){
+        if(isset($request->id)){
+            $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        }
+        else{
             $pilot = new Pilot;
             $pilot->user_id = auth()->user()->id;
         }
@@ -127,5 +138,71 @@ class UserController extends Controller
         $pilot->save();
 
         return redirect()->back()->with('success', 'Profil pilota został zapisany');
+    }
+
+    public function deletePilot(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:pilots',
+        ]);
+
+        $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($pilot){
+            $pilot->delete();
+            return redirect()->back()->with('success', 'Pilot został usunięty');
+        }
+
+        return redirect()->back()->with('warning', 'Pilot nie istnieje');
+    }
+
+    public function saveCar(Request $request)
+    {
+        $this->validate($request, [
+            'marka' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'rok' => 'required|max:255',
+            'nr_rej' => 'required|string|max:255',
+            'ccm' => 'required|string|max:255',
+        ]);
+
+        if(isset($request->id)){
+            $car = Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        }
+        else{
+            $car = new Car;
+            $car->user_id = auth()->user()->id;
+        }
+       
+        $car->marka = $request->marka;
+        $car->model = $request->model;
+        $car->rok = $request->rok;
+        $car->nr_rej = $request->nr_rej;
+        $car->ccm = $request->ccm;
+        $car->turbo = false;
+        $car->rwd = false;
+        if(isset($request->turbo))
+            $car->turbo = true;
+        if(isset($request->rwd))
+            $car->rwd = true;
+        $car->save();
+
+        return redirect()->back()->with('success', 'Samochód został zapisany');
+    }
+
+    public function deleteCar(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:cars',
+        ]);
+
+        $car = Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($car){
+            $car->delete();
+            return redirect()->back()->with('success', 'Samochód został usunięty');
+        }
+
+        return redirect()->back()->with('warning', 'Samochód nie istnieje');
     }
 }

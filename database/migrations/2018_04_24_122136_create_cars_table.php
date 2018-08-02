@@ -22,7 +22,7 @@ class CreateCarsTable extends Migration
             $table->string('nr_rej')->nullable();
             $table->string('ccm')->nullable();
             $table->string('rok')->nullable();
-            $table->string('klasa')->nullable();
+            $table->string('rwd')->nullable();
             $table->timestamps();
         });
     }

@@ -1,20 +1,21 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
-                    Profil pilota
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('savePilot') }}">
+<div class="modal fade" tabindex="-1" role="dialog" id="editPilot" aria-labelledby="editPilot" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-info rounded-top">
+                <h5 class="modal-title">Edytuj pilota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('savePilot') }}">
                         @csrf
+
+                        <input type="hidden" name="id" id="edit_id">
 
                         <div class="form-group">
                             <label for="name">Imię</label>
-                            <input type="text" name="name" value="{{ old('name', optional(auth()->user()->pilot)->name) }}" class="form-control"> 
+                            <input type="text" name="name" id="edit_name" class="form-control" required=""> 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -24,7 +25,7 @@
 
                         <div class="form-group">
                             <label for="lastname">Nazwisko</label>
-                            <input type="text" name="lastname" value="{{ old('lastname', optional(auth()->user()->pilot)->lastname) }}" class="form-control"> 
+                            <input type="text" name="lastname" id="edit_lastname" class="form-control" required=""> 
                             @if ($errors->has('lastname'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('lastname') }}</strong>
@@ -34,7 +35,7 @@
 
                         <div class="form-group">
                             <label for="address">Adres</label>
-                            <textarea name="address" class="form-control" rows="2">{{ old('address', optional(auth()->user()->pilot)->address) }}</textarea>
+                            <textarea name="address" class="form-control" rows="2" id="edit_address"></textarea>
                             @if ($errors->has('address'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('address') }}</strong>
@@ -44,7 +45,7 @@
 
                         <div class="form-group">
                             <label for="id_card">Seria nr dowodu osobistego</label>
-                            <input type="text" name="id_card" value="{{ old('id_card', optional(auth()->user()->pilot)->id_card) }}" class="form-control"> 
+                            <input type="text" name="id_card" id="edit_id_card" class="form-control"> 
                             @if ($errors->has('id_card'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('id_card') }}</strong>
@@ -54,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="phone">Telefon</label>
-                            <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->pilot)->phone) }}" class="form-control"> 
+                            <input type="text" name="phone" id="edit_phone" class="form-control"> 
                             @if ($errors->has('phone'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('phone') }}</strong>
@@ -64,7 +65,7 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" value="{{ old('email', optional(auth()->user()->pilot)->email) }}" class="form-control"> 
+                            <input type="email" name="email" id="edit_email" class="form-control"> 
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -74,7 +75,7 @@
 
                         <div class="form-group">
                             <label for="driving_license">Nr prawo jazdy</label>
-                            <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->pilot)->driving_license) }}" class="form-control"> 
+                            <input type="text" name="driving_license" id="edit_driving_license" class="form-control"> 
                             @if ($errors->has('driving_license'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('driving_license') }}</strong>
@@ -84,7 +85,7 @@
 
                         <div class="form-group">
                             <label for="oc">Nazwa nr polisy OC</label>
-                            <input type="text" name="oc" value="{{ old('oc', optional(auth()->user()->pilot)->oc) }}" class="form-control"> 
+                            <input type="text" name="oc" id="edit_oc" class="form-control"> 
                             @if ($errors->has('oc'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('oc') }}</strong>
@@ -94,7 +95,7 @@
 
                         <div class="form-group">
                             <label for="nw">Nazwa nr polisy NW</label>
-                            <input type="text" name="nw" value="{{ old('nw', optional(auth()->user()->pilot)->nw) }}" class="form-control"> 
+                            <input type="text" name="nw" id="edit_nw" class="form-control"> 
                             @if ($errors->has('nw'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('nw') }}</strong>
@@ -110,9 +111,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>
 </div>
-@endsection

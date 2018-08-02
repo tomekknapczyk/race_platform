@@ -33,13 +33,13 @@ class User extends Authenticatable
         return $this->hasOne(Driver::class);
     }
 
-    public function pilot()
+    public function pilots()
     {
-        return $this->hasOne(Pilot::class);
+        return $this->hasMany(Pilot::class);
     }
 
-    public function car()
+    public function cars()
     {
-        return $this->hasOne(Car::class);
+        return $this->hasMany(Car::class);
     }
 }

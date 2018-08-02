@@ -46,8 +46,8 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('driver-profile') }}">Profil kierowcy</a>
-                                    <a class="dropdown-item" href="{{ route('pilot-profile') }}">Profil pilota</a>
-                                    <a class="dropdown-item" href="{{ route('car') }}">Samochód</a>
+                                    <a class="dropdown-item" href="{{ route('pilots') }}">Piloci</a>
+                                    <a class="dropdown-item" href="{{ route('cars') }}">Samochody</a>
                                     <a class="dropdown-item" href="{{ route('settings') }}">Ustawienia konta</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -71,7 +71,9 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <p class="craft text-white">Crafted by <a href="//efabryka.net" title="efabryka.net" alt="efabryka" target="_blank" rel="nofollow">efabryka.net</a></p>
     </div>
-    <p class="craft text-white">Crafted by <a href="//efabryka.net" title="efabryka.net" alt="efabryka" target="_blank" rel="nofollow">efabryka.net</a></p>
+    
 </body>
 </html>

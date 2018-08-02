@@ -21,8 +21,19 @@ Route::post('changePassword', 'UserController@changePassword')->name('changePass
 
 // Profile
 Route::get('driver-profile', 'UserController@driverProfile')->name('driver-profile');
+Route::get('pilots', 'UserController@pilots')->name('pilots');
+Route::get('cars', 'UserController@cars')->name('cars');
 Route::get('pilot-profile', 'UserController@pilotProfile')->name('pilot-profile');
 Route::get('car', 'UserController@car')->name('car');
 Route::post('saveDriver', 'UserController@saveDriver')->name('saveDriver');
 Route::post('savePilot', 'UserController@savePilot')->name('savePilot');
 Route::post('saveCar', 'UserController@saveCar')->name('saveCar');
+Route::post('deleteCar', 'UserController@deleteCar')->name('deleteCar');
+Route::post('deletePilot', 'UserController@deletePilot')->name('deletePilot');
+
+// Admin panel
+Route::group(['middleware' => 'can:accessBackend'], function() {
+    Route::get('/backend', function(){
+        dd('ok');
+    });
+});
