@@ -42,4 +42,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Car::class);
     }
+
+    public function ready()
+    {
+        if(auth()->user()->driver() && auth()->user()->pilots()->first() && auth()->user()->cars()->first())
+            return true;
+        else
+            return false;
+    }
 }

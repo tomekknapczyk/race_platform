@@ -2,21 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Witaj</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                </div>
-            </div>
-        </div>
+    <div class="row justify-content-center">
+        <h2 class="display-1 mt-5 text-white">Rajdowy Puchar Śląska</h2>
     </div>
 </div>
 @endsection

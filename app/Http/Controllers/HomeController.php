@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(auth()->user()->admin)
+            return view('admin.dashboard');
+        
+        $forms = \App\SignForm::where('active', 1)->get();
+
+        return view('dashboard', compact('forms'));
     }
 }
