@@ -75,7 +75,6 @@ class UserController extends Controller
             'address' => 'required|max:500',
             'id_card' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
             'driving_license' => 'required|string|max:255',
             'oc' => 'required|string|max:255',
             'nw' => 'nullable|string|max:255',
@@ -93,7 +92,6 @@ class UserController extends Controller
         $driver->address = $request->address;
         $driver->id_card = $request->id_card;
         $driver->phone = $request->phone;
-        $driver->email = $request->email;
         $driver->driving_license = $request->driving_license;
         $driver->oc = $request->oc;
         $driver->nw = $request->nw;

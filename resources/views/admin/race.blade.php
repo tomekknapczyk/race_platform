@@ -12,10 +12,18 @@
                 <div class="card-body">
                     @foreach($race->rounds as $round)
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <h3><a href="{{ url('round', $round->id) }}" class="text-dark">{{ $round->name }}</a></h3>
+                            @if(!$round->startList)
+                                <h3><a href="{{ url('round', $round->id) }}" class="text-dark">{{ $round->name }}</a></h3>
+                            @else
+                                <h3><a href="{{ url('list', $round->id) }}" class="text-dark">{{ $round->name }}</a></h3>
+                            @endif
                             <strong>{{ $round->termin }}</strong>
                             <div>
-                                <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-secondary">Zobacz</a>
+                                @if(!$round->startList)
+                                    <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
+                                @else
+                                    <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
+                                @endif
                                 <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
                                     data-text='{"id":"{{ $round->id }}", "name":"{{ $round->name }}", "termin":"{{ $round->termin }}"}'
                                     >Edytuj</button>

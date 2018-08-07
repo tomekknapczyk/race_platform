@@ -17,10 +17,10 @@
                                 <span>{{ $pilot->phone }}</span>
                                 <span>{{ $pilot->email }}</span>
                                 <div>
-                                    <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editPilot" 
+                                    <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editPilot" 
                                         data-text='{"id":"{{ $pilot->id }}", "name":"{{ $pilot->name }}", "lastname":"{{ $pilot->lastname }}", "phone":"{{ $pilot->phone }}", "email":"{{ $pilot->email }}", "id_card":"{{ $pilot->id_card }}", "address":"{{ $pilot->address }}", "driving_license":"{{ $pilot->driving_license }}", "oc":"{{ $pilot->oc }}", "nw":"{{ $pilot->nw }}"}'
                                         >Edytuj</button>
-                                    <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deletePilot" data-id="{{ $pilot->id }}">Usuń</button>
+                                    <button class="btn btn-sm btn-outline-danger deleteBtn" data-toggle="modal" data-target="#deletePilot" data-id="{{ $pilot->id }}">Usuń</button>
                                 </div>
                             </div>
                             <hr>

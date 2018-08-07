@@ -19,11 +19,16 @@
                                     data-text='{"id":"{{ $race->id }}", "name":"{{ $race->name }}"}'
                                     >Edytuj nazwę</button>
                                 <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteRace" data-id="{{ $race->id }}">Usuń</button>
+                                <a href="{{ url('rank', $race->id) }}" class="btn btn-sm btn-success">Ranking</a>
                             </div>
                         </div>
                         <div class="d-flex justify-content-start align-items-center flex-wrap">
-                            @foreach($race->rounds as $round)             
-                                <a href="{{ url('round', $round->id) }}" class="btn btn-sm">{{ $round->name }}</a>
+                            @foreach($race->rounds as $round)
+                                @if(!$round->startList)
+                                    <a href="{{ url('round', $round->id) }}" class="btn btn-sm">{{ $round->name }} - zgłoszenia</a>
+                                @else
+                                    <a href="{{ url('list', $round->id) }}" class="btn btn-sm">{{ $round->name }} - lista startowa</a>
+                                @endif
                             @endforeach
                         </div>
                         <hr>

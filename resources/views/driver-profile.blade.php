@@ -63,16 +63,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" value="{{ old('email', optional(auth()->user()->driver)->email) }}" class="form-control" required=""> 
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
                             <label for="driving_license">Nr prawo jazdy</label>
                             <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->driver)->driving_license) }}" class="form-control" required=""> 
                             @if ($errors->has('driving_license'))

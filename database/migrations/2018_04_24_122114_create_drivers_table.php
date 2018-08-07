@@ -21,7 +21,6 @@ class CreateDriversTable extends Migration
             $table->text('address')->nullable();
             $table->string('id_card')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->string('driving_license')->nullable();
             $table->string('oc')->nullable();
             $table->string('nw')->nullable();

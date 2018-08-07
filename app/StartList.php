@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SignForm extends Model
+class StartList extends Model
 {
     public function round()
     {
         return $this->belongsTo(Round::class);
     }
 
-    public function signs()
+    public function items()
     {
-        return $this->hasMany(Sign::class, 'form_id');
+        return $this->hasMany(StartListItem::class);
     }
 }

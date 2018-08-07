@@ -10492,3 +10492,7 @@ a.text-dark:focus {
   opacity: 1;
 }
 
+.sortClone {
+  display: none !important;
+}
+

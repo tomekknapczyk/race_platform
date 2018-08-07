@@ -15,7 +15,14 @@ Auth::routes();
 
 Route::get('/', 'GuestController@index');
 
-Route::get('/dashboard', 'HomeController@index')->name('home');
+Route::get('dashboard', 'HomeController@index')->name('home');
+Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
+Route::get('rank/{id}', 'HomeController@rank')->name('rank');
+Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
+Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
+Route::post('getPilot', 'HomeController@getPilot')->name('getPilot');
+Route::post('getCar', 'HomeController@getCar')->name('getCar');
+Route::post('sign', 'SignController@sign')->name('sign');
 
 // Settings
 Route::get('settings', 'UserController@settings')->name('settings');
@@ -44,6 +51,19 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('deleteRound', 'RaceController@deleteRound')->name('deleteRound');
 
     Route::get('round/{id}', 'RaceController@round')->name('round');
+    Route::get('list/{id}', 'RaceController@list')->name('list');
     
     Route::post('signFormStatus', 'SignController@signFormStatus')->name('signFormStatus');
+    Route::post('editSign', 'SignController@editSign')->name('editSign');
+    Route::post('addSign', 'SignController@addSign')->name('addSign');
+    Route::post('cancelSign', 'SignController@cancelSign')->name('cancelSign');
+    Route::post('deleteSign', 'SignController@deleteSign')->name('deleteSign');
+    Route::post('enableSign', 'SignController@enableSign')->name('enableSign');
+    Route::post('update-position', 'SignController@updatePosition')->name('updatePosition');
+
+    Route::post('generateList', 'SignController@generateList')->name('generateList');
+    Route::post('deleteList', 'SignController@deleteList')->name('deleteList');
+    Route::post('saveRank', 'SignController@saveRank')->name('saveRank');
+
+    Route::post('makeFile', 'SignController@makeFile')->name('makeFile');
 });

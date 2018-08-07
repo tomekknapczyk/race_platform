@@ -18,11 +18,11 @@
                                 <span>{{ $car->ccm }} ccm</span>
                                 <strong class="text-uppercase">{{ $car->nr_rej }}</strong>
                                 <div>
-                                    <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editCar" 
+                                    <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editCar" 
                                         data-text='{"id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
                                         data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
                                         >Edytuj</button>
-                                    <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteCar" data-id="{{ $car->id }}">Usuń</button>
+                                    <button class="btn btn-sm btn-outline-danger deleteBtn" data-toggle="modal" data-target="#deleteCar" data-id="{{ $car->id }}">Usuń</button>
                                 </div>
                             </div>
                             <hr>

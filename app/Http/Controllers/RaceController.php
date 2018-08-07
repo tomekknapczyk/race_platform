@@ -40,7 +40,7 @@ class RaceController extends Controller
         $race->name = $request->name;
         $race->save();
 
-        return redirect()->back()->with('success', 'Rajd został zapisany');
+        return back()->with('success', 'Rajd został zapisany');
     }
 
     public function deleteRace(Request $request)
@@ -51,7 +51,7 @@ class RaceController extends Controller
 
         Race::where('id', $request->id)->delete();
 
-        return redirect()->back()->with('success', 'Rajd został usunięty');
+        return back()->with('success', 'Rajd został usunięty');
     }
 
     public function race($id)
@@ -89,7 +89,7 @@ class RaceController extends Controller
             $form->save();
         }
 
-        return redirect()->back()->with('success', 'Runda została zapisana');
+        return back()->with('success', 'Runda została zapisana');
     }
 
     public function deleteRound(Request $request)
@@ -100,15 +100,34 @@ class RaceController extends Controller
 
         Round::where('id', $request->id)->delete();
 
-        return redirect()->back()->with('success', 'Runda została usunięta');
+        return back()->with('success', 'Runda została usunięta');
     }
 
     public function round($id)
     {
         $round = Round::where('id', $id)->first();
 
-        if($round)
-            return view('admin.round', compact('round'));
+        if($round->startList)
+            return redirect()->route('race', $round->race_id)->with('info', 'Lista zgłoszeń jest niedostępna ponieważ została wygenerowana lista startowa.');
+
+        if($round){
+            $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+            return view('admin.round', compact('round', 'klasy'));
+        }
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }
+
+    public function list($id)
+    {
+        $round = Round::where('id', $id)->first();
+
+        if(!$round->startList)
+            return redirect()->route('race', $round->race_id)->with('info', 'Lista startowa jest niedostępna ponieważ nie została wygenerowana.');
+
+        if($round){
+            return view('admin.list', compact('round'));
+        }
 
         return back()->with('warning', 'Runda nie istnieje');
     }

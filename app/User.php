@@ -50,4 +50,35 @@ class User extends Authenticatable
         else
             return false;
     }
+
+    public function availableForms()
+    {
+        $forms = SignForm::where('active', 1)->get();
+
+        $filtered = $forms->filter(function ($value, $key) {
+            return !$this->signed($value->id);
+        });
+
+        return $filtered;
+    }
+
+    public function signed($form_id)
+    {
+        $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $form_id)->first();
+
+        if($sign)
+            return true;
+
+        return false;
+    }
+
+    public function onList($list_id)
+    {
+        $sign = StartListItem::where('email', auth()->user()->email)->where('start_list_id', $list_id)->first();
+
+        if($sign)
+            return true;
+
+        return false;
+    }
 }
