@@ -96,8 +96,6 @@ class SignController extends Controller
             'driver_name' => 'required|string|max:255',
             'driver_lastname' => 'required|string|max:255',
             'driver_email' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
             'marka' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'rok' => 'required|max:255',
@@ -276,10 +274,10 @@ class SignController extends Controller
         $list = StartList::where('round_id', $request->id)->first();
         $id = $list->round->race->id;
 
-        foreach($list->items() as $item){
+        foreach($list->items as $item){
             $item->delete();
         }
-
+        
         $list->delete();
 
         return redirect()->route('race', $id)->with('success', 'Lista została usunięta');

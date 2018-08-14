@@ -19,6 +19,8 @@
                         @endif
                         
                         <button class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#addSign">Dodaj uczestnika</button>
+
+                        <button class="btn btn-sm btn-warning ml-2" data-toggle="modal" data-target="#addSignSimple">Dodaj szybko</button>
                     </div>
                     @if(!$round->startList)
                         <button class="btn btn btn-success ml-2" data-toggle="modal" data-target="#generateList">Generuj listę startową</button>
@@ -97,5 +99,6 @@
 @include('admin.modals.cancelSign')
 @include('admin.modals.enableSign')
 @include('admin.modals.addSign')
+@include('admin.modals.addSignSimple')
 @include('admin.modals.generateList')
 @endsection
