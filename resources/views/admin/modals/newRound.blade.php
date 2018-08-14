@@ -33,6 +33,16 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <label for="max">Maksymalna ilość uczestników</label>
+                        <input type="number" min="0" name="max" value="{{ old('max') }}" class="form-control" required=""> 
+                        @if ($errors->has('max'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('max') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-block">

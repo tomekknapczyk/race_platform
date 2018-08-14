@@ -69,6 +69,7 @@ class RaceController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'termin' => 'required|string|max:255',
+            'max' => 'required|numeric',
         ]);
 
         if(isset($request->id)){
@@ -81,6 +82,7 @@ class RaceController extends Controller
 
         $round->name = $request->name;
         $round->termin = $request->termin;
+        $round->max = $request->max;
         $round->save();
 
         if(!isset($request->id)){

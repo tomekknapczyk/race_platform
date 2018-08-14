@@ -32,9 +32,12 @@
                             <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                             <div class="sortable_items">
                                 @foreach($round->signs()->where('klasa', $klasa) as $sign)
-                                    <div class="row justify-content-between align-items-center flex-wrap" data-id={{ $sign->id }}>
-                                        <h5 class="m-0 col-4">
-                                            {{ $sign->name }} {{ $sign->lastname }} <small>// {{ $sign->email }}</small><br>
+                                    <div class="row justify-content-between align-items-center flex-wrap pt-1 @if($loop->iteration > $round->max) bg-warning @endif" data-id={{ $sign->id }}>
+                                        <h5 class="m-0 col-1">
+                                            {{ $loop->iteration }}
+                                        </h5>
+                                        <h5 class="m-0 col-3">
+                                            {{ $sign->name }} {{ $sign->lastname }}<br>
                                             <small><strong>Pilot:</strong> {{ $sign->pilot_name }} {{ $sign->pilot_lastname }}</small>
                                         </h5>
                                         <h5 class="m-0 col-3">
@@ -59,7 +62,7 @@
                                                 <button class="btn btn-sm btn-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ $sign->id }}">Usuń</button>
                                             </div>
                                         </h5>
-                                        <hr class="col-12 p-0 my-2">
+                                        <hr class="col-12 p-0 pt-1 m-0">
                                     </div>
                                 @endforeach
                             </div>

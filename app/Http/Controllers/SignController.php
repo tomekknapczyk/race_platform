@@ -249,17 +249,23 @@ class SignController extends Controller
         $form->save();
 
         $round = \App\Round::where('id', $request->id)->first();
+        $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
 
         $max = $round->signs()->count();
 
-        foreach ($round->signs() as $key => $sign) {
-            $list_item = new StartListItem;
-            $list_item->start_list_id = $list->id;
-            $list_item->sign_id = $sign->id;
-            $list_item->email = $sign->email;
-            $list_item->klasa = $sign->klasa;
-            $list_item->position = $max--;
-            $list_item->save();
+        if($max > $round->max)
+            $max = $round->max;
+
+        foreach($klasy as $klasa){
+            foreach($round->signs()->where('klasa', $klasa)->take($round->max) as $sign){
+                $list_item = new StartListItem;
+                $list_item->start_list_id = $list->id;
+                $list_item->sign_id = $sign->id;
+                $list_item->email = $sign->email;
+                $list_item->klasa = $sign->klasa;
+                $list_item->position = $max--;
+                $list_item->save();
+            }
         }
 
         return redirect()->route('list', $list->round_id);
