@@ -256,16 +256,26 @@ class SignController extends Controller
         if($max > $round->max)
             $max = $round->max;
 
-        foreach($klasy as $klasa){
-            foreach($round->signs()->where('klasa', $klasa)->take($round->max) as $sign){
-                $list_item = new StartListItem;
-                $list_item->start_list_id = $list->id;
-                $list_item->sign_id = $sign->id;
-                $list_item->email = $sign->email;
-                $list_item->klasa = $sign->klasa;
-                $list_item->position = $max--;
-                $list_item->save();
-            }
+        // foreach($klasy as $klasa){
+        //     foreach($round->signs()->where('klasa', $klasa)->take($round->max) as $sign){
+        //         $list_item = new StartListItem;
+        //         $list_item->start_list_id = $list->id;
+        //         $list_item->sign_id = $sign->id;
+        //         $list_item->email = $sign->email;
+        //         $list_item->klasa = $sign->klasa;
+        //         $list_item->position = $max--;
+        //         $list_item->save();
+        //     }
+        // }
+
+        foreach($round->signs()->take($max) as $sign){
+            $list_item = new StartListItem;
+            $list_item->start_list_id = $list->id;
+            $list_item->sign_id = $sign->id;
+            $list_item->email = $sign->email;
+            $list_item->klasa = $sign->klasa;
+            $list_item->position = $max--;
+            $list_item->save();
         }
 
         return redirect()->route('list', $list->round_id);

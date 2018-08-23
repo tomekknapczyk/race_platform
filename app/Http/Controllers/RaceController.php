@@ -114,7 +114,22 @@ class RaceController extends Controller
 
         if($round){
             $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
-            return view('admin.round', compact('round', 'klasy'));
+            $max = $round->max;
+            $drivers = 0;
+            $active = true;
+            $class = [];
+
+            foreach ($round->signs() as $key => $sign) {
+                $drivers++;
+
+                if($drivers > $max)
+                    $active = false;
+
+                $class[$sign->klasa][$key]['sign'] = $sign;
+                $class[$sign->klasa][$key]['active'] = $active;
+            }
+
+            return view('admin.round', compact('round', 'klasy', 'class'));
         }
 
         return back()->with('warning', 'Runda nie istnieje');
