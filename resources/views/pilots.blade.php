@@ -19,6 +19,11 @@
                                 <div>
                                     <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editPilot" 
                                         data-text='{"id":"{{ $pilot->id }}", "name":"{{ $pilot->name }}", "lastname":"{{ $pilot->lastname }}", "phone":"{{ $pilot->phone }}", "email":"{{ $pilot->email }}", "id_card":"{{ $pilot->id_card }}", "address":"{{ $pilot->address }}", "driving_license":"{{ $pilot->driving_license }}", "oc":"{{ $pilot->oc }}", "nw":"{{ $pilot->nw }}"}'
+                                        @if($pilot->file_id)
+                                            data-img='{"photo":"{{ url('public/pilot', $pilot->file->path) }}"}'
+                                        @else
+                                            data-img='{"photo":""}'
+                                        @endif
                                         >Edytuj</button>
                                     <button class="btn btn-sm btn-outline-danger deleteBtn" data-toggle="modal" data-target="#deletePilot" data-id="{{ $pilot->id }}">Usuń</button>
                                 </div>

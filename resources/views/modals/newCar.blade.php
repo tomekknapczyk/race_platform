@@ -8,99 +8,113 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('saveCar') }}">
+                <form method="POST" action="{{ route('saveCar') }}" enctype="multipart/form-data">
                     @csrf
-                    
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="marka">Marka</label>
-                                <input type="text" name="marka" value="{{ old('marka') }}" class="form-control" required=""> 
-                                @if ($errors->has('marka'))
+                                <label for="photo">Zdjęcie</label>
+                                <input type="file" name="photo" class="form-control">
+                                @if ($errors->has('photo'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('marka') }}</strong>
+                                        <strong>{{ $errors->first('photo') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="model">Model</label>
-                                <input type="text" name="model" value="{{ old('model')}}" class="form-control" required=""> 
-                                @if ($errors->has('model'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('model') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="nr_rej">Numer rejestracyjny</label>
-                                <input type="text" name="nr_rej" value="{{ old('nr_rej') }}" class="form-control" required=""> 
-                                @if ($errors->has('nr_rej'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nr_rej') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="rok">Rok produkcji</label>
-                                <input type="text" name="rok" value="{{ old('rok') }}" class="form-control" required=""> 
-                                @if ($errors->has('rok'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('rok') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="ccm">Pojemność ccm</label>
-                                <input type="text" name="ccm" value="{{ old('ccm') }}" class="form-control" required=""> 
-                                @if ($errors->has('ccm'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('ccm') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="model">Turbo</label>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" name="turbo" id="turbo" value="1">
-                                  <label class="form-check-label" for="turbo">Tak</label>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="marka">Marka</label>
+                                        <input type="text" name="marka" value="{{ old('marka') }}" class="form-control" required=""> 
+                                        @if ($errors->has('marka'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('marka') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->has('turbo'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('turbo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="model">RWD</label>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" name="rwd" id="rwd" value="1">
-                                  <label class="form-check-label" for="rwd">Tak</label>
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <input type="text" name="model" value="{{ old('model')}}" class="form-control" required=""> 
+                                        @if ($errors->has('model'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('model') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->has('rwd'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('rwd') }}</strong>
-                                    </span>
-                                @endif
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nr_rej">Numer rejestracyjny</label>
+                                        <input type="text" name="nr_rej" value="{{ old('nr_rej') }}" class="form-control" required=""> 
+                                        @if ($errors->has('nr_rej'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('nr_rej') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="rok">Rok produkcji</label>
+                                        <input type="text" name="rok" value="{{ old('rok') }}" class="form-control" required=""> 
+                                        @if ($errors->has('rok'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('rok') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ccm">Pojemność ccm</label>
+                                        <input type="text" name="ccm" value="{{ old('ccm') }}" class="form-control" required=""> 
+                                        @if ($errors->has('ccm'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('ccm') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="model">Turbo</label>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" name="turbo" id="turbo" value="1">
+                                          <label class="form-check-label" for="turbo">Tak</label>
+                                        </div>
+                                        @if ($errors->has('turbo'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('turbo') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="model">RWD</label>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" name="rwd" id="rwd" value="1">
+                                          <label class="form-check-label" for="rwd">Tak</label>
+                                        </div>
+                                        @if ($errors->has('rwd'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('rwd') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

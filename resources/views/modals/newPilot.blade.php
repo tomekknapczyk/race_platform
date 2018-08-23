@@ -8,107 +8,125 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('savePilot') }}">
-                        @csrf
+                <form method="POST" action="{{ route('savePilot') }}" enctype="multipart/form-data">
+                    @csrf
 
-                        <div class="form-group">
-                            <label for="name">Imię</label>
-                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" required=""> 
-                            @if ($errors->has('name'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                    <div class="row">
 
-                        <div class="form-group">
-                            <label for="lastname">Nazwisko</label>
-                            <input type="text" name="lastname" value="{{ old('lastname') }}" class="form-control" required=""> 
-                            @if ($errors->has('lastname'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('lastname') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address">Adres</label>
-                            <textarea name="address" class="form-control" rows="2">{{ old('address') }}</textarea>
-                            @if ($errors->has('address'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('address') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_card">Seria nr dowodu osobistego</label>
-                            <input type="text" name="id_card" value="{{ old('id_card') }}" class="form-control"> 
-                            @if ($errors->has('id_card'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('id_card') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Telefon</label>
-                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control"> 
-                            @if ($errors->has('phone'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('phone') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control"> 
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="driving_license">Nr prawo jazdy</label>
-                            <input type="text" name="driving_license" value="{{ old('driving_license') }}" class="form-control"> 
-                            @if ($errors->has('driving_license'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('driving_license') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="oc">Nazwa nr polisy OC</label>
-                            <input type="text" name="oc" value="{{ old('oc') }}" class="form-control"> 
-                            @if ($errors->has('oc'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('oc') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nw">Nazwa nr polisy NW</label>
-                            <input type="text" name="nw" value="{{ old('nw') }}" class="form-control"> 
-                            @if ($errors->has('nw'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('nw') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-4 offset-md-4">
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    Zapisz
-                                </button>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="photo">Zdjęcie profilowe</label>
+                                <input type="file" name="photo" class="form-control">
+                                @if ($errors->has('photo'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('photo') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                    </form>
+
+                        <div class="col-sm-8">
+
+                            <div class="form-group">
+                                <label for="name">Imię</label>
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control" required=""> 
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname">Nazwisko</label>
+                                <input type="text" name="lastname" value="{{ old('lastname') }}" class="form-control" required=""> 
+                                @if ($errors->has('lastname'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">Adres</label>
+                                <textarea name="address" class="form-control" rows="2">{{ old('address') }}</textarea>
+                                @if ($errors->has('address'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_card">Seria nr dowodu osobistego</label>
+                                <input type="text" name="id_card" value="{{ old('id_card') }}" class="form-control"> 
+                                @if ($errors->has('id_card'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('id_card') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefon</label>
+                                <input type="text" name="phone" value="{{ old('phone') }}" class="form-control"> 
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control"> 
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="driving_license">Nr prawo jazdy</label>
+                                <input type="text" name="driving_license" value="{{ old('driving_license') }}" class="form-control"> 
+                                @if ($errors->has('driving_license'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('driving_license') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="oc">Nazwa nr polisy OC</label>
+                                <input type="text" name="oc" value="{{ old('oc') }}" class="form-control"> 
+                                @if ($errors->has('oc'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('oc') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nw">Nazwa nr polisy NW</label>
+                                <input type="text" name="nw" value="{{ old('nw') }}" class="form-control"> 
+                                @if ($errors->has('nw'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('nw') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Zapisz
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

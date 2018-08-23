@@ -72,6 +72,20 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label for="deleteFile">
+                                <input type="checkbox" name="deleteFile" id="deleteFile" value="1">
+                                Usuń plik
+                            </label>
+                            @if ($errors->has('deleteFile'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('deleteFile') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-block">

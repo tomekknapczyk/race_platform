@@ -78,6 +78,7 @@ class UserController extends Controller
             'driving_license' => 'required|string|max:255',
             'oc' => 'required|string|max:255',
             'nw' => 'nullable|string|max:255',
+            'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
         $driver = Driver::where('user_id', auth()->user()->id)->first();
@@ -96,6 +97,38 @@ class UserController extends Controller
         $driver->oc = $request->oc;
         $driver->nw = $request->nw;
 
+        if($request->photo){
+            $photo = \App\File::where('id',$driver->file_id)->first();
+            if($photo){
+                \Storage::delete('public/driver/'.$photo->path);
+                $photo->delete();
+            }
+
+            $file = $request->photo;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/driver/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $driver->file_id = $storeFile->id;
+        }
+
+        if($request->deletePhoto){
+            $photo = \App\File::where('id',$driver->file_id)->first();
+            if($photo){
+                \Storage::delete('public/driver/'.$photo->path);
+                $photo->delete();
+            }
+
+            $driver->file_id = null;
+        }
+
         $driver->save();
 
         return redirect()->back()->with('success', 'Profil kierowcy został zapisany');
@@ -113,6 +146,7 @@ class UserController extends Controller
             'driving_license' => 'nullable|string|max:255',
             'oc' => 'nullable|string|max:255',
             'nw' => 'nullable|string|max:255',
+            'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
         if(isset($request->id)){
@@ -133,6 +167,38 @@ class UserController extends Controller
         $pilot->oc = $request->oc;
         $pilot->nw = $request->nw;
 
+        if($request->photo){
+            $photo = \App\File::where('id',$pilot->file_id)->first();
+            if($photo){
+                \Storage::delete('public/pilot/'.$photo->path);
+                $photo->delete();
+            }
+
+            $file = $request->photo;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/pilot/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $pilot->file_id = $storeFile->id;
+        }
+
+        if($request->deletePhoto){
+            $photo = \App\File::where('id',$pilot->file_id)->first();
+            if($photo){
+                \Storage::delete('public/pilot/'.$photo->path);
+                $photo->delete();
+            }
+
+            $pilot->file_id = null;
+        }
+
         $pilot->save();
 
         return redirect()->back()->with('success', 'Profil pilota został zapisany');
@@ -147,6 +213,15 @@ class UserController extends Controller
         $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
         
         if($pilot){
+            
+            if($pilot->file_id){
+                $photo = \App\File::where('id',$pilot->file_id)->first();
+                if($photo){
+                    \Storage::delete('public/pilot/'.$photo->path);
+                    $photo->delete();
+                }
+            }
+
             $pilot->delete();
             return redirect()->back()->with('success', 'Pilot został usunięty');
         }
@@ -162,6 +237,7 @@ class UserController extends Controller
             'rok' => 'required|max:255',
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
+            'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
         if(isset($request->id)){
@@ -183,6 +259,39 @@ class UserController extends Controller
             $car->turbo = true;
         if(isset($request->rwd))
             $car->rwd = true;
+
+        if($request->photo){
+            $photo = \App\File::where('id',$car->file_id)->first();
+            if($photo){
+                \Storage::delete('public/car/'.$photo->path);
+                $photo->delete();
+            }
+
+            $file = $request->photo;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/car/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $car->file_id = $storeFile->id;
+        }
+
+        if($request->deletePhoto){
+            $photo = \App\File::where('id',$car->file_id)->first();
+            if($photo){
+                \Storage::delete('public/car/'.$photo->path);
+                $photo->delete();
+            }
+
+            $car->file_id = null;
+        }
+
         $car->save();
 
         return redirect()->back()->with('success', 'Samochód został zapisany');
@@ -197,6 +306,14 @@ class UserController extends Controller
         $car = Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
         
         if($car){
+            if($car->file_id){
+                $photo = \App\File::where('id',$car->file_id)->first();
+                if($photo){
+                    \Storage::delete('public/car/'.$photo->path);
+                    $photo->delete();
+                }
+            }
+
             $car->delete();
             return redirect()->back()->with('success', 'Samochód został usunięty');
         }

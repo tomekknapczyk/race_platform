@@ -112,6 +112,16 @@ class RaceController extends Controller
             $round->file_id = $storeFile->id;
         }
 
+        if($request->deleteFile){
+            $photo = \App\File::where('id',$round->file_id)->first();
+            if($photo){
+                \Storage::delete('public/terms/'.$photo->path);
+                $photo->delete();
+            }
+
+            $round->file_id = null;
+        }
+
         $round->save();
 
         if(!isset($request->id)){

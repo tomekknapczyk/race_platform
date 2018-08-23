@@ -13716,6 +13716,7 @@ $.ajaxSetup({
 $(document).on('click', '.editBtn', function () {
     var data_text = $(this).data('text');
     var data_check = $(this).data('check');
+    var data_img = $(this).data('img');
 
     $.each(data_text, function (key, value) {
         $('#edit_' + key).val(value);
@@ -13727,6 +13728,10 @@ $(document).on('click', '.editBtn', function () {
         if (value == 1) check = true;
 
         $('#edit_' + key).attr("checked", check);
+    });
+
+    $.each(data_img, function (key, value) {
+        $('#edit_' + key).attr('src', value);
     });
 });
 
