@@ -15,6 +15,11 @@ class UpdateRoundsTable extends Migration
     {
         Schema::table('rounds', function (Blueprint $table) {
             $table->integer('max')->default(20);
+            $table->dropColumn('termin');
+            $table->date('date');
+            $table->float('price', 6,2)->nullable();
+            $table->float('advance', 6,2)->nullable();
+            $table->integer('file_id')->nullable();
         });
     }
 
@@ -27,6 +32,11 @@ class UpdateRoundsTable extends Migration
     {
         Schema::table('rounds', function (Blueprint $table) {
             $table->dropColumn('max');
+            $table->dropColumn('date');
+            $table->string('termin');
+            $table->dropColumn('price');
+            $table->dropColumn('advance');
+            $table->dropColumn('file_id');
         });
     }
 }

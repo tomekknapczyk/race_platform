@@ -40,8 +40,30 @@ class HomeController extends Controller
     {
         $round = \App\Round::where('id', $id)->first();
 
+        if($round)
+           return view('startList', compact('round'));
+
+        return back()->with('warning', 'Lista startowa nie istnieje');
+    }
+
+    public function signList($id)
+    {
+        $round = \App\Round::where('id', $id)->first();
+
         if($round){
-            return view('list', compact('round'));
+            $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+            $max = $round->max;
+            $drivers = 0;
+            $class = [];
+
+            foreach ($round->signs() as $key => $sign) {
+                $drivers++;
+
+                if($drivers <= $max)
+                    $class[$sign->klasa][$key]['sign'] = $sign;
+            }
+
+            return view('signList', compact('round', 'klasy', 'class'));
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');

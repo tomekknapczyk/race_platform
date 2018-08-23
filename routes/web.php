@@ -17,6 +17,7 @@ Route::get('/', 'GuestController@index');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
+Route::get('sign-list/{id}', 'HomeController@signList')->name('signList');
 Route::get('rank/{id}', 'HomeController@rank')->name('rank');
 Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
 Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
@@ -66,4 +67,5 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveRank', 'SignController@saveRank')->name('saveRank');
 
     Route::post('makeFile', 'SignController@makeFile')->name('makeFile');
+    Route::post('makeFileSign', 'SignController@makeFileSign')->name('makeFileSign');
 });

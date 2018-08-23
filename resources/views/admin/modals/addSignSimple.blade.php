@@ -12,13 +12,31 @@
                     @csrf
                     <input type="hidden" name="id" id="form_id" value="{{ $round->form->id }}">
 
+                    <h3 class="text-center m-0">Wpłata za uczestnictwo</h3>
+
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label for="advance">Wpłacona kwota</label>
+                                <input type="text" name="advance" class="form-control text-center"> 
+                                @if ($errors->has('advance'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('advance') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <h3 class="text-center m-0">Dane kierowcy</h3>
 
                     <div class="row mt-4">
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="driver_name">Imię</label>
-                                <input type="text" name="driver_name" id="driver_name" class="form-control" required=""> 
+                                <input type="text" name="driver_name" class="form-control" required=""> 
                                 @if ($errors->has('driver_name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('driver_name') }}</strong>
@@ -29,7 +47,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="driver_lastname">Nazwisko</label>
-                                <input type="text" name="driver_lastname" id="driver_lastname" class="form-control" required=""> 
+                                <input type="text" name="driver_lastname" class="form-control" required=""> 
                                 @if ($errors->has('driver_lastname'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('driver_lastname') }}</strong>
@@ -40,7 +58,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="driver_email">Email</label>
-                                <input type="email" name="driver_email" id="driver_email" class="form-control" required=""> 
+                                <input type="email" name="driver_email" class="form-control" required=""> 
                                 @if ($errors->has('driver_email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('driver_email') }}</strong>
@@ -58,7 +76,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="name">Imię</label>
-                                <input type="text" name="name" id="pilot_name" class="form-control"> 
+                                <input type="text" name="name" class="form-control"> 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -69,7 +87,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="lastname">Nazwisko</label>
-                                <input type="text" name="lastname" id="pilot_lastname" class="form-control"> 
+                                <input type="text" name="lastname" class="form-control"> 
                                 @if ($errors->has('lastname'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('lastname') }}</strong>
@@ -87,7 +105,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="marka">Marka</label>
-                                <input type="text" name="marka" id="marka" class="form-control" required=""> 
+                                <input type="text" name="marka" class="form-control" required=""> 
                                 @if ($errors->has('marka'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('marka') }}</strong>
@@ -98,7 +116,7 @@
                         <div class="col-3"> 
                             <div class="form-group">
                                 <label for="model">Model</label>
-                                <input type="text" name="model" id="model" class="form-control" required=""> 
+                                <input type="text" name="model" class="form-control" required=""> 
                                 @if ($errors->has('model'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('model') }}</strong>
@@ -110,7 +128,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="nr_rej">Numer rejestracyjny</label>
-                                <input type="text" name="nr_rej" id="nr_rej" class="form-control" required=""> 
+                                <input type="text" name="nr_rej" class="form-control" required=""> 
                                 @if ($errors->has('nr_rej'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nr_rej') }}</strong>
@@ -122,7 +140,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="rok">Rok produkcji</label>
-                                <input type="text" name="rok" id="rok" class="form-control" required=""> 
+                                <input type="text" name="rok" class="form-control" required=""> 
                                 @if ($errors->has('rok'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('rok') }}</strong>
@@ -134,7 +152,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="ccm">Pojemność ccm</label>
-                                <input type="text" name="ccm" id="ccm" class="form-control" required=""> 
+                                <input type="text" name="ccm" class="form-control" required=""> 
                                 @if ($errors->has('ccm'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('ccm') }}</strong>
@@ -147,7 +165,7 @@
                             <div class="form-group">
                                 <label for="model">Turbo</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="turbo" value="1" id="turbo">
+                                    <input class="form-check-input" type="checkbox" name="turbo" value="1">
                                     <label class="form-check-label" for="car_turbo">Tak</label>
                                 </div>
                                 @if ($errors->has('turbo'))
@@ -162,7 +180,7 @@
                             <div class="form-group">
                                 <label for="model">RWD</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="rwd" value="1" id="rwd">
+                                    <input class="form-check-input" type="checkbox" name="rwd" value="1">
                                     <label class="form-check-label" for="car_rwd">Tak</label>
                                 </div>
                                 @if ($errors->has('rwd'))
@@ -176,7 +194,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="klasa">Klasa</label>
-                                <select name="klasa" class="form-control" id="klasa" required="">
+                                <select name="klasa" class="form-control" required="">
                                     <option value="k1">K1</option>
                                     <option value="k2">K2</option>
                                     <option value="k3">K3</option>

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Round extends Model
 {
+    protected $dates = ['date'];
+
     public function race()
     {
         return $this->belongsTo(Race::class);
@@ -14,6 +16,11 @@ class Round extends Model
     public function form()
     {
         return $this->hasOne(SignForm::class);
+    }
+
+    public function file()
+    {
+        return $this->hasOne(File::class, 'id', 'file_id');
     }
 
     public function startList()

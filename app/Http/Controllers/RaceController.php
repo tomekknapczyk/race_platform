@@ -68,7 +68,7 @@ class RaceController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'termin' => 'required|string|max:255',
+            'date' => 'required|max:255',
             'max' => 'required|numeric',
         ]);
 
@@ -81,8 +81,37 @@ class RaceController extends Controller
         }
 
         $round->name = $request->name;
-        $round->termin = $request->termin;
+        $round->date = $request->date;
         $round->max = $request->max;
+
+        if($request->price)
+            $round->price = floatval(str_replace(',', '.', $request->price));
+
+        if($request->advance)
+            $round->advance = floatval(str_replace(',', '.', $request->advance));
+
+        if($request->terms){
+            $terms = \App\File::where('id',$round->file_id)->first();
+            if($terms){
+                \Storage::delete('public/terms/'.$terms->path);
+                $terms->delete();
+            }
+
+            $file = $request->terms;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/terms/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $round->file_id = $storeFile->id;
+        }
+
         $round->save();
 
         if(!isset($request->id)){

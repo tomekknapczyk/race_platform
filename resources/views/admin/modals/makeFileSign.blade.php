@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="makeFile" aria-labelledby="makeFile" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="makeFileSign" aria-labelledby="makeFileSign" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-white bg-info rounded-top">
@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('makeFile') }}" id="makeFile">
+                <form method="POST" action="{{ route('makeFileSign') }}" id="makeFileSign">
                     @csrf
                     <input type="hidden" name="id" value="{{ $round->id }}">
                     <input type="hidden" name="items" id="file_items">
@@ -32,7 +32,6 @@
                         <div class="btn btn-sm btn-light m-2 shadow" data-id="turbo">Turbo</div>
                         <div class="btn btn-sm btn-light m-2 shadow" data-id="nr_rej">Numer rejestracyjny</div>
                         <div class="btn btn-sm btn-light m-2 shadow" data-id="rwd">RWD</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="points">Punkty za rundę</div>
                         <div class="btn btn-sm btn-light m-2 shadow" data-id="race_points">Punkty w całym rajdzie</div>
                     </div>
 

@@ -11,20 +11,25 @@
                     </div>
                     <div class="float-right d-flex justify-content-between align-items-center">
                         @if($round->form->active)
-                            <span>Formularz zgłoszeniowy jest włączony</span>
+                            <span>Formularz jest włączony</span>
                             <button class="btn btn-sm btn-danger ml-2" data-toggle="modal" data-target="#signFormStatus">Wyłącz</button>
                         @else
-                            <span>Formularz zgłoszeniowy jest wyłączony</span>
+                            <span>Formularz jest wyłączony</span>
                             <button class="btn btn-sm btn-success ml-2" data-toggle="modal" data-target="#signFormStatus">Włącz</button>
                         @endif
-                        
+
                         <button class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#addSign">Dodaj uczestnika</button>
 
                         <button class="btn btn-sm btn-warning ml-2" data-toggle="modal" data-target="#addSignSimple">Dodaj szybko</button>
                     </div>
-                    @if(!$round->startList)
-                        <button class="btn btn btn-success ml-2" data-toggle="modal" data-target="#generateList">Generuj listę startową</button>
-                    @endif
+
+                    <div>
+                        <button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#makeFileSign">Generuj plik</button>
+
+                        @if(!$round->startList)
+                            <button class="btn btn-sm btn-success ml-2" data-toggle="modal" data-target="#generateList">Generuj listę startową</button>
+                        @endif
+                    </div>
                 </div>
                 <div class="card-body">
                     @foreach($class as $key => $klasa)
@@ -53,7 +58,7 @@
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign['sign']->id }}"
                                                 data-text=
-                                                '{"id":"{{ $sign['sign']->id }}", "marka":"{{ $sign['sign']->marka }}", "model":"{{ $sign['sign']->model }}", "rok":"{{ $sign['sign']->rok }}", "ccm":"{{ $sign['sign']->ccm }}", "nr_rej":"{{ $sign['sign']->nr_rej }}", "driver_name":"{{ $sign['sign']->name }}", "driver_lastname":"{{ $sign['sign']->lastname }}", "driver_address":"{{ $sign['sign']->address }}", "driver_id_card":"{{ $sign['sign']->id_card }}", "driver_phone":"{{ $sign['sign']->phone }}", "driver_email":"{{ $sign['sign']->email }}", "driver_driving_license":"{{ $sign['sign']->driving_license }}", "driver_oc":"{{ $sign['sign']->oc }}", "driver_nw":"{{ $sign['sign']->nw }}", "pilot_name":"{{ $sign['sign']->pilot_name }}", "pilot_lastname":"{{ $sign['sign']->pilot_lastname }}", "pilot_address":"{{ $sign['sign']->pilot_address }}", "pilot_id_card":"{{ $sign['sign']->pilot_id_card }}", "pilot_phone":"{{ $sign['sign']->pilot_phone }}", "pilot_email":"{{ $sign['sign']->pilot_email }}", "pilot_driving_license":"{{ $sign['sign']->pilot_driving_license }}", "pilot_oc":"{{ $sign['sign']->pilot_oc }}", "pilot_nw":"{{ $sign['sign']->pilot_nw }}", "klasa":"{{ $sign['sign']->klasa }}"}'
+                                                '{"id":"{{ $sign['sign']->id }}", "marka":"{{ $sign['sign']->marka }}", "model":"{{ $sign['sign']->model }}", "rok":"{{ $sign['sign']->rok }}", "ccm":"{{ $sign['sign']->ccm }}", "nr_rej":"{{ $sign['sign']->nr_rej }}", "driver_name":"{{ $sign['sign']->name }}", "driver_lastname":"{{ $sign['sign']->lastname }}", "driver_address":"{{ $sign['sign']->address }}", "driver_id_card":"{{ $sign['sign']->id_card }}", "driver_phone":"{{ $sign['sign']->phone }}", "driver_email":"{{ $sign['sign']->email }}", "driver_driving_license":"{{ $sign['sign']->driving_license }}", "driver_oc":"{{ $sign['sign']->oc }}", "driver_nw":"{{ $sign['sign']->nw }}", "pilot_name":"{{ $sign['sign']->pilot_name }}", "pilot_lastname":"{{ $sign['sign']->pilot_lastname }}", "pilot_address":"{{ $sign['sign']->pilot_address }}", "pilot_id_card":"{{ $sign['sign']->pilot_id_card }}", "pilot_phone":"{{ $sign['sign']->pilot_phone }}", "pilot_email":"{{ $sign['sign']->pilot_email }}", "pilot_driving_license":"{{ $sign['sign']->pilot_driving_license }}", "pilot_oc":"{{ $sign['sign']->pilot_oc }}", "pilot_nw":"{{ $sign['sign']->pilot_nw }}", "klasa":"{{ $sign['sign']->klasa }}", "advance":"{{ $sign['sign']->advance }}"}'
                                                 data-check='{"turbo":"{{ $sign['sign']->turbo }}", "rwd":"{{ $sign['sign']->rwd }}"}'
                                             >Edytuj</button>
 
@@ -103,4 +108,5 @@
 @include('admin.modals.addSign')
 @include('admin.modals.addSignSimple')
 @include('admin.modals.generateList')
+@include('admin.modals.makeFileSign')
 @endsection

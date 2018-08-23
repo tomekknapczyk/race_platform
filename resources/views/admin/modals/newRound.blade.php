@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('saveRound') }}">
+                <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" name="race_id" value="{{ $race->id }}">
@@ -24,11 +24,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="termin">Termin</label>
-                        <input type="text" name="termin" value="{{ old('termin') }}" class="form-control" required=""> 
-                        @if ($errors->has('termin'))
+                        <label for="date">Termin</label>
+                        <input type="date" name="date" value="{{ old('date') }}" class="form-control" required=""> 
+                        @if ($errors->has('date'))
                             <span class="invalid-feedback">
-                                <strong>{{ $errors->first('termin') }}</strong>
+                                <strong>{{ $errors->first('date') }}</strong>
                             </span>
                         @endif
                     </div>
@@ -39,6 +39,36 @@
                         @if ($errors->has('max'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('max') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Koszt uczestnictwa</label>
+                        <input type="text" name="price" value="{{ old('price') }}" class="form-control"> 
+                        @if ($errors->has('price'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('price') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="advance">Wymagana zaliczka</label>
+                        <input type="text" name="advance" value="{{ old('advance') }}" class="form-control"> 
+                        @if ($errors->has('advance'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('advance') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="terms">Regulamin PDF</label>
+                        <input type="file" name="terms" class="form-control">
+                        @if ($errors->has('terms'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('terms') }}</strong>
                             </span>
                         @endif
                     </div>

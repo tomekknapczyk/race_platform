@@ -12,6 +12,24 @@
                     @csrf
                     <input type="hidden" name="id" id="sign_id">
 
+                    <h3 class="text-center m-0">Wpłata za uczestnictwo</h3>
+
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label for="advance">Wpłacona kwota</label>
+                                <input type="text" name="advance" id="advance" class="form-control text-center"> 
+                                @if ($errors->has('advance'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('advance') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <h3 class="text-center m-0">Dane kierowcy</h3>
 
                     <div class="row mt-4">

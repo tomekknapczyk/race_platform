@@ -13,24 +13,40 @@
                     @if($forms->count())
                         @foreach($forms as $form)
                             <div class="row justify-content-between align-items-center flex-wrap">
-                                <h5 class="m-0 col-5">
-                                    {{ $form->round->race->name }} :: {{ $form->round->name }}
-                                    <br>
-                                    @if(auth()->user()->signed($form->id))
-                                        <span class="text-success mt-2 d-block">zgłoszenie wysłane</span>
-                                    @endif
-                                </h5>
+                                <div class="col-5">
+                                    <h5 class="m-0">
+                                        {{ $form->round->race->name }} :: {{ $form->round->name }}
+                                        <br>
+                                        @if(auth()->user()->signed($form->id))
+                                            <span class="text-success mt-2 d-block">zgłoszenie wysłane</span>
+                                        @endif
+                                    </h5>
+                                    <h6>
+                                        <p class="text-info mt-3 d-block">Koszt uczestnictwa <strong>{{ $form->round->price }} PLN.</strong></p>
+                                        @if($form->round->advance) 
+                                            <p  class="text-info mt-3 d-block">Wymagana zaliczka <strong>{{ $form->round->advance }} PLN.</strong></p>
+                                        @endif
+                                    </h6>
+                                </div>
                                 <strong class="col-2">{{ $form->round->termin }}</strong>
                                 @if(auth()->user()->signed($form->id))
                                     <div class="col-5 text-right">
+                                        <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
                                         <a href="{{ url('register_form', $form->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
+                                        @if($form->round->file_id)
+                                            <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
+                                        @endif
                                     </div>
                                 @else
                                     <div class="col-5 text-right">
+                                        <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
                                         @if(auth()->user()->ready())
                                             <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
                                         @else
                                             <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić dane <a href="{{ url('driver-profile') }}" class="text-warning">kierowcy</a>, <a href="{{ url('pilots') }}" class="text-warning">pilota</a> i <a href="{{ url('cars') }}" class="text-warning">samochodu</a></p>
+                                        @endif
+                                        @if($form->round->file_id)
+                                            <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
                                         @endif
                                     </div>
                                 @endif
@@ -66,6 +82,9 @@
                                     <a href="{{ url('start-list', $list->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę</a>
                                     @if(auth()->user()->onList($list->id))
                                         <a href="{{ url('register_form', $list->round->form->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
+                                    @endif
+                                    @if($list->round->file_id)
+                                        <a href="{{ url('public/terms', $list->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
                                     @endif
                                 </div>
                                 <hr class="col-12 p-0 my-2">

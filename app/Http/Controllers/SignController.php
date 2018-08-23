@@ -8,6 +8,7 @@ use App\Sign;
 use App\StartList;
 use App\StartListItem;
 use App\Exports\StartListExport;
+use App\Exports\SignListExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SignController extends Controller
@@ -138,6 +139,8 @@ class SignController extends Controller
         $sign->turbo = $request->turbo;
         $sign->rwd = $request->rwd;
         $sign->klasa = $request->klasa;
+        if($request->advance)
+            $sign->advance = floatval(str_replace(',', '.', $request->advance));
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało dodane');
@@ -187,6 +190,8 @@ class SignController extends Controller
         $sign->turbo = $request->turbo;
         $sign->rwd = $request->rwd;
         $sign->klasa = $request->klasa;
+        if($request->advance)
+            $sign->advance = floatval(str_replace(',', '.', $request->advance));
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało zapisane');
@@ -379,9 +384,23 @@ class SignController extends Controller
         if(!$round->startList)
             return back()->with('error', 'Lista startowa jest niedostępna.');
 
-        if($round){
+        if($round)
             return Excel::download(new StartListExport($round->id, $request->items), 'startlist.xlsx');
-        }
+
+        return back()->with('error', 'Runda nie istnieje');
+    }
+
+    public function makeFileSign(Request $request)
+    {   
+        $this->validate($request, [
+            'id' => 'required|exists:rounds',
+            'items' => 'required',
+        ]);
+
+        $round = \App\Round::where('id', $request->id)->first();
+
+        if($round)
+            return Excel::download(new SignListExport($round->id, $request->items), 'signlist.xlsx');
 
         return back()->with('error', 'Runda nie istnieje');
     }

@@ -29,6 +29,12 @@ class Sign extends Model
         return $points;
     }
 
+    public function remaining_payment()
+    {
+        return ($this->form->round->price - $this->advance > 0)?$this->form->round->price - $this->advance:0;
+        // return $this->form->round->price - $this->advance
+    }
+
     public function round_points($id)
     {
         $round = Round::where('id', $id)->first();

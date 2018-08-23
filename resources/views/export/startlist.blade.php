@@ -15,6 +15,8 @@
                             <td>{{ $position->points }}</td>
                         @elseif($item == 'race_points')
                             <td>{{ $position->sign->points() }}</td>
+                        @elseif($item == 'advance')
+                            <td>{{ $position->sign->remaining_payment() }}</td>
                         @else
                             <td>{{ $position->sign->$item }}</td>
                         @endif
