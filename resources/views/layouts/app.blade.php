@@ -71,7 +71,7 @@
 
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="">Partnerzy</a>
-                                        <a class="dropdown-item" href="">Aktualności</a>
+                                        <a class="dropdown-item" href="{{ route('news') }}">Aktualności</a>
                                         <a class="dropdown-item" href="{{ route('banner') }}">Baner z informacją</a>
                                         <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>
                                     </div>

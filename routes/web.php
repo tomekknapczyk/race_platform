@@ -74,6 +74,12 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveBanner', 'HomeController@saveBanner')->name('saveBanner');
     Route::get('contactInfo', 'HomeController@contactInfo')->name('contactInfo');
     Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
+
+    Route::get('news', 'NewsController@index')->name('news');
+    Route::get('newPost', 'NewsController@new')->name('newPost');
+    Route::post('savePost', 'NewsController@save')->name('savePost');
+    Route::get('editPost/{id}', 'NewsController@edit')->name('editPost');
+    Route::post('deleteNews', 'NewsController@delete')->name('deleteNews');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
