@@ -133,7 +133,7 @@ class HomeController extends Controller
             return response()->json($pilot);
         }
 
-        return redirect()->back()->with('warning', 'Pilot nie istnieje');
+        return back()->with('warning', 'Pilot nie istnieje');
     }
 
     public function getCar(Request $request)
@@ -148,6 +148,87 @@ class HomeController extends Controller
             return response()->json($car);
         }
 
-        return redirect()->back()->with('warning', 'Samochód nie istnieje');
+        return back()->with('warning', 'Samochód nie istnieje');
+    }
+
+    public function banner()
+    {
+        $banner = \App\SiteInfo::where('name', 'banner')->first();
+
+        return view('admin.banner', compact('banner'));
+    }
+
+    public function saveBanner(Request $request)
+    {
+        $banner = \App\SiteInfo::where('name', 'banner')->first();
+
+        if(!$banner){
+            $banner = new \App\SiteInfo;
+            $banner->name = 'banner';
+        }
+
+        $banner->active = isset($request->showBanner)?1:0;
+        $banner->value = $request->info;
+
+        $banner->save();
+
+        return back()->with('success', 'Komunikat został zapisany');
+    }
+
+    public function contactInfo()
+    {
+        $contactFirstName = \App\SiteInfo::where('name', 'kontakt_first_name')->first();
+        $contactFirstTel = \App\SiteInfo::where('name', 'kontakt_first_tel')->first();
+        $contactSecondName = \App\SiteInfo::where('name', 'kontakt_second_name')->first();
+        $contactSecondTel = \App\SiteInfo::where('name', 'kontakt_second_tel')->first();
+        $contactEmail= \App\SiteInfo::where('name', 'kontakt_email')->first();
+
+        return view('admin.contactInfo', compact('contactFirstName', 'contactFirstTel', 'contactSecondName', 'contactSecondTel', 'contactEmail'));
+    }
+
+    public function saveInfo(Request $request)
+    {
+        $contactFirstName = \App\SiteInfo::where('name', 'kontakt_first_name')->first();
+        $contactFirstTel = \App\SiteInfo::where('name', 'kontakt_first_tel')->first();
+        $contactSecondName = \App\SiteInfo::where('name', 'kontakt_second_name')->first();
+        $contactSecondTel = \App\SiteInfo::where('name', 'kontakt_second_tel')->first();
+        $contactEmail= \App\SiteInfo::where('name', 'kontakt_email')->first();
+
+        if(!$contactFirstName){
+            $contactFirstName = new \App\SiteInfo;
+            $contactFirstName->name = 'kontakt_first_name';
+        }
+        $contactFirstName->value = $request->kontakt_first_name;
+        $contactFirstName->save();
+
+        if(!$contactFirstTel){
+            $contactFirstTel = new \App\SiteInfo;
+            $contactFirstTel->name = 'kontakt_first_tel';
+        }
+        $contactFirstTel->value = $request->kontakt_first_tel;
+        $contactFirstTel->save();
+
+        if(!$contactSecondName){
+            $contactSecondName = new \App\SiteInfo;
+            $contactSecondName->name = 'kontakt_second_name';
+        }
+        $contactSecondName->value = $request->kontakt_second_name;
+        $contactSecondName->save();
+
+        if(!$contactSecondTel){
+            $contactSecondTel = new \App\SiteInfo;
+            $contactSecondTel->name = 'kontakt_second_tel';
+        }
+        $contactSecondTel->value = $request->kontakt_second_tel;
+        $contactSecondTel->save();
+
+        if(!$contactEmail){
+            $contactEmail = new \App\SiteInfo;
+            $contactEmail->name = 'kontakt_email';
+        }
+        $contactEmail->value = $request->kontakt_email;
+        $contactEmail->save();
+
+        return back()->with('success', 'Dane zostały zapisane');
     }
 }

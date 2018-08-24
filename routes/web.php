@@ -70,4 +70,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('makeFileSign', 'SignController@makeFileSign')->name('makeFileSign');
 
     Route::get('drivers', 'UserController@list')->name('drivers');
+    Route::get('banner', 'HomeController@banner')->name('banner');
+    Route::post('saveBanner', 'HomeController@saveBanner')->name('saveBanner');
+    Route::get('contactInfo', 'HomeController@contactInfo')->name('contactInfo');
+    Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
 });

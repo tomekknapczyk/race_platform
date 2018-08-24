@@ -21,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
         $resources['after'] = ':time temu';
         $resources['before'] = 'za :time';
         $translator->addResource('array', $resources, 'pl');
+
+        if (class_exists('\App\SiteInfo')) {
+            $banner = \App\SiteInfo::where('name', 'banner')->first();
+            \View::share('banner', $banner);
+        }
+
+
+        
     }
 
     /**

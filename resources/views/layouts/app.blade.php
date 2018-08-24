@@ -22,6 +22,11 @@
 </head>
 <body>
     <div id="app">
+        @if($banner->active)
+            <div class="text-center p-2 bg-warning">
+                <strong>{{ $banner->value }}</strong>
+            </div>
+        @endif
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -67,7 +72,8 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="">Partnerzy</a>
                                         <a class="dropdown-item" href="">Aktualności</a>
-                                        <a class="dropdown-item" href="">Baner z informacją</a>
+                                        <a class="dropdown-item" href="{{ route('banner') }}">Baner z informacją</a>
+                                        <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>
                                     </div>
                                 </li>
                                 <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>

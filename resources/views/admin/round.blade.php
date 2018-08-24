@@ -48,13 +48,13 @@
                                         {{ $sign['sign']->marka }} {{ $sign['sign']->model }} - {{ $sign['sign']->ccm }}ccm<br>
                                         <small>{{ $sign['sign']->rok }}r. @if($sign['sign']->turbo) / <strong>Turbo</strong> @endif @if($sign['sign']->rwd) / <strong>RWD</strong> @endif</small>
                                     </h5>
-                                    <h5 class="m-0 col-1">
+                                    {{-- <h5 class="m-0 col-1">
                                         {{ $sign['sign']->klasa }}
-                                    </h5>
+                                    </h5> --}}
                                     <h5 class="m-0 col-1">
                                         {{ $sign['sign']->points() }} pkt
                                     </h5>
-                                    <h5 class="m-0 col-2 text-right">
+                                    <h5 class="m-0 col-3 text-right">
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign['sign']->id }}"
                                                 data-text=
