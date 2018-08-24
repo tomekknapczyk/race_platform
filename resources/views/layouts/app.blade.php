@@ -39,6 +39,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li><a class="nav-link" href="{{ url('aktualnosci') }}">Aktualności</a></li>
                         <!-- Authentication Links -->
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -70,7 +71,7 @@
                                     </a>
 
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="">Partnerzy</a>
+                                        <a class="dropdown-item" href="{{ route('partners') }}">Partnerzy</a>
                                         <a class="dropdown-item" href="{{ route('news') }}">Aktualności</a>
                                         <a class="dropdown-item" href="{{ route('banner') }}">Baner z informacją</a>
                                         <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>

@@ -14,15 +14,32 @@ class NewsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin');
+        $this->middleware('auth', ['except' => ['show', 'showAll']]);
+        $this->middleware('admin', ['except' => ['show', 'showAll']]);
     }
 
     public function index()
     {
-        $news = News::get();
+        $news = News::latest()->get();
 
         return view('admin.news', compact('news'));
+    }
+
+    public function show($id)
+    {
+        $news = News::where('id', $id)->first();
+
+        if(!$news)
+            back();
+
+        return view('news', compact('news'));
+    }
+
+    public function showAll()
+    {
+        $news = News::latest()->paginate(12);
+
+        return view('newsAll', compact('news'));
     }
 
     public function new()

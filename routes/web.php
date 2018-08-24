@@ -14,6 +14,8 @@
 Auth::routes();
 
 Route::get('/', 'GuestController@index');
+Route::get('aktualnosci', 'NewsController@showAll');
+Route::get('aktualnosc/{id}', 'NewsController@show');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
@@ -80,6 +82,12 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('savePost', 'NewsController@save')->name('savePost');
     Route::get('editPost/{id}', 'NewsController@edit')->name('editPost');
     Route::post('deleteNews', 'NewsController@delete')->name('deleteNews');
+
+    Route::get('partners', 'PartnerController@index')->name('partners');
+    Route::get('newPartner', 'PartnerController@new')->name('newPartner');
+    Route::post('savePartner', 'PartnerController@save')->name('savePartner');
+    Route::get('editPartner/{id}', 'PartnerController@edit')->name('editPartner');
+    Route::post('deletePartner', 'PartnerController@delete')->name('deletePartner');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

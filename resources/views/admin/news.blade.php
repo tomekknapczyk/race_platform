@@ -17,10 +17,13 @@
                                     <img src="{{ url('public/post', $post->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-sm-3">
+                            <div class="col-sm-2 text-center">
+                                {{ $post->created_at->format('Y-m-d') }}
+                            </div>
+                            <h6 class="m-0 col-sm-2">
                                 {{ $post->title }}
                             </h6>
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 {{ strip_tags($post->text) }}
                             </div>
                             <div class="col-sm-2 text-right">

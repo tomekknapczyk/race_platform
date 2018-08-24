@@ -56,3 +56,5 @@ if (token) {
 // });
 
 window.Sortable = require('sortablejs');
+
+require('owl.carousel');

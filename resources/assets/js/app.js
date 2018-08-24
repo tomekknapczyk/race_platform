@@ -145,6 +145,40 @@ $(document).on('click', '.deleteSign', function(){
     $('#delete_id').val(id);
 })
 
+var el = document.getElementsByClassName('sortable_items');
+$.each(el, function(key, value){
+    var sortable = Sortable.create(value,{
+        animation: 150,
+        onEnd: function (evt) {
+            var order = sortable.toArray();
+
+            $.ajax({
+                url: '/update-position',
+                method: 'POST',
+                data: {order: order},
+            }).done(function(response){
+                console.log('ok');
+            });
+        },
+    });
+})
+
+if(el.length){
+    //Grouping
+    var foo = document.getElementById("items");
+    var items = Sortable.create(foo, { group: "items" });
+
+    var bar = document.getElementById("dropdown");
+    var dropped = Sortable.create(bar, { group: "items" });
+}
+
+$(document).on('click', '#generateFile', function(e){
+    e.preventDefault();
+    var order = dropped.toArray();
+    $('#file_items').val(order);
+    $(this).closest('form').submit();
+})
+
 $(document).ready(function() {  
     var editor_config = {
         path_absolute : "/",
@@ -180,38 +214,30 @@ $(document).ready(function() {
     };
 
     tinymce.init(editor_config);
-});
 
-var el = document.getElementsByClassName('sortable_items');
-$.each(el, function(key, value){
-    var sortable = Sortable.create(value,{
-        animation: 150,
-        onEnd: function (evt) {
-            var order = sortable.toArray();
-
-            $.ajax({
-                url: '/update-position',
-                method: 'POST',
-                data: {order: order},
-            }).done(function(response){
-                console.log('ok');
-            });
-        },
+    $('.owl-carousel').owlCarousel({
+        items: 5,
+        loop: true,
+        nav: false,
+        navText: ['', ''],
+        autoplay: true,
+        autoplayTimeout: 8000,
+        autoplayHoverPause: false,
+        mouseDrag: true,
+        dots: false,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+            },
+            576:{
+                items:2,
+            },
+            768:{
+                items:4,
+            }
+        }
     });
-})
 
-if(el.length){
-    //Grouping
-    var foo = document.getElementById("items");
-    var items = Sortable.create(foo, { group: "items" });
-
-    var bar = document.getElementById("dropdown");
-    var dropped = Sortable.create(bar, { group: "items" });
-}
-
-$(document).on('click', '#generateFile', function(e){
-    e.preventDefault();
-    var order = dropped.toArray();
-    $('#file_items').val(order);
-    $(this).closest('form').submit();
-})
+    $('#randomPartner').modal('show')
+});

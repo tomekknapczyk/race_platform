@@ -1,3 +1,7 @@
+#app{
+    position: relative;
+}
+
 .craft{
     position: absolute;
     bottom: 5px;
@@ -48,4 +52,51 @@
 }
 .op-9{
     opacity: .9;
+}
+
+.news-container{
+    padding: 50px 5vw;
+
+    .news{
+        max-width: 340px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0 auto 50px;
+
+        img{
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .news-body{
+            padding: 10px;
+            text-align: center;
+            font-weight: 500;
+            height: 150px;
+        }
+    }
+}
+
+.partners-container{
+    padding: 50px 5vw;
+
+    .partner{
+        margin: 0 40px;
+        img{
+            height: 100px;
+            width: 100%;
+            object-fit: contain;
+        }
+    }
+}
+
+.promoted{
+    margin-top: 30vh;
+    // &.show{
+    //     display: flex !important;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
 }

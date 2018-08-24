@@ -20,6 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "owl.carousel": "^2.3.4",
         "sortablejs": "^1.7.0",
         "summernote": "^0.8.10",
         "tinymce": "^4.8.2"
