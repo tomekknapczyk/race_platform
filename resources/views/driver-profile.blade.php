@@ -41,6 +41,53 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <hr>
+                                <h3>
+                                    Profil publiczny
+                                </h3>
+
+                                <div class="form-group mt-3">
+                                    <div class="checkbox">
+                                        <label for="showName">
+                                            <input type="checkbox" name="showName" id="showName" @if(auth()->user()->driver->show_name) checked="checked" @endif>
+                                            Pokazuj imie
+                                        </label>
+                                        @if ($errors->has('showName'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('showName') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label for="showLastname">
+                                            <input type="checkbox" name="showLastname" id="showLastname" @if(auth()->user()->driver->show_lastname) checked="checked" @endif>
+                                            Pokazuj nazwisko
+                                        </label>
+                                        @if ($errors->has('showLastname'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('showLastname') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label for="showEmail">
+                                            <input type="checkbox" name="showEmail" id="showEmail" @if(auth()->user()->driver->show_email) checked="checked" @endif>
+                                            Pokazuj adres e-mail
+                                        </label>
+                                        @if ($errors->has('showEmail'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('showEmail') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-sm-8">

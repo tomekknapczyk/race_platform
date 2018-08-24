@@ -20,6 +20,13 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function list()
+    {
+        $users = \App\User::where('admin', 0)->with('driver')->get();
+
+        return view('admin.drivers', compact('users'));
+    }
+
 
     public function settings()
     {
@@ -78,14 +85,18 @@ class UserController extends Controller
             'driving_license' => 'required|string|max:255',
             'oc' => 'required|string|max:255',
             'nw' => 'nullable|string|max:255',
-            'photo' => 'nullable|mimes:jpeg,bmp,png'
+            'photo' => 'nullable|mimes:jpeg,bmp,png',
         ]);
 
-        $driver = Driver::where('user_id', auth()->user()->id)->first();
+        if(auth()->user()->admin)
+            $driver = Driver::where('id', $request->id)->first();
+        else{
+            $driver = Driver::where('user_id', auth()->user()->id)->first();
 
-        if(!$driver){
-            $driver = new Driver;
-            $driver->user_id = auth()->user()->id;
+            if(!$driver){
+                $driver = new Driver;
+                $driver->user_id = auth()->user()->id;
+            }
         }
 
         $driver->name = $request->name;
@@ -96,6 +107,9 @@ class UserController extends Controller
         $driver->driving_license = $request->driving_license;
         $driver->oc = $request->oc;
         $driver->nw = $request->nw;
+        $driver->show_name = isset($request->showName)?1:0;
+        $driver->show_lastname = isset($request->showLastname)?1:0;
+        $driver->show_email = isset($request->showEmail)?1:0;
 
         if($request->photo){
             $photo = \App\File::where('id',$driver->file_id)->first();
@@ -149,12 +163,16 @@ class UserController extends Controller
             'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
-        if(isset($request->id)){
-            $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
-        }
+        if(auth()->user()->admin)
+            $pilot = Pilot::where('id', $request->id)->first();
         else{
-            $pilot = new Pilot;
-            $pilot->user_id = auth()->user()->id;
+            if(isset($request->id)){
+                $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+            }
+            else{
+                $pilot = new Pilot;
+                $pilot->user_id = auth()->user()->id;
+            }
         }
 
         $pilot->name = $request->name;
@@ -166,6 +184,9 @@ class UserController extends Controller
         $pilot->driving_license = $request->driving_license;
         $pilot->oc = $request->oc;
         $pilot->nw = $request->nw;
+        $pilot->show_name = isset($request->showName)?1:0;
+        $pilot->show_lastname = isset($request->showLastname)?1:0;
+        $pilot->show_email = isset($request->showEmail)?1:0;
 
         if($request->photo){
             $photo = \App\File::where('id',$pilot->file_id)->first();
@@ -240,12 +261,16 @@ class UserController extends Controller
             'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
-        if(isset($request->id)){
-            $car = Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
-        }
+        if(auth()->user()->admin)
+            $car = Car::where('id', $request->id)->first();
         else{
-            $car = new Car;
-            $car->user_id = auth()->user()->id;
+            if(isset($request->id)){
+                $car = Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+            }
+            else{
+                $car = new Car;
+                $car->user_id = auth()->user()->id;
+            }
         }
        
         $car->marka = $request->marka;

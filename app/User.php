@@ -81,4 +81,9 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function racesTaken()
+    {
+        return StartListItem::where('email', $this->email)->count();
+    }
 }

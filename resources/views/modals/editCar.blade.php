@@ -10,10 +10,10 @@
             <div class="modal-body">
                 <form method="POST" action="{{ route('saveCar') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" id="edit_id">
+                    <input type="hidden" name="id" id="edit_car_id">
                     <div class="row">
                         <div class="col-sm-4">
-                            <img src="" class="img-fluid img-thumbnail" id="edit_photo">
+                            <img src="" class="img-fluid img-thumbnail" id="edit_car_photo">
 
                             <div class="form-group">
                                 <label for="photo">Zdjęcie</label>
@@ -27,8 +27,8 @@
 
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <label for="deletePhoto">
-                                        <input type="checkbox" name="deletePhoto" id="deletePhoto" value="1">
+                                    <label for="deleteCarPhoto">
+                                        <input type="checkbox" name="deletePhoto" id="deleteCarPhoto" value="1">
                                         Usuń zdjęcie
                                     </label>
                                     @if ($errors->has('deletePhoto'))

@@ -68,4 +68,6 @@ Route::group(['middleware' => 'admin'], function() {
 
     Route::post('makeFile', 'SignController@makeFile')->name('makeFile');
     Route::post('makeFileSign', 'SignController@makeFileSign')->name('makeFileSign');
+
+    Route::get('drivers', 'UserController@list')->name('drivers');
 });

@@ -40,7 +40,7 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             @if(!auth()->user()->admin)
-                                <li><a class="nav-link" href="{{ route('home') }}">Panel kierowcy</a></li>
+                                <li><a class="nav-link" href="{{ route('home') }}">Rajdy</a></li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->login }} <span class="caret"></span>
@@ -59,6 +59,18 @@
                                     </div>
                                 </li>
                             @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Zarządzaj witryną <span class="caret"></span>
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="">Partnerzy</a>
+                                        <a class="dropdown-item" href="">Aktualności</a>
+                                        <a class="dropdown-item" href="">Baner z informacją</a>
+                                    </div>
+                                </li>
+                                <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>
                                 <li><a class="nav-link" href="{{ route('races') }}">Rajdy</a></li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

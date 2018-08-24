@@ -15,6 +15,9 @@ class UpdatePilotsTable extends Migration
     {
         Schema::table('pilots', function (Blueprint $table) {
             $table->integer('file_id')->nullable();
+            $table->boolean('show_name')->default(1);
+            $table->boolean('show_lastname')->default(0);
+            $table->boolean('show_email')->default(0);
         });
     }
 
@@ -27,6 +30,9 @@ class UpdatePilotsTable extends Migration
     {
         Schema::table('pilots', function (Blueprint $table) {
             $table->dropColumn('file_id');
+            $table->dropColumn('show_name');
+            $table->dropColumn('show_lastname');
+            $table->dropColumn('show_email');
         });
     }
 }
