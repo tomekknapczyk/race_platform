@@ -12,7 +12,7 @@
                     <form method="POST" action="{{ route('saveBanner') }}">
                         @csrf
                         <div class="row justify-content-center">
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="info">Treść komunikatu</label>
                                     <textarea name="info" class="form-control" rows="3">@if($banner) {{ $banner->value }} @endif</textarea>

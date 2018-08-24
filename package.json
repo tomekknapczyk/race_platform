@@ -20,6 +20,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "sortablejs": "^1.7.0"
+        "sortablejs": "^1.7.0",
+        "summernote": "^0.8.10",
+        "tinymce": "^4.8.2"
     }
 }

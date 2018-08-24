@@ -75,3 +75,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('contactInfo', 'HomeController@contactInfo')->name('contactInfo');
     Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
 });
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+     // \UniSharp\LaravelFilemanager\Lfm::routes();
+    '\vendor\unisharp\LaravelFilemanager\Lfm::routes()';
+ });
