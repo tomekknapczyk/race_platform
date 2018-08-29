@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Aktualności
                     <a class="btn btn-sm btn-primary float-right" href="{{ url('newPost') }}">Dodaj nową aktualność</a>
                 </div>

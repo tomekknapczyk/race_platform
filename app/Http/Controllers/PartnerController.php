@@ -20,7 +20,7 @@ class PartnerController extends Controller
 
     public function index()
     {
-        $partners = Partner::get();
+        $partners = Partner::with('file')->get();
 
         return view('admin.partners', compact('partners'));
     }
@@ -91,17 +91,15 @@ class PartnerController extends Controller
 
         $partner = Partner::where('id', $request->id)->first();
             
-            if($partner->file_id){
-                $photo = \App\File::where('id' ,$partner->file_id)->first();
-                if($photo){
-                    \Storage::delete('public/partner/'.$photo->path);
-                    $photo->delete();
-                }
+        if($partner->file_id){
+            $photo = \App\File::where('id' ,$partner->file_id)->first();
+            if($photo){
+                \Storage::delete('public/partner/'.$photo->path);
+                $photo->delete();
             }
+        }
 
-            $partner->delete();
-            return back()->with('success', 'Partner został usunięty');
-
-        return back()->with('warning', 'Partner nie istnieje');
+        $partner->delete();
+        return back()->with('success', 'Partner został usunięty');
     }
 }

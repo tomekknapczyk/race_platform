@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Dane kontaktowe
                 </div>
                 <div class="card-body">

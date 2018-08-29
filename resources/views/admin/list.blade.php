@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark d-flex justify-content-between align-items-center">
+                <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('races') }}" class="text-white">Rajdy</a> : <a href="{{ url('race', $round->race->id) }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }}
                     </div>
@@ -19,19 +19,23 @@
                 </div>
                 <div class="card-body">
                     <h2 class="text-center mt-4 mb-3 text-uppercase">Lista startowa</h2>
-                    @if($round->startPositions()->count())
+                    @if($is_someone)
                         <form id="save-rank" action="{{ route('saveRank') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $round->id }}">
-                            @foreach($round->klasy() as $klasa)
+                            @foreach($class as $klasa)
                                 <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
-                                    @foreach($round->startPositions()->where('klasa', $klasa) as $position)
-                                        <div class="row justify-content-between align-items-center flex-wrap">
+                                <div class="lista"> 
+                                    @foreach($round->startPositions($start_list_id)->where('klasa', $klasa) as $position)
+                                        <div class="row justify-content-between align-items-center flex-wrap py-2">
+                                            <h6 class="m-0 col-1">
+                                                {{ $loop->iteration }}.
+                                            </h6>
                                             <h6 class="m-0 col-4">
                                                 {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
                                                 <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
                                             </h6>
-                                            <h6 class="m-0 col-4">
+                                            <h6 class="m-0 col-3">
                                                 {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
                                                 <small>{{ $position->sign->rok }}r. @if($position->sign->turbo) / <strong>Turbo</strong> @endif @if($position->sign->rwd) / <strong>RWD</strong> @endif</small>
                                             </h6>
@@ -51,9 +55,9 @@
                                                     <option value="8" @if($position->rank() == 8) selected="" @endif>8</option>
                                                 </select>
                                             </h6>
-                                            <hr class="col-12 p-0 my-2">
                                         </div>
                                     @endforeach
+                                </div>
                             @endforeach
                         </form>
                     @endif

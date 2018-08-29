@@ -162,7 +162,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -213,6 +213,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
     ],
 
 ];

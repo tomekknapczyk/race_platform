@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Rajdy
                     <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newRace">Dodaj nowy rajd</button>
                 </div>

@@ -20,14 +20,14 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::latest()->get();
+        $news = News::latest()->with('file')->get();
 
         return view('admin.news', compact('news'));
     }
 
     public function show($id)
     {
-        $news = News::where('id', $id)->first();
+        $news = News::where('id', $id)->with('file')->first();
 
         if(!$news)
             back();
@@ -37,7 +37,7 @@ class NewsController extends Controller
 
     public function showAll()
     {
-        $news = News::latest()->paginate(12);
+        $news = News::latest()->with('file')->paginate(12);
 
         return view('newsAll', compact('news'));
     }

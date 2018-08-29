@@ -48,4 +48,9 @@ class StartListItem extends Model
                 break;
         }
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
 }

@@ -16,6 +16,14 @@ Auth::routes();
 Route::get('/', 'GuestController@index');
 Route::get('aktualnosci', 'NewsController@showAll');
 Route::get('aktualnosc/{id}', 'NewsController@show');
+Route::get('kierowcy', 'GuestController@drivers');
+Route::get('kierowca/{id}', 'GuestController@driver');
+Route::get('video', 'GuestController@video');
+Route::get('wyniki', 'GuestController@wyniki');
+Route::get('live_wyniki', 'GuestController@live_wyniki');
+Route::get('terminarz', 'GuestController@terminarz');
+Route::get('runda/{id}', 'GuestController@runda');
+Route::get('dokumenty', 'GuestController@dokumenty');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
@@ -88,6 +96,12 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('savePartner', 'PartnerController@save')->name('savePartner');
     Route::get('editPartner/{id}', 'PartnerController@edit')->name('editPartner');
     Route::post('deletePartner', 'PartnerController@delete')->name('deletePartner');
+
+    Route::get('docs', 'DocsController@index')->name('docs');
+    Route::get('newDoc', 'DocsController@new')->name('newDoc');
+    Route::post('saveDoc', 'DocsController@save')->name('saveDoc');
+    Route::get('editDoc/{id}', 'DocsController@edit')->name('editDoc');
+    Route::post('deleteDoc', 'DocsController@delete')->name('deleteDoc');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

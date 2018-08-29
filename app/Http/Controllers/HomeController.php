@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['rank', 'startList']]);
     }
 
     /**
@@ -33,15 +33,21 @@ class HomeController extends Controller
 
         $races = \App\Race::latest()->get();
 
-        return view('dashboard', compact('forms', 'lists', 'races'));
+
+        return view('dashboard', compact('forms', 'lists', 'races', 'closest'));
     }
 
     public function startList($id)
     {
         $round = \App\Round::where('id', $id)->first();
 
-        if($round)
-           return view('startList', compact('round'));
+        if($round){
+            $start_list_id = $round->startList->id;
+            $is_someone = $round->startPositions($start_list_id)->count();
+            $class = $round->klasy($start_list_id);
+            
+            return view('startList', compact('round', 'is_someone', 'class', 'start_list_id'));
+        }
 
         return back()->with('warning', 'Lista startowa nie istnieje');
     }
@@ -51,12 +57,13 @@ class HomeController extends Controller
         $round = \App\Round::where('id', $id)->first();
 
         if($round){
-            $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+            $signs = $round->signs();
+            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
             $max = $round->max;
             $drivers = 0;
             $class = [];
 
-            foreach ($round->signs() as $key => $sign) {
+            foreach ($signs as $key => $sign) {
                 $drivers++;
 
                 if($drivers <= $max)
@@ -85,9 +92,10 @@ class HomeController extends Controller
     public function rank($id)
     {
         $race = \App\Race::where('id', $id)->first();
-
+        $klasy = $race->klasy();
+        $race_id = $id;
         if($race)
-            return view('rank', compact('race'));
+            return view('rank', compact('race', 'klasy', 'race_id'));
 
         return back()->with('warning', 'Rajd nie istnieje');
     }

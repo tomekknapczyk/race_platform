@@ -86,4 +86,9 @@ class User extends Authenticatable
     {
         return StartListItem::where('email', $this->email)->count();
     }
+
+    public function races()
+    {
+        return $this->hasMany(StartListItem::class, 'email', 'email');
+    }
 }

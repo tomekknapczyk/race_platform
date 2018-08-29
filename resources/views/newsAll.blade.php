@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
     <div class="news-container">
         <h3>News</h3>
         <div class="row justify-content-start">
@@ -24,5 +23,4 @@
             {{ $news->links() }}
         </div>
     </div>
-</div>
 @endsection

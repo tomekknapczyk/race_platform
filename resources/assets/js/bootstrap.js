@@ -58,3 +58,5 @@ if (token) {
 window.Sortable = require('sortablejs');
 
 require('owl.carousel');
+
+window.countdown = require('countdown');

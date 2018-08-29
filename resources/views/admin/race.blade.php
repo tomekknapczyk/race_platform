@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     <a href="{{ url('races') }}" class="text-white">Rajdy</a> : {{ $race->name }}
                     <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newRound">Dodaj nową rundę</button>
                 </div>

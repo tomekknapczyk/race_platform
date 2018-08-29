@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Witaj
                 </div>
                 <div class="card-body">
@@ -98,6 +98,4 @@
         </div>
     </div>
 </div>
-
-@include('modals.sign')
 @endsection

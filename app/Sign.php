@@ -11,6 +11,14 @@ class Sign extends Model
         return $this->belongsTo(SignForm::class);
     }
 
+    public function race_points(Race $race)
+    {
+        $points = 0;
+        $points += StartListItem::whereIn('start_list_id', $race->lists->pluck('id'))->where('email', $this->email)->where('klasa', $this->klasa)->sum('points');
+
+        return $points;
+    }
+
     public function points()
     {
         $id = $this->form->round->race_id;
@@ -32,13 +40,10 @@ class Sign extends Model
     public function remaining_payment()
     {
         return ($this->form->round->price - $this->advance > 0)?$this->form->round->price - $this->advance:0;
-        // return $this->form->round->price - $this->advance
     }
 
-    public function round_points($id)
+    public function round_points(Round $round)
     {
-        $round = Round::where('id', $id)->first();
-
         if(!$round->startList)
             return 0;
 

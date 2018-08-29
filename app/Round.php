@@ -33,7 +33,7 @@ class Round extends Model
         $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
 
         $sorted = $signs->sortByDesc(function($sign){
-            return $sign->points();
+            return $sign->race_points($this->race);
         });
 
         return $sorted;
@@ -44,9 +44,19 @@ class Round extends Model
         return Sign::where('form_id', $this->form->id)->where('active', 0)->orderBy('position', 'desc')->oldest()->get();
     }
 
-    public function startPositions()
+    public function startPositions($start_list_id)
     {
-        return StartListItem::where('start_list_id', $this->startList->id)->orderBy('position', 'desc')->get();
+        return StartListItem::where('start_list_id', $start_list_id)->orderBy('position', 'desc')->get();
+    }
+
+    public function endPositions($start_list_id)
+    {
+        return StartListItem::where('start_list_id', $start_list_id)->orderBy('points', 'desc')->get();
+    }
+
+    public function podium($start_list_id, $klasa)
+    {
+        return StartListItem::where('start_list_id', $this->startList->id)->where('points', '>', 0)->where('klasa', $klasa)->orderBy('points', 'desc')->with('user', 'user.driver')->get();
     }
 
     public function rank()
@@ -54,8 +64,8 @@ class Round extends Model
         return StartListItem::where('start_list_id', $this->startList->id)->where('points', '>', 0)->groupBy('email')->orderBy('points', 'desc')->get();
     }
 
-    public function klasy()
+    public function klasy($start_list_id)
     {
-        return $this->startPositions()->sortBy('klasa')->pluck('klasa', 'klasa');
+        return $this->startPositions($start_list_id)->sortBy('klasa')->pluck('klasa', 'klasa');
     }
 }

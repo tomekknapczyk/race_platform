@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = \App\User::where('admin', 0)->with('driver')->get();
+        $users = \App\User::where('admin', 0)->with('driver', 'driver.file', 'pilots', 'pilots.file', 'cars', 'cars.file')->get();
 
         return view('admin.drivers', compact('users'));
     }
@@ -110,6 +110,7 @@ class UserController extends Controller
         $driver->show_name = isset($request->showName)?1:0;
         $driver->show_lastname = isset($request->showLastname)?1:0;
         $driver->show_email = isset($request->showEmail)?1:0;
+        $driver->desc = $request->text;
 
         if($request->photo){
             $photo = \App\File::where('id',$driver->file_id)->first();

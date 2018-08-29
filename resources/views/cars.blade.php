@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Samochody
                     <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newCar">Dodaj samochód</button>
                 </div>

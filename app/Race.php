@@ -21,10 +21,11 @@ class Race extends Model
         $klasy = [];
         foreach ($this->rounds as $round) {
             if($round->startList){
-                $is_rank = $round->startPositions()->where('points', '>', 0)->first();
+                $start_list_id = $round->startList->id;
+                $is_rank = $round->startPositions($start_list_id)->where('points', '>', 0)->first();
 
                 if($is_rank)
-                    $klasy = array_merge($klasy, $round->startPositions()->sortBy('klasa')->pluck('klasa', 'klasa')->toArray());
+                    $klasy = array_merge($klasy, $round->startPositions($start_list_id)->sortBy('klasa')->pluck('klasa', 'klasa')->toArray());
             }
         }
 
@@ -43,7 +44,7 @@ class Race extends Model
         $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->get();
 
         $sorted = $positions->sortByDesc(function($position){
-            return $position->sign->points();
+            return $position->sign->race_points($this);
         });
 
         return $sorted;

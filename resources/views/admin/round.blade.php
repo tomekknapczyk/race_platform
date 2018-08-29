@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid py-3">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark d-flex justify-content-between align-items-center">
+                <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('races') }}" class="text-white">Rajdy</a> : <a href="{{ url('race', $round->race->id) }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }}
                     </div>
@@ -34,9 +34,9 @@
                 <div class="card-body">
                     @foreach($class as $key => $klasa)
                         <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $key }} ::..</h2>
-                        <div class="sortable_items">
+                        <div class="sortable_items lista">
                             @foreach($klasa as $sign)
-                                <div class="row justify-content-between align-items-center flex-wrap pt-1 @if(!$sign['active']) bg-warning op-3 @endif" data-id={{ $sign['sign']->id }}>
+                                <div class="row justify-content-between align-items-center flex-wrap py-2 @if(!$sign['active']) bg-warning op-3 @endif" data-id={{ $sign['sign']->id }}>
                                     <h5 class="m-0 col-1">
                                         {{ $loop->iteration }}
                                     </h5>
@@ -52,7 +52,7 @@
                                         {{ $sign['sign']->klasa }}
                                     </h5> --}}
                                     <h5 class="m-0 col-1">
-                                        {{ $sign['sign']->points() }} pkt
+                                        {{ $sign['sign']->race_points($race) }} pkt
                                     </h5>
                                     <h5 class="m-0 col-3 text-right">
                                         <div class="btn-group">
@@ -66,7 +66,6 @@
                                             <button class="btn btn-sm btn-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ $sign['sign']->id }}">Usuń</button>
                                         </div>
                                     </h5>
-                                    <hr class="col-12 p-0 pt-1 m-0">
                                 </div>  
                             @endforeach
                         </div>

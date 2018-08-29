@@ -25,10 +25,23 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists('\App\SiteInfo')) {
             $banner = \App\SiteInfo::where('name', 'banner')->first();
             \View::share('banner', $banner);
+
+            $first_contact['name'] = \App\SiteInfo::where('name', 'kontakt_first_name')->first();
+            $first_contact['tel'] = \App\SiteInfo::where('name', 'kontakt_first_tel')->first();
+            \View::share('first_contact', $first_contact);
+
+            $second_contact['name'] = \App\SiteInfo::where('name', 'kontakt_second_name')->first();
+            $second_contact['tel'] = \App\SiteInfo::where('name', 'kontakt_second_tel')->first();
+            \View::share('second_contact', $second_contact);
+
+            $email_contact = \App\SiteInfo::where('name', 'kontakt_email')->first();
+            \View::share('email_contact', $email_contact);
         }
 
-
-        
+        if (class_exists('\App\Partner')) {
+            $partners = \App\Partner::with('file')->get();
+            \View::share('partners', $partners);
+        }
     }
 
     /**

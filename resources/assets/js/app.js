@@ -213,7 +213,19 @@ $(document).ready(function() {
         }
     };
 
+    var user_config = {
+        selector: "textarea.tinymce_user",
+        menubar:false,
+        statusbar: false,
+        plugins: [
+            "advlist lists",
+        ],
+        toolbar: "bold italic | alignleft aligncenter | bullist numlist",
+    };
+
     tinymce.init(editor_config);
+
+    tinymce.init(user_config);
 
     $('.owl-carousel').owlCarousel({
         items: 5,
@@ -241,3 +253,20 @@ $(document).ready(function() {
 
     $('#randomPartner').modal('show')
 });
+
+function initializeClock(id){
+  var clock = $('#'+id);
+  var end = clock.data('deadline');
+  countdown.setLabels(
+    ' | sek.| min.| godz.| dzień',
+    ' | sek.| min.| godz.| dni',
+    ' ',
+    ' ',
+    ' ');
+  var timeinterval = setInterval(function(){
+    var time = countdown(new Date(end), null, countdown.DAYS|countdown.HOURS|countdown.MINUTES|countdown.SECONDS, 3).toString();
+    clock.html(time);
+  },1000);
+}
+
+initializeClock('counter');

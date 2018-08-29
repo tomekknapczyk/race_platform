@@ -152,13 +152,15 @@ class RaceController extends Controller
             return redirect()->route('race', $round->race_id)->with('info', 'Lista zgłoszeń jest niedostępna ponieważ została wygenerowana lista startowa.');
 
         if($round){
-            $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+            $signs = $round->signs();
+            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
             $max = $round->max;
             $drivers = 0;
             $active = true;
             $class = [];
+            $race = $round->race;          
 
-            foreach ($round->signs() as $key => $sign) {
+            foreach ($signs as $key => $sign) {
                 $drivers++;
 
                 if($drivers > $max)
@@ -168,7 +170,7 @@ class RaceController extends Controller
                 $class[$sign->klasa][$key]['active'] = $active;
             }
 
-            return view('admin.round', compact('round', 'klasy', 'class'));
+            return view('admin.round', compact('round', 'klasy', 'class', 'race'));
         }
 
         return back()->with('warning', 'Runda nie istnieje');
@@ -182,7 +184,11 @@ class RaceController extends Controller
             return redirect()->route('race', $round->race_id)->with('info', 'Lista startowa jest niedostępna ponieważ nie została wygenerowana.');
 
         if($round){
-            return view('admin.list', compact('round'));
+            $start_list_id = $round->startList->id;
+            $is_someone = $round->startPositions($start_list_id)->count();
+            $class = $round->klasy($start_list_id);
+
+            return view('admin.list', compact('round','is_someone', 'class', 'start_list_id'));
         }
 
         return back()->with('warning', 'Runda nie istnieje');

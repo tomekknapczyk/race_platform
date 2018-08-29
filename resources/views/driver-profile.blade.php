@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card border-dark">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header bg-yellow">
                     Profil kierowcy
                 </div>
                 <div class="card-body">
@@ -87,6 +87,11 @@
                                             </span>
                                         @endif
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="text">O mnie:</label>
+                                    <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->driver)->desc) }}</textarea>
                                 </div>
                             </div>
 
