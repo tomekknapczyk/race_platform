@@ -46,5 +46,17 @@
     "klasa": "Klasa",
     "points": "Punkty za rundę",
     "race_points": "Punkty w całym rajdzie",
-    "advance": "Pozostała wpłata"
+    "advance": "Pozostała wpłata",
+    "Jan": "Sty",
+    "Feb" : "Lut",
+    "Mar" : "Mar",
+    "Apr" : "Kwi",
+    "May" : "Maj",
+    "Jun" : "Cze",
+    "Jul" : "Lip",
+    "Aug" : "Sie",
+    "Sep" : "Wrz",
+    "Oct" : "Paź",
+    "Nov" : "Lis",
+    "Dec" : "Gru"
 }

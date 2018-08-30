@@ -63,13 +63,16 @@ a{
         max-width: 340px;
         background: #fff;
         border-radius: 10px;
-        overflow: hidden;
+        // overflow: hidden;
         margin: 0 auto 50px;
+        position: relative;
 
         img{
             height: 200px;
             width: 100%;
             object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
         .news-body{
@@ -77,6 +80,37 @@ a{
             text-align: center;
             font-weight: 500;
             height: 150px;
+
+            .news-date{
+                position: absolute;
+                bottom: -20px;
+                right: -20px;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background: #D60400;
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                flex-flow: wrap;
+                padding: 15px 0;
+
+                > span{
+                    display: block;
+                    width: 100%;
+                    color: #fff;
+                    text-align: center;
+                    line-height: 1;
+
+                    &.day{
+                        font-size: 19px;
+                    }
+
+                    &.month{
+                        font-size: 22px;
+                    }
+                }
+            }
         }
 
         a{
