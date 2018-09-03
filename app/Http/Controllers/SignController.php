@@ -234,6 +234,19 @@ class SignController extends Controller
         return back()->with('success', 'Uczestnik został dołączony do listy');
     }
 
+    public function changeFormVisibility(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:sign_forms',
+        ]);
+
+        $form = SignForm::where('id', $request->id)->first();
+        $form->visible = $form->visible?0:1;
+        $form->save();
+
+        return back()->with('success', 'Status został zmieniony');
+    }
+
     public function generateList(Request $request)
     {
         $this->validate($request, [

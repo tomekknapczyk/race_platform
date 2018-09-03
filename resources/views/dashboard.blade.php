@@ -31,7 +31,9 @@
                                 <strong class="col-2">{{ $form->round->termin }}</strong>
                                 @if(auth()->user()->signed($form->id))
                                     <div class="col-5 text-right">
-                                        <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
+                                        @if($form->visible)
+                                            <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
+                                        @endif
                                         <a href="{{ url('register_form', $form->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
                                         @if($form->round->file_id)
                                             <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
@@ -39,7 +41,9 @@
                                     </div>
                                 @else
                                     <div class="col-5 text-right">
-                                        <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
+                                        @if($form->visible)
+                                            <a href="{{ url('sign-list', $form->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę zgłoszeń</a>
+                                        @endif
                                         @if(auth()->user()->ready())
                                             <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
                                         @else
@@ -98,4 +102,6 @@
         </div>
     </div>
 </div>
+
+@include('modals.sign')
 @endsection

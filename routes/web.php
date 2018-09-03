@@ -73,6 +73,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('update-position', 'SignController@updatePosition')->name('updatePosition');
 
     Route::post('generateList', 'SignController@generateList')->name('generateList');
+    Route::post('changeFormVisibility', 'SignController@changeFormVisibility')->name('changeFormVisibility');
     Route::post('deleteList', 'SignController@deleteList')->name('deleteList');
     Route::post('saveRank', 'SignController@saveRank')->name('saveRank');
 

@@ -20,7 +20,7 @@
 
                         <button class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#addSign">Dodaj uczestnika</button>
 
-                        <button class="btn btn-sm btn-warning ml-2" data-toggle="modal" data-target="#addSignSimple">Dodaj szybko</button>
+                        <button class="btn btn-sm btn-secondary ml-2" data-toggle="modal" data-target="#addSignSimple">Dodaj szybko</button>
                     </div>
 
                     <div>
@@ -28,6 +28,12 @@
 
                         @if(!$round->startList)
                             <button class="btn btn-sm btn-success ml-2" data-toggle="modal" data-target="#generateList">Generuj listę startową</button>
+                        @endif
+
+                        @if($round->form->visible)
+                            <button class="btn btn-sm btn-danger ml-2" data-toggle="modal" data-target="#changeFormVisibility">Ukryj listę zgłoszeń</button>
+                        @else
+                            <button class="btn btn-sm btn-success ml-2" data-toggle="modal" data-target="#changeFormVisibility">Opulbikuj listę zgłoszeń</button>
                         @endif
                     </div>
                 </div>
@@ -108,4 +114,5 @@
 @include('admin.modals.addSignSimple')
 @include('admin.modals.generateList')
 @include('admin.modals.makeFileSign')
+@include('admin.modals.changeFormVisibility')
 @endsection
