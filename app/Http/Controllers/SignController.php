@@ -342,7 +342,7 @@ class SignController extends Controller
 
         $round = \App\Round::where('id', $request->id)->first();
 
-        foreach ($round->startPositions() as $position) {
+        foreach ($round->startPositions($round->startList->id) as $position) {
             $position->points = 0;
             if($request->rank[$position->id])
                 $position->points = $this->getPoints($request->rank[$position->id]);

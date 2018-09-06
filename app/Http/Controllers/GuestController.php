@@ -15,18 +15,55 @@ class GuestController extends Controller
         if($partners)
             $promoted = $partners->where('promoted',1)->random();
 
-        $today = date('Y-m-d');
-        $closest = \App\Round::whereDate('date', '>', $today)->orderBy('date', 'asc')->first();
+        $today = date('Y-m-d H:i:s');
+        $closest = \App\Round::where('date', '>', $today)->with('form', 'race', 'form.signs')->orderBy('date', 'asc')->first();
 
-        $last = \App\Round::whereDate('date', '<', $today)->orderBy('date', 'desc')->first();
+        $last = \App\Round::where('date', '<', $today)->with('race')->orderBy('date', 'desc')->first();
         $start_list_id = $last->startList->id;
         $klasy = $last->klasy($start_list_id);
         $random = $klasy->random();
-        $podium = $last->podium($start_list_id, $random);
 
-        return view('home', compact('news', 'promoted', 'closest', 'podium', 'random'));
+        $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
+        if($promoted_race){
+            if($promoted_race->value == 'race'){
+                $klasy = $last->race->klasy();
+                $random = array_rand($klasy);
+                $podium = $last->race->klasa_rank($random);
+            }
+            else
+                $podium = $last->podium($start_list_id, $random);
+        }
+        else
+            $podium = $last->podium($start_list_id, $random);
+
+        return view('home', compact('news', 'promoted', 'closest', 'podium', 'random', 'promoted_race', 'last'));
     }
 
+    public function podium($id)
+    {
+        $round = \App\Round::where('id', $id)->first();
+        
+        if($round && $round->startList){
+            $start_list_id = $round->startList->id;
+            $klasy = $round->klasy($start_list_id);
+
+            return view('podium', compact('round', 'klasy', 'start_list_id'));
+        }
+
+        return back()->with('warning', 'Lista startowa nie istnieje');
+    }
+
+    public function roczna($id)
+    {
+        $race = \App\Race::where('id', $id)->first();
+        
+        if($race){
+            $klasy = $race->klasy();
+            return view('roczna', compact('race', 'klasy'));
+        }
+
+        return back()->with('warning', 'Lista startowa nie istnieje');
+    }
 
     public function drivers()
     {
@@ -47,7 +84,9 @@ class GuestController extends Controller
 
     public function video()
     {
-        return view('video');
+        $liveVideo = \App\SiteInfo::where('name', 'live_video')->first();
+
+        return view('video', compact('liveVideo'));
     }
 
     public function wyniki()
@@ -60,13 +99,16 @@ class GuestController extends Controller
     public function dokumenty()
     {
         $docs = \App\Docs::get();
+        $regulaminy = \App\Round::where('file_id', '!=', null)->get();
 
-        return view('dokumenty', compact('docs'));
+        return view('dokumenty', compact('docs', 'regulaminy'));
     }
 
     public function live_wyniki()
     {
-        return view('live_wyniki');
+        $liveWyniki = \App\SiteInfo::where('name', 'live_wyniki')->first();
+
+        return view('live_wyniki', compact('liveWyniki'));
     }
 
     public function terminarz()

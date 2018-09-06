@@ -40,6 +40,31 @@
                 <div class="card-body">
                     @foreach($class as $key => $klasa)
                         <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $key }} ::..</h2>
+                        <div class="row justify-content-between align-items-center flex-wrap">
+                            <h6 class="m-0 col-1">
+                                LP
+                            </h6>
+                            <h6 class="m-0 col-3">
+                                Imię i nazwisko kierowcy<br>
+                                <small>Imię i nazwisko pilota</small>
+                            </h6>
+                            <h6 class="m-0 col-3">
+                                Samochód
+                            </h6>
+                            {{-- <h5 class="m-0 col-1">
+                                {{ $sign['sign']->klasa }}
+                            </h5> --}}
+                            <h6 class="m-0 col-1 text-center">
+                                Ilość punktów w rajdzie
+                            </h6>
+                            <h6 class="m-0 col-1 text-center">
+                                Pozostało do  zapłaty
+                            </h6>
+                            <h6 class="m-0 col-3 text-center">
+                                Edytuj
+                            </h6>
+                        </div> 
+                        <hr>
                         <div class="sortable_items lista">
                             @foreach($klasa as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2 @if(!$sign['active']) bg-warning op-3 @endif" data-id={{ $sign['sign']->id }}>
@@ -57,8 +82,11 @@
                                     {{-- <h5 class="m-0 col-1">
                                         {{ $sign['sign']->klasa }}
                                     </h5> --}}
-                                    <h5 class="m-0 col-1">
+                                    <h5 class="m-0 col-1 text-center">
                                         {{ $sign['sign']->race_points($race) }} pkt
+                                    </h5>
+                                    <h5 class="m-0 col-1 text-center">
+                                        {{ $sign['sign']->remaining_payment() }} zł
                                     </h5>
                                     <h5 class="m-0 col-3 text-right">
                                         <div class="btn-group">

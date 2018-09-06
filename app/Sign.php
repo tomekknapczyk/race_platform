@@ -11,6 +11,11 @@ class Sign extends Model
         return $this->belongsTo(SignForm::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
+
     public function race_points(Race $race)
     {
         $points = 0;

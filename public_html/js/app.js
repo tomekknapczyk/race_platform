@@ -13932,6 +13932,7 @@ $(document).ready(function () {
 function initializeClock(id) {
     var clock = $('#' + id);
     var end = clock.data('deadline');
+
     countdown.setLabels(' | sek.| min.| godz.| dzień', ' | sek.| min.| godz.| dni', ' ', ' ', ' ');
     var timeinterval = setInterval(function () {
         var time = countdown(new Date(end), null, countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS, 3).toString();

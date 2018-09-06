@@ -23,8 +23,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="sign_date">Termin zapisów</label>
+                        <input type="datetime-local" name="sign_date" id="edit_sign_date" class="form-control" required=""> 
+                        @if ($errors->has('sign_date'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('sign_date') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <label for="date">Termin</label>
-                        <input type="date" name="date" id="edit_date" class="form-control" required=""> 
+                        <input type="datetime-local" name="date" id="edit_date" class="form-control" required=""> 
                         @if ($errors->has('date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('date') }}</strong>

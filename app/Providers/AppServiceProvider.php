@@ -36,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
             $email_contact = \App\SiteInfo::where('name', 'kontakt_email')->first();
             \View::share('email_contact', $email_contact);
+
+            $media_tel_contact= \App\SiteInfo::where('name', 'kontakt_media_tel')->first();
+            \View::share('media_tel_contact', $media_tel_contact);
         }
 
         if (class_exists('\App\Partner')) {

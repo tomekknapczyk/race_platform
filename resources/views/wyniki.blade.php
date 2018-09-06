@@ -13,7 +13,7 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <h3>{{ $race->name }}</h3>
                             <div>
-                                <a href="{{ url('rank', $race->id) }}" class="btn btn-success">Ranking Rajdu</a>
+                                <a href="{{ url('rank', $race->id) }}" class="btn btn-success">Klasyfikacja Roczna</a>
                             </div>
                         </div>
                         <div class="d-flex justify-content-start align-items-center flex-wrap">

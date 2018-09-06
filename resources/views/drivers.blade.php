@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @foreach($users as $user)
-                <div class="col-lg-3 col-sm-4">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="driver"> 
                         <a href="{{ url('kierowca', $user->driver->id) }}">
                         @if($user->driver->file_id)

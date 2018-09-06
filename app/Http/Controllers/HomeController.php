@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['rank', 'startList']]);
+        $this->middleware('auth', ['except' => ['rank', 'startList', 'signList']]);
     }
 
     /**
@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
         $round = \App\Round::where('id', $id)->first();
 
-        if($round){
+        if($round && $round->startList){
             $start_list_id = $round->startList->id;
             $is_someone = $round->startPositions($start_list_id)->count();
             $class = $round->klasy($start_list_id);
@@ -56,8 +56,8 @@ class HomeController extends Controller
     {
         $round = \App\Round::where('id', $id)->first();
 
-        if($round){
-            $signs = $round->signs();
+        if($round && $round->form->visible){
+            $signs = $round->signs()->load('user.driver.file');
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
             $max = $round->max;
             $drivers = 0;
@@ -73,7 +73,7 @@ class HomeController extends Controller
             return view('signList', compact('round', 'klasy', 'class'));
         }
 
-        return back()->with('warning', 'Lista startowa nie istnieje');
+        return back()->with('warning', 'Lista zgłoszeń nie jest dostępna');
     }
 
     public function register_form($id)
@@ -183,6 +183,69 @@ class HomeController extends Controller
         return back()->with('success', 'Komunikat został zapisany');
     }
 
+    public function edit_promoted()
+    {
+        $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
+
+        return view('admin.promoted', compact('promoted_race'));
+    }
+
+    public function save_promoted(Request $request)
+    {
+        $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
+
+        if(!$promoted_race){
+            $promoted_race = new \App\SiteInfo;
+            $promoted_race->name = 'promoted_race';
+        }
+        $promoted_race->value = $request->promoted;
+        $promoted_race->save();
+
+        return back()->with('success', 'Dane zostały zapisane');
+    }
+
+    public function edit_live_video()
+    {
+        $liveVideo = \App\SiteInfo::where('name', 'live_video')->first();
+
+        return view('admin.liveVideo', compact('liveVideo'));
+    }
+
+    public function save_live_video(Request $request)
+    {
+        $liveVideo = \App\SiteInfo::where('name', 'live_video')->first();
+
+        if(!$liveVideo){
+            $liveVideo = new \App\SiteInfo;
+            $liveVideo->name = 'live_video';
+        }
+        $liveVideo->value = $request->live_video;
+        $liveVideo->save();
+
+        return back()->with('success', 'Dane zostały zapisane');
+    }
+
+    public function edit_live_wyniki()
+    {
+        $liveWyniki = \App\SiteInfo::where('name', 'live_wyniki')->first();
+
+        return view('admin.liveWyniki', compact('liveWyniki'));
+    }
+
+    public function save_live_wyniki(Request $request)
+    {
+        $liveWyniki = \App\SiteInfo::where('name', 'live_wyniki')->first();
+
+        if(!$liveWyniki){
+            $liveWyniki = new \App\SiteInfo;
+            $liveWyniki->name = 'live_wyniki';
+        }
+        $liveWyniki->value = $request->live_wyniki;
+        $liveWyniki->save();
+
+        return back()->with('success', 'Dane zostały zapisane');
+    }
+
     public function contactInfo()
     {
         $contactFirstName = \App\SiteInfo::where('name', 'kontakt_first_name')->first();
@@ -190,8 +253,9 @@ class HomeController extends Controller
         $contactSecondName = \App\SiteInfo::where('name', 'kontakt_second_name')->first();
         $contactSecondTel = \App\SiteInfo::where('name', 'kontakt_second_tel')->first();
         $contactEmail= \App\SiteInfo::where('name', 'kontakt_email')->first();
+        $contactMediaTel= \App\SiteInfo::where('name', 'kontakt_media_tel')->first();
 
-        return view('admin.contactInfo', compact('contactFirstName', 'contactFirstTel', 'contactSecondName', 'contactSecondTel', 'contactEmail'));
+        return view('admin.contactInfo', compact('contactFirstName', 'contactFirstTel', 'contactSecondName', 'contactSecondTel', 'contactEmail', 'contactMediaTel'));
     }
 
     public function saveInfo(Request $request)
@@ -201,6 +265,7 @@ class HomeController extends Controller
         $contactSecondName = \App\SiteInfo::where('name', 'kontakt_second_name')->first();
         $contactSecondTel = \App\SiteInfo::where('name', 'kontakt_second_tel')->first();
         $contactEmail= \App\SiteInfo::where('name', 'kontakt_email')->first();
+        $contactMediaTel= \App\SiteInfo::where('name', 'kontakt_media_tel')->first();
 
         if(!$contactFirstName){
             $contactFirstName = new \App\SiteInfo;
@@ -236,6 +301,13 @@ class HomeController extends Controller
         }
         $contactEmail->value = $request->kontakt_email;
         $contactEmail->save();
+
+        if(!$contactMediaTel){
+            $contactMediaTel = new \App\SiteInfo;
+            $contactMediaTel->name = 'kontakt_media_tel';
+        }
+        $contactMediaTel->value = $request->kontakt_media_tel;
+        $contactMediaTel->save();
 
         return back()->with('success', 'Dane zostały zapisane');
     }

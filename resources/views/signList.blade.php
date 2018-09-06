@@ -17,7 +17,14 @@
                                     <h6 class="m-0 col-1">
                                         {{ $loop->iteration }}.
                                     </h6>
-                                    <h6 class="m-0 col-6 text-left">
+                                    <div class="col-1">
+                                        @if($sign['sign']->user && $sign['sign']->user->driver->file_id)
+                                            <img src="{{ url('public/driver', $sign['sign']->user->driver->file->path) }}" class="img-fluid thumb">
+                                        @else
+                                            <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                        @endif
+                                    </div>
+                                    <h6 class="m-0 col-5 text-left">
                                         {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}<br>
                                         <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
                                     </h6>

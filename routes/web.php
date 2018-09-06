@@ -24,6 +24,8 @@ Route::get('live_wyniki', 'GuestController@live_wyniki');
 Route::get('terminarz', 'GuestController@terminarz');
 Route::get('runda/{id}', 'GuestController@runda');
 Route::get('dokumenty', 'GuestController@dokumenty');
+Route::get('podium/{id}', 'GuestController@podium');
+Route::get('klasyfikacja-roczna/{id}', 'GuestController@roczna');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
@@ -85,6 +87,15 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveBanner', 'HomeController@saveBanner')->name('saveBanner');
     Route::get('contactInfo', 'HomeController@contactInfo')->name('contactInfo');
     Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
+
+    Route::get('edit_live_video', 'HomeController@edit_live_video')->name('edit_live_video');
+    Route::post('save_live_video', 'HomeController@save_live_video')->name('save_live_video');
+
+    Route::get('edit_live_wyniki', 'HomeController@edit_live_wyniki')->name('edit_live_wyniki');
+    Route::post('save_live_wyniki', 'HomeController@save_live_wyniki')->name('save_live_wyniki');
+
+    Route::get('edit_promoted', 'HomeController@edit_promoted')->name('edit_promoted');
+    Route::post('save_promoted', 'HomeController@save_promoted')->name('save_promoted');
 
     Route::get('news', 'NewsController@index')->name('news');
     Route::get('newPost', 'NewsController@new')->name('newPost');

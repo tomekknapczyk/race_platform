@@ -32,8 +32,8 @@
     }(document, 'script', 'facebook-jssdk'));</script>
     <div id="app">
         @if($banner->active)
-            <div class="text-center p-2 bg-warning">
-                <strong>{{ $banner->value }}</strong>
+            <div class="text-center p-2 bg-danger">
+                <strong class="text-white">{{ $banner->value }}</strong>
             </div>
         @endif
         <header>
@@ -93,6 +93,9 @@
                                             <a class="dropdown-item" href="{{ route('docs') }}">Dokumenty</a>
                                             <a class="dropdown-item" href="{{ route('banner') }}">Baner z informacją</a>
                                             <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>
+                                            <a class="dropdown-item" href="{{ route('edit_live_video') }}">Video Live</a>
+                                            <a class="dropdown-item" href="{{ route('edit_live_wyniki') }}">Wyniki Live</a>
+                                            <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                         </div>
                                     </li>
                                     <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>
@@ -125,7 +128,9 @@
         @include('messages')
 
         <main>
-            @yield('content')
+            <div class="main-content">
+                @yield('content')
+            </div>
 
             @include('partials.partners')
 

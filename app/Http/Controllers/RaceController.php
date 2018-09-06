@@ -68,7 +68,8 @@ class RaceController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'date' => 'required|max:255',
+            'sign_date' => 'required',
+            'date' => 'required',
             'max' => 'required|numeric',
         ]);
 
@@ -81,7 +82,8 @@ class RaceController extends Controller
         }
 
         $round->name = $request->name;
-        $round->date = $request->date;
+        $round->date = str_replace('T', ' ', $request->date).":00";
+        $round->sign_date = str_replace('T', ' ', $request->sign_date).":00";
         $round->max = $request->max;
 
         if($request->price)

@@ -257,6 +257,7 @@ $(document).ready(function() {
 function initializeClock(id){
   var clock = $('#'+id);
   var end = clock.data('deadline');
+
   countdown.setLabels(
     ' | sek.| min.| godz.| dzień',
     ' | sek.| min.| godz.| dni',

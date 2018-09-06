@@ -36,6 +36,11 @@
                             <input type="text" name="kontakt_email" class="form-control" @if($contactEmail) value="{{ $contactEmail->value }}" @endif> 
                         </div>
 
+                        <div class="form-group">
+                            <label for="kontakt_media_tel">Media telefon</label>
+                            <input type="text" name="kontakt_media_tel" class="form-control" @if($contactMediaTel) value="{{ $contactMediaTel->value }}" @endif> 
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4 offset-md-4">
                                 <button type="submit" class="btn btn-primary btn-block">

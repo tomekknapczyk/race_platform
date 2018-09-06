@@ -13,16 +13,23 @@
                         @foreach($class as $klasa)
                             <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                             <div class="lista">
-                                @foreach($round->startPositions($start_list_id)->where('klasa', $klasa) as $position)
+                                @foreach($round->startPositions($start_list_id)->where('klasa', $klasa)->load('sign.user.driver.file') as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <h6 class="m-0 col-1">
                                             {{ $loop->iteration }}.
                                         </h6>
+                                        <div class="col-1">
+                                            @if($position->sign->user && $position->sign->user->driver->file_id)
+                                                <img src="{{ url('public/driver', $position->sign->user->driver->file->path) }}" class="img-fluid thumb">
+                                            @else
+                                                <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                            @endif
+                                        </div>
                                         <h6 class="m-0 col-5 text-left">
                                             {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
                                             <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
                                         </h6>
-                                        <h6 class="m-0 col-4">
+                                        <h6 class="m-0 col-5">
                                             {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
                                             <small>{{ $position->sign->rok }}r. @if($position->sign->turbo) / <strong>Turbo</strong> @endif @if($position->sign->rwd) / <strong>RWD</strong> @endif</small>
                                         </h6>

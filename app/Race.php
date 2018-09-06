@@ -19,7 +19,7 @@ class Race extends Model
     public function klasy()
     {
         $klasy = [];
-        foreach ($this->rounds as $round) {
+        foreach ($this->rounds->load('startList') as $round) {
             if($round->startList){
                 $start_list_id = $round->startList->id;
                 $is_rank = $round->startPositions($start_list_id)->where('points', '>', 0)->first();
@@ -41,7 +41,7 @@ class Race extends Model
                 $lists[] = $round->startList->id;
         }
 
-        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->get();
+        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('user', 'user.driver', 'user.driver.file')->get();
 
         $sorted = $positions->sortByDesc(function($position){
             return $position->sign->race_points($this);

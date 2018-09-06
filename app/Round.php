@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Round extends Model
 {
-    protected $dates = ['date'];
+    protected $dates = ['date', 'sign_date'];
 
     public function race()
     {

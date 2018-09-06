@@ -13,7 +13,7 @@
                         <div class="news-body">
                             <p>{{ str_limit(strip_tags($post->text), 100) }}</p>
 
-                            <a href="{{ url('aktualnosc', $post->id) }}">więcej</a>
+                            <a href="{{ url('aktualnosc', $post->id) }}"><span>więcej</span></a>
 
                             <div class="news-date">
                                 <span class="day">{{ $post->created_at->format('d') }}</span>

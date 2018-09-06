@@ -19,6 +19,20 @@
                             </div>
                         @endforeach
                     </div>
+
+                    @if($regulaminy->count())
+                        <h3 class="mt-5">Regulaminy rajdów</h3>
+                        <div class="col-sm-12 lista p-0">
+                            @foreach($regulaminy as $regulamin)
+                                <div class="row d-flex align-items-center p-2">
+                                    <h4 class="m-0 col-sm-8 text-center">{{ $regulamin->race->name }} : {{ $regulamin->name }}</h4>
+                                    <div class="col-sm-4 text-right">
+                                        <a href="{{ url('public/terms', $regulamin->file->path) }}" class="btn btn-info" target="_blank">Pobierz plik</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

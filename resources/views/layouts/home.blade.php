@@ -32,15 +32,15 @@
     }(document, 'script', 'facebook-jssdk'));</script>
     <div id="app">
         @if($banner->active)
-            <div class="text-center p-2 bg-warning">
-                <strong>{{ $banner->value }}</strong>
+            <div class="text-center p-2 bg-danger">
+                <strong class="text-white">{{ $banner->value }}</strong>
             </div>
         @endif
         <header>
             <nav class="navbar navbar-expand-md text-white shadow-sm">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="images/logo.png">
+                        <img src="/images/logo.png">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -93,6 +93,9 @@
                                             <a class="dropdown-item" href="{{ route('docs') }}">Dokumenty</a>
                                             <a class="dropdown-item" href="{{ route('banner') }}">Baner z informacją</a>
                                             <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>
+                                            <a class="dropdown-item" href="{{ route('edit_live_video') }}">Video Live</a>
+                                            <a class="dropdown-item" href="{{ route('edit_live_wyniki') }}">Wyniki Live</a>
+                                            <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                         </div>
                                     </li>
                                     <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>
