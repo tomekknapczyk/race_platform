@@ -12,7 +12,7 @@
                     <div class="col-sm-12 lista p-0">
                         @foreach($docs as $doc)
                             <div class="row d-flex align-items-center p-2">
-                                <h4 class="m-0 col-sm-8 text-center">{{ $doc->name }}</h4>
+                                <h4 class="m-0 col-sm-8">{{ $doc->name }}</h4>
                                 <div class="col-sm-4 text-right">
                                     <a href="{{ url('public/docs', $doc->file->path) }}" target="_blank" class="btn btn-info">Pobierz plik</a>
                                 </div>
@@ -25,7 +25,7 @@
                         <div class="col-sm-12 lista p-0">
                             @foreach($regulaminy as $regulamin)
                                 <div class="row d-flex align-items-center p-2">
-                                    <h4 class="m-0 col-sm-8 text-center">{{ $regulamin->race->name }} : {{ $regulamin->name }}</h4>
+                                    <h4 class="m-0 col-sm-8">{{ $regulamin->race->name }} : {{ $regulamin->name }}</h4>
                                     <div class="col-sm-4 text-right">
                                         <a href="{{ url('public/terms', $regulamin->file->path) }}" class="btn btn-info" target="_blank">Pobierz plik</a>
                                     </div>

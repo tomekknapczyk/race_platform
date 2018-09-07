@@ -9,7 +9,7 @@
                 @if($user->driver)
                     <div class="col-md-6 col-lg-4 col-xl-3">
                         <div class="driver">
-                            <a href="{{ url('kierowca', $user->driver->id) }}">
+                            <a href="{{ url('kierowca', $user->id) }}">
                             @if($user->driver->file_id)
                                 <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid">
                             @else
