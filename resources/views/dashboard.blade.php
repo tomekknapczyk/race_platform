@@ -75,28 +75,6 @@
                     @else
                         <h5 class="text-center">Aktualnie brak dostępnych wyników</h5>
                     @endif
-
-                    <h3 class="mt-5 mb-3">Listy startowe</h3>
-                    @if($lists->count())
-                        @foreach($lists as $list)
-                            <div class="row justify-content-between align-items-center flex-wrap">
-                                <h6 class="m-0 col-5">{{ $list->round->race->name }} :: {{ $list->round->name }}</h6>
-                                <span class="col-2">{{ $list->round->termin }}</span>
-                                <div class="col-5 text-right">
-                                    <a href="{{ url('start-list', $list->round->id) }}" class="btn btn-sm btn-outline-info">Zobacz listę</a>
-                                    @if(auth()->user()->onList($list->id))
-                                        <a href="{{ url('register_form', $list->round->form->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
-                                    @endif
-                                    @if($list->round->file_id)
-                                        <a href="{{ url('public/terms', $list->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
-                                    @endif
-                                </div>
-                                <hr class="col-12 p-0 my-2">
-                            </div>
-                        @endforeach
-                    @else
-                        <h5 class="text-center">Aktualnie brak dostępnych list startowych</h5>
-                    @endif
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                         <div class="col-sm-12">
-                            <div class="row shadow p-3">
+                            <div class="row shadow p-3 bg-white">
                                 <div class="col-sm-3">
                                     @if($user->driver->file_id)
                                         <img src="{{ url('public/driver', $user->driver->file->path) }}" class="img-fluid">

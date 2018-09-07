@@ -91,7 +91,7 @@ class GuestController extends Controller
 
     public function wyniki()
     {
-        $races = \App\Race::get();
+        $races = \App\Race::with('rounds', 'rounds.startList')->get();
 
         return view('wyniki', compact('races'));
     }
@@ -121,14 +121,15 @@ class GuestController extends Controller
 
     public function runda($id)
     {
-        $round = \App\Round::where('id', $id)->first();
+        $round = \App\Round::where('id', $id)->with('race')->first();
 
         if($round){
             $start_list_id = $round->startList->id;
-            $is_someone = $round->endPositions($start_list_id)->count();
-            $class = $round->klasy($start_list_id);
+            $endPositions = $round->endPositions($start_list_id);
+            $is_someone = $endPositions->count();
+            $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa');
             
-            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id'));
+            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions'));
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');

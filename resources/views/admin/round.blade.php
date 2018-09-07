@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach($class as $key => $klasa)
+                    @foreach($klasy as $key => $klasa)
                         <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $key }} ::..</h2>
                         <div class="row justify-content-between align-items-center flex-wrap">
                             <h6 class="m-0 col-1">
@@ -51,9 +51,6 @@
                             <h6 class="m-0 col-3">
                                 Samochód
                             </h6>
-                            {{-- <h5 class="m-0 col-1">
-                                {{ $sign['sign']->klasa }}
-                            </h5> --}}
                             <h6 class="m-0 col-1 text-center">
                                 Ilość punktów w rajdzie
                             </h6>
@@ -66,47 +63,44 @@
                         </div> 
                         <hr>
                         <div class="sortable_items lista">
-                            @foreach($klasa as $sign)
-                                <div class="row justify-content-between align-items-center flex-wrap py-2 @if(!$sign['active']) bg-warning op-3 @endif" data-id={{ $sign['sign']->id }}>
+                            @foreach($signs->where('klasa', $key) as $sign)
+                                <div class="row justify-content-between align-items-center flex-wrap py-2" data-id={{ $sign->id }}>
                                     <h5 class="m-0 col-1">
                                         {{ $loop->iteration }}
                                     </h5>
                                     <h5 class="m-0 col-3">
-                                        {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}<br>
-                                        <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                        {{ $sign->name }} {{ $sign->lastname }}<br>
+                                        <small><strong>Pilot:</strong> {{ $sign->pilot_name }} {{ $sign->pilot_lastname }}</small>
                                     </h5>
                                     <h5 class="m-0 col-3">
-                                        {{ $sign['sign']->marka }} {{ $sign['sign']->model }} - {{ $sign['sign']->ccm }}ccm<br>
-                                        <small>{{ $sign['sign']->rok }}r. @if($sign['sign']->turbo) / <strong>Turbo</strong> @endif @if($sign['sign']->rwd) / <strong>RWD</strong> @endif</small>
-                                    </h5>
-                                    {{-- <h5 class="m-0 col-1">
-                                        {{ $sign['sign']->klasa }}
-                                    </h5> --}}
-                                    <h5 class="m-0 col-1 text-center">
-                                        {{ $sign['sign']->race_points($race) }} pkt
+                                        {{ $sign->marka }} {{ $sign->model }} - {{ $sign->ccm }}ccm<br>
+                                        <small>{{ $sign->rok }}r. @if($sign->turbo) / <strong>Turbo</strong> @endif @if($sign->rwd) / <strong>RWD</strong> @endif</small>
                                     </h5>
                                     <h5 class="m-0 col-1 text-center">
-                                        {{ $sign['sign']->remaining_payment() }} zł
+                                        {{ $sign->race_points($round->race) }} pkt
+                                    </h5>
+                                    <h5 class="m-0 col-1 text-center">
+                                        {{ $sign->remaining($round->price) }} zł
                                     </h5>
                                     <h5 class="m-0 col-3 text-right">
                                         <div class="btn-group">
-                                            <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign['sign']->id }}"
+                                            <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign->id }}"
                                                 data-text=
-                                                '{"id":"{{ $sign['sign']->id }}", "marka":"{{ $sign['sign']->marka }}", "model":"{{ $sign['sign']->model }}", "rok":"{{ $sign['sign']->rok }}", "ccm":"{{ $sign['sign']->ccm }}", "nr_rej":"{{ $sign['sign']->nr_rej }}", "driver_name":"{{ $sign['sign']->name }}", "driver_lastname":"{{ $sign['sign']->lastname }}", "driver_address":"{{ $sign['sign']->address }}", "driver_id_card":"{{ $sign['sign']->id_card }}", "driver_phone":"{{ $sign['sign']->phone }}", "driver_email":"{{ $sign['sign']->email }}", "driver_driving_license":"{{ $sign['sign']->driving_license }}", "driver_oc":"{{ $sign['sign']->oc }}", "driver_nw":"{{ $sign['sign']->nw }}", "pilot_name":"{{ $sign['sign']->pilot_name }}", "pilot_lastname":"{{ $sign['sign']->pilot_lastname }}", "pilot_address":"{{ $sign['sign']->pilot_address }}", "pilot_id_card":"{{ $sign['sign']->pilot_id_card }}", "pilot_phone":"{{ $sign['sign']->pilot_phone }}", "pilot_email":"{{ $sign['sign']->pilot_email }}", "pilot_driving_license":"{{ $sign['sign']->pilot_driving_license }}", "pilot_oc":"{{ $sign['sign']->pilot_oc }}", "pilot_nw":"{{ $sign['sign']->pilot_nw }}", "klasa":"{{ $sign['sign']->klasa }}", "advance":"{{ $sign['sign']->advance }}"}'
-                                                data-check='{"turbo":"{{ $sign['sign']->turbo }}", "rwd":"{{ $sign['sign']->rwd }}"}'
+                                                '{"id":"{{ $sign->id }}", "marka":"{{ $sign->marka }}", "model":"{{ $sign->model }}", "rok":"{{ $sign->rok }}", "ccm":"{{ $sign->ccm }}", "nr_rej":"{{ $sign->nr_rej }}", "driver_name":"{{ $sign->name }}", "driver_lastname":"{{ $sign->lastname }}", "driver_address":"{{ $sign->address }}", "driver_id_card":"{{ $sign->id_card }}", "driver_phone":"{{ $sign->phone }}", "driver_email":"{{ $sign->email }}", "driver_driving_license":"{{ $sign->driving_license }}", "driver_oc":"{{ $sign->oc }}", "driver_nw":"{{ $sign->nw }}", "pilot_name":"{{ $sign->pilot_name }}", "pilot_lastname":"{{ $sign->pilot_lastname }}", "pilot_address":"{{ $sign->pilot_address }}", "pilot_id_card":"{{ $sign->pilot_id_card }}", "pilot_phone":"{{ $sign->pilot_phone }}", "pilot_email":"{{ $sign->pilot_email }}", "pilot_driving_license":"{{ $sign->pilot_driving_license }}", "pilot_oc":"{{ $sign->pilot_oc }}", "pilot_nw":"{{ $sign->pilot_nw }}", "klasa":"{{ $sign->klasa }}", "advance":"{{ $sign->advance }}"}'
+                                                data-check='{"turbo":"{{ $sign->turbo }}", "rwd":"{{ $sign->rwd }}"}'
                                             >Edytuj</button>
 
-                                            <button class="btn btn-sm btn-warning cancelSign" data-toggle="modal" data-target="#cancelSign" data-id="{{ $sign['sign']->id }}">Wyklucz</button>
-                                            <button class="btn btn-sm btn-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ $sign['sign']->id }}">Usuń</button>
+                                            <button class="btn btn-sm btn-warning cancelSign" data-toggle="modal" data-target="#cancelSign" data-id="{{ $sign->id }}">Wyklucz</button>
+                                            <button class="btn btn-sm btn-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ $sign->id }}">Usuń</button>
                                         </div>
                                     </h5>
                                 </div>  
                             @endforeach
                         </div>
 
-                        @if($round->canceled()->where('klasa', $key)->count())
+                        @if($canceled->where('klasa', $key)->count())
                             <h5 class="text-center my-3 text-uppercase text-danger">..:: lista rezerwowa {{ $key }} ::..</h5>
-                            @foreach($round->canceled()->where('klasa', $key) as $sign)
+                            @foreach($canceled->where('klasa', $key) as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap">
                                     <h6 class="m-0 col-3">
                                         {{ $sign->name }} {{ $sign->lastname }}<br>

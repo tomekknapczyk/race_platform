@@ -22,10 +22,11 @@ class Race extends Model
         foreach ($this->rounds->load('startList') as $round) {
             if($round->startList){
                 $start_list_id = $round->startList->id;
-                $is_rank = $round->startPositions($start_list_id)->where('points', '>', 0)->first();
+                $startPositions = $round->startPositions($start_list_id);
+                $is_rank = $startPositions->where('points', '>', 0)->first();
 
                 if($is_rank)
-                    $klasy = array_merge($klasy, $round->startPositions($start_list_id)->sortBy('klasa')->pluck('klasa', 'klasa')->toArray());
+                    $klasy = array_merge($klasy, $startPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray());
             }
         }
 
@@ -36,15 +37,19 @@ class Race extends Model
     {
         $lists = [];
 
-        foreach ($this->rounds as $round) {
+        $rounds = $this->rounds;
+
+        foreach ($rounds as $round) {
             if($round->startList)
                 $lists[] = $round->startList->id;
         }
 
-        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('user', 'user.driver', 'user.driver.file')->get();
+        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('sign', 'user', 'user.driver', 'user.driver.file')->get();
 
-        $sorted = $positions->sortByDesc(function($position){
-            return $position->sign->race_points($this);
+        $sorted = $positions->sortByDesc(function($position) use ($rounds){
+            $rp = $position->sign->race_points($this);
+            $position->rp = $rp;
+            return $rp;
         });
 
         return $sorted;

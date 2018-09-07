@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "countdown": "^2.6.0",
+        "list.js": "^1.5.0",
         "owl.carousel": "^2.3.4",
         "sortablejs": "^1.7.0",
         "summernote": "^0.8.10",

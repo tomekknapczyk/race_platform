@@ -91,4 +91,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(StartListItem::class, 'email', 'email');
     }
+
+    public function klasy()
+    {
+        $klasy = StartListItem::where('email', $this->email)->groupBy('klasa')->get();
+        if(!$klasy)
+            return '';
+
+        // dd($klasy->pluck('klasa')->toArray());
+        
+        return implode(" ",$klasy->pluck('klasa')->toArray());
+    }
 }

@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -136,7 +137,6 @@
 
             @include('partials.contact')
         </main>
-    </div>
-    
+    </div>    
 </body>
 </html>

@@ -148,7 +148,7 @@ class RaceController extends Controller
 
     public function round($id)
     {
-        $round = Round::where('id', $id)->first();
+        $round = Round::where('id', $id)->with('race', 'race.lists', 'startList')->first();
 
         if($round->startList)
             return redirect()->route('race', $round->race_id)->with('info', 'Lista zgłoszeń jest niedostępna ponieważ została wygenerowana lista startowa.');
@@ -156,23 +156,9 @@ class RaceController extends Controller
         if($round){
             $signs = $round->signs();
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
-            $max = $round->max;
-            $drivers = 0;
-            $active = true;
-            $class = [];
-            $race = $round->race;          
+            $canceled = $round->canceled();
 
-            foreach ($signs as $key => $sign) {
-                $drivers++;
-
-                if($drivers > $max)
-                    $active = false;
-
-                $class[$sign->klasa][$key]['sign'] = $sign;
-                $class[$sign->klasa][$key]['active'] = $active;
-            }
-
-            return view('admin.round', compact('round', 'klasy', 'class', 'race'));
+            return view('admin.round', compact('signs', 'klasy', 'round', 'canceled'));
         }
 
         return back()->with('warning', 'Runda nie istnieje');
@@ -180,17 +166,18 @@ class RaceController extends Controller
 
     public function list($id)
     {
-        $round = Round::where('id', $id)->first();
+        $round = Round::where('id', $id)->with('startList', 'race')->first();
 
         if(!$round->startList)
             return redirect()->route('race', $round->race_id)->with('info', 'Lista startowa jest niedostępna ponieważ nie została wygenerowana.');
 
         if($round){
             $start_list_id = $round->startList->id;
-            $is_someone = $round->startPositions($start_list_id)->count();
-            $class = $round->klasy($start_list_id);
+            $startPositions = $round->startPositions($start_list_id);
+            $is_someone = $startPositions->count();
+            $class = $startPositions->sortBy('klasa')->pluck('klasa', 'klasa');
 
-            return view('admin.list', compact('round','is_someone', 'class', 'start_list_id'));
+            return view('admin.list', compact('round','is_someone', 'class', 'start_list_id', 'startPositions'));
         }
 
         return back()->with('warning', 'Runda nie istnieje');

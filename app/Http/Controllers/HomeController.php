@@ -29,12 +29,12 @@ class HomeController extends Controller
         
         $forms = \App\SignForm::where('active', 1)->get();
 
-        $lists = \App\StartList::latest()->get();
+        // $lists = \App\StartList::latest()->get();
 
         $races = \App\Race::latest()->get();
 
 
-        return view('dashboard', compact('forms', 'lists', 'races', 'closest'));
+        return view('dashboard', compact('forms', 'races', 'closest'));
     }
 
     public function startList($id)
@@ -91,7 +91,7 @@ class HomeController extends Controller
 
     public function rank($id)
     {
-        $race = \App\Race::where('id', $id)->first();
+        $race = \App\Race::where('id', $id)->with('rounds')->first();
         $klasy = $race->klasy();
         $race_id = $id;
         if($race)

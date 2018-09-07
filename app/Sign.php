@@ -47,6 +47,11 @@ class Sign extends Model
         return ($this->form->round->price - $this->advance > 0)?$this->form->round->price - $this->advance:0;
     }
 
+    public function remaining($price)
+    {
+        return ($price - $this->advance > 0)?$price - $this->advance:0;
+    }
+
     public function round_points(Round $round)
     {
         if(!$round->startList)

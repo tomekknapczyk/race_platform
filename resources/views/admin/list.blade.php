@@ -26,7 +26,7 @@
                             @foreach($class as $klasa)
                                 <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                                 <div class="lista"> 
-                                    @foreach($round->startPositions($start_list_id)->where('klasa', $klasa) as $position)
+                                    @foreach($startPositions->where('klasa', $klasa) as $position)
                                         <div class="row justify-content-between align-items-center flex-wrap py-2">
                                             <h6 class="m-0 col-1">
                                                 {{ $loop->iteration }}.

@@ -4,20 +4,25 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card border-dark">
-                <div class="card-header bg-yellow">
-                    Zawodnicy
+            <div class="card border-dark" id="driver-list">
+                <div class="card-header bg-yellow d-flex align-items-center justify-content-between">
+                    <h4>Zawodnicy</h4>
+                    <div class="col-sm-5">
+                        <input class="search form-control" placeholder="Wyszukaj" />
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body list">
                     @foreach($users as $user)
-                        <div class="d-flex justify-content-start align-items-center flex-wrap">
+                        <div class="d-flex justify-content-start align-items-start flex-wrap">
                             <div class="col-sm-2">
                                 @if($user->driver->file_id)
-                                    <img src="{{ url('public/driver', $user->driver->file->path) }}" class="img-fluid img-thumbnail">
+                                    <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid thumb-big">
+                                @else
+                                    <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-sm-2">
-                                <a href="{{ url('driver', $user->driver->id) }}" class="text-dark">{{ $user->driver->name }} {{ $user->driver->lastname }}</a>
+                            <h6 class="m-0 col-sm-2 imie nazwisko" data-imie="{{ $user->driver->name }}" data-nazwisko="{{ $user->driver->lastname }}">
+                                <a href="{{ url('kierowca', $user->driver->id) }}" class="text-dark">{{ $user->driver->name }} {{ $user->driver->lastname }}</a>
                                 <br>
                                 <small>{{ $user->email }}</small>
                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editDriver"
@@ -29,6 +34,7 @@
                                     data-img='{"driver_photo":""}'
                                 @endif
                                 >Edytuj</button>
+                                <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>
                             </h6>
                             <div class="col-sm-4">
                                 @if($user->pilots->count())
@@ -77,8 +83,8 @@
                                     @endforeach
                                 @endif
                             </div>
+                            <hr class="col-12 my-2 p-0">
                         </div>
-                        <hr>
                     @endforeach
                 </div>
             </div>
@@ -88,4 +94,12 @@
 @include('admin.modals.editDriver')
 @include('modals.editPilot')
 @include('modals.editCar')
+
+<script>
+    var options = {
+      valueNames: [ { attr: 'data-imie', name: 'imie' }, { attr: 'data-nazwisko', name: 'nazwisko' }, 'klasa' ]
+    };
+
+    var userList = new List('driver-list', options);
+</script>
 @endsection

@@ -51,6 +51,13 @@ class SignController extends Controller
             'klasa' => 'required',
         ]);
 
+        $form = SignForm::where('id', $request->form_id)->first();
+        $max = $form->round->max;
+        $active = true;
+
+        if($form->signs->where('active', 1)->count() >= $max)
+            $active = false;
+
         $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
         
         if($sign)
@@ -85,6 +92,7 @@ class SignController extends Controller
         $sign->turbo = $request->turbo;
         $sign->rwd = $request->rwd;
         $sign->klasa = $request->klasa;
+        $sign->active = $active;
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało wysłane');
@@ -104,6 +112,13 @@ class SignController extends Controller
             'ccm' => 'required|string|max:255',
             'klasa' => 'required',
         ]);
+
+        $form = SignForm::where('id', $request->id)->first();
+        $max = $form->round->max;
+        $active = true;
+
+        if($form->signs->where('active', 1)->count() >= $max)
+            $active = false;
 
         $sign = Sign::where('email', $request->driver_email)->where('form_id', $request->id)->first();
         
@@ -141,6 +156,7 @@ class SignController extends Controller
         $sign->klasa = $request->klasa;
         if($request->advance)
             $sign->advance = floatval(str_replace(',', '.', $request->advance));
+        $sign->active = $active;
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało dodane');
@@ -228,6 +244,12 @@ class SignController extends Controller
         ]);
 
         $sign = Sign::where('id', $request->id)->first();
+        $form = $sign->form;
+        $max = $form->round->max;
+
+        if($form->signs->where('active', 1)->count() >= $max)
+            return back()->with('danger', 'Uczestnik nie został dołączony do listy ponieważ osiągnięty jest limit miejsc.');
+
         $sign->active = true;
         $sign->save();
 

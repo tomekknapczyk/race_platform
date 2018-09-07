@@ -16,7 +16,7 @@
                         @foreach($class as $klasa)
                             <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                             <div class="lista"> 
-                                @foreach($round->endPositions($start_list_id)->where('klasa', $klasa) as $position)
+                                @foreach($endPositions->where('klasa', $klasa) as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <h6 class="m-0 col-5">
                                             {{ $position->sign->name }} {{ $position->sign->lastname }}<br>

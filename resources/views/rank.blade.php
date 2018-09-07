@@ -54,19 +54,19 @@
                                         </h6>
                                         <div class="m-0 col-5 d-flex justify-content-start">
                                             @foreach($race->rounds as $round)
+                                                @php
+                                                    $round_points = $position->sign->round_points($round);
+                                                @endphp
                                                 <h6 class="m-0 col-2">
-                                                    <small>{{ $position->sign->round_points($round) }} pkt.</small>
+                                                    <small>{{ $round_points }} pkt.</small>
                                                 </h6>
                                             @endforeach
                                         </div>
-                                        @php
-                                            $race_points = $position->sign->race_points($race);
-                                        @endphp
                                         <h6 class="m-0 col text-right">
-                                            {{ $race_points }} pkt.
+                                            {{ $position->rp }} pkt.
                                         </h6>
                                         <h6 class="m-0 col text-center">
-                                            @if($before_points != $race_points)
+                                            @if($before_points != $position->rp)
                                                 @php
                                                     $rank++;
                                                 @endphp
@@ -75,7 +75,7 @@
                                             {{ $rank }}
 
                                             @php
-                                                $before_points = $race_points;
+                                                $before_points = $position->rp;
                                             @endphp
                                         </h6>
                                     </div>

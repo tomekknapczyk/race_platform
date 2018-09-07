@@ -32,11 +32,11 @@ class Round extends Model
     {
         $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
 
-        $sorted = $signs->sortByDesc(function($sign){
-            return $sign->race_points($this->race);
-        });
+        // $sorted = $signs->sortByDesc(function($sign){
+        //     return $sign->race_points($this->race);
+        // });
 
-        return $sorted;
+        return $signs;
     }
 
     public function canceled()
@@ -46,12 +46,12 @@ class Round extends Model
 
     public function startPositions($start_list_id)
     {
-        return StartListItem::where('start_list_id', $start_list_id)->orderBy('position', 'desc')->get();
+        return StartListItem::where('start_list_id', $start_list_id)->orderBy('position', 'desc')->with('sign')->get();
     }
 
     public function endPositions($start_list_id)
     {
-        return StartListItem::where('start_list_id', $start_list_id)->orderBy('points', 'desc')->get();
+        return StartListItem::where('start_list_id', $start_list_id)->orderBy('points', 'desc')->with('sign')->get();
     }
 
     public function podium($start_list_id, $klasa)
