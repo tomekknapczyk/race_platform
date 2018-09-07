@@ -9,10 +9,10 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="driver"> 
                         <a href="{{ url('kierowca', $user->driver->id) }}">
-                        @if($user->driver->file_id)
-                            <img src="{{ url('public/driver', $user->driver->file->path) }}" class="img-fluid">
+                        @if($user->driver && $user->driver->file_id)
+                            <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid">
                         @else
-                            <img src="{{ url('images/driver.png') }}" class="img-fluid">
+                            <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                         @endif
                         <h6 class="my-3">
                                 @if($user->driver->show_name){{ $user->driver->name }}@endif
