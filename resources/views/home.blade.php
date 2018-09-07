@@ -7,12 +7,12 @@
         <div class="counter d-flex align-items-center">
             @if($closest)
                 @if($closest->form->active)
-                    <p>Do rajdu <span class="yellow">{{ $closest->race->name }} : {{ $closest->name }}</span> pozostało</p>
+                    <p>Do rajdu <span class="yellow">{{ $closest->name }}</span> pozostało</p>
                     <div class="countdown d-flex align-items-center justify-content-around">
                         <span id="counter" data-deadline="{{ $closest->date->format('Y') }}-{{ $closest->date->format('m') }}-{{ $closest->date->format('d') }}T{{ $closest->date->format('H') }}:{{ $closest->date->format('i') }}:00"></span>
                     </div>
                 @else
-                    <p>Zapisy na <span class="yellow">{{ $closest->race->name }} : {{ $closest->name }}</span> ruszają za</p>
+                    <p>Zapisy na <span class="yellow">{{ $closest->name }}</span> ruszają za</p>
                     <div class="countdown d-flex align-items-center justify-content-around">
                         <span id="counter" data-deadline="{{ $closest->sign_date->format('Y') }}-{{ $closest->sign_date->format('m') }}-{{ $closest->sign_date->format('d') }}T{{ $closest->sign_date->format('H') }}:{{ $closest->sign_date->format('i') }}:00"></span>
                     </div>
