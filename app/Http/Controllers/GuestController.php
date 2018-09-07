@@ -16,13 +16,14 @@ class GuestController extends Controller
             $promoted = $partners->where('promoted',1)->random();
 
         $today = date('Y-m-d H:i:s');
-        $closest = \App\Round::where('date', '>', $today)->with('form', 'race', 'form.signs')->orderBy('date', 'asc')->first();
 
+        $closest = \App\Round::where('date', '>', $today)->with('form', 'race', 'form.signs')->orderBy('date', 'asc')->first();
         $last = \App\Round::where('date', '<', $today)->with('race')->orderBy('date', 'desc')->first();
+        
         $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
         $podium = null;
         $random = null;
-        if($last){
+        if($last && $last->startList){
             $start_list_id = $last->startList->id;
             $klasy = $last->klasy($start_list_id);
             $random = $klasy->random();
