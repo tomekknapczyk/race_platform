@@ -88,7 +88,7 @@
                         <img src="{{ url('public/post', $post->file->path) }}" class="img-fluid">
                     @endif
                     <div class="news-body">
-                        <p>{{ str_limit(strip_tags($post->text), 100) }}</p>
+                        <p>{!! str_limit(strip_tags($post->text, '<p><span><br /><br><strong>'), 100) !!}</p>
 
                         <a href="{{ url('aktualnosc', $post->id) }}"><span>więcej</span></a>
 
