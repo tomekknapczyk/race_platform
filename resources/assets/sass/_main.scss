@@ -652,7 +652,8 @@ body{
 
 @media (min-width: 1199px) {
   .modal-xl {
-    max-width: 1150px;
+    max-width: 80vh;
+    max-height: 80vh;
   }
 }
 
