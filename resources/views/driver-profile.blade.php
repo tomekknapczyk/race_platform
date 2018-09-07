@@ -14,7 +14,7 @@
                         <div class="row">
 
                             <div class="col-sm-4">
-                                @if(auth()->user()->driver->file_id)
+                                @if(auth()->user()->driver && auth()->user()->driver->file_id)
                                     <img src="{{ url('public/driver', auth()->user()->driver->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
                                 
@@ -50,7 +50,7 @@
                                 <div class="form-group mt-3">
                                     <div class="checkbox">
                                         <label for="showName">
-                                            <input type="checkbox" name="showName" id="showName" @if(auth()->user()->driver->show_name) checked="checked" @endif>
+                                            <input type="checkbox" name="showName" id="showName" @if(optional(auth()->user()->driver)->show_name) checked="checked" @endif>
                                             Pokazuj imie
                                         </label>
                                         @if ($errors->has('showName'))
@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label for="showLastname">
-                                            <input type="checkbox" name="showLastname" id="showLastname" @if(auth()->user()->driver->show_lastname) checked="checked" @endif>
+                                            <input type="checkbox" name="showLastname" id="showLastname" @if(optional(auth()->user()->driver)->show_lastname) checked="checked" @endif>
                                             Pokazuj nazwisko
                                         </label>
                                         @if ($errors->has('showLastname'))
@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label for="showEmail">
-                                            <input type="checkbox" name="showEmail" id="showEmail" @if(auth()->user()->driver->show_email) checked="checked" @endif>
+                                            <input type="checkbox" name="showEmail" id="showEmail" @if(optional(auth()->user()->driver)->show_email) checked="checked" @endif>
                                             Pokazuj adres e-mail
                                         </label>
                                         @if ($errors->has('showEmail'))

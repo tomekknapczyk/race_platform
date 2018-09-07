@@ -31,7 +31,7 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <div id="app">
-        @if($banner->active)
+        @if($banner && $banner->active)
             <div class="text-center p-2 bg-danger">
                 <strong class="text-white">{{ $banner->value }}</strong>
             </div>

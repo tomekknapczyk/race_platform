@@ -16,9 +16,9 @@
                             <div class="row shadow p-3 bg-white">
                                 <div class="col-sm-3">
                                     @if($user->driver->file_id)
-                                        <img src="{{ url('public/driver', $user->driver->file->path) }}" class="img-fluid">
+                                        <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid">
                                     @else
-                                        <img src="{{ url('images/driver.png') }}" class="img-fluid">
+                                        <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                                     @endif
                                 </div>
                                 <div class="col-sm-9">
@@ -45,9 +45,9 @@
                                                     <div class="d-flex justify-content-start align-items-center flex-wrap py-2">
                                                         <div class="col-sm-5">
                                                             @if($pilot->file_id)
-                                                                <img src="{{ url('public/pilot', $pilot->file->path) }}" class="img-fluid">
+                                                                <img src="{{ url('/public/pilot', $pilot->file->path) }}" class="img-fluid">
                                                             @else
-                                                                <img src="{{ url('images/driver.png') }}" class="img-fluid">
+                                                                <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                                                             @endif
                                                         </div>
                                                         <div class="col-sm-7">
@@ -74,9 +74,9 @@
                                                     <div class="d-flex justify-content-start align-items-center flex-wrap py-2">
                                                         <div class="col-sm-5">
                                                             @if($car->file_id)
-                                                                <img src="{{ url('public/cars', $car->file->path) }}" class="img-fluid">
+                                                                <img src="{{ url('/public/car', $car->file->path) }}" class="img-fluid">
                                                             @else
-                                                                <img src="{{ url('images/car.png') }}" class="img-fluid">
+                                                                <img src="{{ url('/images/car.png') }}" class="img-fluid">
                                                             @endif
                                                         </div>
                                                         <div class="col-sm-7">

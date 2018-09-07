@@ -24,7 +24,7 @@
                 <a href="{{ url('dashboard') }}" class="sign-btn"><span>Zapisz się</span></a>
                 <span class="sign-location">na rajd</span>
             </div>
-            @if($closest->form->visible)
+            @if($closest && $closest->form->visible)
                 <div class="d-flex align-items-center justify-content-around">
                     <span>Lista zgłoszeń</span>
                     <a href="{{ url('/sign-list', $closest->id) }}" class="sign-btn"><span>Zobacz</span></a>
@@ -41,6 +41,7 @@
         @endif
     </div>
 </div>
+@if($podium)
 <div class="drivers-container">
     @if($promoted_race && $promoted_race->value == 'race')
         <h3>Klasyfikacja roczna</h3>
@@ -76,6 +77,7 @@
         @endif
     </div>
 </div>
+@endif
 <div class="news-container">
     <h3>News</h3>
     <div class="row justify-content-start">

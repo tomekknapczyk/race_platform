@@ -4,14 +4,14 @@
         <div class="d-flex align-items-start justify-content-start organizatorzy">
             <div>
                 <h4>Organizatorzy</h4>
-                @if($first_contact)
+                @if($first_contact && $first_contact['name'])
                     <div class="contact">
                         <strong>{{ $first_contact['name']->value }}</strong>
                         <a href="tel:{{ $first_contact['tel']->value }}">{{ $first_contact['tel']->value }}</a>
                     </div>
                 @endif
 
-                @if($second_contact)
+                @if($second_contact && $second_contact['name'])
                     <div class="contact">
                         <strong>{{ $second_contact['name']->value }}</strong>
                         <a href="tel:{{ $second_contact['tel']->value }}">{{ $second_contact['tel']->value }}</a>

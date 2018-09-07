@@ -12,29 +12,33 @@ class GuestController extends Controller
         $promoted = null;
 
         $partners = \App\Partner::where('promoted',1)->get();
-        if($partners)
+        if($partners->count())
             $promoted = $partners->where('promoted',1)->random();
 
         $today = date('Y-m-d H:i:s');
         $closest = \App\Round::where('date', '>', $today)->with('form', 'race', 'form.signs')->orderBy('date', 'asc')->first();
 
         $last = \App\Round::where('date', '<', $today)->with('race')->orderBy('date', 'desc')->first();
-        $start_list_id = $last->startList->id;
-        $klasy = $last->klasy($start_list_id);
-        $random = $klasy->random();
-
         $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
-        if($promoted_race){
-            if($promoted_race->value == 'race'){
-                $klasy = $last->race->klasy();
-                $random = array_rand($klasy);
-                $podium = $last->race->klasa_rank($random);
+        $podium = null;
+        $random = null;
+        if($last){
+            $start_list_id = $last->startList->id;
+            $klasy = $last->klasy($start_list_id);
+            $random = $klasy->random();
+
+            if($promoted_race){
+                if($promoted_race->value == 'race'){
+                    $klasy = $last->race->klasy();
+                    $random = array_rand($klasy);
+                    $podium = $last->race->klasa_rank($random);
+                }
+                else
+                    $podium = $last->podium($start_list_id, $random);
             }
             else
                 $podium = $last->podium($start_list_id, $random);
         }
-        else
-            $podium = $last->podium($start_list_id, $random);
 
         return view('home', compact('news', 'promoted', 'closest', 'podium', 'random', 'promoted_race', 'last'));
     }
