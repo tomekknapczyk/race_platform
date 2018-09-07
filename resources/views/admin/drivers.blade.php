@@ -21,7 +21,7 @@
                                     <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-sm-2 imie nazwisko" data-imie="{{ $user->driver->name }}" data-nazwisko="{{ $user->driver->lastname }}">
+                            <h6 class="m-0 col-sm-3 imie nazwisko" data-imie="{{ $user->driver->name }}" data-nazwisko="{{ $user->driver->lastname }}">
                                 <a href="{{ url('kierowca', $user->driver->id) }}" class="text-dark">{{ $user->driver->name }} {{ $user->driver->lastname }}</a>
                                 <br>
                                 <small>{{ $user->email }}</small>
@@ -60,7 +60,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 @if($user->cars->count())
                                     <h6 class="text-center">Samochody</h6>
                                     @foreach($user->cars as $car)

@@ -13,13 +13,13 @@
                         @csrf
                         <div class="form-group">
                             <div class="form-check">
-                                <input type="radio" name="promoted" value="race" id="race" class="form-check-input" @if($promoted_race->value == 'race') checked="" @endif>   
+                                <input type="radio" name="promoted" value="race" id="race" class="form-check-input" @if(optional($promoted_race)->value == 'race') checked="" @endif>   
                                 <label class="form-check-label" for="race">
                                     Klasyfikacja roczna
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" name="promoted" value="round" id="round" class="form-check-input" @if($promoted_race->value == 'round') checked="" @endif>
+                                <input type="radio" name="promoted" value="round" id="round" class="form-check-input" @if(optional($promoted_race)->value == 'round') checked="" @endif>
                                 <label class="form-check-label" for="round">
                                     Ostatnia runda
                                 </label>
