@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('sign') }}">
+                <form method="POST" action="{{ route('sign') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="form_id" id="form_id">
                     <div class="row justify-content-center align-items-center">
@@ -239,6 +239,25 @@
                                 @if ($errors->has('klasa'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('klasa') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-8 offset-md-2 text-center p-3">
+                            <h3>NUMER KONTA DO WPŁATY</h3>
+                            <h3 class="font-weight-bold">ING 92 1050 1070 1000 0091 2690 2668</h3>
+                            <h3>W TYTULE PRZELEWU PROSZĘ PODAĆ IMIĘ I NAZWISKO KIEROWCY</h3>
+
+                            <div class="form-group">
+                                <label for="payment">Potwierdzenie przelewu</label>
+                                <input type="file" name="payment" class="form-control">
+                                <small class="form-text text-muted">Dozwolony format pliku: .pdf, .jpeg, .png, .jpg. Maksymalny rozmiar pliku 3MB</small>
+                                @if ($errors->has('payment'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('payment') }}</strong>
                                     </span>
                                 @endif
                             </div>

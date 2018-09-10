@@ -9,10 +9,10 @@
                     <h3>{{ $round->race->name }}</a> : {{ $round->name }} - Lista zgłoszeń</h3>
                 </div>
                 <div class="card-body">
-                    @foreach($class as $key => $klasa)
-                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $key }} ::..</h2>
+                    @foreach($klasy as $klasa)
+                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                         <div class="lista">
-                            @foreach($klasa as $sign)
+                            @foreach($class[$klasa] as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
                                     <h6 class="m-0 col-1">
                                         {{ $loop->iteration }}.

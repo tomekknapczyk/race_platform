@@ -58,7 +58,16 @@ class HomeController extends Controller
 
         if($round && $round->form->visible){
             $signs = $round->signs()->load('user.driver.file', 'car.file');
-            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
+            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+
+            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+            usort($klasy, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
+
             $class = [];
 
             foreach ($signs as $key => $sign) {

@@ -32,6 +32,8 @@ class GuestController extends Controller
                 if($promoted_race->value == 'race'){
                     $klasy = $last->race->klasy();
                     $random = array_rand($klasy);
+                    $random = $klasy[$random];
+
                     $podium = $last->race->klasa_rank($random);
                 }
                 else
@@ -50,7 +52,15 @@ class GuestController extends Controller
         
         if($round && $round->startList){
             $start_list_id = $round->startList->id;
-            $klasy = $round->klasy($start_list_id);
+            $klasy = $round->klasy($start_list_id)->toArray();
+
+            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+            usort($klasy, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
 
             return view('podium', compact('round', 'klasy', 'start_list_id'));
         }
@@ -140,7 +150,15 @@ class GuestController extends Controller
             $start_list_id = $round->startList->id;
             $endPositions = $round->endPositions($start_list_id)->load('user.driver.file', 'sign.car.file');
             $is_someone = $endPositions->count();
-            $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa');
+            $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+
+            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+            usort($class, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
             
             return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions'));
         }

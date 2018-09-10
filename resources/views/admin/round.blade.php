@@ -39,7 +39,7 @@
                 </div>
                 <div class="card-body">
                     @foreach($klasy as $key => $klasa)
-                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $key }} ::..</h2>
+                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                         <div class="row justify-content-between align-items-center flex-wrap">
                             <h6 class="m-0 col-1">
                                 LP
@@ -63,7 +63,7 @@
                         </div> 
                         <hr>
                         <div class="sortable_items lista">
-                            @foreach($signs->where('klasa', $key) as $sign)
+                            @foreach($signs->where('klasa', $klasa) as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2" data-id={{ $sign->id }}>
                                     <h5 class="m-0 col-1">
                                         {{ $loop->iteration }}
@@ -83,6 +83,9 @@
                                         {{ $sign->remaining($round->price) }} zł
                                     </h5>
                                     <h5 class="m-0 col-3 text-right">
+                                        @if($sign->payment)
+                                            <a href="{{ url('public/'.$sign->payment) }}" class="btn btn-sm btn-success" target="_blank">Potwierdzenie przelewu</a>
+                                        @endif
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign->id }}"
                                                 data-text=
@@ -98,9 +101,9 @@
                             @endforeach
                         </div>
 
-                        @if($canceled->where('klasa', $key)->count())
-                            <h5 class="text-center my-3 text-uppercase text-danger">..:: lista rezerwowa {{ $key }} ::..</h5>
-                            @foreach($canceled->where('klasa', $key) as $sign)
+                        @if($canceled->where('klasa', $klasa)->count())
+                            <h5 class="text-center my-3 text-uppercase text-danger">..:: lista rezerwowa {{ $klasa }} ::..</h5>
+                            @foreach($canceled->where('klasa', $klasa) as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap">
                                     <h6 class="m-0 col-3">
                                         {{ $sign->name }} {{ $sign->lastname }}<br>

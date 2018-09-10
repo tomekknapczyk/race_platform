@@ -13938,7 +13938,10 @@ function initializeClock(id) {
     var clock = $('#' + id);
     var end = clock.data('deadline');
 
-    countdown.setLabels(' | sek.| min.| godz.| dzień', ' | sek.| min.| godz.| dni', ' ', ' ', ' ');
+    countdown.setLabels(' | sek.| min.| godz.| dzień', ' | sek.| min.| godz.| dni', ' ', ' ', ' ', function (n) {
+        var formattedNumber = ("0" + n).slice(-2);
+        return formattedNumber;
+    });
     var timeinterval = setInterval(function () {
         var time = countdown(new Date(end), null, countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS, 3);
         if (time.value < 0) clock.html(time.toString());else clock.html("00 min. 00 sek.");

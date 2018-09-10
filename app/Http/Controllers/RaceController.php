@@ -156,7 +156,17 @@ class RaceController extends Controller
 
         if($round){
             $signs = $round->signs();
-            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
+            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+
+            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+            usort($klasy, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
+
+
             $canceled = $round->canceled();
 
             return view('admin.round', compact('signs', 'klasy', 'round', 'canceled'));
@@ -176,7 +186,15 @@ class RaceController extends Controller
             $start_list_id = $round->startList->id;
             $startPositions = $round->startPositions($start_list_id);
             $is_someone = $startPositions->count();
-            $class = $startPositions->sortBy('klasa')->pluck('klasa', 'klasa');
+            $class = $startPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+
+            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+            usort($class, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
 
             return view('admin.list', compact('round','is_someone', 'class', 'start_list_id', 'startPositions'));
         }

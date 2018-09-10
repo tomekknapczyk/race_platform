@@ -30,7 +30,15 @@ class Race extends Model
             }
         }
 
-        return array_sort($klasy);
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+        usort($klasy, function ($a, $b) use ($order) {
+          $pos_a = array_search($a, $order);
+          $pos_b = array_search($b, $order);
+          return $pos_a - $pos_b;
+        });
+
+        return $klasy;
     }
 
     public function klasa_rank($klasa)

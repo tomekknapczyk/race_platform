@@ -49,6 +49,7 @@ class SignController extends Controller
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
             'klasa' => 'required',
+            'payment' => 'nullable|file|mimes:jpeg,png,pdf,jpg|max:3000',
         ]);
 
         $form = SignForm::where('id', $request->form_id)->first();
@@ -93,6 +94,12 @@ class SignController extends Controller
         $sign->rwd = $request->rwd;
         $sign->klasa = $request->klasa;
         $sign->active = $active;
+
+        if(isset($request->payment)){
+            $path = $request->file('payment')->store('payments');
+            $sign->payment = $path;
+        }
+        
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało wysłane');
