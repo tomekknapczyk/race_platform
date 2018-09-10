@@ -84,7 +84,7 @@
                                     </h5>
                                     <h5 class="m-0 col-3 text-right">
                                         @if($sign->payment)
-                                            <a href="{{ url('public/'.$sign->payment) }}" class="btn btn-sm btn-success" target="_blank">Potwierdzenie przelewu</a>
+                                            <a href="{{ url($sign->payment) }}" class="btn btn-sm btn-success" target="_blank">Potwierdzenie przelewu</a>
                                         @endif
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-info editSign" data-toggle="modal" data-target="#editSign" data-id="{{ $sign->id }}"

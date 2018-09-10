@@ -96,7 +96,7 @@ class SignController extends Controller
         $sign->active = $active;
 
         if(isset($request->payment)){
-            $path = $request->file('payment')->store('payments');
+            $path = $request->file('payment')->store('public/payments');
             $sign->payment = $path;
         }
         
