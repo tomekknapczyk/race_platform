@@ -89,8 +89,9 @@
                                     @if($list->round->file_id)
                                         <a href="{{ url('public/terms', $list->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
                                     @endif
-
-                                    <a href="{{ url('register_form', $list->round->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
+                                    @if(auth()->user()->signed($list->id))
+                                        <a href="{{ url('register_form', $list->round->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
+                                    @endif
                                 </div>
                                 <hr class="col-12 p-0 my-2">
                             </div>
