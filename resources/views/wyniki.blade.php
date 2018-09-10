@@ -16,10 +16,10 @@
                                 <a href="{{ url('rank', $race->id) }}" class="btn btn-success">Klasyfikacja Roczna</a>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-start align-items-center flex-wrap">
+                        <div>
                             @foreach($race->rounds as $round)
                                 @if($round->startList)
-                                    <a href="{{ url('runda', $round->id) }}" class="btn btn-sm">{{ $round->name }}</a>
+                                    <p class="h5 py-1"><a href="{{ url('runda', $round->id) }}">{{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif</a></p>
                                 @endif
                             @endforeach
                         </div>

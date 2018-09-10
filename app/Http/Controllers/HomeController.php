@@ -29,12 +29,12 @@ class HomeController extends Controller
         
         $forms = \App\SignForm::where('active', 1)->get();
 
-        // $lists = \App\StartList::latest()->get();
+        $lists = \App\SignForm::where('visible', 1)->with('round.file', 'round.race')->get();
 
         $races = \App\Race::latest()->get();
 
 
-        return view('dashboard', compact('forms', 'races', 'closest'));
+        return view('dashboard', compact('forms', 'races', 'closest', 'lists'));
     }
 
     public function startList($id)
@@ -57,17 +57,12 @@ class HomeController extends Controller
         $round = \App\Round::where('id', $id)->first();
 
         if($round && $round->form->visible){
-            $signs = $round->signs()->load('user.driver.file');
+            $signs = $round->signs()->load('user.driver.file', 'car.file');
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa');
-            $max = $round->max;
-            $drivers = 0;
             $class = [];
 
             foreach ($signs as $key => $sign) {
-                $drivers++;
-
-                if($drivers <= $max)
-                    $class[$sign->klasa][$key]['sign'] = $sign;
+                $class[$sign->klasa][$key]['sign'] = $sign;
             }
 
             return view('signList', compact('round', 'klasy', 'class'));
@@ -107,6 +102,9 @@ class HomeController extends Controller
         ]);
 
         $car = \App\Car::where('id', $request->id)->first();
+
+        if($car->turbo && $car->rwd)
+            return '<option value="k4">K4</option><option value="k7">K7</option>';
 
         if($car->turbo)
             return '<option value="k4">K4</option>';
@@ -181,6 +179,29 @@ class HomeController extends Controller
         $banner->save();
 
         return back()->with('success', 'Komunikat został zapisany');
+    }
+
+    public function terms()
+    {
+        $terms = \App\SiteInfo::where('name', 'terms')->first();
+
+        return view('admin.terms', compact('terms'));
+    }
+
+    public function saveTerms(Request $request)
+    {
+        $terms = \App\SiteInfo::where('name', 'terms')->first();
+
+        if(!$terms){
+            $terms = new \App\SiteInfo;
+            $terms->name = 'terms';
+        }
+
+        $terms->value = $request->terms;
+
+        $terms->save();
+
+        return back()->with('success', 'Regulamin został zapisany');
     }
 
     public function edit_promoted()

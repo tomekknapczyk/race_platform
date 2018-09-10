@@ -13717,6 +13717,7 @@ $(document).on('click', '.editBtn', function () {
     var data_text = $(this).data('text');
     var data_check = $(this).data('check');
     var data_img = $(this).data('img');
+    var data_tinymce = $(this).data('tinymce');
 
     $.each(data_text, function (key, value) {
         $('#edit_' + key).val(value);
@@ -13732,6 +13733,10 @@ $(document).on('click', '.editBtn', function () {
 
     $.each(data_img, function (key, value) {
         $('#edit_' + key).attr('src', value);
+    });
+
+    $.each(data_tinymce, function (key, value) {
+        tinyMCE.activeEditor.setContent(value);
     });
 });
 
@@ -13893,7 +13898,7 @@ $(document).ready(function () {
     var user_config = {
         selector: "textarea.tinymce_user",
         menubar: false,
-        statusbar: false,
+        statusbar: true,
         plugins: ["advlist lists"],
         toolbar: "bold italic | alignleft aligncenter | bullist numlist"
     };
@@ -13935,8 +13940,8 @@ function initializeClock(id) {
 
     countdown.setLabels(' | sek.| min.| godz.| dzień', ' | sek.| min.| godz.| dni', ' ', ' ', ' ');
     var timeinterval = setInterval(function () {
-        var time = countdown(new Date(end), null, countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS, 3).toString();
-        clock.html(time);
+        var time = countdown(new Date(end), null, countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS, 3);
+        if (time.value < 0) clock.html(time.toString());else clock.html("00 min. 00 sek.");
     }, 1000);
 }
 

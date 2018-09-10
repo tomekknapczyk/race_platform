@@ -102,8 +102,8 @@
                                         @foreach($user->races as $race)
                                         <div class="row d-flex align-items-center justify-content-between flex-wrap m-0 py-3">
                                             <h6 class="col-sm-4 m-0">
-                                                {{ $race->startList->round->race->name }}<br>
-                                                <small>{{ $race->startList->round->name }}</small>
+                                                {{ $race->startList->round->name }} @if($race->startList->round->sub_name) - {{ $race->startList->round->sub_name }}@endif<br>
+                                                <small>{{ $race->startList->round->race->name }}</small></h5>
                                             </h6>
                                             <h6 class="col-sm-3 m-0">
                                                 {{ $race->sign->name }} {{ $race->sign->lastname }}<br>
@@ -114,7 +114,7 @@
                                                 <small>{{ $race->sign->ccm }}ccm</small>
                                             </h6>
                                             <h6 class="col-sm-2 m-0">
-                                                Miejsce: {{ $race->position }}
+                                                Miejsce: {{ $race->rank() }}
                                             </h6>
                                         </div>
                                         @endforeach

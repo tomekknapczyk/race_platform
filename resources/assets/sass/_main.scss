@@ -169,7 +169,7 @@ img.thumb-big{
                 background: -webkit-linear-gradient(left, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* Chrome10-25,Safari5.1-6 */
                 background: linear-gradient(to right, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb400', endColorstr='#ffb400',GradientType=1 ); /* IE6-9 */
-                transform: skew(-30deg);
+                transform: skew(-27deg);
             }
 
             &:after{
@@ -180,7 +180,7 @@ img.thumb-big{
                 width: 0px;
                 height: 31px;
                 background: #d60400;
-                transform: skew(-30deg);
+                transform: skew(-27deg);
                 transition: all .3s ease;
             }
 
@@ -262,7 +262,7 @@ img.thumb-big{
                     background: -webkit-linear-gradient(left, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* Chrome10-25,Safari5.1-6 */
                     background: linear-gradient(to right, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
                     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb400', endColorstr='#ffb400',GradientType=1 ); /* IE6-9 */
-                    transform: skew(-30deg);
+                    transform: skew(-27deg);
                 }
             }
 
@@ -328,10 +328,10 @@ img.thumb-big{
         width: 300px;
         height: 100px;
         background: #FFB400;
-        transform: rotate(-55deg);
+        transform: rotate(-63deg);
         position: absolute;
-        top: -40px;
-        left: -140px;
+        top: -50px;
+        left: -130px;
     }
 
     &:after{
@@ -339,10 +339,10 @@ img.thumb-big{
         width: 300px;
         height: 100px;
         background: #FFB400;
-        transform: rotate(-55deg);
+        transform: rotate(-63deg);
         position: absolute;
-        bottom: -40px;
-        right: -140px;
+        bottom: -50px;
+        right: -130px;
     }
 
     .timer{
@@ -354,12 +354,38 @@ img.thumb-big{
     }
 
     .counter{
-        background: url(img/counter.png) center bottom no-repeat;
+        // background: url(img/counter.png) center bottom no-repeat;
         height: 150px;
         width: 623px;
         flex-flow: wrap;
         padding-left: 50px;
         margin-bottom: 10px;
+        position: relative;
+        overflow: hidden;
+
+        &:before{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25px;
+            width: 80%;
+            height: 70px;
+            background: #ffc400;
+            transform: skew(-27deg);
+            z-index: 1;
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: 40%;
+            right: -5%;
+            width: 44%;
+            height: 92px;
+            background: #ffc400;
+            transform: skew(-27deg) rotate(90deg);
+            z-index: 2;
+        }
 
         p{
             color: #fff;
@@ -371,8 +397,9 @@ img.thumb-big{
         }
 
         .countdown{
-            text-align: center;
-            width: 53%;
+            width: 60%;
+            position: relative;
+            z-index: 3;
 
             span{
                 font-size: 26px;
@@ -411,7 +438,7 @@ img.thumb-big{
                 background: -webkit-linear-gradient(left, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* Chrome10-25,Safari5.1-6 */
                 background: linear-gradient(to right, #ffb400 0%,#ffcc00 50%,#ffb400 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb400', endColorstr='#ffb400',GradientType=1 ); /* IE6-9 */
-                transform: skew(-30deg);
+                transform: skew(-27deg);
             }
 
             &:after{
@@ -422,7 +449,7 @@ img.thumb-big{
                 width: 0px;
                 height: 70px;
                 background: #d60400;
-                transform: skew(-30deg);
+                transform: skew(-27deg);
                 transition: all .3s ease;
             }
 

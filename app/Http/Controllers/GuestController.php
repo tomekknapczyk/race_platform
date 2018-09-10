@@ -101,12 +101,20 @@ class GuestController extends Controller
         return view('wyniki', compact('races'));
     }
 
+    public function regulamin()
+    {
+        $regulamin = \App\SiteInfo::where('name', 'regulamin')->first();
+
+        return view('regulamin', compact('regulamin'));
+    }
+
     public function dokumenty()
     {
         $docs = \App\Docs::get();
         $regulaminy = \App\Round::where('file_id', '!=', null)->get();
+        $forms = \App\SignForm::where('visible', 1)->get();
 
-        return view('dokumenty', compact('docs', 'regulaminy'));
+        return view('dokumenty', compact('docs', 'regulaminy', 'forms'));
     }
 
     public function live_wyniki()
@@ -130,7 +138,7 @@ class GuestController extends Controller
 
         if($round){
             $start_list_id = $round->startList->id;
-            $endPositions = $round->endPositions($start_list_id);
+            $endPositions = $round->endPositions($start_list_id)->load('user.driver.file', 'sign.car.file');
             $is_someone = $endPositions->count();
             $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa');
             

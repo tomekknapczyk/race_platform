@@ -26,10 +26,24 @@
                                             @endif
                                         </div>
                                         <h6 class="m-0 col-5 text-left">
+                                            @if($position->user)
+                                                <a href="{{ url('kierowca', $position->user->id) }}">
+                                                    {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
+                                                </a>
+                                            @else
+                                                {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
+                                            @endif
                                             {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
                                             <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
                                         </h6>
-                                        <h6 class="m-0 col-5">
+                                        <div class="col-1">
+                                            @if($position->sign->car && $position->sign->car->file_id)
+                                                <img src="{{ url('public/car', $position->sign->car->file->path) }}" class="img-fluid thumb">
+                                            @else
+                                                <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
+                                            @endif
+                                        </div>
+                                        <h6 class="m-0 col-4">
                                             {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
                                             <small>{{ $position->sign->rok }}r. @if($position->sign->turbo) / <strong>Turbo</strong> @endif @if($position->sign->rwd) / <strong>RWD</strong> @endif</small>
                                         </h6>

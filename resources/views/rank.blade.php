@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card border-dark">
                 <div class="card-header bg-yellow text-center">
-                    <h3>Ranking {{ $race->name }}</h3>
+                    <h3>Klasyfikacja Generalna: {{ $race->name }}</h3>
                 </div>
                 <div class="card-body">
                     @foreach($klasy as $klasa)
@@ -47,10 +47,16 @@
                                             {{ $loop->iteration }}.
                                         </h6>
                                         <h6 class="m-0 col-2 text-left">
-                                            {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
+                                            @if($position->user)
+                                                <a href="{{ url('kierowca', $position->user->id) }}">
+                                                    {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                                </a>
+                                            @else
+                                                {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                            @endif
                                         </h6>
                                         <h6 class="m-0 col-2 text-left">
-                                            {{ $position->sign->marka }} {{ $position->sign->model }}<br>
+                                            {{ $position->sign->marka }} {{ $position->sign->model }}
                                         </h6>
                                         <div class="m-0 col-5 d-flex justify-content-start">
                                             @foreach($race->rounds as $round)

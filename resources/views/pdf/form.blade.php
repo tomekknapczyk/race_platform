@@ -22,7 +22,9 @@
     <div class="section">
         <div style="width:60%;float:left;">
             <h3>
-                {{ $form->round->race->name }}<br>{{ $form->round->name }}
+                {{ $form->round->race->name }}<br>
+                @if($form->round->sub_name){{ $form->round->sub_name }}<br>@endif
+                {{ $form->round->name }}
             </h3>
         </div>
 

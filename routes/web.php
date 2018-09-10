@@ -26,6 +26,7 @@ Route::get('runda/{id}', 'GuestController@runda');
 Route::get('dokumenty', 'GuestController@dokumenty');
 Route::get('podium/{id}', 'GuestController@podium');
 Route::get('klasyfikacja-roczna/{id}', 'GuestController@roczna');
+Route::get('regulamin', 'GuestController@regulamin');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
@@ -87,6 +88,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveBanner', 'HomeController@saveBanner')->name('saveBanner');
     Route::get('contactInfo', 'HomeController@contactInfo')->name('contactInfo');
     Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
+    Route::get('edycja_regulaminu', 'HomeController@terms')->name('edit_terms');
+    Route::post('saveTerms', 'HomeController@saveTerms')->name('saveTerms');
 
     Route::get('edit_live_video', 'HomeController@edit_live_video')->name('edit_live_video');
     Route::post('save_live_video', 'HomeController@save_live_video')->name('save_live_video');

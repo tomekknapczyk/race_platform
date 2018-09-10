@@ -13,11 +13,21 @@
                     <input type="hidden" name="id" id="edit_id">
                     
                     <div class="form-group">
-                        <label for="name">Nazwa</label>
+                        <label for="name">Runda numer</label>
                         <input type="text" name="name" id="edit_name" class="form-control" required=""> 
                         @if ($errors->has('name'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sub_name">Nazwa dodatkowa</label>
+                        <input type="text" name="sub_name" id="edit_sub_name" class="form-control"> 
+                        @if ($errors->has('sub_name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('sub_name') }}</strong>
                             </span>
                         @endif
                     </div>

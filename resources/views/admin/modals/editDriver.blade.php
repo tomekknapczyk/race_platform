@@ -171,6 +171,11 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <div class="form-group">
+                                <label for="edit_driver_text">O mnie:</label>
+                                <textarea name="text" id="edit_driver_text" class="tinymce_user" rows="7"></textarea>
+                            </div>
                         </div>
                     </div>
                         

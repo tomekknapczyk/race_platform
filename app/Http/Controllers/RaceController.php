@@ -82,6 +82,7 @@ class RaceController extends Controller
         }
 
         $round->name = $request->name;
+        $round->sub_name = $request->sub_name;
         $round->date = str_replace('T', ' ', $request->date).":00";
         $round->sign_date = str_replace('T', ' ', $request->sign_date).":00";
         $round->max = $request->max;

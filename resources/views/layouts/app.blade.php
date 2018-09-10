@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rajdowy Puchar Śląska" />
+    <meta property="og:image" content="/images/logo.png" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -97,6 +100,7 @@
                                             <a class="dropdown-item" href="{{ route('edit_live_video') }}">Video Live</a>
                                             <a class="dropdown-item" href="{{ route('edit_live_wyniki') }}">Wyniki Live</a>
                                             <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
+                                            <a class="dropdown-item" href="{{ route('edit_terms') }}">Regulamin</a>
                                         </div>
                                     </li>
                                     <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>

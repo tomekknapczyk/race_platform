@@ -12,12 +12,12 @@
                         @if($rounds->count())
                             @foreach($rounds as $round)
                             <div class="row justify-content-between align-items-center flex-wrap py-2">
-                                <h5 class="col-sm-5">
-                                    {{ $round->name }}<br>
+                                <h5 class="col-sm-8">
+                                    {{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif<br>
                                     <small>{{ $round->race->name }}</small>
                                 </h5>
-                                <h5 class="col-sm-7">
-                                    {{ $round->date->format('Y-m-d') }}
+                                <h5 class="col-sm-4">
+                                    {{ $round->date->format('Y-m-d H:i') }}
                                 </h5>
                             </div>
                             @endforeach
