@@ -11,7 +11,7 @@
                 <form method="POST" action="{{ route('saveCar') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="photo">Zdjęcie</label>
                                 <input type="file" name="photo" class="form-control">
@@ -22,7 +22,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">

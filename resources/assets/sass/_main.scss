@@ -74,6 +74,13 @@ img.thumb-big{
     box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
 }
 
+.full-news-body{
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+}
+
 .news-container{
     padding: 25px 5vw 75px;
     background: url('img/news.jpg') center no-repeat;
@@ -203,6 +210,7 @@ img.thumb-big{
     padding: 50px 5vw;
     background: url('img/partners.jpg') center no-repeat;
     background-size: cover;
+    box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
 
     h3{
         font-size: 32px;
@@ -371,7 +379,7 @@ img.thumb-big{
             content: '';
             position: absolute;
             bottom: 0;
-            left: 25px;
+            left: 35px;
             width: 80%;
             height: 70px;
             background: #ffc400;
@@ -383,7 +391,7 @@ img.thumb-big{
             content: '';
             position: absolute;
             bottom: 40%;
-            right: -5%;
+            right: -6%;
             width: 44%;
             height: 92px;
             background: #ffc400;
@@ -398,6 +406,7 @@ img.thumb-big{
             width: 100%;
             margin: 0;
             padding-right: 150px;
+            text-align: center;
         }
 
         .countdown{
@@ -513,6 +522,10 @@ img.thumb-big{
     }
 }
 
+.overflow-auto{
+    overflow: auto;
+}
+
 main{
     > .main-content{
         padding: 40px 0;
@@ -552,51 +565,56 @@ body{
         box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
 
         nav{
-            width: 90vw;
-            margin: 0 auto;
-            background-color: #1A1A1A;
-            background-image: url(img/menu-l.png);
-            background-repeat: no-repeat;
-            background-position: left +220px center;
-            background-size: contain;
-            padding: 0;
-            position: relative;
-
-            &:after{
-                content: "";
-                position: absolute;
-                height: 55px;
-                width: 310px;
-                background: url(img/menu-r.png) center right no-repeat;
+            &.navbar-dark{
+                width: 90vw;
+                margin: 0 auto;
+                background-color: #1A1A1A;
+                background-image: url(img/menu-l.png);
+                background-repeat: no-repeat;
+                background-position: left +220px center;
                 background-size: contain;
-                top: 0;
-                right: -30px;
-            }
-
-            .navbar-brand{
-                position: absolute;
-                top: -55px;
-                left: 0;
-            }
-
-            .navbar-nav{
+                min-height: 55px;
+                padding: 0;
                 position: relative;
-                z-index: 2;
 
-                a{
-                    color: #fff;
-                    text-transform: uppercase;
-
-                    &:hover{
-                       color: #FFB500;
-                    }
+                &:after{
+                    content: "";
+                    position: absolute;
+                    height: 55px;
+                    width: 310px;
+                    background: url(img/menu-r.png) center right no-repeat;
+                    background-size: contain;
+                    top: 0;
+                    right: -30px;
                 }
 
-                .dropdown-menu a{
-                    color: #212529;
+                .navbar-brand{
+                    position: absolute;
+                    top: -55px;
+                    left: 0;
+                }
 
-                    &:hover{
-                       color: #FFB500;
+                .navbar-nav{
+                    position: relative;
+                    z-index: 2;
+
+                    a{
+                        &.nav-link{
+                            color: #fff;
+                            text-transform: uppercase;
+
+                            &:hover{
+                               color: #FFB500;
+                            }
+                        }
+                    }
+
+                    .dropdown-menu a{
+                        color: #212529;
+
+                        &:hover{
+                           color: #FFB500;
+                        }
                     }
                 }
             }
@@ -649,7 +667,8 @@ body{
         border-radius: 10px;
         padding: 10px;
         transition: all .3s ease;
-        margin-bottom: 20px;
+        margin: 0 auto 20px;
+        max-width: 340px;
 
         a{
             color: #333;
@@ -678,14 +697,6 @@ body{
         width: 100%;
         object-fit: contain;
     }
-}
-
-
-@media (min-width: 1199px) {
-  .modal-xl {
-    max-width: 80vh;
-    max-height: 80vh;
-  }
 }
 
 .modal-clear{

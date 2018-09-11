@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center overflow-auto">
         <div class="col-md-12">
-            <div class="card border-dark">
+            <div class="card border-dark fixed-width">
                 <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('races') }}" class="text-white">Rajdy</a> : <a href="{{ url('race', $round->race->id) }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }}

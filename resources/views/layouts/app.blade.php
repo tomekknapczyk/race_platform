@@ -41,9 +41,12 @@
             </div>
         @endif
         <header>
-            <nav class="navbar navbar-expand-md text-white shadow-sm">
+            <a class="navbar-brand d-block d-xl-none text-center" href="{{ url('/') }}">
+                <img src="/images/logo.png">
+            </a>
+            <nav class="navbar navbar-dark navbar-expand-md text-white shadow-sm">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand d-none d-xl-block" href="{{ url('/') }}">
                         <img src="/images/logo.png">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,10 +104,10 @@
                                             <a class="dropdown-item" href="{{ route('edit_live_wyniki') }}">Wyniki Live</a>
                                             <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                             <a class="dropdown-item" href="{{ route('edit_terms') }}">Regulamin</a>
+                                            <a class="dropdown-item" href="{{ route('drivers') }}">Zawodnicy</a>
+                                            <a class="dropdown-item" href="{{ route('races') }}">Rajdy</a>
                                         </div>
                                     </li>
-                                    <li><a class="nav-link" href="{{ route('drivers') }}">Zawodnicy</a></li>
-                                    <li><a class="nav-link" href="{{ route('races') }}">Rajdy</a></li>
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->login }} <span class="caret"></span>

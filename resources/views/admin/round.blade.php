@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container-fluid py-3">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center overflow-auto">
         <div class="col-md-12">
-            <div class="card border-dark">
-                <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
+            <div class="card border-dark fixed-width">
+                <div class="card-header bg-yellow d-flex justify-content-between align-items-center flex-wrap">
                     <div>
                         <a href="{{ url('races') }}" class="text-white">Rajdy</a> : <a href="{{ url('race', $round->race->id) }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }}
                     </div>
-                    <div class="float-right d-flex justify-content-between align-items-center">
+                    <div class="float-right d-flex justify-content-between align-items-center flex-wrap">
                         @if($round->form->active)
                             <span>Formularz jest włączony</span>
                             <button class="btn btn-sm btn-danger ml-2" data-toggle="modal" data-target="#signFormStatus">Wyłącz</button>

@@ -13,25 +13,25 @@
                     @foreach($race->rounds as $round)
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             @if(!$round->startList)
-                                <h3 class="col-sm-4"><a href="{{ url('round', $round->id) }}" class="text-dark">{{ $round->name }}</a>
+                                <h3 class="col-md-4"><a href="{{ url('round', $round->id) }}" class="text-dark">{{ $round->name }}</a>
                                     <small>(max. {{ $round->max }} os.)<br>
                                         {{ $round->sub_name }}
                                     </small>
                                 </h3>
                             @else
-                                <h3 class="col-sm-4"><a href="{{ url('list', $round->id) }}" class="text-dark">{{ $round->name }}</a>
+                                <h3 class="col-md-4"><a href="{{ url('list', $round->id) }}" class="text-dark">{{ $round->name }}</a>
                                     <small>(max. {{ $round->max }} os.)<br>
                                         {{ $round->sub_name }}
                                     </small>
                                 </h3>
                             @endif
-                            <strong class="col-sm-2">{{ $round->date->format('Y-m-d') }}</strong>
-                            <strong class="col-sm-2">
+                            <strong class="col-md-2">{{ $round->date->format('Y-m-d') }}</strong>
+                            <strong class="col-md-2">
                                 @if($round->file_id)
                                     <a href="{{ url('public/terms', $round->file->path) }}" class="btn btn-sm btn-secondary" target="_blank">Regulamin</a>
                                 @endif
                             </strong>
-                            <div class="col-sm-4 text-right">
+                            <div class="col-md-4 text-right">
                                 @if(!$round->startList)
                                     <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
                                 @else

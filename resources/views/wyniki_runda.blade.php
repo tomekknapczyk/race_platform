@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center overflow-auto">
         <div class="col-md-12">
-            <div class="card border-dark">
+            <div class="card border-dark fixed-xs-width">
                 <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('wyniki') }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="counter-container d-flex justify-content-center align-items-start">
-    <div class="d-flex align-items-center justify-content-center">
+    <div class="d-flex align-items-center justify-content-center flex-wrap">
         <div class="timer"></div>
         <div class="counter d-flex align-items-center">
             @if($closest)
@@ -53,7 +53,7 @@
     <h2 class="text-center mb-3 text-uppercase text-white">..:: {{ $random }} ::..</h2>
     <div class="row justify-content-center">
         @foreach($podium->take(3) as $driver)
-            <div class="col-md-4 col-lg-3 col-xl-2">
+            <div class="col-md-4 col-lg-4 col-xl-3">
                 <div class="driver"> 
                     @if($driver->user)
                         <a href="{{ url('kierowca', $driver->user->id) }}">

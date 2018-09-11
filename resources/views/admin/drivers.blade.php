@@ -14,14 +14,14 @@
                 <div class="card-body list">
                     @foreach($users as $user)
                         <div class="d-flex justify-content-start align-items-start flex-wrap">
-                            <div class="col-sm-2">
+                            <div class="col-md-2">
                                 @if($user->driver && $user->driver->file_id)
                                     <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid thumb-big">
                                 @else
                                     <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-sm-3 imie nazwisko" data-imie="{{ optional($user->driver)->name }}" data-nazwisko="{{ optional($user->driver)->lastname }}">
+                            <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->driver)->name }}" data-nazwisko="{{ optional($user->driver)->lastname }}">
                                 <a href="{{ url('kierowca', $user->id) }}" class="text-dark">{{ optional($user->driver)->name }} {{ optional($user->driver)->lastname }}</a>
                                 <br>
                                 <small>{{ $user->email }}</small>
@@ -37,7 +37,7 @@
                                 >Edytuj</button>
                                 <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>
                             </h6>
-                            <div class="col-sm-4">
+                            <div class="col-md-4">
                                 @if($user->pilots->count())
                                     <h6 class="text-center">Piloci</h6>
                                     @foreach($user->pilots as $pilot)
@@ -61,7 +61,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3">
                                 @if($user->cars->count())
                                     <h6 class="text-center">Samochody</h6>
                                     @foreach($user->cars as $car)

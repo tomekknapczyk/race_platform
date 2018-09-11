@@ -15,7 +15,7 @@
 
                     <div class="row">
 
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <img src="" class="img-fluid img-thumbnail" id="edit_photo">
 
                             <div class="form-group">
@@ -90,7 +90,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-8">
+                        <div class="col-lg-8">
 
                             <div class="form-group">
                                 <label for="name">Imię</label>

@@ -15,7 +15,7 @@
                                 <img src="{{ url('public/post', $news->file->path) }}" class="img-fluid img-thumbnail">
                             @endif
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 full-news-body">
                             {!! $news->text !!}
                         </div>
                     </div>

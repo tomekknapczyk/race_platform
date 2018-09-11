@@ -13,7 +13,7 @@
 
                     <div class="row">
 
-                        <div class="col-sm-4">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="photo">Zdjęcie profilowe</label>
                                 <input type="file" name="photo" class="form-control">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-8">
+                        <div class="col-lg-8">
 
                             <div class="form-group">
                                 <label for="name">Imię</label>

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card border-dark">
+            <div class="card border-dark fixed-width">
                 <div class="card-header bg-yellow text-center">
                     <h3>Klasyfikacja Generalna: {{ $race->name }}</h3>
                 </div>
@@ -27,7 +27,7 @@
                                 </h6>
                                 <div class="m-0 col-5 d-flex justify-content-start">
                                     @foreach($race->rounds as $round)
-                                        <h6 class="m-0 col-2">
+                                        <h6 class="m-0 col-2 text-center">
                                             <small>{{ $round->name }}</small>
                                         </h6>
                                     @endforeach

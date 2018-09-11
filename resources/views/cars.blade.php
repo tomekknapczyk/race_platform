@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-lg-10">
             <div class="card border-dark">
                 <div class="card-header bg-yellow">
                     Samochody
@@ -13,11 +13,11 @@
                     @if(auth()->user()->cars)
                         @foreach(auth()->user()->cars as $car)
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                <h3 class="col-5">{{ $car->marka }} {{ $car->model }} <small>{{ $car->turbo?'/ Turbo':'' }} {{ $car->rwd?'/ RWD':'' }}</small></h3>
-                                <span>{{ $car->rok }} r.</span>
-                                <span>{{ $car->ccm }} ccm</span>
-                                <strong class="text-uppercase">{{ $car->nr_rej }}</strong>
-                                <div>
+                                <h3 class="col-md-3">{{ $car->marka }} {{ $car->model }} <small>{{ $car->turbo?'/ Turbo':'' }} {{ $car->rwd?'/ RWD':'' }}</small></h3>
+                                <span class="col-md-2">{{ $car->rok }} r.</span>
+                                <span class="col-md-2">{{ $car->ccm }} ccm</span>
+                                <strong class="text-uppercase col-md-2">{{ $car->nr_rej }}</strong>
+                                <div class="col-md-3 text-right">
                                     <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editCar" 
                                         data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
                                         data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
