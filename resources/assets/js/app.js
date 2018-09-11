@@ -284,3 +284,9 @@ function initializeClock(id){
 }
 
 initializeClock('counter');
+
+$('.datetimepicker').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii',
+    language: 'pl',
+    autoclose: true
+});

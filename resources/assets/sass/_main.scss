@@ -17,6 +17,10 @@ iframe{
     margin: 15px 0;
 }
 
+.table-condensed th, .table-condensed td {
+    padding: 4px 5px;
+}
+
 .sortClone{
     display: none !important;
 }

@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         <label for="sign_date">Termin zapisów</label>
-                        <input type="datetime-local" name="sign_date" value="{{ old('sign_date') }}" class="form-control" required=""> 
+                        <input type="text" name="sign_date" value="{{ old('sign_date') }}" class="form-control datetimepicker" required=""> 
                         @if ($errors->has('sign_date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('sign_date') }}</strong>
@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                         <label for="date">Termin</label>
-                        <input type="datetime-local" name="date" value="{{ old('date') }}" class="form-control" required=""> 
+                        <input type="text" name="date" value="{{ old('date') }}" class="form-control datetimepicker" required=""> 
                         @if ($errors->has('date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('date') }}</strong>

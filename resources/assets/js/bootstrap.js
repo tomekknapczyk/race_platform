@@ -60,3 +60,6 @@ window.Sortable = require('sortablejs');
 require('owl.carousel');
 
 window.countdown = require('countdown');
+
+require('bootstrap-datetime-picker');
+require('bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.pl');
