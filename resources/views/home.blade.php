@@ -52,7 +52,7 @@
     @endif
     <h2 class="text-center mb-3 text-uppercase text-white">..:: {{ $random }} ::..</h2>
     <div class="row justify-content-center">
-        @foreach($podium as $driver)
+        @foreach($podium->take(3) as $driver)
             <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="driver"> 
                     @if($driver->user)
