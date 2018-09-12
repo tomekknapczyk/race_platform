@@ -22,6 +22,21 @@
                         @endif
                     </div>
 
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Aktualny rajd</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="active" value="1" id="edit_active">
+                                <label class="form-check-label" for="active">Tak</label>
+                            </div>
+                            @if ($errors->has('active'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('active') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-block">

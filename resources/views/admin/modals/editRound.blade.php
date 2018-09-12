@@ -10,11 +10,11 @@
             <div class="modal-body">
                 <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" id="edit_id">
+                    <input type="hidden" name="id" id="edit_round_id">
                     
                     <div class="form-group">
                         <label for="name">Runda numer</label>
-                        <input type="text" name="name" id="edit_name" class="form-control" required=""> 
+                        <input type="text" name="name" id="edit_round_name" class="form-control" required=""> 
                         @if ($errors->has('name'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('name') }}</strong>

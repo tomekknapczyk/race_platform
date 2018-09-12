@@ -37,6 +37,24 @@ class RaceController extends Controller
         else
             $race = new Race;
 
+        $race_active = Race::where('active', 1)->first();
+
+        if($race_active)
+            $race->active = 0;
+        else
+            $race->active = 1;
+
+        if(isset($request->active)){
+            $races = Race::where('id', '!=', $race->id)->get();
+
+            foreach ($races as $a_race) {
+                $a_race->active = 0;
+                $a_race->save();
+            }
+
+            $race->active = 1;
+        }
+
         $race->name = $request->name;
         $race->save();
 

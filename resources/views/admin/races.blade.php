@@ -17,20 +17,50 @@
                                 <a href="{{ url('race', $race->id) }}" class="btn btn-sm btn-secondary">Zobacz</a>
                                 <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRace" 
                                     data-text='{"id":"{{ $race->id }}", "name":"{{ $race->name }}"}'
-                                    >Edytuj nazwę</button>
+                                    data-check='{"active":"{{ $race->active }}"}'
+                                    >Edytuj</button>
                                 <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteRace" data-id="{{ $race->id }}">Usuń</button>
                                 <a href="{{ url('rank', $race->id) }}" class="btn btn-sm btn-success">Ranking</a>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-start align-items-center flex-wrap">
-                            @foreach($race->rounds as $round)
-                                @if(!$round->startList)
-                                    <a href="{{ url('round', $round->id) }}" class="btn btn-sm">{{ $round->name }} - zgłoszenia</a>
-                                @else
-                                    <a href="{{ url('list', $round->id) }}" class="btn btn-sm">{{ $round->name }} - lista startowa</a>
-                                @endif
-                            @endforeach
-                        </div>
+                        @if($race->active)
+                            <div class="border-top p-3">
+                                @foreach($race->rounds as $round)
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                        @if(!$round->startList)
+                                            <h4 class="col-md-4"><a href="{{ url('round', $round->id) }}" class="text-dark">{{ $round->name }}</a>
+                                                <small>(max. {{ $round->max }} os.)<br>
+                                                    {{ $round->sub_name }}
+                                                </small>
+                                            </h4>
+                                        @else
+                                            <h4 class="col-md-4"><a href="{{ url('list', $round->id) }}" class="text-dark">{{ $round->name }}</a>
+                                                <small>(max. {{ $round->max }} os.)<br>
+                                                    {{ $round->sub_name }}
+                                                </small>
+                                            </h4>
+                                        @endif
+                                        <strong class="col-md-2">{{ $round->date->format('Y-m-d') }}</strong>
+                                        <strong class="col-md-2">
+                                            @if($round->file_id)
+                                                <a href="{{ url('public/terms', $round->file->path) }}" class="btn btn-sm btn-secondary" target="_blank">Regulamin</a>
+                                            @endif
+                                        </strong>
+                                        <div class="col-md-4 text-right">
+                                            @if(!$round->startList)
+                                                <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
+                                            @else
+                                                <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
+                                            @endif
+                                            <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
+                                                data-text='{"round_id":"{{ $round->id }}", "round_name":"{{ $round->name }}", "sub_name":"{{ $round->sub_name }}", "date":"{{ $round->date->format('Y-m-d H:i') }}", "sign_date":"{{ $round->sign_date->format('Y-m-d H:i') }}", "max":"{{ $round->max }}", "price":"{{ $round->price }}", "advance":"{{ $round->advance }}"}'
+                                                >Edytuj</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @endforeach
+                            </div>
+                        @endif
                         <hr>
                     @endforeach
                 </div>
@@ -42,4 +72,6 @@
 @include('admin.modals.newRace')
 @include('admin.modals.editRace')
 @include('admin.modals.deleteRace')
+@include('admin.modals.editRound')
+@include('admin.modals.deleteRound')
 @endsection
