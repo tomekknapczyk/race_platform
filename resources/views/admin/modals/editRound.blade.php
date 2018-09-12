@@ -8,9 +8,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data" id="editRoundForm">
                     @csrf
                     <input type="hidden" name="id" id="edit_round_id">
+                    <input type="hidden" name="order" id="order_items">
                     
                     <div class="form-group">
                         <label for="name">Runda numer</label>
@@ -30,6 +31,11 @@
                                 <strong>{{ $errors->first('sub_name') }}</strong>
                             </span>
                         @endif
+                    </div>
+
+                    <label>Kolejność klas:</label>
+                    <div class="bg-dark p-2 rounded mb-3 d-flex justify-content-start align-items-center flex-wrap" id="items">
+
                     </div>
 
                     <div class="form-group">
@@ -108,7 +114,7 @@
 
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-primary btn-block" id="saveRound">
                                 Zapisz rundę
                             </button>
                         </div>

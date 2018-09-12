@@ -89,6 +89,7 @@ class RaceController extends Controller
             'sign_date' => 'required',
             'date' => 'required',
             'max' => 'required|numeric',
+            'order' => 'required',
         ]);
 
         if(isset($request->id)){
@@ -104,6 +105,7 @@ class RaceController extends Controller
         $round->date = $request->date.":00";
         $round->sign_date = $request->sign_date.":00";
         $round->max = $request->max;
+        $round->order = $request->order;
 
         if($request->price)
             $round->price = floatval(str_replace(',', '.', $request->price));
@@ -176,7 +178,8 @@ class RaceController extends Controller
             $signs = $round->signs();
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
-            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            $order = explode(',', $round->order);
 
             usort($klasy, function ($a, $b) use ($order) {
               $pos_a = array_search($a, $order);
@@ -206,7 +209,8 @@ class RaceController extends Controller
             $is_someone = $startPositions->count();
             $class = $startPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
-            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            $order = explode(',', $round->order);
 
             usort($class, function ($a, $b) use ($order) {
               $pos_a = array_search($a, $order);

@@ -8,10 +8,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('saveRound') }}" enctype="multipart/form-data" id="newRoundForm">
                     @csrf
 
                     <input type="hidden" name="race_id" value="{{ $race->id }}">
+                    <input type="hidden" name="order" id="order_items_new">
                     
                     <div class="form-group">
                         <label for="name">Runda numer</label>
@@ -31,6 +32,17 @@
                                 <strong>{{ $errors->first('sub_name') }}</strong>
                             </span>
                         @endif
+                    </div>
+
+                    <label>Kolejność klas:</label>
+                    <div class="bg-dark p-2 rounded mb-3 d-flex justify-content-start align-items-center flex-wrap" id="items_new">
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k1">K1</div>
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k2">K2</div>                       
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k3">K3</div>
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k4">K4</div>
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k5">K5</div>
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k6">K6</div>
+                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k7">K7</div>
                     </div>
 
                     <div class="form-group">
@@ -95,7 +107,7 @@
 
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-primary btn-block" id="saveNewRound">
                                 Dodaj rundę
                             </button>
                         </div>

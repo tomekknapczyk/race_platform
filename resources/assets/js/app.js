@@ -32,6 +32,7 @@ $(document).on('click', '.editBtn', function(){
     var data_check = $(this).data('check');
     var data_img = $(this).data('img');
     var data_tinymce = $(this).data('tinymce');
+    var data_order = $(this).data('order');
 
     $.each(data_text, function(key, value){
         $('#edit_' + key).val(value);
@@ -52,6 +53,15 @@ $(document).on('click', '.editBtn', function(){
 
     $.each(data_tinymce, function(key, value){
         tinyMCE.activeEditor.setContent(value);
+    })
+
+    $.each(data_order, function(key, value){
+        var res = value.split(",");
+        $('#' + key).html('');
+
+        $.each(res, function(key1, value1){
+            $('#' + key).append('<div class="btn btn-info m-2 shadow" data-id="' + value1 + '">' + value1 + '</div>')   
+        })
     })
 })
 
@@ -168,7 +178,7 @@ $.each(el, function(key, value){
     });
 })
 
-if(el.length){
+if(el != null && el.length){
     //Grouping
     var foo = document.getElementById("items");
     var items = Sortable.create(foo, { group: "items" });
@@ -177,10 +187,43 @@ if(el.length){
     var dropped = Sortable.create(bar, { group: "items" });
 }
 
+
+var el2 = document.getElementById("editRoundForm");
+if(el2 != null && el2.length){
+    var foo = document.getElementById("items");
+    var items = Sortable.create(foo, { 
+        group: "items",
+        animation: 240
+    });
+}
+
+var el3 = document.getElementById("newRoundForm");
+if(el3 != null && el3.length){
+    var foo = document.getElementById("items_new");
+    var items_new = Sortable.create(foo, { 
+        group: "items_new",
+        animation: 240
+    });
+}
+
 $(document).on('click', '#generateFile', function(e){
     e.preventDefault();
     var order = dropped.toArray();
     $('#file_items').val(order);
+    $(this).closest('form').submit();
+})
+
+$(document).on('click', '#saveRound', function(e){
+    e.preventDefault();
+    var order = items.toArray();
+    $('#order_items').val(order);
+    $(this).closest('form').submit();
+})
+
+$(document).on('click', '#saveNewRound', function(e){
+    e.preventDefault();
+    var order = items_new.toArray();
+    $('#order_items_new').val(order);
     $(this).closest('form').submit();
 })
 

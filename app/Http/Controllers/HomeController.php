@@ -60,7 +60,8 @@ class HomeController extends Controller
             $signs = $round->signs()->load('user.driver.file', 'car.file');
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
-            $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+            $order = explode(',', $round->order);
 
             usort($klasy, function ($a, $b) use ($order) {
               $pos_a = array_search($a, $order);
