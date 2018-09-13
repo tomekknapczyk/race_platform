@@ -88,6 +88,13 @@ class GuestController extends Controller
         return view('drivers', compact('users'));
     }
 
+    public function pilots()
+    {
+        $pilots = \App\Pilot::with('file')->get();
+
+        return view('pilots-list', compact('pilots'));
+    }
+
     public function driver($id)
     {
         $user = \App\User::where('admin', 0)->where('id', $id)->with('driver', 'driver.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();

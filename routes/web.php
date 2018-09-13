@@ -18,6 +18,7 @@ Route::get('aktualnosci', 'NewsController@showAll');
 Route::get('aktualnosc/{id}', 'NewsController@show');
 Route::get('kierowcy_rajdowi', 'GuestController@drivers')->name('kierowcy');
 Route::get('kierowca_rajdowy/{id}', 'GuestController@driver')->name('kierowca');
+Route::get('piloci_rajdowi', 'GuestController@pilots')->name('piloci');
 Route::get('video', 'GuestController@video');
 Route::get('wyniki', 'GuestController@wyniki');
 Route::get('live_wyniki', 'GuestController@live_wyniki');
