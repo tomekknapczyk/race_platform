@@ -114,7 +114,7 @@ class GuestController extends Controller
 
     public function regulamin()
     {
-        $regulamin = \App\SiteInfo::where('name', 'regulamin')->first();
+        $regulamin = \App\SiteInfo::where('name', 'terms')->first();
 
         return view('regulamin', compact('regulamin'));
     }
