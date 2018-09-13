@@ -60,7 +60,7 @@ $(document).on('click', '.editBtn', function(){
         $('#' + key).html('');
 
         $.each(res, function(key1, value1){
-            $('#' + key).append('<div class="btn btn-info m-2 shadow" data-id="' + value1 + '">' + value1 + '</div>')   
+            $('#' + key).append('<div class="btn btn-info m-2 shadow btn-move" data-id="' + value1 + '">' + value1 + '</div>')   
         })
     })
 })

@@ -36,13 +36,13 @@
 
                     <label>Kolejność klas:</label>
                     <div class="bg-dark p-2 rounded mb-3 d-flex justify-content-start align-items-center flex-wrap" id="items_new">
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k1">K1</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k2">K2</div>                       
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k3">K3</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k4">K4</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k5">K5</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k6">K6</div>
-                        <div class="btn btn-sm btn-light m-2 shadow" data-id="k7">K7</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k1">K1</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k2">K2</div>                       
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k3">K3</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k4">K4</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k5">K5</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k6">K6</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k7">K7</div>
                     </div>
 
                     <div class="form-group">
