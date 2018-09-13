@@ -9,13 +9,16 @@
                     <h3>{{ $round->race->name }}</a> : {{ $round->name }} - Lista zgłoszeń</h3>
                 </div>
                 <div class="card-body">
+                    @php
+                        $numer = 0;
+                    @endphp
                     @foreach($klasy as $klasa)
                         <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                         <div class="lista">
                             @foreach($class[$klasa] as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
                                     <h6 class="m-0 col-1">
-                                        {{ $loop->iteration }}.
+                                        {{ ++$numer }}.
                                     </h6>
                                     <div class="col-1">
                                         @if($sign['sign']->user && $sign['sign']->user->driver->file_id)
@@ -26,7 +29,13 @@
                                     </div>
                                     <h6 class="m-0 col-5 text-left">
                                         @if($sign['sign']->user)
-                                            <a href="{{ url('kierowca', $sign['sign']->user->id) }}">
+                                            @if($sign['sign']->user->driver->show_name && $sign['sign']->user->driver->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->driver->name.'-'.$sign['sign']->user->driver->lastname)]) }}">
+                                            @elseif($sign['sign']->user->driver->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, $sign['sign']->user->driver->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('kierowca', $sign['sign']->user->id) }}">
+                                            @endif
                                                 {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
                                             </a>
                                         @else

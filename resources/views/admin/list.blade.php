@@ -23,13 +23,16 @@
                         <form id="save-rank" action="{{ route('saveRank') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $round->id }}">
+                            @php
+                                $numer = 0;
+                            @endphp
                             @foreach($class as $klasa)
                                 <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                                 <div class="lista"> 
                                     @foreach($startPositions->where('klasa', $klasa) as $position)
                                         <div class="row justify-content-between align-items-center flex-wrap py-2">
                                             <h6 class="m-0 col-1">
-                                                {{ $loop->iteration }}.
+                                                {{ ++$numer }}.
                                             </h6>
                                             <h6 class="m-0 col-4">
                                                 {{ $position->sign->name }} {{ $position->sign->lastname }}<br>

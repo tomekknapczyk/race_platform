@@ -23,7 +23,7 @@
                 @if($user->driver)
                     <div class="col-md-4 col-lg-4 col-xl-3">
                         <div class="driver klasa" data-klasa="{{ $user->klasy() }}">
-                            @if($user->driver->name && $user->driver->show_lastname)
+                            @if($user->driver->show_name && $user->driver->show_lastname)
                                 <a href="{{ route('kierowca', [$user->id, str_slug($user->driver->name.'-'.$user->driver->lastname)]) }}">
                             @elseif($user->driver->show_lastname)
                                 <a href="{{ route('kierowca', [$user->id, $user->driver->lastname]) }}">

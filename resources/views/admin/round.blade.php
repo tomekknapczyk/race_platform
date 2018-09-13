@@ -38,6 +38,9 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @php
+                        $numer = 0;
+                    @endphp
                     @foreach($klasy as $key => $klasa)
                         <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                         <div class="row justify-content-between align-items-center flex-wrap">
@@ -66,7 +69,7 @@
                             @foreach($signs->where('klasa', $klasa) as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2" data-id={{ $sign->id }}>
                                     <h5 class="m-0 col-1">
-                                        {{ $loop->iteration }}
+                                        {{ ++$numer }}.
                                     </h5>
                                     <h5 class="m-0 col-3">
                                         {{ $sign->name }} {{ $sign->lastname }}<br>

@@ -10,13 +10,16 @@
                 </div>
                 <div class="card-body">
                     @if($is_someone)
+                        @php
+                            $numer = 0;
+                        @endphp
                         @foreach($class as $klasa)
                             <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
                             <div class="lista">
                                 @foreach($round->startPositions($start_list_id)->where('klasa', $klasa)->load('sign.user.driver.file') as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <h6 class="m-0 col-1">
-                                            {{ $loop->iteration }}.
+                                            {{ ++$numer }}.
                                         </h6>
                                         <div class="col-1">
                                             @if($position->sign->user && $position->sign->user->driver->file_id)
@@ -27,7 +30,13 @@
                                         </div>
                                         <h6 class="m-0 col-5 text-left">
                                             @if($position->user)
-                                                <a href="{{ url('kierowca', $position->user->id) }}">
+                                                @if($position->user->driver->show_name && $position->user->driver->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->driver->name.'-'.$position->user->driver->lastname)]) }}">
+                                                @elseif($position->user->driver->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->driver->lastname]) }}">
+                                                @else
+                                                    <a href="{{ route('kierowca', $position->user->id) }}">
+                                                @endif
                                                     {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
                                                 </a>
                                             @else

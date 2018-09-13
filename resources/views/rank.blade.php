@@ -48,8 +48,14 @@
                                         </h6>
                                         <h6 class="m-0 col-2 text-left">
                                             @if($position->user)
-                                                <a href="{{ url('kierowca', $position->user->id) }}">
-                                                    {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                                @if($position->user->driver->show_name && $position->user->driver->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->driver->name.'-'.$position->user->driver->lastname)]) }}">
+                                                @elseif($position->user->driver->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->driver->lastname]) }}">
+                                                @else
+                                                    <a href="{{ route('kierowca', $position->user->id) }}">
+                                                @endif
+                                                    {{ $position->user->driver->name }} {{ $position->user->driver->lastname }}
                                                 </a>
                                             @else
                                                 {{ $position->sign->name }} {{ $position->sign->lastname }}

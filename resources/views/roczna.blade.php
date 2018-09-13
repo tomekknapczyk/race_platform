@@ -11,7 +11,13 @@
                 <div class="col-md-4 col-lg-4 col-xl-3">
                     <div class="driver"> 
                         @if($driver->user)
-                            <a href="{{ url('kierowca', $driver->user->id) }}">
+                            @if($driver->user->driver->show_name && $driver->user->driver->show_lastname)
+                                <a href="{{ route('kierowca', [$driver->user->id, str_slug($driver->user->driver->name.'-'.$driver->user->driver->lastname)]) }}">
+                            @elseif($driver->user->driver->show_lastname)
+                                <a href="{{ route('kierowca', [$driver->user->id, $driver->user->driver->lastname]) }}">
+                            @else
+                                <a href="{{ route('kierowca', $driver->user->id) }}">
+                            @endif
                             @if($driver->user->driver->file_id)
                                 <img src="{{ url('public/driver', $driver->user->driver->file->path) }}" class="img-fluid">
                             @else
