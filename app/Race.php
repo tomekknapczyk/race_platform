@@ -16,6 +16,11 @@ class Race extends Model
         return $this->hasManyThrough(StartList::class, Round::class);
     }
 
+    public function forms()
+    {
+        return $this->hasManyThrough(SignForm::class, Round::class);
+    }
+
     public function klasy()
     {
         $klasy = [];

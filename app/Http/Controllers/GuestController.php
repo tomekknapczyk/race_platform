@@ -121,9 +121,11 @@ class GuestController extends Controller
 
     public function dokumenty()
     {
-        $docs = \App\Docs::get();
-        $regulaminy = \App\Round::where('file_id', '!=', null)->get();
-        $forms = \App\SignForm::where('visible', 1)->get();
+        $docs = \App\Docs::with('file')->get();
+        $race = \App\Race::where('active', 1)->with('rounds', 'rounds.file', 'forms', 'forms.round', 'forms.round.race')->first();
+
+        $regulaminy = $race->rounds->where('file_id', '!=', null);
+        $forms = $race->forms->where('visible', 1);
 
         return view('dokumenty', compact('docs', 'regulaminy', 'forms'));
     }

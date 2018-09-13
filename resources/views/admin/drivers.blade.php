@@ -22,7 +22,7 @@
                                 @endif
                             </div>
                             <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->driver)->name }}" data-nazwisko="{{ optional($user->driver)->lastname }}">
-                                <a href="{{ url('kierowca', $user->id) }}" class="text-dark">{{ optional($user->driver)->name }} {{ optional($user->driver)->lastname }}</a>
+                                <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->driver)->name }} {{ optional($user->driver)->lastname }}</a>
                                 <br>
                                 <small>{{ $user->email }}</small>
                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editDriver"

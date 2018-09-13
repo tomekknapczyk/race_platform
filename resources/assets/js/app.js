@@ -333,3 +333,14 @@ $('.datetimepicker').datetimepicker({
     language: 'pl',
     autoclose: true
 });
+
+$('.search-class').click(function(){
+    var klasa = $(this).data('klasa');
+    userList.search(klasa);
+})
+
+$('.search-clear').click(function(){
+    userList.search();
+})
+
+

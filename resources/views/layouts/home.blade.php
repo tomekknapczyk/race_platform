@@ -61,7 +61,7 @@
                             <li><a class="nav-link" href="{{ url('wyniki') }}">Wyniki</a></li>
                             <li><a class="nav-link" href="{{ url('terminarz') }}">Terminarz</a></li>
                             <li><a class="nav-link" href="{{ url('aktualnosci') }}">Aktualności</a></li>
-                            <li><a class="nav-link" href="{{ url('kierowcy') }}">Kierowcy</a></li>
+                            <li><a class="nav-link" href="{{ route('kierowcy') }}">Kierowcy</a></li>
                             <li><a class="nav-link" href="{{ url('dokumenty') }}">Dokumenty</a></li>
                             <!-- Authentication Links -->
                             @guest
