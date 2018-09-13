@@ -83,7 +83,7 @@ img.thumb-big{
 
 .news-container{
     padding: 25px 5vw 75px;
-    background: url('img/news.jpg') center no-repeat;
+    background: url('img/lancer2.jpg') center no-repeat;
     background-size: cover;
     background-attachment: fixed;
     box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
@@ -210,7 +210,7 @@ img.thumb-big{
     padding: 50px 5vw;
     background: url('img/partners.jpg') center no-repeat;
     background-size: cover;
-    box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
+    // box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
 
     h3{
         font-size: 32px;
@@ -232,7 +232,7 @@ img.thumb-big{
 
 .contact-container{
     padding: 50px 0 0;
-    background: url('img/contact.jpg') center no-repeat;
+    background: url('img/lancer2.jpg') center no-repeat;
     background-size: cover;
     box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
 
@@ -531,7 +531,7 @@ main{
         padding: 40px 0;
         min-height: 50vh;
         box-shadow: inset 0px 0px 50px 0 rgb(0, 0, 0);
-        background: url(img/bg.jpg) center no-repeat;
+        background: url(img/lancer1.jpg) center no-repeat;
         background-attachment: fixed;
         background-size: cover;
 
@@ -557,6 +557,12 @@ body{
             background-repeat: no-repeat;
             background-size: auto, cover;
             padding-bottom: 0px;
+        }
+
+        main {
+            > .main-content{
+                padding: 0;
+            }
         }
     }
     header{
@@ -650,7 +656,7 @@ body{
 .drivers-container{
     padding: 50px 5vw;
     box-shadow: inset 0px 0px 50px 5px rgb(0, 0, 0);
-    background: url(img/bg.jpg) center no-repeat;
+    background: url(img/lancer1.jpg) center no-repeat;
     background-attachment: fixed;
     background-size: cover;
 

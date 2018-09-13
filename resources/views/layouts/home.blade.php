@@ -135,7 +135,9 @@
         @include('messages')
 
         <main>
-            @yield('content')
+            <div class="main-content">
+                @yield('content')
+            </div>
 
             @include('partials.partners')
 
