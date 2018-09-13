@@ -65,7 +65,7 @@
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="terms" {{ old('terms') ? 'checked' : '' }} required> Zapoznałem się z <a href="/regulamin" target="_blank">regulaminem</a>
+                                        <input type="checkbox" name="terms" {{ old('terms') ? 'checked' : '' }} required> Zapoznałem się i akceptuję <a href="/regulamin" target="_blank">regulamin</a>
                                     </label>
                                 </div>
                             </div>
