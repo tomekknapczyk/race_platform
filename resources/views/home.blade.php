@@ -3,22 +3,26 @@
 @section('content')
 <div class="counter-container d-flex justify-content-center align-items-start">
     <div class="d-flex align-items-center justify-content-center flex-wrap">
-        <div class="timer"></div>
-        <div class="counter d-flex align-items-center">
-            @if($closest)
-                @if($closest->form->active || $closest->startList)
-                    <p>Do rajdu <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> pozostało</p>
-                    <div class="countdown d-flex align-items-center justify-content-end">
-                        <span id="counter" data-deadline="{{ $closest->date->format('Y') }}-{{ $closest->date->format('m') }}-{{ $closest->date->format('d') }}T{{ $closest->date->format('H') }}:{{ $closest->date->format('i') }}:00"></span>
-                    </div>
-                @else
-                    <p>Zapisy na <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> ruszają za</p>
-                    <div class="countdown d-flex align-items-center justify-content-end">
-                        <span id="counter" data-deadline="{{ $closest->sign_date->format('Y') }}-{{ $closest->sign_date->format('m') }}-{{ $closest->sign_date->format('d') }}T{{ $closest->sign_date->format('H') }}:{{ $closest->sign_date->format('i') }}:00"></span>
-                    </div>
-                @endif
-            @endif
-        </div>
+        @if($closest)
+            <div class="timer"></div>
+            <div class="counter d-flex align-items-center">
+                {{-- @if($closest) --}}
+                    @if($closest->form->active || $closest->startList)
+                        <p>Do rajdu <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> pozostało</p>
+                        <div class="countdown d-flex align-items-center justify-content-end">
+                            <span id="counter" data-deadline="{{ $closest->date->format('Y') }}-{{ $closest->date->format('m') }}-{{ $closest->date->format('d') }}T{{ $closest->date->format('H') }}:{{ $closest->date->format('i') }}:00"></span>
+                        </div>
+                    @else
+                        <p>Zapisy na <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> ruszają za</p>
+                        <div class="countdown d-flex align-items-center justify-content-end">
+                            <span id="counter" data-deadline="{{ $closest->sign_date->format('Y') }}-{{ $closest->sign_date->format('m') }}-{{ $closest->sign_date->format('d') }}T{{ $closest->sign_date->format('H') }}:{{ $closest->sign_date->format('i') }}:00"></span>
+                        </div>
+                    @endif
+                {{-- @endif --}}
+            </div>
+        @else
+            <h3 class="text-white h1 mt-5 text-uppercase text-center">Wkrótce zapisy</h3>
+        @endif
         <div class="sign-container">
             @if($closest && $closest->form->active)
                 <div class="d-flex align-items-center justify-content-around mb-2">
