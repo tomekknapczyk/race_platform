@@ -4,18 +4,27 @@
 <div class="drivers-container">
     <h3>Kierowcy</h3>
     <div class="container" id="driver-list">
-        <div class="row justify-content-center align-items-center py-3">
-            <button class="search-clear btn btn-warning m-1">Wszyscy</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k1">K1</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k2">K2</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k3">K3</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k4">K4</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
-            <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
-            <button class="sort btn btn-warning m-1" data-sort="nazwisko">Sortuj wg nazwiska</button>
-            <div class="col-sm-3">
-                <input class="search form-control" placeholder="Wyszukaj" />
+        <div class="row justify-content-center align-items-center p-3">
+            <div class="filter-box">
+                <p>Filtry</p>
+                <button class="search-clear btn btn-warning m-1">Wszyscy</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k1">K1</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k2">K2</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k3">K3</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k4">K4</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
+                <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+            </div>
+            <div class="filter-box">
+                <p>Sortowanie</p>
+                <button class="sort btn btn-warning m-1" data-sort="nazwisko">Sortuj wg nazwiska</button>
+            </div>
+            <div class="filter-box col-sm-3">
+                <p>Wyszukiwarka</p>
+                <div class="m-1">
+                    <input class="search form-control" placeholder="Wyszukaj" />
+                </div>
             </div>
         </div>
         <div class="row justify-content-center list">
