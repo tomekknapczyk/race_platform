@@ -39,7 +39,7 @@ class activateForm extends Command
     {
         $now = date('Y-m-d H:i:00');
 
-        $closest = \App\Round::where('date', $now)->orderBy('date', 'asc')->first();
+        $closest = \App\Round::where('sign_date', $now)->orderBy('date', 'asc')->first();
         
         if($closest && !$closest->form->active){
             $closest->form->active = 1;
