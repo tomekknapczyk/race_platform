@@ -95,7 +95,7 @@ class GuestController extends Controller
         return view('pilots-list', compact('pilots'));
     }
 
-    public function driver($id)
+    public function driver($id, $name = null)
     {
         $user = \App\User::where('admin', 0)->where('id', $id)->with('driver', 'driver.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
 

@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card border-dark">
                 <div class="card-header bg-yellow">
-                    <a href="{{ url('/kierowcy') }}" class="text-white">Kierowcy</a> : 
+                    <a href="{{ route('kierowcy') }}" class="text-white">Kierowcy</a> : 
                     @if($user->driver->show_name){{ $user->driver->name }}@endif
                     @if($user->driver->show_lastname){{ $user->driver->lastname }}@endif
                     @if(!$user->driver->show_lastname && !$user->driver->show_name) Anonim @endif
