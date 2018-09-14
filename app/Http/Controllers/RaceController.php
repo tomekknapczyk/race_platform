@@ -67,7 +67,29 @@ class RaceController extends Controller
             'id' => 'required|exists:races',
         ]);
 
-        Race::where('id', $request->id)->delete();
+        $race = Race::where('id', $request->id)->first();
+
+        foreach ($race->lists as $list) {
+            foreach ($list->items as $item) {
+                $item->delete();
+            }
+
+            $list->delete();
+        }
+
+        foreach ($race->forms as $form) {
+            foreach ($form->signs as $item) {
+                $item->delete();
+            }
+
+            $form->delete();
+        }
+
+        foreach ($race->rounds as $round) {
+            $round->delete();
+        }
+
+        $race->delete();
 
         return back()->with('success', 'Rajd został usunięty');
     }
@@ -162,7 +184,22 @@ class RaceController extends Controller
             'id' => 'required|exists:rounds',
         ]);
 
-        Round::where('id', $request->id)->delete();
+        $round = Round::where('id', $request->id)->first();
+        
+        foreach ($round->form->signs as $item) {
+            $item->delete();
+        }
+        $round->form->delete();
+
+        if($round->startList){
+            foreach ($round->startList->items as $item) {
+                $item->delete();
+            }
+
+            $round->startList->delete();
+        }
+
+        $round->delete();
 
         return back()->with('success', 'Runda została usunięta');
     }
