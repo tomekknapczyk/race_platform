@@ -21,6 +21,12 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
 Route::get('sign-list/{id}', 'HomeController@signList')->name('signList');
 Route::get('rank/{id}', 'HomeController@rank')->name('rank');
+Route::get('rank2017', function(){
+    return view('rank2017');
+});
+Route::get('rank2018', function(){
+    return view('rank2018');
+});
 Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
 Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
 Route::post('getPilot', 'HomeController@getPilot')->name('getPilot');
