@@ -124,6 +124,7 @@ class RaceController extends Controller
 
         $round->name = $request->name;
         $round->sub_name = $request->sub_name;
+        $round->details = $request->details;
         $round->date = $request->date.":00";
         $round->sign_date = $request->sign_date.":00";
         $round->max = $request->max;

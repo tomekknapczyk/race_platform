@@ -33,6 +33,16 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <label for="details">Link do szczegółowych wyników</label>
+                        <input type="text" name="details" id="edit_details" class="form-control"> 
+                        @if ($errors->has('details'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('details') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                     <label>Kolejność klas:</label>
                     <div class="bg-dark p-2 rounded mb-3 d-flex justify-content-start align-items-center flex-wrap" id="items">
 

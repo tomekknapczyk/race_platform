@@ -9,6 +9,9 @@
                     <div>
                         <a href="{{ url('wyniki') }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif
                     </div>
+                    @if($round->details)
+                        <a href="{{ $round->details }}" target="_blank" rel="nofollow" class="btn btn-info btn-sm">Szczegółowe wyniki</a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if($is_someone)
