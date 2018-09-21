@@ -292,9 +292,11 @@ $(document).ready(function() {
             },
             576:{
                 items:2,
+                slideBy:2
             },
             768:{
                 items:4,
+                slideBy:4
             }
         }
     });
