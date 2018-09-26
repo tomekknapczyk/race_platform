@@ -16,10 +16,30 @@
                         </div>
                     </div>
                     <div>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps18/R1/" target="_blank" rel="nofollow">Runda 1</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps18/R2/" target="_blank" rel="nofollow">Runda 2</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps18/R3/" target="_blank" rel="nofollow">Runda 3</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps18/R4/" target="_blank" rel="nofollow">Runda 4</a></p>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R1">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 1">
+                            <button type="submit" class="btn btn-link">Runda 1</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R2">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 2">
+                            <button type="submit" class="btn btn-link">Runda 2</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R3">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 3">
+                            <button type="submit" class="btn btn-link">Runda 3</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R4">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 4">
+                            <button type="submit" class="btn btn-link">Runda 4</button>
+                        </form>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
@@ -29,12 +49,42 @@
                         </div>
                     </div>
                     <div>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r1/" target="_blank" rel="nofollow">Runda 1</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r2/" target="_blank" rel="nofollow">Runda 2</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r3/" target="_blank" rel="nofollow">Runda 3</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r4/" target="_blank" rel="nofollow">Runda 4</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r5/" target="_blank" rel="nofollow">Runda 5</a></p>
-                        <p class="h5 py-1"><a href="http://wyniki.stcs.pl/rps17/r6/" target="_blank" rel="nofollow">Runda 6</a></p>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r1/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 1">
+                            <button type="submit" class="btn btn-link">Runda 1</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r2/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 2">
+                            <button type="submit" class="btn btn-link">Runda 2</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r3/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 3">
+                            <button type="submit" class="btn btn-link">Runda 3</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r4/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 4">
+                            <button type="submit" class="btn btn-link">Runda 4</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r5/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 5">
+                            <button type="submit" class="btn btn-link">Runda 5</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps17/r6/">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2017 - Runda 6">
+                            <button type="submit" class="btn btn-link">Runda 6</button>
+                        </form>
                     </div>
                     <hr>
                 </div>

@@ -179,4 +179,12 @@ class GuestController extends Controller
 
         return back()->with('warning', 'Lista startowa nie istnieje');
     }
+
+    public function rank_frame(Request $request)
+    {
+        $path = $request->path;
+        $name = $request->name;
+
+        return view('rank_frame', compact('path', 'name'));
+    }
 }

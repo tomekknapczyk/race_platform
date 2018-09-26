@@ -16,11 +16,13 @@ Route::get('dokumenty', 'GuestController@dokumenty');
 Route::get('podium/{id}', 'GuestController@podium');
 Route::get('klasyfikacja-roczna/{id}', 'GuestController@roczna');
 Route::get('regulamin', 'GuestController@regulamin');
+Route::post('rank_frame', 'GuestController@rank_frame')->name('rank_frame');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
 Route::get('sign-list/{id}', 'HomeController@signList')->name('signList');
 Route::get('rank/{id}', 'HomeController@rank')->name('rank');
+
 Route::get('rank2017', function(){
     return view('rank2017');
 });
