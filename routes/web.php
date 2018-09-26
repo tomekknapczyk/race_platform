@@ -120,6 +120,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('import_users', 'TabelaController@users')->name('import_users');
     Route::get('edycja_tabeli/{id}', 'TabelaController@edycja_tabeli')->name('edycja_tabeli');
     Route::post('import_users', 'TabelaController@import_users')->name('import_users');
+    Route::post('add_import_users', 'TabelaController@add_import_users')->name('add_import_users');
     Route::post('clear_import_users', 'TabelaController@clear_import_users')->name('clear_import_users');
     Route::post('set_active_table', 'TabelaController@set_active_table')->name('set_active_table');
 

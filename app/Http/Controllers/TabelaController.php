@@ -102,6 +102,23 @@ class TabelaController extends Controller
         return back();
     }
 
+    public function add_import_users(Request $request)
+    {
+        $this->validate($request, [
+            'nr' => 'required',
+            'name' => 'required',
+            'car' => 'required',
+        ]);
+
+        $user = new import_user;
+        $user->nr = $request->nr;
+        $user->name = $request->name;
+        $user->car = $request->car;
+        $user->save();
+
+        return back();
+    }
+
     public function save(Request $request)
     {
         $this->validate($request, [
