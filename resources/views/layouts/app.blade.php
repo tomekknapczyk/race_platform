@@ -107,6 +107,7 @@
                                             <a class="dropdown-item" href="{{ route('edit_terms') }}">Regulamin</a>
                                             <a class="dropdown-item" href="{{ route('drivers') }}">Zawodnicy</a>
                                             <a class="dropdown-item" href="{{ route('races') }}">Rajdy</a>
+                                            <a class="dropdown-item" href="{{ route('tables') }}">Tabele do transmisji</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">

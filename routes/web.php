@@ -114,7 +114,22 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveDoc', 'DocsController@save')->name('saveDoc');
     Route::get('editDoc/{id}', 'DocsController@edit')->name('editDoc');
     Route::post('deleteDoc', 'DocsController@delete')->name('deleteDoc');
+
+    // Tabele do transmisji
+    Route::get('tabele', 'TabelaController@index')->name('tables');
+    Route::get('import_users', 'TabelaController@users')->name('import_users');
+    Route::get('edycja_tabeli/{id}', 'TabelaController@edycja_tabeli')->name('edycja_tabeli');
+    Route::post('import_users', 'TabelaController@import_users')->name('import_users');
+    Route::post('clear_import_users', 'TabelaController@clear_import_users')->name('clear_import_users');
+    Route::post('set_active_table', 'TabelaController@set_active_table')->name('set_active_table');
+
+    Route::post('saveTable', 'TabelaController@save')->name('saveTable');
+    Route::post('saveTableUsers', 'TabelaController@saveTableUsers')->name('saveTableUsers');
+    Route::post('deleteTable', 'TabelaController@delete')->name('deleteTable');
 });
+
+Route::get('aktywna', 'TabelaController@active')->name('active_table');
+Route::get('tabela/{id}', 'TabelaController@show')->name('table');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      // \UniSharp\LaravelFilemanager\Lfm::routes();

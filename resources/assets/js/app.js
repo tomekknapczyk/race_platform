@@ -206,6 +206,22 @@ if(el3 != null && el3.length){
     });
 }
 
+var el4 = document.getElementById("saveTableUsers");
+if(el4 != null && el4.length){
+    var foo = document.getElementById("items");
+    var items = Sortable.create(foo, { group: "items", animation: 240});
+
+    var bar = document.getElementById("dropdown");
+    var dropped = Sortable.create(bar, { group: "items", animation: 240 });
+}
+
+$(document).on('click', '#saveTable', function(e){
+    e.preventDefault();
+    var order = items.toArray();
+    $('#file_items').val(order);
+    $(this).closest('form').submit();
+})
+
 $(document).on('click', '#generateFile', function(e){
     e.preventDefault();
     var order = dropped.toArray();
