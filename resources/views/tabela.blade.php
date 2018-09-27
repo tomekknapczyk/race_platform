@@ -79,7 +79,7 @@
             font-weight: 600;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
             animation: slideLeft 2s ease forwards;
             position: relative;
             visibility: hidden;
@@ -87,19 +87,25 @@
         }
 
         .nr{
-            width: 12%;
+            width: 10%;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nr_z{
+            width: 15%;
             display: inline-block;
             text-align: center;
         }
 
         .name{
-            width: 44%;
+            width: 30%;
             display: inline-block;
             text-align: left;
         }
 
         .car{
-            width: 44%;
+            width: 30%;
             display: inline-block;
             text-align: left;
         }
@@ -116,7 +122,7 @@
             opacity: 0;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
         }
 
         .item.odd{
@@ -209,6 +215,7 @@
             </div>
             <div class="head">
                 <span class="nr">LP</span>
+                <span class="nr_z">NR ZAWODNIKA</span>
                 <span class="name">IMIĘ I NAZWISKO</span>
                 <span class="car">SAMOCHÓD</span>
             </div> 
@@ -219,6 +226,7 @@
                 <p class="item @if($loop->iteration  % 2 == 0) odd @endif" style="animation-delay:{{ $loop->iteration/1.2 }}s;">
                     <span class="flash" style="animation-delay:{{ $loop->iteration*$delay }}s;"></span>
                     <strong class="nr">{{ $loop->iteration }}.</strong>
+                    <span class="nr_z">{{ $item->user->nr }}</span>
                     <span class="name">{{ $item->user->name }}</span>
                     <span class="car">{{ $item->user->car }}</span>
                 </p>
