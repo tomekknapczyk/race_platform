@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <h4>Uczestnicy na liście:</h4>
-                                <div class="bg-info p-2 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="items">
+                                <div class="bg-info p-4 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="items">
                                     @foreach($tabela->items as $item)
                                         <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->user->id }}">{{ $item->user->nr }} :: {{ $item->user->name }} :: {{ $item->user->car }}</div>
                                     @endforeach
@@ -29,7 +29,7 @@
 
                             <div class="col-sm-6">
                                 <h4>Uczestnicy do wyboru:</h4>
-                                <div class="bg-dark p-2 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="dropdown">
+                                <div class="bg-dark p-4 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="dropdown">
                                     @foreach($niewykorzystani as $item)
                                         <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->id }}">{{ $item->nr }} :: {{ $item->name }} :: {{ $item->car }}</div>
                                     @endforeach

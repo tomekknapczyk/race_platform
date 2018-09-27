@@ -83,6 +83,7 @@
             animation: slideLeft 2s ease forwards;
             position: relative;
             visibility: hidden;
+            margin-top: 5px;
         }
 
         .nr{
@@ -124,7 +125,7 @@
 
         .item > *{
             margin: 0;
-            padding: 10px 0;
+            padding: 5px 0;
             text-transform: uppercase;
             font-size: 24px;
             font-weight: 300;
@@ -211,9 +212,12 @@
                 <span class="name">IMIĘ I NAZWISKO</span>
                 <span class="car">SAMOCHÓD</span>
             </div> 
+            @php
+                $delay = 10 / $tabela->items->count();
+            @endphp
             @foreach($tabela->items as $item)
                 <p class="item @if($loop->iteration  % 2 == 0) odd @endif" style="animation-delay:{{ $loop->iteration/1.2 }}s;">
-                    <span class="flash" style="animation-delay:{{ $loop->iteration*1.4 }}s;"></span>
+                    <span class="flash" style="animation-delay:{{ $loop->iteration*$delay }}s;"></span>
                     <strong class="nr">{{ $loop->iteration }}.</strong>
                     <span class="name">{{ $item->user->name }}</span>
                     <span class="car">{{ $item->user->car }}</span>
