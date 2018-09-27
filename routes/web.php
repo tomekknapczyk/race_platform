@@ -1,5 +1,6 @@
 <?php
 Auth::routes();
+Route::get('register/verify/{confirmationCode}', 'Auth\RegisterController@confirm')->name('confirmation_path');
 
 Route::get('/', 'GuestController@index');
 Route::get('aktualnosci', 'NewsController@showAll');

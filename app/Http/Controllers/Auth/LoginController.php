@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Mail\AccountVerification;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticated(Request $request, User $user)
+    {
+        if($user->confirmed)
+            return redirect()->intended($this->redirectPath());
+        else
+        {
+            $this->logout($request);
+            
+            \Mail::to($user->email)->send(new AccountVerification($user->confirmation_code));
+            return redirect('/')->with('warning', 'Twój adres email nie został potwierdzony. Kod został ponownie wysłany.');
+        }
     }
 }
