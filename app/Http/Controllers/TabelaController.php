@@ -16,8 +16,8 @@ class TabelaController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['active']]);
-        $this->middleware('admin', ['except' => ['active']]);
+        $this->middleware('auth', ['except' => ['active', 'show']]);
+        $this->middleware('admin', ['except' => ['active', 'show']]);
     }
 
     public function index()
