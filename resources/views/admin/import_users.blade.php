@@ -21,12 +21,22 @@
                             <div class="col-sm-2">
                                 {{ $user->nr }}
                             </div>
-                            <h6 class="m-0 col-sm-4">
+                            <h6 class="m-0 col-sm-3">
                                 {{ $user->name }}
                             </h6>
-                            <h6 class="m-0 col-sm-4">
+                            <h6 class="m-0 col-sm-3">
+                                {{ $user->pilot }}
+                            </h6>
+                            <h6 class="m-0 col-sm-2">
                                 {{ $user->car }}
                             </h6>
+                            <div class="col-sm-2">
+                                <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editUser"
+                                    data-text='{"id":"{{ $user->id }}", "nr":"{{ $user->nr }}", "name":"{{ $user->name }}", "pilot":"{{ $user->pilot }}", "car":"{{ $user->car }}"}'>
+                                    Edytuj
+                                </button>
+                                <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteUser" data-id="{{ $user->id }}">Usuń</button>
+                            </div>
                         </div>
                         <hr>
                     @endforeach
@@ -56,7 +66,7 @@
                         @csrf
 
                         <div class="row align-items-end">
-                            <div class="col-2">
+                            <div class="col-1">
                                 <div class="form-group m-0">
                                     <label for="nr">Numer</label>
                                     <input type="text" name="nr" class="form-control" required="">
@@ -67,9 +77,9 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="form-group m-0">
-                                    <label for="name">Imię i nazwisko</label>
+                                    <label for="name">Kierowca</label>
                                     <input type="text" name="name" class="form-control" required="">
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
@@ -78,7 +88,18 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
+                                <div class="form-group m-0">
+                                    <label for="pilot">Pilot</label>
+                                    <input type="text" name="pilot" class="form-control">
+                                    @if ($errors->has('pilot'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('pilot') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-3">
                                 <div class="form-group m-0">
                                     <label for="car">Samochód</label>
                                     <input type="text" name="car" class="form-control" required="">
@@ -101,4 +122,7 @@
         </div>
     </div>
 </div>
+
+@include('admin.modals.editUser')
+@include('admin.modals.deleteUser')
 @endsection

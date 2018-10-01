@@ -39,10 +39,10 @@
                                 <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteTable" data-id="{{ $tabela->id }}">Usuń</button>
                             </div>
                             <div class="col-sm-12 bg-dark mt-1">
-                                <code>{{ url('tabela', $tabela->id) }}</code>
+                                <code><a href="{{ url('tabela', $tabela->id) }}" target="_blank">{{ url('tabela', $tabela->id) }}</a></code>
                                 @if($tabela->active)
                                     <br>
-                                    <code>{{ url('aktywna') }}</code>
+                                    <code><a href="{{ url('aktywna') }}" target="_blank">{{ url('aktywna') }}</a></code>
                                 @endif
                             </div>
                         </div>

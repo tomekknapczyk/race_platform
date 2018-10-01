@@ -87,7 +87,7 @@
         }
 
         .nr{
-            width: 10%;
+            width: 8%;
             display: inline-block;
             text-align: center;
         }
@@ -99,13 +99,13 @@
         }
 
         .name{
-            width: 30%;
+            width: 22%;
             display: inline-block;
             text-align: left;
         }
 
         .car{
-            width: 30%;
+            width: 22%;
             display: inline-block;
             text-align: left;
         }
@@ -216,7 +216,10 @@
             <div class="head">
                 <span class="nr">LP</span>
                 <span class="nr_z">NR ZAWODNIKA</span>
-                <span class="name">IMIĘ I NAZWISKO</span>
+                <span class="name">KIEROWCA</span>
+                @if($tabela->items->first()->user->pilot)
+                    <span class="name">PILOT</span>
+                @endif
                 <span class="car">SAMOCHÓD</span>
             </div> 
             @php
@@ -228,6 +231,9 @@
                     <strong class="nr">{{ $loop->iteration }}.</strong>
                     <span class="nr_z">{{ $item->user->nr }}</span>
                     <span class="name">{{ $item->user->name }}</span>
+                    @if($tabela->items->first()->user->pilot)
+                        <span class="name">{{ $item->user->pilot }}</span>
+                    @endif
                     <span class="car">{{ $item->user->car }}</span>
                 </p>
             @endforeach

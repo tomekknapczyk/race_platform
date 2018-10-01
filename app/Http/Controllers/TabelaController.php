@@ -60,7 +60,7 @@ class TabelaController extends Controller
         $niewykorzystani = $users->whereNotIn('id', $wykorzystani);
 
         return view('admin.tabela', compact('tabela', 'niewykorzystani'));
-    }
+    } 
 
     public function users()
     {
@@ -94,10 +94,44 @@ class TabelaController extends Controller
         while ($csvLine = fgetcsv($handle, 1000, ",")) {
             $user = new import_user;
             $user->nr = $csvLine[0];
-            $user->name = $csvLine[1];
-            $user->car = $csvLine[2];
+            $user->name = $csvLine[1] . ' ' . $csvLine[2];
+            $user->pilot = $csvLine[3] . ' ' . $csvLine[4];
+            $user->car = $csvLine[5];
             $user->save();
         }
+
+        return back();
+    }
+
+    public function edit_user(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:import_users',
+            'nr' => 'required',
+            'name' => 'required',
+            'car' => 'required'
+        ]);        
+
+        $user = import_user::where('id', $request->id)->first();
+        $user->nr = $request->nr;
+        $user->name = $request->name;
+        $user->pilot = $request->pilot;
+        $user->car = $request->car;
+
+        $user->save();
+
+        return back();
+    }
+
+    public function delete_user(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:import_users',
+        ]);        
+
+        $user = import_user::where('id', $request->id)->first();
+        tabela_user::where('user_id', $user->id)->delete();
+        $user->delete();
 
         return back();
     }
@@ -113,6 +147,7 @@ class TabelaController extends Controller
         $user = new import_user;
         $user->nr = $request->nr;
         $user->name = $request->name;
+        $user->pilot = $request->pilot;
         $user->car = $request->car;
         $user->save();
 
