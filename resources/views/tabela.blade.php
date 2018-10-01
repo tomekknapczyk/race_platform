@@ -20,7 +20,7 @@
         }
 
         .container{
-            width: 900px;
+            width: 1000px;
             color: #fff;
             overflow: hidden;
         }
@@ -46,7 +46,7 @@
             text-transform: uppercase;
             padding: 10px 10px 0 10px;
             font-weight: 400;
-            font-size: 60px;
+            font-size: 46px;
             line-height: 1;
             letter-spacing: 3px;
         }
@@ -112,7 +112,7 @@
 
         .item{
             display: block;
-            padding: 5px 0;
+            padding: 0;
             margin: 5px 0;
             position: relative;
             background: rgba(17, 24, 39, 0.75);
