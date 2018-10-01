@@ -12,6 +12,21 @@
                         @csrf
 
                         <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Typ konta:</label>
+
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="account_type" id="driver" value="1" required="">
+                                  <label class="form-check-label" for="driver">Kierowca</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="account_type" id="pilot" value="0" required="">
+                                  <label class="form-check-label" for="pilot">Pilot</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">

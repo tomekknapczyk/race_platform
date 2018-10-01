@@ -16,6 +16,11 @@ class Sign extends Model
         return $this->belongsTo(User::class, 'email', 'email');
     }
 
+    public function pilot()
+    {
+        return $this->belongsTo(User::class, 'pilot_email', 'email');
+    }
+
     public function car()
     {
         return $this->belongsTo(Car::class, 'nr_rej', 'nr_rej');

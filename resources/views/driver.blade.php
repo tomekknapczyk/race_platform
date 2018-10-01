@@ -6,35 +6,35 @@
         <div class="col-lg-12">
             <div class="card border-dark">
                 <div class="card-header bg-yellow">
-                    <a href="{{ route('kierowcy') }}" class="text-white">Kierowcy</a> : 
-                    @if($user->driver->show_name){{ $user->driver->name }}@endif
-                    @if($user->driver->show_lastname){{ $user->driver->lastname }}@endif
-                    @if(!$user->driver->show_lastname && !$user->driver->show_name) Anonim @endif
+                    <a href="{{ route('kierowcy') }}" class="text-white">Kierowcy</a> :
+                    @if($user->profile->show_name){{ $user->profile->name }}@endif
+                    @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
+                    @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
                 </div>
                 <div class="card-body">
                         <div class="col-sm-12">
                             <div class="row shadow p-3 bg-white">
                                 <div class="col-md-3">
-                                    @if($user->driver->file_id)
-                                        <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid">
+                                    @if($user->profile->file_id)
+                                        <img src="{{ url('/public/driver', $user->profile->file->path) }}" class="img-fluid">
                                     @else
                                         <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                                     @endif
                                 </div>
                                 <div class="col-md-9">
                                     <h3 class="text-uppercase">
-                                        @if($user->driver->show_name){{ $user->driver->name }}@endif
-                                        @if($user->driver->show_lastname){{ $user->driver->lastname }}@endif
-                                        @if(!$user->driver->show_lastname && !$user->driver->show_name) Anonim @endif
+                                        @if($user->profile->show_name){{ $user->profile->name }}@endif
+                                        @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
+                                        @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
                                     </h3>
-                                    <p>@if($user->driver->show_email){{ $user->email }}@endif</p>
+                                    <p>@if($user->profile->show_email){{ $user->email }}@endif</p>
                                     <strong>O mnie:</strong>
-                                    {!! $user->driver->desc !!}
+                                    {!! $user->profile->desc !!}
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-6 mt-4">
+                                {{-- <div class="col-lg-6 mt-4">
                                     <div class="card border-0 shadow">
                                         <div class="card-header bg-yellow">
                                             Piloci
@@ -61,17 +61,17 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-lg-6 mt-4">
+                                <div class="col-lg-12 mt-4">
                                     <div class="card border-0 shadow">
                                         <div class="card-header bg-yellow">
                                             Samochody
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body d-flex flex-wrap align-items-start">
                                             @if($user->cars->count())
                                                 @foreach($user->cars as $car)
-                                                    <div class="d-flex justify-content-start align-items-center flex-wrap py-2">
+                                                    <div class="col-6 d-flex justify-content-start align-items-center flex-wrap py-2">
                                                         <div class="col-md-5">
                                                             @if($car->file_id)
                                                                 <img src="{{ url('/public/car', $car->file->path) }}" class="img-fluid">
@@ -107,7 +107,20 @@
                                             </h6>
                                             <h6 class="col-md-3 m-0">
                                                 {{ $race->sign->name }} {{ $race->sign->lastname }}<br>
-                                                <small><strong>Pilot:</strong>{{ $race->sign->pilot_name }} {{ $race->sign->pilot_lastname }}</small>
+                                                @if($race->sign->pilot)
+                                                    <small><strong>Pilot:</strong>
+                                                    @if($race->sign->pilot->profile->show_name && $race->sign->pilot->profile->show_lastname)
+                                                        <a href="{{ route('pilot', [$race->sign->pilot->id, str_slug($race->sign->pilot->profile->name.'-'.$race->sign->pilot->profile->lastname)]) }}">
+                                                    @elseif($race->sign->pilot->profile->show_lastname)
+                                                        <a href="{{ route('pilot', [$race->sign->pilot->id, $race->sign->pilot->profile->lastname]) }}">
+                                                    @else
+                                                        <a href="{{ route('pilot', $race->sign->pilot->id) }}">
+                                                    @endif
+                                                        {{ $race->sign->pilot_name }} {{ $race->sign->pilot_lastname }}
+                                                    </a></small>
+                                                @else
+                                                    <small><strong>Pilot:</strong> {{ $race->sign->pilot_name }} {{ $race->sign->pilot_lastname }}</small>
+                                                @endif
                                             </h6>
                                             <h6 class="col-md-3 m-0">
                                                 {{ $race->sign->marka }} {{ $race->sign->model }}<br>

@@ -22,18 +22,18 @@
                                             {{ ++$numer }}.
                                         </h6>
                                         <div class="col-1">
-                                            @if($position->sign->user && $position->sign->user->driver->file_id)
-                                                <img src="{{ url('public/driver', $position->sign->user->driver->file->path) }}" class="img-fluid thumb">
+                                            @if($position->sign->user && $position->sign->user->profile->file_id)
+                                                <img src="{{ url('public/driver', $position->sign->user->profile->file->path) }}" class="img-fluid thumb">
                                             @else
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                             @endif
                                         </div>
                                         <h6 class="m-0 col-5 text-left">
                                             @if($position->user)
-                                                @if($position->user->driver->show_name && $position->user->driver->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->driver->name.'-'.$position->user->driver->lastname)]) }}">
-                                                @elseif($position->user->driver->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->driver->lastname]) }}">
+                                                @if($position->user->profile->show_name && $position->user->profile->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
+                                                @elseif($position->user->profile->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}">
                                                 @else
                                                     <a href="{{ route('kierowca', $position->user->id) }}">
                                                 @endif

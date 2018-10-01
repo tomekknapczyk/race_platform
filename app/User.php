@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'email', 'password', 'confirmation_code',
+        'login', 'email', 'password', 'confirmation_code', 'driver', 'uid'
     ];
 
     /**
@@ -28,9 +28,19 @@ class User extends Authenticatable
     ];
 
 
-    public function driver()
+    public function profile()
     {
         return $this->hasOne(Driver::class);
+    }
+
+    public function signs()
+    {
+        return $this->hasMany(Sign::class);
+    }
+
+    public function pilotSigns()
+    {
+        return $this->hasMany(Sign::class, 'pilot_id', 'id');
     }
 
     public function pilots()
@@ -45,7 +55,7 @@ class User extends Authenticatable
 
     public function ready()
     {
-        if(auth()->user()->driver() && auth()->user()->pilots()->first() && auth()->user()->cars()->first())
+        if(auth()->user()->profile && auth()->user()->cars()->first())
             return true;
         else
             return false;
@@ -64,7 +74,10 @@ class User extends Authenticatable
 
     public function signed($form_id)
     {
-        $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $form_id)->first();
+        if(auth()->user()->driver)
+            $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $form_id)->first();
+        else
+            $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $form_id)->first();
 
         if($sign)
             return true;
@@ -90,6 +103,13 @@ class User extends Authenticatable
     public function races()
     {
         return $this->hasMany(StartListItem::class, 'email', 'email');
+    }
+
+    public function pilot_races()
+    {
+        $signs = $this->pilotSigns->pluck('id')->toArray();
+        $races = StartListItem::whereIn('sign_id', $signs)->get();
+        return $races;
     }
 
     public function klasy()

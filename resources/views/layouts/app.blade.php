@@ -78,9 +78,13 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('driver-profile') }}">Profil kierowcy</a>
-                                            <a class="dropdown-item" href="{{ route('pilots') }}">Piloci</a>
-                                            <a class="dropdown-item" href="{{ route('cars') }}">Samochody</a>
+                                            @if(auth()->user()->driver)
+                                                <a class="dropdown-item" href="{{ route('profile') }}">Profil kierowcy</a>
+                                                <a class="dropdown-item" href="{{ route('pilots') }}">Piloci</a>
+                                                <a class="dropdown-item" href="{{ route('cars') }}">Samochody</a>
+                                            @else
+                                                <a class="dropdown-item" href="{{ route('profile') }}">Profil pilota</a>
+                                            @endif
                                             <a class="dropdown-item" href="{{ route('settings') }}">Ustawienia konta</a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();

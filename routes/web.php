@@ -7,6 +7,7 @@ Route::get('aktualnosci', 'NewsController@showAll');
 Route::get('aktualnosc/{id}', 'NewsController@show');
 Route::get('kierowcy_rajdowi', 'GuestController@drivers')->name('kierowcy');
 Route::get('kierowca_rajdowy/{id}/{name?}', 'GuestController@driver')->name('kierowca');
+Route::get('pilot_rajdowy/{id}/{name?}', 'GuestController@pilot')->name('pilot');
 Route::get('piloci_rajdowi', 'GuestController@pilots')->name('piloci');
 Route::get('video', 'GuestController@video');
 Route::get('wyniki', 'GuestController@wyniki');
@@ -33,18 +34,20 @@ Route::get('rank2018', function(){
 Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
 Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
 Route::post('getPilot', 'HomeController@getPilot')->name('getPilot');
+Route::post('getDriver', 'HomeController@getDriver')->name('getDriver');
+Route::post('getPilotUid', 'HomeController@getPilotUid')->name('getPilotUid');
 Route::post('getCar', 'HomeController@getCar')->name('getCar');
 Route::post('sign', 'SignController@sign')->name('sign');
 
 // Settings
 Route::get('settings', 'UserController@settings')->name('settings');
 Route::post('changePassword', 'UserController@changePassword')->name('changePassword');
+Route::post('regenerateUid', 'UserController@regenerateUid')->name('regenerateUid');
 
 // Profile
-Route::get('driver-profile', 'UserController@driverProfile')->name('driver-profile');
-Route::get('pilots', 'UserController@pilots')->name('pilots');
-Route::get('cars', 'UserController@cars')->name('cars');
-Route::get('pilot-profile', 'UserController@pilotProfile')->name('pilot-profile');
+Route::get('profile', 'UserController@driverProfile')->name('profile');
+Route::get('pilots', 'UserController@pilots')->name('pilots')->middleware('driver');
+Route::get('cars', 'UserController@cars')->name('cars')->middleware('driver');
 Route::get('car', 'UserController@car')->name('car');
 Route::post('saveDriver', 'UserController@saveDriver')->name('saveDriver');
 Route::post('savePilot', 'UserController@savePilot')->name('savePilot');

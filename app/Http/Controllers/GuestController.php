@@ -83,26 +83,36 @@ class GuestController extends Controller
 
     public function drivers()
     {
-        $users = \App\User::where('admin', 0)->with('driver', 'driver.file')->get();
+        $users = \App\User::where('admin', 0)->where('driver', 1)->with('profile', 'profile.file')->get();
 
         return view('drivers', compact('users'));
     }
 
     public function pilots()
     {
-        $pilots = \App\Pilot::with('file')->get();
+        $pilots = \App\User::where('admin', 0)->where('driver', 0)->with('profile', 'profile.file')->get();
 
         return view('pilots-list', compact('pilots'));
     }
 
     public function driver($id, $name = null)
     {
-        $user = \App\User::where('admin', 0)->where('id', $id)->with('driver', 'driver.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
+        $user = \App\User::where('admin', 0)->where('id', $id)->where('driver', 1)->with('profile', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
 
         if(!$user)
             return back()->with('danger', 'Kierowca nie istnieje');
 
         return view('driver', compact('user'));
+    }
+
+    public function pilot($id, $name = null)
+    {
+        $user = \App\User::where('admin', 0)->where('id', $id)->where('driver', 0)->with('profile', 'profile.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
+
+        if(!$user)
+            return back()->with('danger', 'Pilot nie istnieje');
+
+        return view('pilot', compact('user'));
     }
 
     public function video()
@@ -161,7 +171,7 @@ class GuestController extends Controller
 
         if($round){
             $start_list_id = $round->startList->id;
-            $endPositions = $round->endPositions($start_list_id)->load('user.driver.file', 'sign.car.file');
+            $endPositions = $round->endPositions($start_list_id)->load('user.profile.file', 'sign.car.file');
             $is_someone = $endPositions->count();
             $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 

@@ -53,4 +53,9 @@ class StartListItem extends Model
     {
         return $this->belongsTo(User::class, 'email', 'email');
     }
+
+    public function pilot()
+    {
+        return $this->sign->pilot;
+    }
 }

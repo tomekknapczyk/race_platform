@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users|confirmed',
             'password' => 'required|string|min:6|confirmed',
             'terms' => 'accepted',
+            'account_type' => 'required'
         ]);
     }
 
@@ -74,6 +75,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' =>  Hash::make($data['password']),
             'confirmation_code' => $confirmation_code,
+            'driver' => $data['account_type'],
+            'uid' => $this->generate_uid()
         ]);
 
         \Mail::to($data['email'])->send(new AccountVerification($confirmation_code));
@@ -118,5 +121,17 @@ class RegisterController extends Controller
         event(new Registered($user));
 
         return redirect('/')->with('success', 'Na podany adres email została wysłany link aktywujący konto. Prosimy o potwierdzenie adresu');
+    }
+
+    protected function generate_uid()
+    {
+        $uid = str_random(10);
+
+        $exist = User::where('uid', $uid)->first();
+
+        if($exist)
+            $uid = $this->generate_uid();
+
+        return $uid;
     }
 }

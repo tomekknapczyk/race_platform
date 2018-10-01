@@ -6,7 +6,7 @@
         <div class="col-lg-10">
             <div class="card border-dark">
                 <div class="card-header bg-yellow">
-                    Profil kierowcy
+                    Twój profil
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('saveDriver') }}" enctype="multipart/form-data">
@@ -14,8 +14,8 @@
                         <div class="row">
 
                             <div class="col-sm-4">
-                                @if(auth()->user()->driver && auth()->user()->driver->file_id)
-                                    <img src="{{ url('public/driver', auth()->user()->driver->file->path) }}" class="img-fluid img-thumbnail">
+                                @if(auth()->user()->profile && auth()->user()->profile->file_id)
+                                    <img src="{{ url('public/driver', auth()->user()->profile->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
                                 
                                 <div class="form-group">
@@ -50,7 +50,7 @@
                                 <div class="form-group mt-3">
                                     <div class="checkbox">
                                         <label for="showName">
-                                            <input type="checkbox" name="showName" id="showName" @if(optional(auth()->user()->driver)->show_name) checked="checked" @endif>
+                                            <input type="checkbox" name="showName" id="showName" @if(optional(auth()->user()->profile)->show_name) checked="checked" @endif>
                                             Pokazuj imie
                                         </label>
                                         @if ($errors->has('showName'))
@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label for="showLastname">
-                                            <input type="checkbox" name="showLastname" id="showLastname" @if(optional(auth()->user()->driver)->show_lastname) checked="checked" @endif>
+                                            <input type="checkbox" name="showLastname" id="showLastname" @if(optional(auth()->user()->profile)->show_lastname) checked="checked" @endif>
                                             Pokazuj nazwisko
                                         </label>
                                         @if ($errors->has('showLastname'))
@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label for="showEmail">
-                                            <input type="checkbox" name="showEmail" id="showEmail" @if(optional(auth()->user()->driver)->show_email) checked="checked" @endif>
+                                            <input type="checkbox" name="showEmail" id="showEmail" @if(optional(auth()->user()->profile)->show_email) checked="checked" @endif>
                                             Pokazuj adres e-mail
                                         </label>
                                         @if ($errors->has('showEmail'))
@@ -91,7 +91,7 @@
 
                                 <div class="form-group">
                                     <label for="text">O mnie:</label>
-                                    <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->driver)->desc) }}</textarea>
+                                    <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->profile)->desc) }}</textarea>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@
 
                                 <div class="form-group">
                                     <label for="name">Imię</label>
-                                    <input type="text" name="name" value="{{ old('name', optional(auth()->user()->driver)->name) }}" class="form-control" required=""> 
+                                    <input type="text" name="name" value="{{ old('name', optional(auth()->user()->profile)->name) }}" class="form-control" required=""> 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('name') }}</strong>
@@ -109,7 +109,7 @@
 
                                 <div class="form-group">
                                     <label for="lastname">Nazwisko</label>
-                                    <input type="text" name="lastname" value="{{ old('lastname', optional(auth()->user()->driver)->lastname) }}" class="form-control" required=""> 
+                                    <input type="text" name="lastname" value="{{ old('lastname', optional(auth()->user()->profile)->lastname) }}" class="form-control" required=""> 
                                     @if ($errors->has('lastname'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('lastname') }}</strong>
@@ -119,7 +119,7 @@
 
                                 <div class="form-group">
                                     <label for="address">Adres</label>
-                                    <textarea name="address" class="form-control" rows="2" required="">{{ old('address', optional(auth()->user()->driver)->address) }}</textarea>
+                                    <textarea name="address" class="form-control" rows="2" required="">{{ old('address', optional(auth()->user()->profile)->address) }}</textarea>
                                     @if ($errors->has('address'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('address') }}</strong>
@@ -129,7 +129,7 @@
 
                                 <div class="form-group">
                                     <label for="id_card">Seria nr dowodu osobistego</label>
-                                    <input type="text" name="id_card" value="{{ old('id_card', optional(auth()->user()->driver)->id_card) }}" class="form-control" required=""> 
+                                    <input type="text" name="id_card" value="{{ old('id_card', optional(auth()->user()->profile)->id_card) }}" class="form-control" required=""> 
                                     @if ($errors->has('id_card'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('id_card') }}</strong>
@@ -139,7 +139,7 @@
 
                                 <div class="form-group">
                                     <label for="phone">Telefon</label>
-                                    <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->driver)->phone) }}" class="form-control" required=""> 
+                                    <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->profile)->phone) }}" class="form-control" required=""> 
                                     @if ($errors->has('phone'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('phone') }}</strong>
@@ -149,7 +149,7 @@
 
                                 <div class="form-group">
                                     <label for="driving_license">Nr prawo jazdy</label>
-                                    <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->driver)->driving_license) }}" class="form-control" required=""> 
+                                    <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->profile)->driving_license) }}" class="form-control" required=""> 
                                     @if ($errors->has('driving_license'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('driving_license') }}</strong>
@@ -159,7 +159,7 @@
 
                                 <div class="form-group">
                                     <label for="oc">Nazwa nr polisy OC</label>
-                                    <input type="text" name="oc" value="{{ old('oc', optional(auth()->user()->driver)->oc) }}" class="form-control" required=""> 
+                                    <input type="text" name="oc" value="{{ old('oc', optional(auth()->user()->profile)->oc) }}" class="form-control" required=""> 
                                     @if ($errors->has('oc'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('oc') }}</strong>
@@ -169,7 +169,7 @@
 
                                 <div class="form-group">
                                     <label for="nw">Nazwa nr polisy NW</label>
-                                    <input type="text" name="nw" value="{{ old('nw', optional(auth()->user()->driver)->nw) }}" class="form-control" > 
+                                    <input type="text" name="nw" value="{{ old('nw', optional(auth()->user()->profile)->nw) }}" class="form-control" > 
                                     @if ($errors->has('nw'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('nw') }}</strong>

@@ -18,22 +18,30 @@
         </div>
         <div class="row justify-content-center list">
             @foreach($pilots as $pilot)
-                <div class="col-md-4 col-lg-4 col-xl-3">
-                    <div class="driver">
-                        {{-- <a href="{{ route('kierowca', $user->id) }}"> --}}
-                        @if($pilot->file_id)
-                            <img src="{{ url('/public/pilot', $pilot->file->path) }}" class="img-fluid">
-                        @else
-                            <img src="{{ url('/images/driver.png') }}" class="img-fluid">
-                        @endif
-                        <h6 class="my-3 nazwisko" data-nazwisko="@if($pilot->show_lastname){{ $pilot->lastname }}@endif">
-                            @if($pilot->show_name){{ $pilot->name }}@endif
-                            @if($pilot->show_lastname){{ $pilot->lastname }}@endif
-                            @if(!$pilot->show_lastname && !$pilot->show_name) Anonim @endif
-                        </h6>
-                        {{-- </a> --}}
+                @if($pilot->profile)
+                    <div class="col-md-4 col-lg-4 col-xl-3">
+                        <div class="driver">
+                            @if($pilot->profile->show_name && $pilot->profile->show_lastname)
+                                <a href="{{ route('pilot', [$pilot->id, str_slug($pilot->profile->name.'-'.$pilot->profile->lastname)]) }}">
+                            @elseif($pilot->profile->show_lastname)
+                                <a href="{{ route('pilot', [$pilot->id, $pilot->profile->lastname]) }}">
+                            @else
+                                <a href="{{ route('pilot', $pilot->id) }}">
+                            @endif
+                            @if($pilot->profile->file_id)
+                                <img src="{{ url('/public/driver', $pilot->profile->file->path) }}" class="img-fluid">
+                            @else
+                                <img src="{{ url('/images/driver.png') }}" class="img-fluid">
+                            @endif
+                            <h6 class="my-3 nazwisko" data-nazwisko="@if($pilot->profile->show_lastname){{ $pilot->profile->lastname }}@endif">
+                                @if($pilot->profile->show_name){{ $pilot->profile->name }}@endif
+                                @if($pilot->profile->show_lastname){{ $pilot->profile->lastname }}@endif
+                                @if(!$pilot->profile->show_lastname && !$pilot->profile->show_name) Anonim @endif
+                            </h6>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     </div>

@@ -57,7 +57,7 @@ class HomeController extends Controller
         $round = \App\Round::where('id', $id)->first();
 
         if($round && $round->form->visible){
-            $signs = $round->signs()->load('user.driver.file', 'car.file');
+            $signs = $round->signs()->load('user.profile.file', 'car.file');
             $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
             // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
@@ -86,7 +86,11 @@ class HomeController extends Controller
         $form = \App\SignForm::where('id', $id)->first();
 
         if($form){
-            $data = $form->signs->where('user_id', auth()->user()->id)->first();
+            if(auth()->user()->driver)
+                $data = $form->signs->where('user_id', auth()->user()->id)->first();
+            else
+                $data = $form->signs->where('pilot_id', auth()->user()->id)->first();
+            
             $pdf = PDF::loadView('pdf.form', compact('data', 'form'));
             return $pdf->download('formularz.pdf');
         }
@@ -152,13 +156,48 @@ class HomeController extends Controller
         return back()->with('warning', 'Pilot nie istnieje');
     }
 
+    public function getDriver(Request $request)
+    {
+        $driver = \App\User::where('uid', $request->uid)->where('driver', 1)->first();
+        if($driver){
+            $profile = \App\Driver::where('user_id', $driver->id)->first();
+            if($profile){
+                $profile->email = $driver->email;
+                $profile->cars = $driver->cars;
+                return response()->json($profile);
+            }
+            else{
+                return 'blad';
+            }
+        }
+        else
+            return 'blad';
+    }
+
+    public function getPilotUid(Request $request)
+    {
+        $pilot = \App\User::where('uid', $request->uid)->where('driver', 0)->first();
+        if($pilot){
+            $profile = \App\Driver::where('user_id', $pilot->id)->first();
+            if($profile){
+                $profile->email = $pilot->email;
+                return response()->json($profile);
+            }
+            else{
+                return 'blad';
+            }
+        }
+        else
+            return 'blad';
+    }
+
     public function getCar(Request $request)
     {
         $this->validate($request, [
             'id' => 'required|exists:cars',
         ]);
 
-        $car = \App\Car::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        $car = \App\Car::where('id', $request->id)->first();
         
         if($car){
             return response()->json($car);

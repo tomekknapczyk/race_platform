@@ -29,25 +29,25 @@
         </div>
         <div class="row justify-content-center list">
             @foreach($users as $user)
-                @if($user->driver)
+                @if($user->profile)
                     <div class="col-md-4 col-lg-4 col-xl-3">
                         <div class="driver klasa" data-klasa="{{ $user->klasy() }}">
-                            @if($user->driver->show_name && $user->driver->show_lastname)
-                                <a href="{{ route('kierowca', [$user->id, str_slug($user->driver->name.'-'.$user->driver->lastname)]) }}">
-                            @elseif($user->driver->show_lastname)
-                                <a href="{{ route('kierowca', [$user->id, $user->driver->lastname]) }}">
+                            @if($user->profile->show_name && $user->profile->show_lastname)
+                                <a href="{{ route('kierowca', [$user->id, str_slug($user->profile->name.'-'.$user->profile->lastname)]) }}">
+                            @elseif($user->profile->show_lastname)
+                                <a href="{{ route('kierowca', [$user->id, $user->profile->lastname]) }}">
                             @else
                                 <a href="{{ route('kierowca', $user->id) }}">
                             @endif
-                            @if($user->driver->file_id)
-                                <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid">
+                            @if($user->profile->file_id)
+                                <img src="{{ url('/public/driver', $user->profile->file->path) }}" class="img-fluid">
                             @else
                                 <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                             @endif
-                            <h6 class="my-3 nazwisko" data-nazwisko="@if($user->driver->show_lastname){{ $user->driver->lastname }}@endif">
-                                @if($user->driver->show_name){{ $user->driver->name }}@endif
-                                @if($user->driver->show_lastname){{ $user->driver->lastname }}@endif
-                                @if(!$user->driver->show_lastname && !$user->driver->show_name) Anonim @endif
+                            <h6 class="my-3 nazwisko" data-nazwisko="@if($user->profile->show_lastname){{ $user->profile->lastname }}@endif">
+                                @if($user->profile->show_name){{ $user->profile->name }}@endif
+                                @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
+                                @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
                             </h6>
                             </a>
                         </div>

@@ -59,32 +59,68 @@ class SignController extends Controller
         if($form->signs->where('active', 1)->count() >= $max)
             $active = false;
 
-        $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
+        if(auth()->user()->driver)
+            $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
+        else
+            $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
         
         if($sign)
             return back()->with('danger', 'Twoje zgłoszenie zostało już wysłane.');
 
         $sign = new Sign;
         $sign->form_id = $request->form_id;
-        $sign->user_id = auth()->user()->id;
-        $sign->name = auth()->user()->driver->name;
-        $sign->lastname = auth()->user()->driver->lastname;
-        $sign->address = auth()->user()->driver->address;
-        $sign->id_card = auth()->user()->driver->id_card;
-        $sign->phone = auth()->user()->driver->phone;
-        $sign->email = auth()->user()->email;
-        $sign->driving_license = auth()->user()->driver->driving_license;
-        $sign->oc = auth()->user()->driver->oc;
-        $sign->nw = auth()->user()->driver->nw;
-        $sign->pilot_name = $request->name;
-        $sign->pilot_lastname = $request->lastname;
-        $sign->pilot_address = $request->address;
-        $sign->pilot_id_card = $request->id_card;
-        $sign->pilot_phone = $request->phone;
-        $sign->pilot_email = $request->email;
-        $sign->pilot_driving_license = $request->driving_license;
-        $sign->pilot_oc = $request->oc;
-        $sign->pilot_nw = $request->nw;
+
+        if(auth()->user()->driver){
+            if($request->pilot_uid){
+                $pilot = \App\User::where('uid', $request->pilot_uid)->first();
+                $sign->pilot_id = $pilot->id;
+            }
+            $sign->user_id = auth()->user()->id;
+            $sign->name = auth()->user()->profile->name;
+            $sign->lastname = auth()->user()->profile->lastname;
+            $sign->address = auth()->user()->profile->address;
+            $sign->id_card = auth()->user()->profile->id_card;
+            $sign->phone = auth()->user()->profile->phone;
+            $sign->email = auth()->user()->email;
+            $sign->driving_license = auth()->user()->profile->driving_license;
+            $sign->oc = auth()->user()->profile->oc;
+            $sign->nw = auth()->user()->profile->nw;
+
+            $sign->pilot_name = $request->name;
+            $sign->pilot_lastname = $request->lastname;
+            $sign->pilot_address = $request->address;
+            $sign->pilot_id_card = $request->id_card;
+            $sign->pilot_phone = $request->phone;
+            $sign->pilot_email = $request->email;
+            $sign->pilot_driving_license = $request->driving_license;
+            $sign->pilot_oc = $request->oc;
+            $sign->pilot_nw = $request->nw;
+        }
+        else{
+            $driver = \App\User::where('uid', $request->driver_uid)->first();
+            $sign->user_id = $driver->id;
+            $sign->pilot_id = auth()->user()->id;
+            $sign->pilot_name = auth()->user()->profile->name;
+            $sign->pilot_lastname = auth()->user()->profile->lastname;
+            $sign->pilot_address = auth()->user()->profile->address;
+            $sign->pilot_id_card = auth()->user()->profile->id_card;
+            $sign->pilot_phone = auth()->user()->profile->phone;
+            $sign->pilot_email = auth()->user()->email;
+            $sign->pilot_driving_license = auth()->user()->profile->driving_license;
+            $sign->pilot_oc = auth()->user()->profile->oc;
+            $sign->pilot_nw = auth()->user()->profile->nw;
+
+            $sign->name = $request->name;
+            $sign->lastname = $request->lastname;
+            $sign->address = $request->address;
+            $sign->id_card = $request->id_card;
+            $sign->phone = $request->phone;
+            $sign->email = $request->email;
+            $sign->driving_license = $request->driving_license;
+            $sign->oc = $request->oc;
+            $sign->nw = $request->nw;
+        }
+
         $sign->marka = $request->marka;
         $sign->model = $request->model;
         $sign->nr_rej = $request->nr_rej;

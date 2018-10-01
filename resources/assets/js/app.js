@@ -75,7 +75,7 @@ $(document).on('click', '.signBtn', function(){
     $('#form_id').val(id);
 })
 
-$(document).on('change', '#sign_pilot', function(){
+$(document).on('change', '#sign_pilot', function(e){
     var id = $(this).val();
 
     $.ajax({
@@ -86,6 +86,55 @@ $(document).on('change', '#sign_pilot', function(){
         $.each(response, function(key, value){
             $('#pilot_' + key).val(value);
         })
+    });
+})
+
+$(document).on('click', '#getDriver', function(e){
+    e.preventDefault();
+    var uid = $('#sign_driver_uid').val();
+
+    $.ajax({
+        url: '/getDriver',
+        method: 'POST',
+        data: {uid: uid},
+    }).done(function(response){
+        $('#noDriver').remove();
+        $('.car_option').remove();
+        if(response != 'blad'){
+            $.each(response, function(key, value){
+                $('#driver_' + key).val(value);
+            })
+
+            $.each(response['cars'], function(key, value){
+                $('#sign_car').append('<option class="car_option" value="' + value['id'] + '">' + value['marka'] + ' ' + value['model'] + '</option>');
+            })
+        }
+        else
+        {
+            $('#driver_uid_container').append('<p class="text-danger" id="noDriver">Kierowca nie istnieje</p>');
+        }
+    });
+})
+
+$(document).on('click', '#getPilotUid', function(e){
+    e.preventDefault();
+    var uid = $('#sign_pilot_uid').val();
+
+    $.ajax({
+        url: '/getPilotUid',
+        method: 'POST',
+        data: {uid: uid},
+    }).done(function(response){
+        $('#noPilot').remove();
+        if(response != 'blad'){
+            $.each(response, function(key, value){
+                $('#pilot_' + key).val(value);
+            });
+        }
+        else
+        {
+            $('#pilot_uid_container').append('<p class="text-danger" id="noPilot">Pilot nie istnieje</p>');
+        }
     });
 })
 

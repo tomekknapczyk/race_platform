@@ -57,7 +57,7 @@ class Race extends Model
                 $lists[] = $round->startList->id;
         }
 
-        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('sign', 'user', 'user.driver', 'user.driver.file')->get();
+        $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('sign', 'user', 'user.profile', 'user.profile.file')->get();
 
         $sorted = $positions->sortByDesc(function($position) use ($rounds){
             $rp = $position->sign->race_points($this);

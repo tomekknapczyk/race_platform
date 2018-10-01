@@ -40,10 +40,18 @@
                                     </div>
                                 @else
                                     <div class="col-md-4 text-right">
-                                        @if(auth()->user()->ready())
-                                            <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
+                                        @if(auth()->user()->driver)
+                                            @if(auth()->user()->ready())
+                                                <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
+                                            @else
+                                                <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić <a href="{{ url('profile') }}" class="text-warning">swoje dane</a> i <a href="{{ url('cars') }}" class="text-warning">dane samochodu</a></p>
+                                            @endif
                                         @else
-                                            <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić dane <a href="{{ url('driver-profile') }}" class="text-warning">kierowcy</a>, <a href="{{ url('pilots') }}" class="text-warning">pilota</a> i <a href="{{ url('cars') }}" class="text-warning">samochodu</a></p>
+                                            @if(auth()->user()->profile)
+                                                <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#signPilot" data-id="{{ $form->id }}">Zgłoś swój udział</button>
+                                            @else
+                                                <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić <a href="{{ url('profile') }}" class="text-warning">swoje dane</a></p>
+                                            @endif
                                         @endif
                                         @if($form->round->file_id)
                                             <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
@@ -103,5 +111,9 @@
     </div>
 </div>
 
-@include('modals.sign')
+@if(auth()->user()->driver)
+    @include('modals.sign')
+@else
+    @include('modals.signPilot')
+@endif
 @endsection

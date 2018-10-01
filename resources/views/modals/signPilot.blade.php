@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="sign" aria-labelledby="sign" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="signPilot" aria-labelledby="signPilot" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header text-white bg-info rounded-top">
@@ -11,35 +11,24 @@
                 <form method="POST" action="{{ route('sign') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="form_id" id="form_id">
-                    <h3 class="text-center my-3">Dane pilota</h3>
-                    <div id="pilot_uid_container">
+                    <h3 class="text-center my-2">Dane kierowcy</h3>
+                    <div id="driver_uid_container">
                         <div class="row justify-content-center align-items-center">
-                            <div class="text-center">
-                                <div class="ml-4">
-                                    <select class="form-control" id="sign_pilot">
-                                        <option disabled selected value>Wybierz pilota</option>
-                                        @foreach(auth()->user()->pilots as $pilot)
-                                            <option value="{{ $pilot->id }}">{{ $pilot->name }} {{ $pilot->lastname }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="d-flex justify-content-center align-items-end">
+                                <div>
+                                    <label for="name">Wpisz id kierowcy</label>
+                                    <input type="text" name="driver_uid" required="" id="sign_driver_uid" class="form-control">
                                 </div>
-                                <p class="m-0 my-3">lub</p>
-                                <div class="d-flex justify-content-center align-items-end">
-                                    <div>
-                                        <label for="name">Wpisz id pilota</label>
-                                        <input type="text" name="pilot_uid" id="sign_pilot_uid" class="form-control">
-                                    </div>
-                                    <button class="btn btn-info ml-4" id="getPilotUid">Pobierz dane</button>
-                                </div>
+                                <button class="btn btn-info ml-4" id="getDriver">Pobierz dane</button>
                             </div>
                         </div>
                     </div>
-                       
+
                     <div class="row mt-4">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="name">Imię</label>
-                                <input type="text" name="name" id="pilot_name" class="form-control" required="" readonly=""> 
+                                <input type="text" name="name" id="driver_name" class="form-control" required="" readonly=""> 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -49,7 +38,7 @@
 
                             <div class="form-group">
                                 <label for="lastname">Nazwisko</label>
-                                <input type="text" name="lastname" id="pilot_lastname" class="form-control" required="" readonly=""> 
+                                <input type="text" name="lastname" id="driver_lastname" class="form-control" required="" readonly=""> 
                                 @if ($errors->has('lastname'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('lastname') }}</strong>
@@ -59,7 +48,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <label for="address">Adres</label>
-                            <textarea name="address" class="form-control" id="pilot_address" rows="4" readonly=""></textarea>
+                            <textarea name="address" class="form-control" id="driver_address" rows="4" readonly=""></textarea>
                             @if ($errors->has('address'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('address') }}</strong>
@@ -70,7 +59,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="id_card">Seria nr dowodu osobistego</label>
-                                <input type="text" name="id_card" id="pilot_id_card" class="form-control" readonly=""> 
+                                <input type="text" name="id_card" id="driver_id_card" class="form-control" readonly=""> 
                                 @if ($errors->has('id_card'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('id_card') }}</strong>
@@ -80,7 +69,7 @@
 
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
-                                <input type="text" name="phone" id="pilot_phone" class="form-control" readonly=""> 
+                                <input type="text" name="phone" id="driver_phone" class="form-control" readonly=""> 
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phone') }}</strong>
@@ -90,7 +79,7 @@
 
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="pilot_email" class="form-control" readonly=""> 
+                                <input type="email" name="email" id="driver_email" class="form-control" readonly=""> 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -102,7 +91,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="driving_license">Nr prawo jazdy</label>
-                                <input type="text" name="driving_license" id="pilot_driving_license" class="form-control" readonly=""> 
+                                <input type="text" name="driving_license" id="driver_driving_license" class="form-control" readonly=""> 
                                 @if ($errors->has('driving_license'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('driving_license') }}</strong>
@@ -112,7 +101,7 @@
 
                             <div class="form-group">
                                 <label for="oc">Nazwa nr polisy OC</label>
-                                <input type="text" name="oc" id="pilot_oc" class="form-control" readonly=""> 
+                                <input type="text" name="oc" id="driver_oc" class="form-control" readonly=""> 
                                 @if ($errors->has('oc'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('oc') }}</strong>
@@ -122,7 +111,7 @@
 
                             <div class="form-group">
                                 <label for="nw">Nazwa nr polisy NW</label>
-                                <input type="text" name="nw" id="pilot_nw" class="form-control" readonly=""> 
+                                <input type="text" name="nw" id="driver_nw" class="form-control" readonly=""> 
                                 @if ($errors->has('nw'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nw') }}</strong>

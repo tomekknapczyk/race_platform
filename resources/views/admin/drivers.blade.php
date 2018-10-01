@@ -15,25 +15,25 @@
                     @foreach($users as $user)
                         <div class="d-flex justify-content-start align-items-start flex-wrap">
                             <div class="col-md-2">
-                                @if($user->driver && $user->driver->file_id)
-                                    <img src="{{ url('/public/driver', $user->driver->file->path) }}" class="img-fluid thumb-big">
+                                @if($user->profile && $user->profile->file_id)
+                                    <img src="{{ url('/public/driver', $user->profile->file->path) }}" class="img-fluid thumb-big">
                                 @else
                                     <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->driver)->name }}" data-nazwisko="{{ optional($user->driver)->lastname }}">
-                                <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->driver)->name }} {{ optional($user->driver)->lastname }}</a>
+                            <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->profile)->name }}" data-nazwisko="{{ optional($user->profile)->lastname }}">
+                                <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->profile)->name }} {{ optional($user->profile)->lastname }}</a>
                                 <br>
                                 <small>{{ $user->email }}</small>
                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editDriver"
-                                data-text='{"driver_id":"{{ optional($user->driver)->id }}", "driver_name":"{{ optional($user->driver)->name }}", "driver_lastname":"{{ optional($user->driver)->lastname }}", "driver_phone":"{{ optional($user->driver)->phone }}", "driver_id_card":"{{ optional($user->driver)->id_card }}", "driver_address":"{{ optional($user->driver)->address }}", "driver_driving_license":"{{ optional($user->driver)->driving_license }}", "driver_oc":"{{ optional($user->driver)->oc }}", "driver_nw":"{{ optional($user->driver)->nw }}"}'
-                                data-check='{"driver_showName":"{{ optional($user->driver)->show_name }}", "driver_showLastname":"{{ optional($user->driver)->show_lastname }}", "driver_showEmail":"{{ optional($user->driver)->show_email }}"}'
-                                @if($user->driver && $user->driver->file_id)
-                                    data-img='{"driver_photo":"{{ url('public/driver', $user->driver->file->path) }}"}'
+                                data-text='{"driver_id":"{{ optional($user->profile)->id }}", "driver_name":"{{ optional($user->profile)->name }}", "driver_lastname":"{{ optional($user->profile)->lastname }}", "driver_phone":"{{ optional($user->profile)->phone }}", "driver_id_card":"{{ optional($user->profile)->id_card }}", "driver_address":"{{ optional($user->profile)->address }}", "driver_driving_license":"{{ optional($user->profile)->driving_license }}", "driver_oc":"{{ optional($user->profile)->oc }}", "driver_nw":"{{ optional($user->profile)->nw }}"}'
+                                data-check='{"driver_showName":"{{ optional($user->profile)->show_name }}", "driver_showLastname":"{{ optional($user->profile)->show_lastname }}", "driver_showEmail":"{{ optional($user->profile)->show_email }}"}'
+                                @if($user->profile && $user->profile->file_id)
+                                    data-img='{"driver_photo":"{{ url('public/driver', $user->profile->file->path) }}"}'
                                 @else
                                     data-img='{"driver_photo":""}'
                                 @endif
-                                data-tinymce='{"driver_text":{!! json_encode(optional($user->driver)->desc) !!}}'
+                                data-tinymce='{"driver_text":{!! json_encode(optional($user->profile)->desc) !!}}'
                                 >Edytuj</button>
                                 <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>
                             </h6>

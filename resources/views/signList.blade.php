@@ -21,18 +21,18 @@
                                         {{ ++$numer }}.
                                     </h6>
                                     <div class="col-1">
-                                        @if($sign['sign']->user && $sign['sign']->user->driver->file_id)
-                                            <img src="{{ url('public/driver', $sign['sign']->user->driver->file->path) }}" class="img-fluid thumb">
+                                        @if($sign['sign']->user && $sign['sign']->user->profile->file_id)
+                                            <img src="{{ url('public/driver', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
                                         @else
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
                                     <h6 class="m-0 col-5 text-left">
                                         @if($sign['sign']->user)
-                                            @if($sign['sign']->user->driver->show_name && $sign['sign']->user->driver->show_lastname)
-                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->driver->name.'-'.$sign['sign']->user->driver->lastname)]) }}">
-                                            @elseif($sign['sign']->user->driver->show_lastname)
-                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, $sign['sign']->user->driver->lastname]) }}">
+                                            @if($sign['sign']->user->profile->show_name && $sign['sign']->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->profile->name.'-'.$sign['sign']->user->profile->lastname)]) }}">
+                                            @elseif($sign['sign']->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, $sign['sign']->user->profile->lastname]) }}">
                                             @else
                                                 <a href="{{ route('kierowca', $sign['sign']->user->id) }}">
                                             @endif
@@ -42,7 +42,20 @@
                                             {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
                                         @endif
                                         <br>
-                                        <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                        @if($sign['sign']->pilot)
+                                            <small><strong>Pilot:</strong>
+                                            @if($sign['sign']->pilot->profile->show_name && $sign['sign']->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$sign['sign']->pilot->id, str_slug($sign['sign']->pilot->profile->name.'-'.$sign['sign']->pilot->profile->lastname)]) }}">
+                                            @elseif($sign['sign']->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$sign['sign']->pilot->id, $sign['sign']->pilot->profile->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('pilot', $sign['sign']->pilot->id) }}">
+                                            @endif
+                                                {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}
+                                            </a></small>
+                                        @else
+                                            <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                        @endif
                                     </h6>
                                     <div class="col-2">
                                         @if($sign['sign']->car && $sign['sign']->car->file_id)

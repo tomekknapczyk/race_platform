@@ -7,6 +7,7 @@ use Hash;
 use App\Driver;
 use App\Pilot;
 use App\Car;
+use App\User;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = \App\User::where('admin', 0)->with('driver', 'driver.file', 'pilots', 'pilots.file', 'cars', 'cars.file')->get();
+        $users = User::where('admin', 0)->with('profile', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file')->get();
 
         return view('admin.drivers', compact('users'));
     }
@@ -49,14 +50,18 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Hasło zostało zmienione');
     }
 
+    public function regenerateUid(Request $request)
+    {
+
+        auth()->user()->uid = $this->generate_uid();
+        auth()->user()->save();
+
+        return redirect()->back()->with('success', 'Id zostało zmienione');
+    }
+
     public function driverProfile()
     {
         return view('driver-profile');
-    }
-
-    public function pilotProfile()
-    {
-        return view('pilot-profile');
     }
 
     public function car()
@@ -345,5 +350,17 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('warning', 'Samochód nie istnieje');
+    }
+
+    protected function generate_uid()
+    {
+        $uid = str_random(10);
+
+        $exist = User::where('uid', $uid)->first();
+
+        if($exist)
+            $uid = $this->generate_uid();
+
+        return $uid;
     }
 }

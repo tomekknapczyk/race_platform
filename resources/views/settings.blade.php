@@ -16,6 +16,14 @@
                                 <dd>{{ auth()->user()->login }}</dd>
                                 <dt>{{ __('E-Mail Address') }}</dt>
                                 <dd>{{ auth()->user()->email }}</dd>
+                                <dt>Twoje unikalne ID</dt>
+                                <dd>
+                                    {{ auth()->user()->uid }}
+                                    <form action="{{ route('regenerateUid') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-primary">Wygeneruj nowe ID</button>
+                                    </form>
+                                </dd>
                             </dl>
                         </div>
                         <div class="col-md-6">

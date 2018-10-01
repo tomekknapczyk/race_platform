@@ -10,4 +10,9 @@ class Driver extends Model
     {
         return $this->hasOne(File::class, 'id', 'file_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
