@@ -22,7 +22,7 @@
                                 <h4>Uczestnicy na liście:</h4>
                                 <div class="bg-info p-4 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="items">
                                     @foreach($tabela->items as $item)
-                                        <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->user->id }}">{{ $item->user->nr }} :: {{ $item->user->name }} :: {{ $item->user->car }}</div>
+                                        <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->user->id }}">{{ $item->user->nr }} :: {{ $item->user->name }} :: {{ $item->user->pilot }} :: {{ $item->user->car }}</div>
                                     @endforeach
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <h4>Uczestnicy do wyboru:</h4>
                                 <div class="bg-dark p-4 rounded mb-5 d-flex justify-content-start align-items-center flex-wrap" id="dropdown">
                                     @foreach($niewykorzystani as $item)
-                                        <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->id }}">{{ $item->nr }} :: {{ $item->name }} :: {{ $item->car }}</div>
+                                        <div class="btn btn-block btn-sm btn-light m-2 shadow btn-move text-left" data-id="{{ $item->id }}">{{ $item->nr }} :: {{ $item->name }} :: {{ $item->user->pilot }} :: {{ $item->car }}</div>
                                     @endforeach
                                 </div>
                             </div>
