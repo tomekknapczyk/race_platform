@@ -134,9 +134,9 @@ class UserController extends Controller
 
             $pathThumbnail = $file->hashName('public/driver/thumb');
             $thumbnail = \Image::make($file);
-            $thumb = $thumbnail->widen(400, function ($constraint) {
+            $thumb = $thumbnail->widen(600, function ($constraint) {
                                     $constraint->upsize();
-                                })->encode('jpg', 90);
+                                })->encode('jpg', 95);
             \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
@@ -220,9 +220,9 @@ class UserController extends Controller
 
             $pathThumbnail = $file->hashName('public/pilot/thumb');
             $thumbnail = \Image::make($file);
-            $thumb = $thumbnail->widen(400, function ($constraint) {
+            $thumb = $thumbnail->widen(600, function ($constraint) {
                                     $constraint->upsize();
-                                })->encode('jpg', 90);
+                                })->encode('jpg', 95);
             \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
@@ -327,9 +327,9 @@ class UserController extends Controller
 
             $pathThumbnail = $file->hashName('public/car/thumb');
             $thumbnail = \Image::make($file);
-            $thumb = $thumbnail->widen(200, function ($constraint) {
+            $thumb = $thumbnail->widen(250, function ($constraint) {
                                     $constraint->upsize();
-                                })->encode('jpg', 90);
+                                })->encode('jpg', 95);
             \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
