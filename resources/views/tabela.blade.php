@@ -138,7 +138,7 @@
         }
 
         .flash{
-            animation: flash 10s ease forwards;
+            animation: flash 12s ease forwards;
             animation-iteration-count: infinite;
             visibility: hidden;
             width: 30%;
@@ -223,21 +223,86 @@
                 <span class="car">SAMOCHÓD</span>
             </div> 
             @php
-                $delay = 10 / $tabela->items->count();
+                $users = $tabela->items->count();
+                $loops = ceil($users/10);
+                $delay = 10 / $users;
+                $current_loop = 1;
+                $loop_add = 0;
             @endphp
-            @foreach($tabela->items as $item)
-                <p class="item @if($loop->iteration  % 2 == 0) odd @endif" style="animation-delay:{{ $loop->iteration/1.2 }}s;">
-                    <span class="flash" style="animation-delay:{{ $loop->iteration*$delay }}s;"></span>
-                    <strong class="nr">{{ $loop->iteration }}.</strong>
-                    <span class="nr_z">{{ $item->user->nr }}</span>
-                    <span class="name">{{ $item->user->name }}</span>
-                    @if($tabela->items->first()->user->pilot)
-                        <span class="name">{{ $item->user->pilot }}</span>
-                    @endif
-                    <span class="car">{{ $item->user->car }}</span>
-                </p>
-            @endforeach
+            <div id="items">
+                @foreach($tabela->items as $item)
+                    @php
+                        if($loop->iteration % 10 == 1 && $loop->iteration > 1)
+                            $loop_add += 2;
+                    @endphp
+                    <p class="item @if($loop->iteration % 2 == 0) odd @endif" style="animation-delay:{{ $loop->index + $loop_add }}s;">
+                        <span class="flash" style="animation-delay:{{ $loop->index + 1.2 + $loop_add }}s;"></span>
+                        <strong class="nr">{{ $current_loop++ }}.</strong>
+                        <span class="nr_z">{{ $item->user->nr }}</span>
+                        <span class="name">{{ $item->user->name }}</span>
+                        @if($tabela->items->first()->user->pilot)
+                            <span class="name">{{ $item->user->pilot }}</span>
+                        @endif
+                        <span class="car">{{ $item->user->car }}</span>
+                    </p>
+                @endforeach
+            </div>
         </div>
+
+        <script type="text/javascript">
+            var counter = {{ $loops - 1 }};
+            if(counter > 0){
+                var curr = 1;
+                var start = false;
+                var first = true;
+
+                var i = setInterval(function(){
+                    var body = document.getElementById('items');
+                    var c = body.getElementsByTagName('p');
+
+                    if(!start){
+                        for (i = (curr - 1) * 10; i < c.length && i < curr * 10; i++) {
+                            c[i].style.display = 'none';
+                        }
+
+                        if(!first){
+                            var j = -1;
+                            for (i = curr * 10; i < c.length && i < (curr + 1) * 10; i++) {
+                                var flash = c[i].getElementsByClassName('flash');
+
+                                c[i].style.display = 'block';
+                                var delay = j + 1;
+                                var flash_delay = delay + 1.2;
+                                c[i].style.animationDelay = delay + 's';
+                                flash[0].style.animationDelay = flash_delay + 's';
+                                j++;
+                            }
+                        }
+                    }
+                    else{
+                        for (i = (curr - 1) * 10; i < c.length && i < curr * 10; i++) {
+                            c[i].style.display = 'none';
+                        }
+
+                        for (i = 0; i < c.length && i < 10; i++) {
+                            c[i].style.display = 'block';
+                        }
+
+                        curr = 0;
+                        start = false;
+                    }
+
+                    counter--;
+                    curr++;
+
+                    if(counter === 0) {
+                        first = false;
+                        start = true;
+                        counter = {{ $loops }};
+                    }
+                }, 12000);
+            }
+        </script>
     @endif
 </body>
 </html>
