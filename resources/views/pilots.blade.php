@@ -21,7 +21,7 @@
                                         data-text='{"id":"{{ $pilot->id }}", "name":"{{ $pilot->name }}", "lastname":"{{ $pilot->lastname }}", "phone":"{{ $pilot->phone }}", "email":"{{ $pilot->email }}", "id_card":"{{ $pilot->id_card }}", "address":"{{ $pilot->address }}", "driving_license":"{{ $pilot->driving_license }}", "oc":"{{ $pilot->oc }}", "nw":"{{ $pilot->nw }}"}'
                                         data-check='{"showName":"{{ $pilot->show_name }}", "showLastname":"{{ $pilot->show_lastname }}", "showEmail":"{{ $pilot->show_email }}"}'
                                         @if($pilot->file_id)
-                                            data-img='{"photo":"{{ url('public/pilot', $pilot->file->path) }}"}'
+                                            data-img='{"photo":"{{ url('public/pilot/thumb/', $pilot->file->path) }}"}'
                                         @else
                                             data-img='{"photo":""}'
                                         @endif

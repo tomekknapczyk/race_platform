@@ -22,7 +22,7 @@
                                     </h6>
                                     <div class="col-1">
                                         @if($sign['sign']->user && $sign['sign']->user->profile->file_id)
-                                            <img src="{{ url('public/driver', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
                                         @else
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
@@ -59,7 +59,7 @@
                                     </h6>
                                     <div class="col-2">
                                         @if($sign['sign']->car && $sign['sign']->car->file_id)
-                                            <img src="{{ url('public/car', $sign['sign']->car->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/car/thumb/', $sign['sign']->car->file->path) }}" class="img-fluid thumb">
                                         @else
                                             <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
                                         @endif

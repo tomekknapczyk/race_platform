@@ -12,7 +12,7 @@
                     <div class="d-flex justify-content-start align-items-top flex-wrap">
                         <div class="col-sm-3">
                             @if($news->file_id)
-                                <img src="{{ url('public/post', $news->file->path) }}" class="img-fluid img-thumbnail">
+                                <img src="{{ url('public/post/thumb/', $news->file->path) }}" class="img-fluid img-thumbnail">
                             @endif
                         </div>
                         <div class="col-sm-9 full-news-body">

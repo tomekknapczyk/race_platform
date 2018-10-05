@@ -159,16 +159,22 @@ class HomeController extends Controller
     public function getDriver(Request $request)
     {
         $driver = \App\User::where('uid', $request->uid)->where('driver', 1)->first();
+
         if($driver){
-            $profile = \App\Driver::where('user_id', $driver->id)->first();
-            if($profile){
-                $profile->email = $driver->email;
-                $profile->cars = $driver->cars;
-                return response()->json($profile);
+            $sign = \App\Sign::where('user_id', $driver->id)->where('form_id', $request->form)->first();
+
+            if(!$sign){
+                $profile = \App\Driver::where('user_id', $driver->id)->first();
+                if($profile){
+                    $profile->email = $driver->email;
+                    $profile->cars = $driver->cars;
+                    return response()->json($profile);
+                }
+                else
+                    return 'blad';
             }
-            else{
+            else
                 return 'blad';
-            }
         }
         else
             return 'blad';
@@ -177,15 +183,21 @@ class HomeController extends Controller
     public function getPilotUid(Request $request)
     {
         $pilot = \App\User::where('uid', $request->uid)->where('driver', 0)->first();
+
         if($pilot){
-            $profile = \App\Driver::where('user_id', $pilot->id)->first();
-            if($profile){
-                $profile->email = $pilot->email;
-                return response()->json($profile);
+            $sign = \App\Sign::where('pilot_id', $pilot->id)->where('form_id', $request->form)->first();
+
+            if(!$sign){
+                $profile = \App\Driver::where('user_id', $pilot->id)->first();
+                if($profile){
+                    $profile->email = $pilot->email;
+                    return response()->json($profile);
+                }
+                else
+                    return 'blad';
             }
-            else{
+            else
                 return 'blad';
-            }
         }
         else
             return 'blad';

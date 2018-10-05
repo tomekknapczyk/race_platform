@@ -30,7 +30,7 @@
                                 </div>
 
                                 @if($post->file_id)
-                                    <img src="{{ url('public/post', $post->file->path) }}" class="img-fluid img-thumbnail">
+                                    <img src="{{ url('public/post/thumb/', $post->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
 
                                 <div class="form-group">

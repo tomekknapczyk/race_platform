@@ -67,6 +67,7 @@ class NewsController extends Controller
             $photo = \App\File::where('id', $post->file_id)->first();
             if($photo){
                 \Storage::delete('public/post/'.$photo->path);
+                \Storage::delete('public/post/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -76,6 +77,13 @@ class NewsController extends Controller
             $path = 'public/post/';
 
             \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/post/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(500, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 90);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
             $storeFile->name = $originalName;
@@ -89,6 +97,7 @@ class NewsController extends Controller
             $photo = \App\File::where('id', $post->file_id)->first();
             if($photo){
                 \Storage::delete('public/post/'.$photo->path);
+                \Storage::delete('public/post/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -122,6 +131,7 @@ class NewsController extends Controller
                 $photo = \App\File::where('id' ,$post->file_id)->first();
                 if($photo){
                     \Storage::delete('public/post/'.$photo->path);
+                    \Storage::delete('public/post/thumb/'.$photo->path);
                     $photo->delete();
                 }
             }

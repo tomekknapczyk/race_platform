@@ -29,7 +29,7 @@
                                 <a href="{{ route('pilot', $pilot->id) }}">
                             @endif
                             @if($pilot->profile->file_id)
-                                <img src="{{ url('/public/driver', $pilot->profile->file->path) }}" class="img-fluid">
+                                <img src="{{ url('/public/driver/thumb/', $pilot->profile->file->path) }}" class="img-fluid">
                             @else
                                 <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                             @endif

@@ -74,7 +74,7 @@
                                                     <div class="col-6 d-flex justify-content-start align-items-center flex-wrap py-2">
                                                         <div class="col-md-5">
                                                             @if($car->file_id)
-                                                                <img src="{{ url('/public/car', $car->file->path) }}" class="img-fluid">
+                                                                <img src="{{ url('/public/car/thumb/', $car->file->path) }}" class="img-fluid">
                                                             @else
                                                                 <img src="{{ url('/images/car.png') }}" class="img-fluid">
                                                             @endif

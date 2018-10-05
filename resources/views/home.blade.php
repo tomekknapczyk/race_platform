@@ -69,7 +69,7 @@
                         @endif
 
                         @if($driver->user->profile->file_id)
-                            <img src="{{ url('public/driver', $driver->user->profile->file->path) }}" class="img-fluid">
+                            <img src="{{ url('public/driver/thumb/', $driver->user->profile->file->path) }}" class="img-fluid">
                         @else
                             <img src="{{ url('images/driver.png') }}" class="img-fluid">
                         @endif
@@ -105,7 +105,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="news"> 
                     @if($post->file_id)
-                        <a href="{{ url('aktualnosc', $post->id) }}"><img src="{{ url('public/post', $post->file->path) }}" class="img-fluid"></a>
+                        <a href="{{ url('aktualnosc', $post->id) }}"><img src="{{ url('public/post/thumb/', $post->file->path) }}" class="img-fluid"></a>
                     @endif
                     <div class="news-body">
                         <p>{!! str_limit(strip_tags($post->text, '<p><span><br /><br><strong>'), 100) !!}</p>

@@ -16,7 +16,7 @@
                         <div class="d-flex justify-content-start align-items-start flex-wrap">
                             <div class="col-md-2">
                                 @if($user->profile && $user->profile->file_id)
-                                    <img src="{{ url('/public/driver', $user->profile->file->path) }}" class="img-fluid thumb-big">
+                                    <img src="{{ url('/public/driver/thumb/', $user->profile->file->path) }}" class="img-fluid thumb-big">
                                 @else
                                     <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
@@ -29,7 +29,7 @@
                                 data-text='{"driver_id":"{{ optional($user->profile)->id }}", "driver_name":"{{ optional($user->profile)->name }}", "driver_lastname":"{{ optional($user->profile)->lastname }}", "driver_phone":"{{ optional($user->profile)->phone }}", "driver_id_card":"{{ optional($user->profile)->id_card }}", "driver_address":"{{ optional($user->profile)->address }}", "driver_driving_license":"{{ optional($user->profile)->driving_license }}", "driver_oc":"{{ optional($user->profile)->oc }}", "driver_nw":"{{ optional($user->profile)->nw }}"}'
                                 data-check='{"driver_showName":"{{ optional($user->profile)->show_name }}", "driver_showLastname":"{{ optional($user->profile)->show_lastname }}", "driver_showEmail":"{{ optional($user->profile)->show_email }}"}'
                                 @if($user->profile && $user->profile->file_id)
-                                    data-img='{"driver_photo":"{{ url('public/driver', $user->profile->file->path) }}"}'
+                                    data-img='{"driver_photo":"{{ url('public/driver/thumb/', $user->profile->file->path) }}"}'
                                 @else
                                     data-img='{"driver_photo":""}'
                                 @endif
@@ -50,7 +50,7 @@
                                                 data-text='{"id":"{{ $pilot->id }}", "name":"{{ $pilot->name }}", "lastname":"{{ $pilot->lastname }}", "phone":"{{ $pilot->phone }}", "email":"{{ $pilot->email }}", "id_card":"{{ $pilot->id_card }}", "address":"{{ $pilot->address }}", "driving_license":"{{ $pilot->driving_license }}", "oc":"{{ $pilot->oc }}", "nw":"{{ $pilot->nw }}"}'
                                                 data-check='{"showName":"{{ $pilot->show_name }}", "showLastname":"{{ $pilot->show_lastname }}", "showEmail":"{{ $pilot->show_email }}"}'
                                                 @if($pilot->file_id)
-                                                    data-img='{"photo":"{{ url('public/pilot', $pilot->file->path) }}"}'
+                                                    data-img='{"photo":"{{ url('public/pilot/thumb/', $pilot->file->path) }}"}'
                                                 @else
                                                     data-img='{"photo":""}'
                                                 @endif
@@ -74,7 +74,7 @@
                                                 data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
                                                 data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
                                                 @if($car->file_id)
-                                                    data-img='{"car_photo":"{{ url('public/car', $car->file->path) }}"}'
+                                                    data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'
                                                 @else
                                                     data-img='{"car_photo":""}'
                                                 @endif

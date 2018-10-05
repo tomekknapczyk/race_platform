@@ -129,9 +129,6 @@
                             <div class="ml-4">
                                 <select class="form-control" id="sign_car" required="">
                                     <option disabled selected value>Wybierz samochód</option>
-                                    @foreach(auth()->user()->cars as $car)
-                                        <option value="{{ $car->id }}">{{ $car->marka }} {{ $car->model }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>

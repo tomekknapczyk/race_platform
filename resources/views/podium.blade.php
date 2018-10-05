@@ -20,7 +20,7 @@
                             @endif
 
                             @if($driver->user->profile->file_id)
-                                <img src="{{ url('public/driver', $driver->user->profile->file->path) }}" class="img-fluid">
+                                <img src="{{ url('public/driver/thumb/', $driver->user->profile->file->path) }}" class="img-fluid">
                             @else
                                 <img src="{{ url('images/driver.png') }}" class="img-fluid">
                             @endif

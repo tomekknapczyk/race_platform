@@ -15,7 +15,7 @@
 
                             <div class="col-sm-4">
                                 @if(auth()->user()->profile && auth()->user()->profile->file_id)
-                                    <img src="{{ url('public/driver', auth()->user()->profile->file->path) }}" class="img-fluid img-thumbnail">
+                                    <img src="{{ url('public/driver/thumb/', auth()->user()->profile->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
                                 
                                 <div class="form-group">

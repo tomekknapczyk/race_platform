@@ -14,7 +14,7 @@
                         <div class="d-flex justify-content-start align-items-center flex-wrap">
                             <div class="col-sm-2">
                                 @if($post->file_id)
-                                    <img src="{{ url('public/post', $post->file->path) }}" class="img-fluid img-thumbnail">
+                                    <img src="{{ url('public/post/thumb/', $post->file->path) }}" class="img-fluid img-thumbnail">
                                 @endif
                             </div>
                             <div class="col-sm-2 text-center">

@@ -121,6 +121,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$driver->file_id)->first();
             if($photo){
                 \Storage::delete('public/driver/'.$photo->path);
+                \Storage::delete('public/driver/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -130,6 +131,13 @@ class UserController extends Controller
             $path = 'public/driver/';
 
             \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/driver/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(400, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 90);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
             $storeFile->name = $originalName;
@@ -143,6 +151,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$driver->file_id)->first();
             if($photo){
                 \Storage::delete('public/driver/'.$photo->path);
+                \Storage::delete('public/driver/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -151,7 +160,7 @@ class UserController extends Controller
 
         $driver->save();
 
-        return redirect()->back()->with('success', 'Profil kierowcy został zapisany');
+        return redirect()->back()->with('success', 'Profil został zapisany');
     }
 
     public function savePilot(Request $request)
@@ -198,6 +207,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$pilot->file_id)->first();
             if($photo){
                 \Storage::delete('public/pilot/'.$photo->path);
+                \Storage::delete('public/pilot/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -207,6 +217,13 @@ class UserController extends Controller
             $path = 'public/pilot/';
 
             \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/pilot/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(400, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 90);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
             $storeFile->name = $originalName;
@@ -220,6 +237,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$pilot->file_id)->first();
             if($photo){
                 \Storage::delete('public/pilot/'.$photo->path);
+                \Storage::delete('public/pilot/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -228,7 +246,7 @@ class UserController extends Controller
 
         $pilot->save();
 
-        return redirect()->back()->with('success', 'Profil pilota został zapisany');
+        return redirect()->back()->with('success', 'Profil został zapisany');
     }
 
     public function deletePilot(Request $request)
@@ -245,6 +263,7 @@ class UserController extends Controller
                 $photo = \App\File::where('id',$pilot->file_id)->first();
                 if($photo){
                     \Storage::delete('public/pilot/'.$photo->path);
+                    \Storage::delete('public/pilot/thumb/'.$photo->path);
                     $photo->delete();
                 }
             }
@@ -295,6 +314,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$car->file_id)->first();
             if($photo){
                 \Storage::delete('public/car/'.$photo->path);
+                \Storage::delete('public/car/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -304,6 +324,13 @@ class UserController extends Controller
             $path = 'public/car/';
 
             \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/car/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(200, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 90);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
 
             $storeFile = new \App\File();
             $storeFile->name = $originalName;
@@ -317,6 +344,7 @@ class UserController extends Controller
             $photo = \App\File::where('id',$car->file_id)->first();
             if($photo){
                 \Storage::delete('public/car/'.$photo->path);
+                \Storage::delete('public/car/thumb/'.$photo->path);
                 $photo->delete();
             }
 
@@ -341,6 +369,7 @@ class UserController extends Controller
                 $photo = \App\File::where('id',$car->file_id)->first();
                 if($photo){
                     \Storage::delete('public/car/'.$photo->path);
+                    \Storage::delete('public/car/thumb/'.$photo->path);
                     $photo->delete();
                 }
             }
