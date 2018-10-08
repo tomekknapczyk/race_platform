@@ -20,14 +20,23 @@
                             <div class="lista"> 
                                 @foreach($endPositions->where('klasa', $klasa) as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
-                                        <div class="col-1">
+                                        <div class="col-1 p-0 pr-1">
                                             @if($position->user && $position->user->profile->file_id)
                                                 <img src="{{ url('public/driver/thumb/', $position->user->profile->file->path) }}" class="img-fluid thumb">
                                             @else
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                             @endif
                                         </div>
-                                        <h6 class="m-0 col-4">
+                                        <div class="col-1 p-0 pl-1">
+                                            @if($position->sign->pilot && $position->sign->pilot->profile->file_id)
+                                                <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
+                                            @elseif($position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
+                                                <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
+                                            @else
+                                                <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                            @endif
+                                        </div>
+                                        <h6 class="m-0 col-3">
                                             @if($position->user)
                                                 @if($position->user->profile->show_name && $position->user->profile->show_lastname)
                                                     <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
@@ -42,14 +51,14 @@
                                                 {{ $position->sign->name }} {{ $position->sign->lastname }}
                                             @endif
                                             <br>
-                                            @if($position->pilot())
+                                            @if($position->sign->pilot)
                                                 <small><strong>Pilot:</strong>
-                                                @if($position->pilot()->profile->show_name && $position->pilot()->profile->show_lastname)
-                                                    <a href="{{ route('pilot', [$position->pilot()->id, str_slug($position->pilot()->profile->name.'-'.$position->pilot()->profile->lastname)]) }}">
-                                                @elseif($position->pilot()->profile->show_lastname)
-                                                    <a href="{{ route('pilot', [$position->pilot()->id, $position->pilot()->profile->lastname]) }}">
+                                                @if($position->sign->pilot->profile->show_name && $position->sign->pilot->profile->show_lastname)
+                                                    <a href="{{ route('pilot', [$position->sign->pilot->id, str_slug($position->sign->pilot->profile->name.'-'.$position->sign->pilot->profile->lastname)]) }}">
+                                                @elseif($position->sign->pilot->profile->show_lastname)
+                                                    <a href="{{ route('pilot', [$position->sign->pilot->id, $position->sign->pilot->profile->lastname]) }}">
                                                 @else
-                                                    <a href="{{ route('pilot', $position->pilot()->id) }}">
+                                                    <a href="{{ route('pilot', $position->sign->pilot->id) }}">
                                                 @endif
                                                     {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}
                                                 </a></small>
@@ -57,7 +66,7 @@
                                                 <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
                                             @endif
                                         </h6>
-                                        <div class="col-2">
+                                        <div class="col-2 p-0">
                                             @if($position->sign->car && $position->sign->car->file_id)
                                                 <img src="{{ url('public/car/thumb/', $position->sign->car->file->path) }}" class="img-fluid thumb">
                                             @else
@@ -66,7 +75,7 @@
                                         </div>
                                         <h6 class="m-0 col-3">
                                             {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
-                                            <small>{{ $position->sign->rok }}r. @if($position->sign->turbo) / <strong>Turbo</strong> @endif @if($position->sign->rwd) / <strong>RWD</strong> @endif</small>
+                                            <small>@if($position->sign->turbo) <strong>Turbo</strong> @endif @if($position->sign->rwd) <strong>RWD</strong> @endif</small>
                                         </h6>
                                         <h6 class="m-0 col-2">
                                             Miejsce {{ $position->rank() }}

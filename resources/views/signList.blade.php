@@ -20,14 +20,23 @@
                                     <h6 class="m-0 col-1">
                                         {{ ++$numer }}.
                                     </h6>
-                                    <div class="col-1">
+                                    <div class="col-1 col-md-2 col-lg-1 p-0 pr-1">
                                         @if($sign['sign']->user && $sign['sign']->user->profile->file_id)
                                             <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
                                         @else
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
-                                    <h6 class="m-0 col-5 text-left">
+                                    <div class="col-1 col-md-2 col-lg-1 p-0 pl-1">
+                                        @if($sign['sign']->pilot && $sign['sign']->pilot->profile->file_id)
+                                            <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
+                                        @elseif($sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
+                                            <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb">
+                                        @else
+                                            <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                        @endif
+                                    </div>
+                                    <h6 class="m-0 col-3 col-md-2 col-lg-3 text-left">
                                         @if($sign['sign']->user)
                                             @if($sign['sign']->user->profile->show_name && $sign['sign']->user->profile->show_lastname)
                                                 <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->profile->name.'-'.$sign['sign']->user->profile->lastname)]) }}">
@@ -57,16 +66,16 @@
                                             <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
                                         @endif
                                     </h6>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         @if($sign['sign']->car && $sign['sign']->car->file_id)
                                             <img src="{{ url('public/car/thumb/', $sign['sign']->car->file->path) }}" class="img-fluid thumb">
                                         @else
                                             <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
-                                    <h6 class="m-0 col-3">
+                                    <h6 class="m-0 col-3 col-md-2 col-lg-3">
                                         {{ $sign['sign']->marka }} {{ $sign['sign']->model }} - {{ $sign['sign']->ccm }}ccm<br>
-                                        <small>{{ $sign['sign']->rok }}r. @if($sign['sign']->turbo) / <strong>Turbo</strong> @endif @if($sign['sign']->rwd) / <strong>RWD</strong> @endif</small>
+                                        <small>@if($sign['sign']->turbo) <strong>Turbo</strong> @endif @if($sign['sign']->rwd) <strong>RWD</strong> @endif</small>
                                     </h6>
                                 </div>  
                             @endforeach

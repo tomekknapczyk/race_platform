@@ -21,6 +21,11 @@ class Sign extends Model
         return $this->belongsTo(User::class, 'pilot_email', 'email')->where('driver', 0);
     }
 
+    public function pilotSimple()
+    {
+        return $this->belongsTo(Pilot::class, 'pilot_email', 'email');
+    }
+
     public function car()
     {
         return $this->belongsTo(Car::class, 'nr_rej', 'nr_rej');
