@@ -111,7 +111,6 @@
         }
 
         .item{
-            display: block;
             padding: 0;
             margin: 5px 0;
             position: relative;
@@ -139,7 +138,7 @@
 
         .flash{
             animation: flash 12s ease forwards;
-            animation-iteration-count: infinite;
+            animation-iteration-count: 1;
             visibility: hidden;
             width: 30%;
             /* background: rgba(255, 255, 255, 0.7); */
@@ -233,7 +232,7 @@
                 @foreach($tabela->items as $item)
                     @php
                         if($loop->iteration % 10 == 1 && $loop->iteration > 1)
-                            $loop_add += 2;
+                            $loop_add += 8; // odstęp między zmianami drugi w skrypcie
                     @endphp
                     <p class="item @if($loop->iteration % 2 == 0) odd @endif" style="animation-delay:{{ $loop->index + $loop_add }}s;">
                         <span class="flash" style="animation-delay:{{ $loop->index + 1.2 + $loop_add }}s;"></span>
@@ -270,7 +269,7 @@
                             for (i = curr * 10; i < c.length && i < (curr + 1) * 10; i++) {
                                 var flash = c[i].getElementsByClassName('flash');
 
-                                c[i].style.display = 'block';
+                                c[i].style.display = 'flex';
                                 var delay = j + 1;
                                 var flash_delay = delay + 1.2;
                                 c[i].style.animationDelay = delay + 's';
@@ -285,7 +284,7 @@
                         }
 
                         for (i = 0; i < c.length && i < 10; i++) {
-                            c[i].style.display = 'block';
+                            c[i].style.display = 'flex';
                         }
 
                         curr = 0;
@@ -300,7 +299,7 @@
                         start = true;
                         counter = {{ $loops }};
                     }
-                }, 12000);
+                }, 18000); // odstęp między zmianami 10000 + $loop_add *1000
             }
         </script>
     @endif
