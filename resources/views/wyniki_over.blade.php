@@ -86,6 +86,12 @@
                             <button type="submit" class="btn btn-link">Runda 6</button>
                         </form>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <h3>Rajdowy Puchar Śląska 2016</h3>
+                        <div>
+                            <a href="{{ url('rank2016') }}" class="btn btn-success">Klasyfikacja Roczna</a>
+                        </div>
+                    </div>
                     <hr>
                 </div>
             </div>

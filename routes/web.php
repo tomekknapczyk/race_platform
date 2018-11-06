@@ -31,6 +31,9 @@ Route::get('rank2017', function(){
 Route::get('rank2018', function(){
     return view('rank2018');
 });
+Route::get('rank2016', function(){
+    return view('rank2016');
+});
 Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
 Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
 Route::post('getPilot', 'HomeController@getPilot')->name('getPilot');
