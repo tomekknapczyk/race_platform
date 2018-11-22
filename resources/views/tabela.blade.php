@@ -214,7 +214,7 @@
             </div>
             <div class="head">
                 <span class="nr">LP</span>
-                <span class="nr_z">ILOŚĆ PKT.</span>
+                <span class="nr_z">NR ZAWODNIKA</span>
                 <span class="name">KIEROWCA</span>
                 @if($tabela->items->first()->user->pilot)
                     <span class="name">PILOT</span>
