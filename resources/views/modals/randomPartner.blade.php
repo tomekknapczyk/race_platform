@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <img src="{{ url('public/partner', $promoted->file->path) }}" class="img-fluid">
+                <img src="{{ url('public/partner', $promoted->file->path) }}" class="img-fluid partner-popup">
             </div>
         </div>
     </div>
