@@ -20,7 +20,7 @@
                         @endforeach
                     </div>
 
-                    @if($regulaminy->count())
+                    @if($regulaminy && $regulaminy->count())
                         <h3 class="mt-5">Regulaminy rajdów</h3>
                         <div class="col-sm-12 lista p-0">
                             @foreach($regulaminy as $regulamin)
@@ -34,7 +34,7 @@
                         </div>
                     @endif
 
-                    @if($forms->count())
+                    @if($forms && $forms->count())
                         <h3 class="mt-5">Listy zgłoszeń</h3>
                         <div class="col-sm-12 lista p-0">
                             @foreach($forms as $form)

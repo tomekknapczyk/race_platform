@@ -40,6 +40,18 @@
                             <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 4">
                             <button type="submit" class="btn btn-link">Runda 4</button>
                         </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R5">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 5">
+                            <button type="submit" class="btn btn-link">Runda 5</button>
+                        </form>
+                        <form action="{{ route('rank_frame') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="path" value="wyniki.stcs.pl/rps18/R6">
+                            <input type="hidden" name="name" value="Rajdowy Puchar Śląska 2018 - Runda 6">
+                            <button type="submit" class="btn btn-link">Runda 6</button>
+                        </form>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center flex-wrap">

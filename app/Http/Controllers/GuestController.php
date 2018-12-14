@@ -143,9 +143,12 @@ class GuestController extends Controller
     {
         $docs = \App\Docs::with('file')->get();
         $race = \App\Race::where('active', 1)->with('rounds', 'rounds.file', 'forms', 'forms.round', 'forms.round.race')->first();
-
-        $regulaminy = $race->rounds->where('file_id', '!=', null);
-        $forms = $race->forms->where('visible', 1);
+        $regulaminy = null;
+        $forms = null;
+        if($race){
+            $regulaminy = $race->rounds->where('file_id', '!=', null);
+            $forms = $race->forms->where('visible', 1);
+        }
 
         return view('dokumenty', compact('docs', 'regulaminy', 'forms'));
     }
