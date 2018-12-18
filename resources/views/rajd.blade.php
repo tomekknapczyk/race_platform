@@ -45,7 +45,7 @@
                                 @endif
 
                                 @if($round->form->active)
-                                    <a href="{{ url('dashboard') }}" class="btn btn-sm btn-outline-primary">Zapisz się</a>
+                                    <a href="{{ url('dashboard') }}" class="btn btn-sm btn-primary">Zapisz się</a>
                                 @endif
                             </div>
                             @if($round->desc)
@@ -107,6 +107,12 @@
                                     @endforeach
                                 </div>
                             @endif
+
+                            <div class="col-sm-6 mx-auto text-center mt-4"> 
+                                @if($round->form->active)
+                                    <a href="{{ url('dashboard') }}" class="btn btn-block btn-sm btn-primary">Zapisz się</a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
