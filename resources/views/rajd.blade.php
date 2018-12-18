@@ -9,9 +9,10 @@
                     <p class="col-12 col-md-6 m-0">
                         {{ $round->race->name}} : {{ $round->name }} {{ $round->sub_name}}
                     </p>
-                    <p class="col-12 col-md-6 text-md-right m-0">
-                        Data startu: {{ $round->date->format('Y-m-d H:i') }}
-                    </p>
+                    <div class="col-12 col-md-6 text-md-right m-0">
+                        <label class="m-0 mr-2">Data rajdu:</label>{{ $round->date->format('Y-m-d H:i') }}<br>
+                        <label class="m-0 mr-2">Start zapisów:</label>{{ $round->sign_date->format('Y-m-d H:i') }}
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-wrap">
