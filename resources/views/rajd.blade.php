@@ -48,45 +48,65 @@
                                     <a href="{{ url('dashboard') }}" class="btn btn-sm btn-outline-primary">Zapisz się</a>
                                 @endif
                             </div>
-                            <h5>Opis rundy:</h5>
-                            {!! $round->desc !!}
+                            @if($round->desc)
+                                <h5>Opis rundy:</h5>
+                                {!! $round->desc !!}
+                            @endif
 
-                            <h5 class="mt-3">Serwis i biuro rajdu:</h5>
-                            {!! $round->serwis !!}
+                            @if($round->serwis)
+                                <h5 class="mt-3">Serwis i biuro rajdu:</h5>
+                                {!! $round->serwis !!}
+                            @endif
 
-                            <h5 class="mt-3">Szczegóły:</h5>
-                            <div class="d-flex flex-wrap justify-content-between text-center pt-2"> 
-                                <div class="col-12 col-md-4">
-                                    <h6>Długość rajdu</h6>
-                                    <h5>{{ $round->length }}</h5>
+                            @if($round->length || $round->special_length || $round->driveway_length)
+                                <h5 class="mt-3">Szczegóły:</h5>
+                                <div class="d-flex flex-wrap justify-content-between text-center pt-2"> 
+                                    @if($round->length)
+                                        <div class="col-12 col-md-4">
+                                            <h6>Długość rajdu</h6>
+                                            <h5>{{ $round->length }}</h5>
+                                        </div>
+                                    @endif
+                                    @if($round->special_length)
+                                        <div class="col-12 col-md-4">
+                                            <h6>Całkowita długość odcinków specjalnych</h6>
+                                            <h5>{{ $round->special_length }}</h5>
+                                        </div>
+                                    @endif
+                                    @if($round->driveway_length)
+                                        <div class="col-12 col-md-4">
+                                            <h6>Długość dojazdówek</h6>
+                                            <h5>{{ $round->driveway_length }}</h5>
+                                        </div>
+                                    @endif
                                 </div>
-                                <div class="col-12 col-md-4">
-                                    <h6>Całkowita długość odcinków specjalnych</h6>
-                                    <h5>{{ $round->special_length }}</h5>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <h6>Długość dojazdówek</h6>
-                                    <h5>{{ $round->driveway_length }}</h5>
-                                </div>
-                            </div>
+                            @endif
 
-                            <h5>Wpisowe: {{ $round->price }}</h5>
-                            <h5>Zaliczka: {{ $round->advance }}</h5>
+                            @if($round->price)
+                                <h5>Wpisowe: {{ $round->price }}</h5>
+                            @endif
+                            @if($round->advance)
+                                <h5>Zaliczka: {{ $round->advance }}</h5>
+                            @endif
 
-                            <h5 class="my-3">Odcinki specjalne:</h5>
-                            <div class="sections lista"> 
-                                @foreach($round->sections as $section)
-                                    <div class="row d-flex flex-wrap justify-content-between align-items-center p-2">
-                                        <h6 class="m-0 col-3">{{ $section->name }}</h6>
-                                        <h6 class="m-0 col-6">Długość odcinka: {{ $section->length }}</h6>
-                                        @if($round->map_id)
-                                            <a href="{{ url('public/maps', $round->map->path) }}" data-lightbox="section" data-title="{{ $section->name}}" class="d-block col-3">
-                                                Zobacz mapę
-                                            </a>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
+                            @if($round->sections->count())
+                                <h5 class="my-3">Odcinki specjalne:</h5>
+                                <div class="sections lista"> 
+                                    @foreach($round->sections as $section)
+                                        <div class="row d-flex flex-wrap justify-content-between align-items-center p-2">
+                                            <h6 class="m-0 col-3">{{ $section->name }}</h6>
+                                            @if($section->length)
+                                                <h6 class="m-0 col-6">Długość odcinka: {{ $section->length }}</h6>
+                                            @endif
+                                            @if($round->map_id)
+                                                <a href="{{ url('public/maps', $round->map->path) }}" data-lightbox="section" data-title="{{ $section->name}}" class="d-block col-3">
+                                                    Zobacz mapę
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
