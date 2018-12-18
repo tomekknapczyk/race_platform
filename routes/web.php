@@ -24,6 +24,7 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
 Route::get('sign-list/{id}', 'HomeController@signList')->name('signList');
 Route::get('rank/{id}', 'HomeController@rank')->name('rank');
+Route::get('rajd/{id}', 'HomeController@rajd')->name('rajd');
 
 Route::get('rank2017', function(){
     return view('rank2017');
@@ -67,7 +68,10 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('race/{id}', 'RaceController@race')->name('race');
     Route::post('saveRound', 'RaceController@saveRound')->name('saveRound');
     Route::post('deleteRound', 'RaceController@deleteRound')->name('deleteRound');
+    Route::post('addSection', 'RaceController@addSection')->name('addSection');
 
+    Route::get('editRound/{id}', 'RaceController@editRound')->name('editRound');
+    Route::get('newRound/{id}', 'RaceController@newRound')->name('newRound');
     Route::get('round/{id}', 'RaceController@round')->name('round');
     Route::get('list/{id}', 'RaceController@list')->name('list');
     

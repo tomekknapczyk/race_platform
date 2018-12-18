@@ -8,12 +8,12 @@
             <div class="counter d-flex align-items-center">
                 {{-- @if($closest) --}}
                     @if($closest->form->active || $closest->startList)
-                        <p>Do rajdu <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> pozostało</p>
+                        <p>Do rajdu <a href="{{ route('rajd', $closest->id) }}" class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</a> pozostało</p>
                         <div class="countdown d-flex align-items-center justify-content-end">
                             <span id="counter" data-deadline="{{ $closest->date->format('Y') }}-{{ $closest->date->format('m') }}-{{ $closest->date->format('d') }}T{{ $closest->date->format('H') }}:{{ $closest->date->format('i') }}:00"></span>
                         </div>
                     @else
-                        <p>Zapisy na <span class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</span> ruszają za</p>
+                        <p>Zapisy na <a href="{{ route('rajd', $closest->id) }}" class="yellow">@if($closest->sub_name){{ $closest->sub_name }}@else{{ $closest->name }}@endif</a> ruszają za</p>
                         <div class="countdown d-flex align-items-center justify-content-end">
                             <span id="counter" data-deadline="{{ $closest->sign_date->format('Y') }}-{{ $closest->sign_date->format('m') }}-{{ $closest->sign_date->format('d') }}T{{ $closest->sign_date->format('H') }}:{{ $closest->sign_date->format('i') }}:00"></span>
                         </div>

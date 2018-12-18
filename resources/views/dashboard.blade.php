@@ -15,7 +15,7 @@
                             <div class="row justify-content-between align-items-center flex-wrap">
                                 <div class="col-md-6">
                                     <h5 class="m-0">
-                                        {{ $form->round->name }} @if($form->round->sub_name) - {{ $form->round->sub_name }}@endif
+                                        {{ $form->round->name }} @if($form->round->sub_name) - {{ $form->round->sub_name }}@endif <a href="{{ route('rajd', $form->round->id) }}" class="ml-3 btn btn-sm btn-outline-primary">Szczegóły rajdu</a>
                                         <br>
                                         <small>{{ $form->round->race->name }}</small>
                                         <br>

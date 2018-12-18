@@ -7,7 +7,8 @@
             <div class="card border-dark">
                 <div class="card-header bg-yellow">
                     <a href="{{ url('races') }}" class="text-white">Rajdy</a> : {{ $race->name }}
-                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newRound">Dodaj nową rundę</button>
+                    {{-- <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newRound">Dodaj nową rundę</button> --}}
+                    <a href="{{ url('newRound', $race->id) }}" class="btn btn-sm btn-primary float-right">Dodaj nową rundę</a>
                 </div>
                 <div class="card-body">
                     @foreach($race->rounds as $round)
@@ -37,10 +38,11 @@
                                 @else
                                     <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
                                 @endif
-                                <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
+                                <a href="{{ url('editRound', $round->id) }}" class="btn btn-sm btn-info">Edytuj</a>
+                                {{-- <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
                                     data-text='{"round_id":"{{ $round->id }}", "round_name":"{{ $round->name }}", "sub_name":"{{ $round->sub_name }}", "details":"{{ $round->details }}", "date":"{{ $round->date->format('Y-m-d H:i') }}", "sign_date":"{{ $round->sign_date->format('Y-m-d H:i') }}", "max":"{{ $round->max }}", "price":"{{ $round->price }}", "advance":"{{ $round->advance }}"}'
                                     data-order='{"items":"{{ $round->order }}"}'
-                                    >Edytuj</button>
+                                    >Edytuj</button> --}}
                                 <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteRound" data-id="{{ $round->id }}">Usuń</button>
                             </div>
                         </div>

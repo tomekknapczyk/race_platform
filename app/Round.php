@@ -23,9 +23,24 @@ class Round extends Model
         return $this->hasOne(File::class, 'id', 'file_id');
     }
 
+    public function poster()
+    {
+        return $this->hasOne(File::class, 'id', 'poster_id');
+    }
+
+    public function map()
+    {
+        return $this->hasOne(File::class, 'id', 'map_id');
+    }
+
     public function startList()
     {
         return $this->hasOne(StartList::class);
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'round_id', 'id');
     }
 
     public function signs()
@@ -67,5 +82,10 @@ class Round extends Model
     public function klasy($start_list_id)
     {
         return $this->startPositions($start_list_id)->sortBy('klasa')->pluck('klasa', 'klasa');
+    }
+
+    public function kolejnosc()
+    {
+        return explode(',',$this->order);
     }
 }

@@ -75,6 +75,21 @@ $(document).on('click', '.signBtn', function(){
     $('#form_id').val(id);
 })
 
+$(document).on('click', '.addSection', function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+
+    $.ajax({
+        url: '/addSection',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $('.sections').append(response);
+    });
+
+    $(this).data('id', id + 1);
+})
+
 $(document).on('change', '#sign_pilot', function(e){
     var id = $(this).val();
 

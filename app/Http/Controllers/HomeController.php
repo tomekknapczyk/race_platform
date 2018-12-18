@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['rank', 'startList', 'signList']]);
+        $this->middleware('auth', ['except' => ['rank', 'startList', 'signList', 'rajd']]);
     }
 
     /**
@@ -392,5 +392,15 @@ class HomeController extends Controller
         $contactMediaTel->save();
 
         return back()->with('success', 'Dane zostały zapisane');
+    }
+
+    public function rajd($id)
+    {
+        $round = \App\Round::where('id', $id)->with('race')->first();
+
+        if($round)
+            return view('rajd', compact('round'));
+
+        return back()->with('warning', 'Rajd nie istnieje');
     }
 }

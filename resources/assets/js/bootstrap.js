@@ -63,3 +63,4 @@ window.countdown = require('countdown');
 
 require('bootstrap-datetime-picker');
 require('bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.pl');
+require('lightbox2');

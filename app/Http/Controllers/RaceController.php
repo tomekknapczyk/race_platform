@@ -112,6 +112,7 @@ class RaceController extends Controller
             'date' => 'required',
             'max' => 'required|numeric',
             'order' => 'required',
+            'section.*.name' => 'required',
         ]);
 
         if(isset($request->id)){
@@ -129,6 +130,12 @@ class RaceController extends Controller
         $round->sign_date = $request->sign_date.":00";
         $round->max = $request->max;
         $round->order = $request->order;
+
+        $round->length = $request->length;
+        $round->special_length = $request->special_length;
+        $round->driveway_length = $request->driveway_length;
+        $round->desc = $request->desc;
+        $round->serwis = $request->serwis;
 
         if($request->price)
             $round->price = floatval(str_replace(',', '.', $request->price));
@@ -168,6 +175,71 @@ class RaceController extends Controller
             $round->file_id = null;
         }
 
+
+        if($request->poster){
+            $poster = \App\File::where('id',$round->poster_id)->first();
+            if($poster){
+                \Storage::delete('public/posters/'.$poster->path);
+                $poster->delete();
+            }
+
+            $file = $request->poster;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/posters/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $round->poster_id = $storeFile->id;
+        }
+
+        if($request->deletePoster){
+            $poster = \App\File::where('id',$round->poster_id)->first();
+            if($poster){
+                \Storage::delete('public/posters/'.$poster->path);
+                $poster->delete();
+            }
+
+            $round->poster_id = null;
+        }
+
+        if($request->map){
+            $map = \App\File::where('id',$round->map_id)->first();
+            if($map){
+                \Storage::delete('public/maps/'.$map->path);
+                $map->delete();
+            }
+
+            $file = $request->map;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/maps/';
+
+            \Storage::put($path, $file);
+
+            $storeFile = new \App\File();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->save();
+
+            $round->map_id = $storeFile->id;
+        }
+
+        if($request->deleteMap){
+            $map = \App\File::where('id',$round->map_id)->first();
+            if($map){
+                \Storage::delete('public/maps/'.$map->path);
+                $map->delete();
+            }
+
+            $round->map_id = null;
+        }
+
         $round->save();
 
         if(!isset($request->id)){
@@ -176,7 +248,67 @@ class RaceController extends Controller
             $form->save();
         }
 
-        return back()->with('success', 'Runda została zapisana');
+        if($request->section){
+            // dd($request->section);
+            foreach ($request->section as $key => $value) {
+                
+                $section = \App\Section::where('id', $key)->first();
+                if(!$section){
+                    $section = new \App\Section();
+                    $section->round_id = $round->id;
+                }
+
+                $section->name = $value['name'];
+                $section->length = $value['length'];
+
+                if(isset($value['map']) && $value['map']){
+                    $map = \App\File::where('id',$section->map_id)->first();
+
+                    if($map){
+                        \Storage::delete('public/maps/'.$map->path);
+                        $map->delete();
+                    }
+
+                    $file = $value['map'];
+                    $originalName = $file->getClientOriginalName();
+                    $name = $file->hashName();
+                    $path = 'public/maps/';
+
+                    \Storage::put($path, $file);
+
+                    $storeFile = new \App\File();
+                    $storeFile->name = $originalName;
+                    $storeFile->path = $name;
+                    $storeFile->save();
+
+                    $section->map_id = $storeFile->id;
+                }
+
+                if(isset($value['deleteMap']) && $value['deleteMap']){
+                    $map = \App\File::where('id',$section->map_id)->first();
+                    if($map){
+                        \Storage::delete('public/maps/'.$map->path);
+                        $map->delete();
+                    }
+
+                    $section->map_id = null;
+                }
+
+                $section->save();
+
+                if(isset($value['delete']) && $value['delete']){
+                    $map = \App\File::where('id',$section->map_id)->first();
+                    if($map){
+                        \Storage::delete('public/maps/'.$map->path);
+                        $map->delete();
+                    }
+
+                    $section->delete();
+                }
+            }
+        }
+
+        return redirect()->route('editRound', $round->id)->with('success', 'Runda została zapisana');
     }
 
     public function deleteRound(Request $request)
@@ -198,6 +330,43 @@ class RaceController extends Controller
             }
 
             $round->startList->delete();
+        }
+
+        if($round->sections){
+            foreach ($round->sections as $section) {
+
+                $map = \App\File::where('id',$section->map_id)->first();
+                if($map){
+                    \Storage::delete('public/maps/'.$map->path);
+                    $map->delete();
+                }
+
+                $section->delete();
+            }
+        }
+
+        if($round->poster){
+            $poster = \App\File::where('id',$round->poster_id)->first();
+            if($poster){
+                \Storage::delete('public/posters/'.$poster->path);
+                $poster->delete();
+            }
+        }
+
+        if($round->map){
+            $map = \App\File::where('id',$round->map_id)->first();
+            if($map){
+                \Storage::delete('public/maps/'.$map->path);
+                $map->delete();
+            }
+        }
+
+        if($round->file_id){
+            $terms = \App\File::where('id',$round->file_id)->first();
+            if($terms){
+                \Storage::delete('public/terms/'.$terms->path);
+                $terms->delete();
+            }
         }
 
         $round->delete();
@@ -234,6 +403,32 @@ class RaceController extends Controller
         return back()->with('warning', 'Runda nie istnieje');
     }
 
+    public function editRound($id)
+    {
+        $round = Round::where('id', $id)->first();
+
+        if($round){
+            $id = \App\Section::whereRaw('id = (select max(`id`) from sections)')->pluck('id')->first() + 1;
+
+            return view('admin.editRound', compact('round', 'id'));
+        }
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }
+
+    public function newRound($id)
+    {
+        $race = Race::where('id', $id)->first();
+
+        if($race){
+            $id = \App\Section::whereRaw('id = (select max(`id`) from sections)')->pluck('id')->first() + 1;
+
+            return view('admin.newRound', compact('race', 'id'));
+        }
+
+        return back()->with('warning', 'Rajd nie istnieje');
+    }
+
     public function list($id)
     {
         $round = Round::where('id', $id)->with('startList', 'race')->first();
@@ -261,4 +456,10 @@ class RaceController extends Controller
 
         return back()->with('warning', 'Runda nie istnieje');
     }
+    
+    public function addSection(Request $request){
+        $id = $request->id;
+        return view('admin.addSection', compact('id'))->render();
+    }
+    
 }
