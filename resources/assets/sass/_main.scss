@@ -116,7 +116,15 @@ img.thumb-big{
             padding: 10px;
             text-align: center;
             font-weight: 500;
-            height: 150px;
+
+            .news-content{
+                height: 150px;
+                overflow: hidden;
+
+                p{
+                    margin: 0;
+                }
+            }
 
             .news-date{
                 position: absolute;
