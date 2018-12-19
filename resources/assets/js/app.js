@@ -451,13 +451,13 @@ function WHCheckCookies() {
     if(WHReadCookie('cookies_accepted') != 'T') {
         var message_container = document.createElement('div');
         message_container.id = 'cookies-message-container';
-        var html_code = '<div id="cookies-message" style="padding: 5px 0px; font-size: 14px; border-bottom: 1px solid #ffc400; text-align: center; position: fixed; bottom: 0px; color:#FFF; background-color: #060709; width: 100%; z-index: 999;">Ta strona używa ciasteczek (cookies), dzięki którym nasz serwis może działać lepiej. &nbsp; <a href="/polityka_prywatnosci" target="_blank" style="color:#FFF;">  <b>Dowiedz się więcej >></b></a><a href="javascript:WHCloseCookiesWindow();" id="accept-cookies-checkbox" name="accept-cookies" style="background-color: #ffbb00; padding: 3px 10px; color: #000; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; display: inline-block; margin-left: 10px; text-decoration: none; cursor: pointer;">Rozumiem</a></div>';
+        var html_code = '<div id="cookies-message" style="padding: 5px 0px; font-size: 14px; border-bottom: 1px solid #ffc400; text-align: center; position: fixed; bottom: 0px; color:#FFF; background-color: #060709; width: 100%; z-index: 999;">Ta strona używa ciasteczek (cookies), dzięki którym nasz serwis może działać lepiej. &nbsp; <a href="/polityka_prywatnosci" target="_blank" style="color:#FFF;">  <b>Dowiedz się więcej >></b></a><button id="accept-cookies-checkbox" name="accept-cookies" style="background-color: #ffbb00; padding: 3px 10px; color: #000; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; display: inline-block; margin-left: 10px; text-decoration: none; cursor: pointer;border:none">Rozumiem</button></div>';
         message_container.innerHTML = html_code;
         document.body.appendChild(message_container);
     }
 }
 
-function WHCloseCookiesWindow() {
+$(document).on('click', '#accept-cookies-checkbox', function(){
     WHCreateCookie('cookies_accepted', 'T', 365);
     document.getElementById('cookies-message-container').removeChild(document.getElementById('cookies-message'));
-}
+});
