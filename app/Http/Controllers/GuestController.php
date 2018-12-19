@@ -139,6 +139,13 @@ class GuestController extends Controller
         return view('regulamin', compact('regulamin'));
     }
 
+    public function policy()
+    {
+        $policy = \App\SiteInfo::where('name', 'policy')->first();
+
+        return view('policy', compact('policy'));
+    }
+
     public function dokumenty()
     {
         $docs = \App\Docs::with('file')->get();

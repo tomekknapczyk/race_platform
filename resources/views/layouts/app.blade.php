@@ -107,8 +107,9 @@
                                             <a class="dropdown-item" href="{{ route('contactInfo') }}">Dane kontaktowe</a>
                                             <a class="dropdown-item" href="{{ route('edit_live_video') }}">Video Live</a>
                                             <a class="dropdown-item" href="{{ route('edit_live_wyniki') }}">Wyniki Live</a>
-                                            <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                             <a class="dropdown-item" href="{{ route('edit_terms') }}">Regulamin</a>
+                                            <a class="dropdown-item" href="{{ route('edit_policy') }}">Polityka prywatności</a>
+                                            <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                             <a class="dropdown-item" href="{{ route('drivers') }}">Zawodnicy</a>
                                             <a class="dropdown-item" href="{{ route('races') }}">Rajdy</a>
                                             <a class="dropdown-item" href="{{ route('tables') }}">Tabele do transmisji</a>

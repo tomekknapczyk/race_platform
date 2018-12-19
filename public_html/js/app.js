@@ -13677,7 +13677,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(42);
 
 
 /***/ }),
@@ -14087,6 +14087,41 @@ $('.search-clear').click(function () {
     userList.search();
 });
 
+function WHCreateCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    var expires = "; expires=" + date.toGMTString();
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+function WHReadCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+window.onload = WHCheckCookies;
+
+function WHCheckCookies() {
+    if (WHReadCookie('cookies_accepted') != 'T') {
+        var message_container = document.createElement('div');
+        message_container.id = 'cookies-message-container';
+        var html_code = '<div id="cookies-message" style="padding: 5px 0px; font-size: 14px; border-bottom: 1px solid #ffc400; text-align: center; position: fixed; bottom: 0px; color:#FFF; background-color: #060709; width: 100%; z-index: 999;">Ta strona używa ciasteczek (cookies), dzięki którym nasz serwis może działać lepiej. &nbsp; <a href="/polityka_prywatnosci" target="_blank" style="color:#FFF;">  <b>Dowiedz się więcej >></b></a><a href="javascript:WHCloseCookiesWindow();" id="accept-cookies-checkbox" name="accept-cookies" style="background-color: #ffbb00; padding: 3px 10px; color: #000; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; display: inline-block; margin-left: 10px; text-decoration: none; cursor: pointer;">Rozumiem</a></div>';
+        message_container.innerHTML = html_code;
+        document.body.appendChild(message_container);
+    }
+}
+
+function WHCloseCookiesWindow() {
+    WHCreateCookie('cookies_accepted', 'T', 365);
+    document.getElementById('cookies-message-container').removeChild(document.getElementById('cookies-message'));
+}
+
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -14156,7 +14191,7 @@ window.countdown = __webpack_require__(38);
 
 __webpack_require__(39);
 __webpack_require__(40);
-__webpack_require__(62);
+__webpack_require__(41);
 
 /***/ }),
 /* 13 */
@@ -44705,32 +44740,6 @@ $.fn.datetimepicker.dates['pl'] = {
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -45256,6 +45265,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   return new Lightbox();
 }));
 
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

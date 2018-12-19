@@ -18,6 +18,7 @@ Route::get('dokumenty', 'GuestController@dokumenty');
 Route::get('podium/{id}', 'GuestController@podium');
 Route::get('klasyfikacja-roczna/{id}', 'GuestController@roczna');
 Route::get('regulamin', 'GuestController@regulamin');
+Route::get('polityka_prywatnosci', 'GuestController@policy');
 Route::post('rank_frame', 'GuestController@rank_frame')->name('rank_frame');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
@@ -98,6 +99,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveInfo', 'HomeController@saveInfo')->name('saveInfo');
     Route::get('edycja_regulaminu', 'HomeController@terms')->name('edit_terms');
     Route::post('saveTerms', 'HomeController@saveTerms')->name('saveTerms');
+    Route::get('edycja_polityki', 'HomeController@policy')->name('edit_policy');
+    Route::post('savePolicy', 'HomeController@savePolicy')->name('savePolicy');
 
     Route::get('edit_live_video', 'HomeController@edit_live_video')->name('edit_live_video');
     Route::post('save_live_video', 'HomeController@save_live_video')->name('save_live_video');

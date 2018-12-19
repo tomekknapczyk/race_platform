@@ -265,6 +265,29 @@ class HomeController extends Controller
         return back()->with('success', 'Regulamin został zapisany');
     }
 
+    public function policy()
+    {
+        $policy = \App\SiteInfo::where('name', 'policy')->first();
+
+        return view('admin.policy', compact('policy'));
+    }
+
+    public function savePolicy(Request $request)
+    {
+        $policy = \App\SiteInfo::where('name', 'policy')->first();
+
+        if(!$policy){
+            $policy = new \App\SiteInfo;
+            $policy->name = 'policy';
+        }
+
+        $policy->value = $request->policy;
+
+        $policy->save();
+
+        return back()->with('success', 'Polityka prywatności została zapisana');
+    }
+
     public function edit_promoted()
     {
         $promoted_race = \App\SiteInfo::where('name', 'promoted_race')->first();
