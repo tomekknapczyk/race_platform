@@ -18,15 +18,27 @@
                     <div class="d-flex flex-wrap">
                         <div class="col-12 col-md-4">
                             @if($round->poster_id)
-                                <a href="{{ url('public/posters', $round->poster->path) }}" data-lightbox="poster" data-title="{{ $round->sub_name}}" class="mb-2 d-block">
-                                    <img src="{{ url('public/posters', $round->poster->path) }}" class="img-fluid">
-                                </a>
+                                @if (in_array(pathinfo($round->poster->path, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                    <a href="{{ url('public/posters', $round->poster->path) }}" data-lightbox="poster" data-title="{{ $round->sub_name}}" class="mb-2 d-block">
+                                        <img src="{{ url('public/posters', $round->poster->path) }}" class="img-fluid">
+                                    </a>
+                                @else
+                                    <div class="text-center mb-2">
+                                        <a href="{{ url('public/posters', $round->poster->path) }}" class="btn btn-sm btn-danger" target="_blank">Zobacz plakat</a>
+                                    </div>
+                                @endif
                             @endif
 
                             @if($round->map_id)
-                                <a href="{{ url('public/maps', $round->map->path) }}" data-lightbox="map" data-title="{{ $round->sub_name}}" class="mb-2 d-block">
-                                    <img src="{{ url('public/maps', $round->map->path) }}" class="img-fluid">
-                                </a>
+                                @if (in_array(pathinfo($round->map->path, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                    <a href="{{ url('public/maps', $round->map->path) }}" data-lightbox="map" data-title="{{ $round->sub_name}}" class="mb-2 d-block">
+                                        <img src="{{ url('public/maps', $round->map->path) }}" class="img-fluid">
+                                    </a>
+                                @else
+                                    <div class="text-center mb-2">
+                                        <a href="{{ url('public/maps', $round->map->path) }}" class="btn btn-sm btn-info" target="_blank">Zobacz mapę</a>
+                                    </div>
+                                @endif
                             @endif
 
                             <div class="text-center">
@@ -94,15 +106,21 @@
                                 <h5 class="my-3">Odcinki specjalne:</h5>
                                 <div class="sections lista"> 
                                     @foreach($round->sections as $section)
-                                        <div class="row d-flex flex-wrap justify-content-between align-items-center p-2">
+                                        <div class="row d-flex flex-wrap align-items-center p-2">
                                             <h6 class="m-0 col-3">{{ $section->name }}</h6>
                                             @if($section->length)
                                                 <h6 class="m-0 col-6">Długość odcinka: {{ $section->length }}</h6>
                                             @endif
-                                            @if($round->map_id)
-                                                <a href="{{ url('public/maps', $round->map->path) }}" data-lightbox="section" data-title="{{ $section->name}}" class="d-block col-3">
-                                                    Zobacz mapę
-                                                </a>
+                                            @if($section->map_id)
+                                                @if (in_array(pathinfo($section->map->path, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                                    <a href="{{ url('public/maps', $section->map->path) }}" data-lightbox="section" data-title="{{ $section->name }}" class="d-block col-3">
+                                                        Zobacz mapę
+                                                    </a>
+                                                @else
+                                                    <a href="{{ url('public/maps', $section->map->path) }}" class="d-block col-3" target="_blank">
+                                                        Zobacz mapę
+                                                    </a>
+                                                @endif
                                             @endif
                                         </div>
                                     @endforeach

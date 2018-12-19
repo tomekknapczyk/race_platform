@@ -616,6 +616,24 @@ body{
                     position: relative;
                     z-index: 2;
 
+                    > li{
+                        margin: 0 2px;
+                    }
+
+                    .nav-y{
+                        background: #FFB500;
+
+                        a{
+                            &.nav-link{
+                                color: #000;
+
+                                &:hover{
+                                   color: #000;
+                                }
+                            }
+                        }
+                    }
+
                     a{
                         &.nav-link{
                             color: #fff;

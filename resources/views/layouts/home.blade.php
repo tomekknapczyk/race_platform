@@ -70,8 +70,8 @@
                                 {{-- <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li> --}}
                             @else
                                 @if(!auth()->user()->admin)
-                                    <li><a class="nav-link" href="{{ route('home') }}">Rajdy</a></li>
-                                    <li class="nav-item dropdown">
+                                    <li class="nav-y"><a class="nav-link" href="{{ route('home') }}">Rajdy</a></li>
+                                    <li class="nav-y nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->login }} <span class="caret"></span>
                                         </a>
@@ -93,7 +93,7 @@
                                         </div>
                                     </li>
                                 @else
-                                    <li class="nav-item dropdown">
+                                    <li class="nav-item dropdown nav-y">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Zarządzaj witryną <span class="caret"></span>
                                         </a>
@@ -113,7 +113,7 @@
                                             <a class="dropdown-item" href="{{ route('tables') }}">Tabele do transmisji</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item dropdown">
+                                    <li class="nav-item dropdown nav-y">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->login }} <span class="caret"></span>
                                         </a>
