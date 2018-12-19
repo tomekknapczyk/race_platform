@@ -23,6 +23,15 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75301544-8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-75301544-8');
+    </script> 
 </head>
 <body class="front">
     <div id="fb-root"></div>
