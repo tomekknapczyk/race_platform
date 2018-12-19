@@ -70,6 +70,16 @@ $(document).on('click', '.deleteBtn', function(){
     $('#delete_id').val(id);
 })
 
+$(document).on('click', '.banBtn', function(){
+    var id = $(this).data('id');
+    $('#ban_id').val(id);
+})
+
+$(document).on('click', '.unbanBtn', function(){
+    var id = $(this).data('id');
+    $('#unban_id').val(id);
+})
+
 $(document).on('click', '.signBtn', function(){
     var id = $(this).data('id');
     $('#form_id').val(id);

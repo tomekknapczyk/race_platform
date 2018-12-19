@@ -22,7 +22,11 @@
                                 @endif
                             </div>
                             <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->profile)->name }}" data-nazwisko="{{ optional($user->profile)->lastname }}">
-                                <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->profile)->name }} {{ optional($user->profile)->lastname }}</a>
+                                @if($user->driver)
+                                    <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->profile)->name }} {{ optional($user->profile)->lastname }}</a>
+                                @else
+                                    <a href="{{ route('pilot', $user->id) }}" class="text-dark">{{ optional($user->profile)->name }} {{ optional($user->profile)->lastname }}</a>
+                                @endif
                                 <br>
                                 <small>{{ $user->email }}</small>
                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editDriver"
@@ -36,6 +40,17 @@
                                 data-tinymce='{"driver_text":{!! json_encode(optional($user->profile)->desc) !!}}'
                                 >Edytuj</button>
                                 <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>
+
+                                @if($user->active)
+                                    <button class="btn btn-sm btn-danger banBtn" data-toggle="modal" data-target="#banUser"
+                                    data-id='{{ $user->id }}'>Zablokuj</button>
+                                @else
+                                    <button class="btn btn-sm btn-success unbanBtn" data-toggle="modal" data-target="#unbanUser"
+                                    data-id='{{ $user->id }}'>Odblokuj</button>
+
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteUser"
+                                    data-id='{{ $user->id }}'>Usuń</button>
+                                @endif
                             </h6>
                             <div class="col-md-4">
                                 @if($user->pilots->count())
@@ -93,6 +108,9 @@
     </div>
 </div>
 @include('admin.modals.editDriver')
+@include('admin.modals.banUser')
+@include('admin.modals.unbanUser')
+@include('admin.modals.deleteProfile')
 @include('modals.editPilot')
 @include('modals.editCar')
 

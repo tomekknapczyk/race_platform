@@ -59,6 +59,9 @@ Route::post('savePilot', 'UserController@savePilot')->name('savePilot');
 Route::post('saveCar', 'UserController@saveCar')->name('saveCar');
 Route::post('deleteCar', 'UserController@deleteCar')->name('deleteCar');
 Route::post('deletePilot', 'UserController@deletePilot')->name('deletePilot');
+Route::post('banUser', 'UserController@banUser')->name('banUser');
+Route::post('unbanUser', 'UserController@unbanUser')->name('unbanUser');
+Route::post('deleteProfile', 'UserController@deleteProfile')->name('deleteProfile');
 
 // Admin panel
 Route::group(['middleware' => 'admin'], function() {

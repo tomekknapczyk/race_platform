@@ -392,4 +392,85 @@ class UserController extends Controller
 
         return $uid;
     }
+
+    public function banUser(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+        ]);
+
+        $user = User::where('id', $request->id)->first();
+        $user->active = 0;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Użytkownik został zablokowany');
+    }
+
+    public function unbanUser(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+        ]);
+
+        $user = User::where('id', $request->id)->first();
+        $user->active = 1;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Użytkownik został odblokowany');
+    }
+
+    public function deleteProfile(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+        ]);
+
+        $user = User::where('id', $request->id)->first();
+
+        if($user->profile){
+            $photo = \App\File::where('id',$user->profile->file_id)->first();
+            if($photo){
+                \Storage::delete('public/driver/'.$photo->path);
+                \Storage::delete('public/driver/thumb/'.$photo->path);
+                $photo->delete();
+            }
+            $user->profile->delete();
+        }
+
+        $pilot = Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($user->pilots){
+            foreach ($user->pilots as $pilot) {
+                if($pilot->file_id){
+                    $photo = \App\File::where('id',$pilot->file_id)->first();
+                    if($photo){
+                        \Storage::delete('public/pilot/'.$photo->path);
+                        \Storage::delete('public/pilot/thumb/'.$photo->path);
+                        $photo->delete();
+                    }
+                }
+
+                $pilot->delete();
+            }
+        }
+        
+        if($user->cars){
+            foreach ($user->cars as $car) {
+                if($car->file_id){
+                    $photo = \App\File::where('id',$car->file_id)->first();
+                    if($photo){
+                        \Storage::delete('public/car/'.$photo->path);
+                        \Storage::delete('public/car/thumb/'.$photo->path);
+                        $photo->delete();
+                    }
+                }
+
+                $car->delete();
+            }
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Użytkownik został usunięty');
+    }
 }

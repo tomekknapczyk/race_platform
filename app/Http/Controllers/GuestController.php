@@ -83,21 +83,21 @@ class GuestController extends Controller
 
     public function drivers()
     {
-        $users = \App\User::where('admin', 0)->where('driver', 1)->with('profile', 'profile.file')->get();
+        $users = \App\User::where('admin', 0)->where('active', 1)->where('driver', 1)->with('profile', 'profile.file')->get();
 
         return view('drivers', compact('users'));
     }
 
     public function pilots()
     {
-        $pilots = \App\User::where('admin', 0)->where('driver', 0)->with('profile', 'profile.file')->get();
+        $pilots = \App\User::where('admin', 0)->where('active', 1)->where('driver', 0)->with('profile', 'profile.file')->get();
 
         return view('pilots-list', compact('pilots'));
     }
 
     public function driver($id, $name = null)
     {
-        $user = \App\User::where('admin', 0)->where('id', $id)->where('driver', 1)->with('profile', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
+        $user = \App\User::where('admin', 0)->where('active', 1)->where('id', $id)->where('driver', 1)->with('profile', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
 
         if(!$user)
             return back()->with('danger', 'Kierowca nie istnieje');
@@ -107,7 +107,7 @@ class GuestController extends Controller
 
     public function pilot($id, $name = null)
     {
-        $user = \App\User::where('admin', 0)->where('id', $id)->where('driver', 0)->with('profile', 'profile.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
+        $user = \App\User::where('admin', 0)->where('active', 1)->where('id', $id)->where('driver', 0)->with('profile', 'profile.file', 'races', 'races.sign', 'races.startList', 'races.startList.round', 'races.startList.round.race')->first();
 
         if(!$user)
             return back()->with('danger', 'Pilot nie istnieje');
@@ -124,12 +124,12 @@ class GuestController extends Controller
 
     public function wyniki()
     {
-        // $races = \App\Race::with('rounds', 'rounds.startList')->get();
+        $races = \App\Race::with('rounds', 'rounds.startList')->get();
 
-        // return view('wyniki', compact('races'));
+        return view('wyniki_over', compact('races'));
 
         // Na obecny sezon
-        return view('wyniki_over');
+        // return view('wyniki_over');
     }
 
     public function regulamin()

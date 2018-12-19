@@ -42,8 +42,14 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, User $user)
     {
-        if($user->confirmed)
-            return redirect()->intended($this->redirectPath());
+        if($user->confirmed){
+            if($user->active)
+                return redirect()->intended($this->redirectPath());
+            else{
+                $this->logout($request);
+                return redirect('/')->with('warning', 'Twóje konto zostało zablokowane. Prosimy o kontakt z administracją serwisu.');
+            }
+        }
         else
         {
             $this->logout($request);

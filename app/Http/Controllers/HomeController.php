@@ -158,7 +158,7 @@ class HomeController extends Controller
 
     public function getDriver(Request $request)
     {
-        $driver = \App\User::where('uid', $request->uid)->where('driver', 1)->first();
+        $driver = \App\User::where('uid', $request->uid)->where('driver', 1)->where('active', 1)->first();
 
         if($driver){
             $sign = \App\Sign::where('user_id', $driver->id)->where('form_id', $request->form)->first();
@@ -182,7 +182,7 @@ class HomeController extends Controller
 
     public function getPilotUid(Request $request)
     {
-        $pilot = \App\User::where('uid', $request->uid)->where('driver', 0)->first();
+        $pilot = \App\User::where('uid', $request->uid)->where('driver', 0)->where('active', 1)->first();
 
         if($pilot){
             $sign = \App\Sign::where('pilot_id', $pilot->id)->where('form_id', $request->form)->first();
