@@ -68,7 +68,10 @@
                                     </h6>
                                     <div class="col-3">
                                         @if($sign['sign']->car && $sign['sign']->car->file_id)
+                                        <div class="img_with_hover">
                                             <img src="{{ url('public/car/thumb/', $sign['sign']->car->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/car/thumb/', $sign['sign']->car->file->path) }}" class="img-fluid hovered">
+                                        </div>
                                         @else
                                             <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
                                         @endif
