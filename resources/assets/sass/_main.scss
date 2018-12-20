@@ -85,14 +85,13 @@ img.thumb-big{
     position: relative;
 
     .hovered{
-        width: 150%;
-        height: 150%;
+        width: 180%;
+        height: 180%;
         position: absolute;
-        object-fit: cover;
+        object-fit: contain;
         max-width: none;
-        left: -25%;
-        bottom: -25%;
-        box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
+        left: -40%;
+        bottom: -40%;
         transition: all .2s ease;
         transform: scale(0);
     }
