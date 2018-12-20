@@ -7,7 +7,7 @@
     <meta property="og:url"                content="{{ Request::url() }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Rajdowy Puchar Śląska" />
-    <meta property="og:image" content="{{ asset('/images/logo.jpg') }}" />
+    <meta property="og:image" content="{{ asset('/images/logo.png') }}" />
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
