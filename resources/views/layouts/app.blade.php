@@ -8,7 +8,7 @@
     @if(Route::currentRouteName() == 'kierowca')
         <meta property="og:type"               content="article" />
         <meta property="og:title"              content="Rajdowy Puchar Śląska - Kierowca @if($user->profile->show_name){{ $user->profile->name }}@endif" />
-        <meta property="og:description"        content="{!! str_limit($user->profile->desc, 200) !!}" />
+        <meta property="og:description"        content="{{ strip_tags(str_limit($user->profile->desc, 200)) }}" />
         @if($user->profile->file_id)
             <meta property="og:image"          content="{{ url('/public/driver', $user->profile->file->path) }}" />
         @else
@@ -17,7 +17,7 @@
     @elseif(Route::currentRouteName() == 'pilot')
         <meta property="og:type"               content="article" />
         <meta property="og:title"              content="Rajdowy Puchar Śląska - Pilot @if($user->profile->show_name){{ $user->profile->name }}@endif" />
-        <meta property="og:description"        content="{!! str_limit($user->profile->desc , 200) !!}" />
+        <meta property="og:description"        content="{{ strip_tags(str_limit($user->profile->desc , 200)) }}" />
         @if($user->profile->file_id)
             <meta property="og:image"          content="{{ url('/public/driver', $user->profile->file->path) }}" />
         @else
@@ -26,7 +26,7 @@
     @elseif(Route::currentRouteName() == 'aktualnosc')
         <meta property="og:type"               content="article" />
         <meta property="og:title"              content="Rajdowy Puchar Śląska - {{ $news->title }}" />
-        <meta property="og:description"        content="{!! str_limit($news->text, 200) !!}" />
+        <meta property="og:description"        content="{{ strip_tags(str_limit($news->text, 200)) }}" />
         @if($news->file_id)
             <meta property="og:image"          content="{{ url('public/post/thumb/', $news->file->path) }}" />
         @else
