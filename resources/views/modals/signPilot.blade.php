@@ -182,13 +182,37 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="ccm">Pojemność ccm</label>
                                 <input type="text" name="ccm" id="car_ccm" class="form-control" required="" readonly=""> 
                                 @if ($errors->has('ccm'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('ccm') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="oc">Nazwa nr polisy OC</label>
+                                <input type="text" name="oc" id="car_oc" class="form-control" required="" readonly=""> 
+                                @if ($errors->has('oc'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('oc') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="nw">Nazwa nr polisy NW</label>
+                                <input type="text" name="nw" id="car_nw" class="form-control" readonly=""> 
+                                @if ($errors->has('nw'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('nw') }}</strong>
                                     </span>
                                 @endif
                             </div>

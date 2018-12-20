@@ -193,6 +193,7 @@ $(document).on('change', '#sign_car', function(){
         method: 'POST',
         data: {id: id},
     }).done(function(response){
+        $('#sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
         $('#sign_klasa').append(response);
     });
 })

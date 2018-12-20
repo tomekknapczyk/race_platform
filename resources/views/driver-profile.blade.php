@@ -157,7 +157,7 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="oc">Nazwa nr polisy OC</label>
                                     <input type="text" name="oc" value="{{ old('oc', optional(auth()->user()->profile)->oc) }}" class="form-control" required=""> 
                                     @if ($errors->has('oc'))
@@ -175,7 +175,7 @@
                                             <strong>{{ $errors->first('nw') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

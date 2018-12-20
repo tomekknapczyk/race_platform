@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editCar"
-                                                data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
+                                                data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}", "car_oc":"{{ $car->oc }}", "car_nw":"{{ $car->nw }}"}'
                                                 data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
                                                 @if($car->file_id)
                                                     data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'

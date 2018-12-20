@@ -19,14 +19,14 @@
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="id_card">Kierowca numer dowodu</div>                       
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="email">Kierowca email</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="driving_license">Kierowca numer prawa jazdy</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="oc">Kierowca oc</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="nw">Kierowca nw</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="oc">OC</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="nw">NW</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_address">Pilot adres</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_id_card">Pilot numer dowodu</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_email">Pilot email</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_driving_license">Pilot numer prawa jazdy</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_oc">Pilot oc</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_nw">Pilot nw</div>                        
+{{--                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_oc">Pilot oc</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_nw">Pilot nw</div>    --}}                     
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="rok">Rocznik</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="ccm">Pojemność</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="turbo">Turbo</div>

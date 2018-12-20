@@ -88,8 +88,8 @@ class UserController extends Controller
             'id_card' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'driving_license' => 'required|string|max:255',
-            'oc' => 'required|string|max:255',
-            'nw' => 'nullable|string|max:255',
+            // 'oc' => 'required|string|max:255',
+            // 'nw' => 'nullable|string|max:255',
             'photo' => 'nullable|mimes:jpeg,bmp,png',
         ]);
 
@@ -110,8 +110,8 @@ class UserController extends Controller
         $driver->id_card = $request->id_card;
         $driver->phone = $request->phone;
         $driver->driving_license = $request->driving_license;
-        $driver->oc = $request->oc;
-        $driver->nw = $request->nw;
+        // $driver->oc = $request->oc;
+        // $driver->nw = $request->nw;
         $driver->show_name = isset($request->showName)?1:0;
         $driver->show_lastname = isset($request->showLastname)?1:0;
         $driver->show_email = isset($request->showEmail)?1:0;
@@ -173,8 +173,8 @@ class UserController extends Controller
             'phone' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'driving_license' => 'nullable|string|max:255',
-            'oc' => 'nullable|string|max:255',
-            'nw' => 'nullable|string|max:255',
+            // 'oc' => 'nullable|string|max:255',
+            // 'nw' => 'nullable|string|max:255',
             'photo' => 'nullable|mimes:jpeg,bmp,png'
         ]);
 
@@ -197,8 +197,8 @@ class UserController extends Controller
         $pilot->phone = $request->phone;
         $pilot->email = $request->email;
         $pilot->driving_license = $request->driving_license;
-        $pilot->oc = $request->oc;
-        $pilot->nw = $request->nw;
+        // $pilot->oc = $request->oc;
+        // $pilot->nw = $request->nw;
         $pilot->show_name = isset($request->showName)?1:0;
         $pilot->show_lastname = isset($request->showLastname)?1:0;
         $pilot->show_email = isset($request->showEmail)?1:0;
@@ -283,7 +283,8 @@ class UserController extends Controller
             'rok' => 'required|max:255',
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
-            'photo' => 'nullable|mimes:jpeg,bmp,png'
+            'photo' => 'nullable|mimes:jpeg,bmp,png',
+            'oc' => 'required',
         ]);
 
         if(auth()->user()->admin)
@@ -303,6 +304,8 @@ class UserController extends Controller
         $car->rok = $request->rok;
         $car->nr_rej = $request->nr_rej;
         $car->ccm = $request->ccm;
+        $car->oc = $request->oc;
+        $car->nw = $request->nw;
         $car->turbo = false;
         $car->rwd = false;
         if(isset($request->turbo))

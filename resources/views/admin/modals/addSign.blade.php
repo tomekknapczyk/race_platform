@@ -33,7 +33,7 @@
                     <h3 class="text-center m-0">Dane kierowcy</h3>
 
                     <div class="row mt-4">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="driver_name">Imię</label>
                                 <input type="text" name="driver_name" class="form-control" required=""> 
@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="driver_address">Adres</label>
-                                <textarea name="driver_address" class="form-control" rows="3"></textarea>
+                                <textarea name="driver_address" class="form-control" rows="5"></textarea>
                                 @if ($errors->has('driver_address'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('driver_address') }}</strong>
@@ -66,17 +66,7 @@
                         </div>
                         
 
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="driver_id_card">Seria nr dowodu osobistego</label>
-                                <input type="text" name="driver_id_card" class="form-control"> 
-                                @if ($errors->has('driver_id_card'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('driver_id_card') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="driver_phone">Telefon</label>
                                 <input type="text" name="driver_phone" class="form-control"> 
@@ -96,9 +86,17 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
 
-                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="driver_id_card">Seria nr dowodu osobistego</label>
+                                <input type="text" name="driver_id_card" class="form-control"> 
+                                @if ($errors->has('driver_id_card'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('driver_id_card') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="form-group">
                                 <label for="driver_driving_license">Nr prawo jazdy</label>
                                 <input type="text" name="driver_driving_license" class="form-control"> 
@@ -109,7 +107,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="driver_oc">Nazwa nr polisy OC</label>
                                 <input type="text" name="driver_oc" class="form-control"> 
                                 @if ($errors->has('driver_oc'))
@@ -127,7 +125,7 @@
                                         <strong>{{ $errors->first('driver_nw') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -136,7 +134,7 @@
                     <h3 class="text-center m-0">Dane pilota</h3>
 
                     <div class="row mt-4">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="name">Imię</label>
                                 <input type="text" name="name" class="form-control" required=""> 
@@ -159,7 +157,7 @@
 
                             <div class="form-group">
                                 <label for="address">Adres</label>
-                                <textarea name="address" class="form-control" rows="3"></textarea>
+                                <textarea name="address" class="form-control" rows="5"></textarea>
                                 @if ($errors->has('address'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('address') }}</strong>
@@ -168,17 +166,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="id_card">Seria nr dowodu osobistego</label>
-                                <input type="text" name="id_card" class="form-control"> 
-                                @if ($errors->has('id_card'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('id_card') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
                                 <input type="text" name="phone" class="form-control"> 
@@ -198,9 +186,17 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
 
-                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="id_card">Seria nr dowodu osobistego</label>
+                                <input type="text" name="id_card" class="form-control"> 
+                                @if ($errors->has('id_card'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('id_card') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="form-group">
                                 <label for="driving_license">Nr prawo jazdy</label>
                                 <input type="text" name="driving_license" class="form-control"> 
@@ -211,7 +207,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
+{{--                             <div class="form-group">
                                 <label for="oc">Nazwa nr polisy OC</label>
                                 <input type="text" name="oc" class="form-control"> 
                                 @if ($errors->has('oc'))
@@ -229,7 +225,7 @@
                                         <strong>{{ $errors->first('nw') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -285,13 +281,37 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="ccm">Pojemność ccm</label>
                                 <input type="text" name="ccm" class="form-control" required=""> 
                                 @if ($errors->has('ccm'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('ccm') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="oc">Nazwa nr polisy OC</label>
+                                <input type="text" name="oc" class="form-control" required=""> 
+                                @if ($errors->has('oc'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('oc') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="nw">Nazwa nr polisy NW</label>
+                                <input type="text" name="nw" class="form-control"> 
+                                @if ($errors->has('nw'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('nw') }}</strong>
                                     </span>
                                 @endif
                             </div>

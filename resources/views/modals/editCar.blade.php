@@ -90,6 +90,31 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="oc">Nazwa nr polisy OC</label>
+                                        <input type="text" name="oc" id="edit_car_oc" class="form-control" required=""> 
+                                        @if ($errors->has('oc'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('oc') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nw">Nazwa nr polisy NW</label>
+                                        <input type="text" name="nw" id="edit_car_nw" class="form-control"> 
+                                        @if ($errors->has('nw'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('nw') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">

@@ -49,6 +49,7 @@ class SignController extends Controller
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
             'klasa' => 'required',
+            'oc' => 'required',
             'payment' => 'nullable|file|mimes:jpeg,png,pdf,jpg|max:3000',
         ]);
 
@@ -83,8 +84,6 @@ class SignController extends Controller
             $sign->phone = auth()->user()->profile->phone;
             $sign->email = auth()->user()->email;
             $sign->driving_license = auth()->user()->profile->driving_license;
-            $sign->oc = auth()->user()->profile->oc;
-            $sign->nw = auth()->user()->profile->nw;
 
             $sign->pilot_name = $request->name;
             $sign->pilot_lastname = $request->lastname;
@@ -93,8 +92,8 @@ class SignController extends Controller
             $sign->pilot_phone = $request->phone;
             $sign->pilot_email = $request->email;
             $sign->pilot_driving_license = $request->driving_license;
-            $sign->pilot_oc = $request->oc;
-            $sign->pilot_nw = $request->nw;
+            // $sign->pilot_oc = $request->oc;
+            // $sign->pilot_nw = $request->nw;
         }
         else{
             $driver = \App\User::where('uid', $request->driver_uid)->first();
@@ -107,8 +106,8 @@ class SignController extends Controller
             $sign->pilot_phone = auth()->user()->profile->phone;
             $sign->pilot_email = auth()->user()->email;
             $sign->pilot_driving_license = auth()->user()->profile->driving_license;
-            $sign->pilot_oc = auth()->user()->profile->oc;
-            $sign->pilot_nw = auth()->user()->profile->nw;
+            // $sign->pilot_oc = auth()->user()->profile->oc;
+            // $sign->pilot_nw = auth()->user()->profile->nw;
 
             $sign->name = $request->name;
             $sign->lastname = $request->lastname;
@@ -117,8 +116,8 @@ class SignController extends Controller
             $sign->phone = $request->phone;
             $sign->email = $request->email;
             $sign->driving_license = $request->driving_license;
-            $sign->oc = $request->oc;
-            $sign->nw = $request->nw;
+            // $sign->oc = $request->oc;
+            // $sign->nw = $request->nw;
         }
 
         $sign->marka = $request->marka;
@@ -129,6 +128,8 @@ class SignController extends Controller
         $sign->turbo = $request->turbo;
         $sign->rwd = $request->rwd;
         $sign->klasa = $request->klasa;
+        $sign->oc = $request->oc;
+        $sign->nw = $request->nw;
         $sign->active = $active;
 
         if(isset($request->payment)){
@@ -154,6 +155,7 @@ class SignController extends Controller
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
             'klasa' => 'required',
+            'oc' => 'required',
         ]);
 
         $form = SignForm::where('id', $request->id)->first();
@@ -178,8 +180,8 @@ class SignController extends Controller
         $sign->phone = $request->driver_phone;
         $sign->email = $request->driver_email;
         $sign->driving_license = $request->driver_driving_license;
-        $sign->oc = $request->driver_oc;
-        $sign->nw = $request->driver_nw;
+        $sign->oc = $request->oc;
+        $sign->nw = $request->nw;
         $sign->pilot_name = $request->name;
         $sign->pilot_lastname = $request->lastname;
         $sign->pilot_address = $request->address;
@@ -187,8 +189,8 @@ class SignController extends Controller
         $sign->pilot_phone = $request->phone;
         $sign->pilot_email = $request->email;
         $sign->pilot_driving_license = $request->driving_license;
-        $sign->pilot_oc = $request->oc;
-        $sign->pilot_nw = $request->nw;
+        // $sign->pilot_oc = $request->oc;
+        // $sign->pilot_nw = $request->nw;
         $sign->marka = $request->marka;
         $sign->model = $request->model;
         $sign->nr_rej = $request->nr_rej;
@@ -219,6 +221,7 @@ class SignController extends Controller
             'nr_rej' => 'required|string|max:255',
             'ccm' => 'required|string|max:255',
             'klasa' => 'required',
+            'oc' => 'required',
         ]);
 
         $sign = Sign::where('id', $request->id)->first();
@@ -230,8 +233,8 @@ class SignController extends Controller
         $sign->phone = $request->driver_phone;
         $sign->email = $request->driver_email;
         $sign->driving_license = $request->driver_driving_license;
-        $sign->oc = $request->driver_oc;
-        $sign->nw = $request->driver_nw;
+        $sign->oc = $request->oc;
+        $sign->nw = $request->nw;
         $sign->pilot_name = $request->name;
         $sign->pilot_lastname = $request->lastname;
         $sign->pilot_address = $request->address;
@@ -239,8 +242,8 @@ class SignController extends Controller
         $sign->pilot_phone = $request->phone;
         $sign->pilot_email = $request->email;
         $sign->pilot_driving_license = $request->driving_license;
-        $sign->pilot_oc = $request->oc;
-        $sign->pilot_nw = $request->nw;
+        // $sign->pilot_oc = $request->oc;
+        // $sign->pilot_nw = $request->nw;
         $sign->marka = $request->marka;
         $sign->model = $request->model;
         $sign->nr_rej = $request->nr_rej;

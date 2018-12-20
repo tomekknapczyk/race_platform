@@ -44,11 +44,7 @@
                             @else
                                 <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                             @endif
-                            <h6 class="my-3 nazwisko" data-nazwisko="@if($user->profile->show_lastname){{ $user->profile->lastname }}@endif">
-                                @if($user->profile->show_name){{ $user->profile->name }}@endif
-                                @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
-                                @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
-                            </h6>
+                            <h6 class="my-3 nazwisko" data-nazwisko="@if($user->profile->show_lastname){{ $user->profile->lastname }}@endif">@if($user->profile->show_name){{ $user->profile->name }}@endif @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif</h6>
                             </a>
                         </div>
                     </div>
