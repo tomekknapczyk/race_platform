@@ -11375,8 +11375,6 @@ img.thumb-big {
   width: 180%;
   height: 180%;
   position: absolute;
-  -o-object-fit: contain;
-     object-fit: contain;
   max-width: none;
   left: -40%;
   bottom: -40%;
@@ -11387,8 +11385,8 @@ img.thumb-big {
 }
 
 .img_with_hover:hover .hovered {
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
   z-index: 10;
   -webkit-transform: scale(1);
           transform: scale(1);
