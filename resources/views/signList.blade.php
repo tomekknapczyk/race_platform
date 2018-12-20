@@ -22,16 +22,28 @@
                                     </h6>
                                     <div class="col-1 col-md-2 col-lg-1 p-0 pr-1">
                                         @if($sign['sign']->user && $sign['sign']->user->profile->file_id)
-                                            <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
+                                            {{-- <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb"> --}}
+                                            <div class="img_with_hover">
+                                                <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb">
+                                                <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid hovered">
+                                            </div>
                                         @else
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
                                     <div class="col-1 col-md-2 col-lg-1 p-0 pl-1">
                                         @if($sign['sign']->pilot && $sign['sign']->pilot->profile->file_id)
-                                            <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
+                                            <div class="img_with_hover">
+                                                <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
+                                                <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid hovered">
+                                            </div>
+                                            {{-- <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb"> --}}
                                         @elseif($sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
-                                            <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb">
+                                            <div class="img_with_hover">
+                                                <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb">
+                                                <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid hovered">
+                                            </div>
+                                            {{-- <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb"> --}}
                                         @else
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
