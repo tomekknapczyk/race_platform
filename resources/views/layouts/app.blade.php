@@ -26,7 +26,7 @@
     @elseif(Route::currentRouteName() == 'aktualnosc')
         <meta property="og:type"               content="article" />
         <meta property="og:title"              content="Rajdowy Puchar Śląska - {{ $news->title }}" />
-        <meta property="og:description"        content="{{ str_limit($news->text, 200) }}" />
+        <meta property="og:description"        content="{!! str_limit($news->text, 200) !!}" />
         @if($news->file_id)
             <meta property="og:image"          content="{{ url('public/post/thumb/', $news->file->path) }}" />
         @else
