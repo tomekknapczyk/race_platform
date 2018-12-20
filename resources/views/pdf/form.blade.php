@@ -78,7 +78,7 @@
                         <td class="gray">{{ $data->driving_license }}</td>
                         <td class="gray">{{ $data->pilot_driving_license }}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>Nazwa nr polisy OC:</td>
                         <td class="gray">{{ $data->oc }}</td>
                         <td class="gray">{{ $data->pilot_oc }}</td>
@@ -87,7 +87,7 @@
                         <td>Nazwa nr polisy NW:</td>
                         <td class="gray">{{ $data->nw }}</td>
                         <td class="gray">{{ $data->pilot_nw }}</td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
 
@@ -103,6 +103,17 @@
                         <td style="width: 48%;" class="gray">{{ $data->marka }}, {{ $data->model }}, Turbo: {{ $data->turbo }}</td>
                         <td style="width: 10%;text-align: right;">Poj.ccm</td>
                         <td style="width: 20%;" class="gray">{{ $data->ccm }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table cellpadding="3" cellspacing="8" width="100%" border="0" style="font-size: 14px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 22%;">Nazwa nr polisy OC</td>
+                        <td style="width: 28%;" class="gray">{{ $data->oc }}</td>
+                        <td style="width: 22%;">Nazwa nr polisy NW</td>
+                        <td style="width: 28%;" class="gray">{{ $data->nw }}</td>
                     </tr>
                 </tbody>
             </table>
