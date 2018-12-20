@@ -4,9 +4,39 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Rajdowy Puchar Śląska" />
-    <meta property="og:image" content="{{ asset('/images/header.jpg') }}" />
+    <meta property="og:url"                content="{{ Request::url() }}" />
+    @if(Route::currentRouteName() == 'kierowca')
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="Rajdowy Puchar Śląska - Kierowca @if($user->profile->show_name){{ $user->profile->name }}@endif" />
+        <meta property="og:description"        content="{!! str_limit($user->profile->desc, 200) !!}" />
+        @if($user->profile->file_id)
+            <meta property="og:image"          content="{{ url('/public/driver', $user->profile->file->path) }}" />
+        @else
+            <meta property="og:image"          content="{{ url('/images/driver.png') }}" />
+        @endif
+    @elseif(Route::currentRouteName() == 'pilot')
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="Rajdowy Puchar Śląska - Pilot @if($user->profile->show_name){{ $user->profile->name }}@endif" />
+        <meta property="og:description"        content="{!! str_limit($user->profile->desc , 200) !!}" />
+        @if($user->profile->file_id)
+            <meta property="og:image"          content="{{ url('/public/driver', $user->profile->file->path) }}" />
+        @else
+            <meta property="og:image"          content="{{ url('/images/driver.png') }}" />
+        @endif
+    @elseif(Route::currentRouteName() == 'aktualnosc')
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="Rajdowy Puchar Śląska - {{ $news->title }}" />
+        <meta property="og:description"        content="{{ str_limit($news->text, 200) }}" />
+        @if($news->file_id)
+            <meta property="og:image"          content="{{ url('public/post/thumb/', $news->file->path) }}" />
+        @else
+            <meta property="og:image"          content="{{ asset('/images/logo.png') }}" />
+        @endif
+    @else
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Rajdowy Puchar Śląska" />
+        <meta property="og:image" content="{{ asset('/images/logo.png') }}" />
+    @endif
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

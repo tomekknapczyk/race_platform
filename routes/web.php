@@ -4,7 +4,7 @@ Route::get('register/verify/{confirmationCode}', 'Auth\RegisterController@confir
 
 Route::get('/', 'GuestController@index');
 Route::get('aktualnosci', 'NewsController@showAll');
-Route::get('aktualnosc/{id}', 'NewsController@show');
+Route::get('aktualnosc/{id}', 'NewsController@show')->name('aktualnosc');
 Route::get('kierowcy_rajdowi', 'GuestController@drivers')->name('kierowcy');
 Route::get('kierowca_rajdowy/{id}/{name?}', 'GuestController@driver')->name('kierowca');
 Route::get('pilot_rajdowy/{id}/{name?}', 'GuestController@pilot')->name('pilot');
