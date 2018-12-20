@@ -85,19 +85,19 @@ img.thumb-big{
     position: relative;
 
     .hovered{
-        width: 180%;
-        height: 180%;
+        width: 250%;
+        height: 250%;
+        object-fit: contain;
         position: absolute;
         max-width: none;
-        left: -40%;
-        bottom: -40%;
+        left: -75%;
+        bottom: -75%;
         transition: all .2s ease;
         transform: scale(0);
     }
 
     &:hover{ 
         .hovered{
-            object-fit: contain;
             z-index: 10;
             transform: scale(1);
         }
@@ -563,6 +563,10 @@ img.thumb-big{
 
 .overflow-x-auto{
     overflow-x: auto;
+}
+
+.overflow-x-visible{
+    overflow-x: visible;
 }
 
 main{

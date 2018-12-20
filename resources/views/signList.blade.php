@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center overflow-x-auto">
+    <div class="row justify-content-center overflow-auto overflow-x-visible">
         <div class="col-md-12">
             <div class="card border-dark fixed-xs-width">
                 <div class="card-header bg-yellow text-center">

@@ -11372,12 +11372,14 @@ img.thumb-big {
 }
 
 .img_with_hover .hovered {
-  width: 180%;
-  height: 180%;
+  width: 250%;
+  height: 250%;
+  -o-object-fit: contain;
+     object-fit: contain;
   position: absolute;
   max-width: none;
-  left: -40%;
-  bottom: -40%;
+  left: -75%;
+  bottom: -75%;
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
   -webkit-transform: scale(0);
@@ -11385,8 +11387,6 @@ img.thumb-big {
 }
 
 .img_with_hover:hover .hovered {
-  -o-object-fit: contain;
-     object-fit: contain;
   z-index: 10;
   -webkit-transform: scale(1);
           transform: scale(1);
@@ -11886,6 +11886,10 @@ img.thumb-big {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.overflow-x-visible {
+  overflow-x: visible;
 }
 
 main > .main-content {
