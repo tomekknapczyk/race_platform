@@ -11372,23 +11372,28 @@ img.thumb-big {
 }
 
 .img_with_hover .hovered {
-  width: 0%;
-  height: 0%;
+  width: 150%;
+  height: 150%;
   position: absolute;
-  left: 103%;
-  bottom: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  max-width: none;
+  left: -25%;
+  bottom: -25%;
+  -webkit-box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
+  -webkit-transform: scale(0);
+          transform: scale(0);
 }
 
 .img_with_hover:hover .hovered {
-  -webkit-box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
-          box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
-  width: 100%;
-  height: 200%;
   -o-object-fit: cover;
      object-fit: cover;
   z-index: 10;
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
 .news-container {
@@ -11881,6 +11886,10 @@ img.thumb-big {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 main > .main-content {
