@@ -32,6 +32,10 @@
         @else
             <meta property="og:image"          content="{{ asset('/images/logo.png') }}" />
         @endif
+    @elseif(Route::currentRouteName() == 'signList')
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="Rajdowy Puchar Śląska - {{ $round->name }} - Lista zgłoszeń" />
+        <meta property="og:image"              content="{{ asset('/images/logo.png') }}" />
     @else
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Rajdowy Puchar Śląska" />
