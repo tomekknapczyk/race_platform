@@ -383,7 +383,8 @@ class RaceController extends Controller
 
         if($round){
             $signs = $round->signs();
-            $klasy = $signs->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+            $signsAll = $round->signsAll();
+            $klasy = $signsAll->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
             // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
             $order = explode(',', $round->order);

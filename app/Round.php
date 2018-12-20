@@ -43,6 +43,11 @@ class Round extends Model
         return $this->hasMany(Section::class, 'round_id', 'id');
     }
 
+    public function signsAll()
+    {
+        return Sign::where('form_id', $this->form->id)->orderBy('position', 'desc')->oldest()->get();
+    }
+
     public function signs()
     {
         $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
