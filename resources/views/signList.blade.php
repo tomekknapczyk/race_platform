@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center overflow-auto">
-        <div class="col-md-12">
+        <div class="col-md-12 pb-5">
             <div class="card border-dark">
                 <div class="card-header bg-yellow text-center">
                     <h3>{{ $round->race->name }}</a> : {{ $round->name }} - Lista zgłoszeń</h3>
