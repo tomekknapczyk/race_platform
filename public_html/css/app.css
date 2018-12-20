@@ -11384,6 +11384,8 @@ img.thumb-big {
   transition: all .2s ease;
   -webkit-transform: scale(0);
           transform: scale(0);
+  -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.45));
+          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.45));
 }
 
 .img_with_hover:hover .hovered {
@@ -11882,14 +11884,6 @@ img.thumb-big {
 
 .overflow-auto {
   overflow: auto;
-}
-
-.overflow-x-auto {
-  overflow-x: auto;
-}
-
-.overflow-x-visible {
-  overflow-x: visible;
 }
 
 main > .main-content {
