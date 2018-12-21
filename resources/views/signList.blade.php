@@ -17,10 +17,41 @@
                         <div class="lista">
                             @foreach($class[$klasa] as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
-                                    <h6 class="m-0 col-1 py-0 px-1">
+                                    <h6 class="m-0 col-1 py-0 px-1 d-none d-md-block">
                                         {{ ++$numer }}.
                                     </h6>
-                                    <div class="col-4 col-md-2 col-lg-1 p-0 pr-1">
+                                    <h6 class="m-0 col-12 p-0 d-block d-md-none text-center">
+                                        {{ $numer }}. 
+                                        @if($sign['sign']->user)
+                                            @if($sign['sign']->user->profile->show_name && $sign['sign']->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->profile->name.'-'.$sign['sign']->user->profile->lastname)]) }}">
+                                            @elseif($sign['sign']->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$sign['sign']->user->id, $sign['sign']->user->profile->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('kierowca', $sign['sign']->user->id) }}">
+                                            @endif
+                                                {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
+                                            </a>
+                                        @else
+                                            {{ $sign['sign']->name }} {{ $sign['sign']->lastname }}
+                                        @endif
+                                        <br>
+                                        @if($sign['sign']->pilot)
+                                            <small><strong>Pilot:</strong>
+                                            @if($sign['sign']->pilot->profile->show_name && $sign['sign']->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$sign['sign']->pilot->id, str_slug($sign['sign']->pilot->profile->name.'-'.$sign['sign']->pilot->profile->lastname)]) }}">
+                                            @elseif($sign['sign']->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$sign['sign']->pilot->id, $sign['sign']->pilot->profile->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('pilot', $sign['sign']->pilot->id) }}">
+                                            @endif
+                                                {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}
+                                            </a></small>
+                                        @else
+                                            <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                        @endif
+                                    </h6>
+                                    <div class="col-6 col-md-2 col-lg-1 p-0 pr-1">
                                         @if($sign['sign']->user && $sign['sign']->user->profile->file_id)
                                             {{-- <img src="{{ url('public/driver/thumb/', $sign['sign']->user->profile->file->path) }}" class="img-fluid thumb"> --}}
                                             <div class="img_with_hover">
@@ -31,7 +62,7 @@
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
-                                    <div class="col-4 col-md-2 col-lg-1 p-0 pl-1">
+                                    <div class="col-6 col-md-2 col-lg-1 p-0 pl-1">
                                         @if($sign['sign']->pilot && $sign['sign']->pilot->profile->file_id)
                                             <div class="img_with_hover">
                                                 <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
@@ -48,7 +79,7 @@
                                             <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                         @endif
                                     </div>
-                                    <h6 class="m-0 col-3 col-md-2 col-lg-3 text-left py-0 px-2">
+                                    <h6 class="m-0 col-3 col-md-2 col-lg-3 text-left py-0 px-2 d-none d-md-block">
                                         @if($sign['sign']->user)
                                             @if($sign['sign']->user->profile->show_name && $sign['sign']->user->profile->show_lastname)
                                                 <a href="{{ route('kierowca', [$sign['sign']->user->id, str_slug($sign['sign']->user->profile->name.'-'.$sign['sign']->user->profile->lastname)]) }}">

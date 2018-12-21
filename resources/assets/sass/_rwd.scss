@@ -253,4 +253,19 @@
     .fixed-xs-width{
         width: 1000px;
     }
+
+    img.thumb{
+        height: auto;
+        max-height: 20vh;
+        object-fit: contain;
+    }
+
+    .img_with_hover{
+        .hovered{
+            width: 160%;
+            height: 160%;
+            left: -30%;
+            bottom: -30%;
+        }
+    }
 }
