@@ -47,7 +47,7 @@
         @endif
     </div>
 </div>
-@if($podium)
+@if($podium && $podium->count)
 <div class="drivers-container">
     @if($promoted_race && $promoted_race->value == 'race')
         <h3>Klasyfikacja roczna</h3>

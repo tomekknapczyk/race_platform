@@ -31,10 +31,14 @@ class GuestController extends Controller
             if($promoted_race){
                 if($promoted_race->value == 'race'){
                     $klasy = $last->race->klasy();
-                    $random = array_rand($klasy);
-                    $random = $klasy[$random];
-
-                    $podium = $last->race->klasa_rank($random);
+                    if(count($klasy)){
+                        $random = array_rand($klasy);
+                        $random = $klasy[$random];
+                        $podium = $last->race->klasa_rank($random);
+                    }
+                    else{
+                        $podium = $last->podium($start_list_id, $random);
+                    }
                 }
                 else
                     $podium = $last->podium($start_list_id, $random);
