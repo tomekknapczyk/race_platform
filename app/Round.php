@@ -76,7 +76,7 @@ class Round extends Model
 
     public function podium($start_list_id, $klasa)
     {
-        return StartListItem::where('start_list_id', $this->startList->id)->where('points', '>', 0)->where('klasa', $klasa)->orderBy('points', 'desc')->with('user', 'user.driver')->take(3)->get();
+        return StartListItem::where('start_list_id', $this->startList->id)->where('points', '>', 0)->where('klasa', $klasa)->orderBy('points', 'desc')->with('user', 'user.profile')->take(3)->get();
     }
 
     public function rank()
