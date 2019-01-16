@@ -168,6 +168,15 @@ class HomeController extends Controller
                 if($profile){
                     $profile->email = $driver->email;
                     $profile->cars = $driver->cars;
+
+                    $saved = \App\SavedId::where('user_id', auth()->user()->id)->where('uid', $request->uid)->first();
+                    if(!$saved){
+                        $save = new \App\SavedId;
+                        $save->user_id = auth()->user()->id;
+                        $save->uid = $request->uid;
+                        $save->name = $profile->name . " " . $profile->lastname;
+                        $save->save();
+                    }
                     return response()->json($profile);
                 }
                 else
@@ -191,6 +200,16 @@ class HomeController extends Controller
                 $profile = \App\Driver::where('user_id', $pilot->id)->first();
                 if($profile){
                     $profile->email = $pilot->email;
+
+                    $saved = \App\SavedId::where('user_id', auth()->user()->id)->where('uid', $request->uid)->first();
+                    if(!$saved){
+                        $save = new \App\SavedId;
+                        $save->user_id = auth()->user()->id;
+                        $save->uid = $request->uid;
+                        $save->name = $profile->name . " " . $profile->lastname;
+                        $save->save();
+                    }
+
                     return response()->json($profile);
                 }
                 else

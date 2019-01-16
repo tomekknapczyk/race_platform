@@ -21,7 +21,7 @@
                                     <img src="{{ url('/images/driver.png') }}" class="img-fluid thumb-big">
                                 @endif
                             </div>
-                            <h6 class="m-0 col-md-3 imie nazwisko" data-imie="{{ optional($user->profile)->name }}" data-nazwisko="{{ optional($user->profile)->lastname }}">
+                            <h6 class="m-0 col-md-2 imie nazwisko" data-imie="{{ optional($user->profile)->name }}" data-nazwisko="{{ optional($user->profile)->lastname }}">
                                 @if($user->driver)
                                     <a href="{{ route('kierowca', $user->id) }}" class="text-dark">{{ optional($user->profile)->name }} {{ optional($user->profile)->lastname }}</a>
                                 @else
@@ -39,6 +39,7 @@
                                 @endif
                                 data-tinymce='{"driver_text":{!! json_encode(optional($user->profile)->desc) !!}}'
                                 >Edytuj</button>
+                                
                                 <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>
 
                                 @if($user->active)
@@ -52,7 +53,56 @@
                                     data-id='{{ $user->id }}'>Usuń</button>
                                 @endif
                             </h6>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
+                                <h6 class="text-center">Laury</h6>
+                                @if($user->laurel_place(1)->count())
+                                    <div class="mb-1">
+                                        <p class="m-0">Złote ({{ $user->laurel_place(1)->count() }})</p>
+                                        @foreach($user->laurel_place(1)->get() as $laurel)
+                                            <p class="m-0">
+                                                - {{ $laurel->year }} {{ $laurel->klasa }}
+                                                @if(!$laurel->auto)
+                                                    <button class="btn btn-sm text-danger btn-link deleteBtn2" data-toggle="modal" data-target="#deleteLaurel"
+                                                    data-id='{{ $laurel->id }}'>Usuń</button>
+                                                @endif
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @if($user->laurel_place(2)->count())
+                                    <div class="mb-1">
+                                        <p class="m-0">Srebrne ({{ $user->laurel_place(2)->count() }})</p>
+                                        @foreach($user->laurel_place(2)->get() as $laurel)
+                                            <p class="m-0">
+                                                - {{ $laurel->year }} {{ $laurel->klasa }}
+                                                @if(!$laurel->auto)
+                                                    <button class="btn btn-sm text-danger btn-link deleteBtn2" data-toggle="modal" data-target="#deleteLaurel"
+                                                    data-id='{{ $laurel->id }}'>Usuń</button>
+                                                @endif
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @if($user->laurel_place(3)->count())
+                                    <div class="mb-1">
+                                        <p class="m-0">Brązowe ({{ $user->laurel_place(3)->count() }})</p>
+                                        @foreach($user->laurel_place(3)->get() as $laurel)
+                                            <p class="m-0">
+                                                - {{ $laurel->year }} {{ $laurel->klasa }}
+                                                @if(!$laurel->auto)
+                                                    <button class="btn btn-sm text-danger btn-link deleteBtn2" data-toggle="modal" data-target="#deleteLaurel"
+                                                    data-id='{{ $laurel->id }}'>Usuń</button>
+                                                @endif
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                <button class="btn btn-sm btn-info editBtn btn-block" data-toggle="modal" data-target="#editDriverLaurels"
+                                data-text='{"laurel_id":"{{ optional($user->profile)->id }}"}'
+                                >Dodaj laur</button>
+                            </div>
+                            <div class="col-md-3">
                                 @if($user->pilots->count())
                                     <h6 class="text-center">Piloci</h6>
                                     @foreach($user->pilots as $pilot)
@@ -107,6 +157,8 @@
         </div>
     </div>
 </div>
+@include('admin.modals.newLaurel')
+@include('admin.modals.deleteLaurel')
 @include('admin.modals.editDriver')
 @include('admin.modals.banUser')
 @include('admin.modals.unbanUser')

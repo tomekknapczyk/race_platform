@@ -29,6 +29,20 @@
                                         <label for="name">Wpisz id pilota</label>
                                         <input type="text" name="pilot_uid" id="sign_pilot_uid" class="form-control">
                                     </div>
+                                    @if(auth()->user()->savedIds)
+                                    <p class="ml-4 mb-2">
+                                        lub
+                                    </p>
+                                    <div class="ml-4">
+                                        <label for="saved">Wybierz z listy zapisanych id</label>
+                                        <select name="saved" id="saved" class="form-control">
+                                            <option value="0">brak</option>
+                                            @foreach(auth()->user()->savedIds as $saved)
+                                                <option value="{{ $saved->uid }}">{{ $saved->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @endif
                                     <button class="btn btn-info ml-4" id="getPilotUid">Pobierz dane</button>
                                 </div>
                             </div>

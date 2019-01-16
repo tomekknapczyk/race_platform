@@ -729,6 +729,7 @@ body{
         transition: all .3s ease;
         margin: 0 auto 20px;
         max-width: 340px;
+        position: relative;
 
         a{
             color: #333;
@@ -747,6 +748,40 @@ body{
         h6{
             text-align: center;
             font-size: 14px;
+        }
+
+        .laurels-short{
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            width: calc(100% - 20px);
+            top: 203px;
+            padding: 5px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+        }
+
+        .laurels{
+            display: none;
+            position: absolute;
+            background: rgba(0,0,0,.2);
+            color: #fff;
+            width: calc(100% - 20px);
+            height: 225px;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: .75rem;
+        }
+
+        &.click{
+            .laurels{
+                display: block;
+            }
+
+            .laurels-short{
+                display: none;
+            }
         }
     }
 }

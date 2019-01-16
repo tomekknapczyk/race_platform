@@ -17,8 +17,22 @@
                             <div class="d-flex justify-content-center align-items-end">
                                 <div>
                                     <label for="name">Wpisz id kierowcy</label>
-                                    <input type="text" name="driver_uid" required="" id="sign_driver_uid" class="form-control">
+                                    <input type="text" name="driver_uid" @if(!auth()->user()->savedIds->count()) required="" @endif id="sign_driver_uid" class="form-control">
                                 </div>
+                                @if(auth()->user()->savedIds->count())
+                                <p class="ml-4 mb-2">
+                                    lub
+                                </p>
+                                <div class="ml-4">
+                                    <label for="saved">Wybierz z listy zapisanych id</label>
+                                    <select name="saved" id="saved" class="form-control">
+                                        <option value="0">brak</option>
+                                        @foreach(auth()->user()->savedIds as $saved)
+                                            <option value="{{ $saved->uid }}">{{ $saved->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
                                 <button class="btn btn-info ml-4" id="getDriver">Pobierz dane</button>
                             </div>
                         </div>

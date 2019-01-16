@@ -74,6 +74,9 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('deleteRound', 'RaceController@deleteRound')->name('deleteRound');
     Route::post('addSection', 'RaceController@addSection')->name('addSection');
 
+    Route::post('addLaurel', 'UserController@addLaurel')->name('addLaurel');
+    Route::post('deleteLaurel', 'UserController@deleteLaurel')->name('deleteLaurel');
+
     Route::get('editRound/{id}', 'RaceController@editRound')->name('editRound');
     Route::get('newRound/{id}', 'RaceController@newRound')->name('newRound');
     Route::get('round/{id}', 'RaceController@round')->name('round');

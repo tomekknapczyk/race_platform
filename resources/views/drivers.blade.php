@@ -32,6 +32,94 @@
                 @if($user->profile)
                     <div class="col-md-4 col-lg-4 col-xl-3">
                         <div class="driver klasa" data-klasa="{{ $user->klasy() }}">
+                            @if($user->laurels->count())
+                                <div class="laurels">
+                                    @if($user->laurel_place(1)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0">Złote ({{ $user->laurel_place(1)->count() }})</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(1)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($user->laurel_place(2)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0">Srebrne ({{ $user->laurel_place(2)->count() }})</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(2)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($user->laurel_place(3)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0">Brązowe ({{ $user->laurel_place(3)->count() }})</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(3)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif  
+                                </div>
+
+                                <div class="laurels-short">
+                                    @if($user->laurel_place(1)->count())
+                                        <span>Złote ({{ $user->laurel_place(1)->count() }})</span>
+                                    @endif
+                                    @if($user->laurel_place(2)->count())
+                                        <span>Srebrne ({{ $user->laurel_place(2)->count() }})</span>
+                                    @endif
+                                    @if($user->laurel_place(3)->count())
+                                        <span>Brązowe ({{ $user->laurel_place(3)->count() }})</span>
+                                    @endif  
+                                </div>
+                            @endif
                             @if($user->profile->show_name && $user->profile->show_lastname)
                                 <a href="{{ route('kierowca', [$user->id, str_slug($user->profile->name.'-'.$user->profile->lastname)]) }}">
                             @elseif($user->profile->show_lastname)

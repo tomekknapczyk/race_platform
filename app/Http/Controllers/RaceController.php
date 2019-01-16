@@ -30,6 +30,7 @@ class RaceController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
+            'year' => 'required|numeric',
         ]);
 
         if(isset($request->id))
@@ -56,6 +57,13 @@ class RaceController extends Controller
         }
 
         $race->name = $request->name;
+        $race->year = $request->year;
+        if(isset($request->complete)){
+            $race->generateLaurels();
+            $race->complete = 1;
+        }
+        else
+            $race->complete = 0;
         $race->save();
 
         return back()->with('success', 'Rajd został zapisany');

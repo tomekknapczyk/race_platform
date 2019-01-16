@@ -21,6 +21,16 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <label for="year">Rok</label>
+                        <input type="text" name="year" value="{{ old('year') }}" class="form-control" required=""> 
+                        @if ($errors->has('year'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('year') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-block">

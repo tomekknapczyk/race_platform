@@ -16,8 +16,8 @@
                             <div>
                                 <a href="{{ url('race', $race->id) }}" class="btn btn-sm btn-secondary">Zobacz</a>
                                 <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRace" 
-                                    data-text='{"id":"{{ $race->id }}", "name":"{{ $race->name }}"}'
-                                    data-check='{"active":"{{ $race->active }}"}'
+                                    data-text='{"id":"{{ $race->id }}", "name":"{{ $race->name }}", "year":"{{ $race->year }}"}'
+                                    data-check='{"active":"{{ $race->active }}", "complete":"{{ $race->complete }}"}'
                                     >Edytuj</button>
                                 <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteRace" data-id="{{ $race->id }}">Usuń</button>
                                 <a href="{{ url('rank', $race->id) }}" class="btn btn-sm btn-success">Ranking</a>

@@ -65,9 +65,22 @@ $(document).on('click', '.editBtn', function(){
     })
 })
 
+$(document).on('click', '.laurels-short', function(){
+    $(this).parent().addClass('click');
+})
+
+$(document).on('click', '.laurels', function(){
+    $(this).parent().removeClass('click');
+})
+
 $(document).on('click', '.deleteBtn', function(){
     var id = $(this).data('id');
     $('#delete_id').val(id);
+})
+
+$(document).on('click', '.deleteBtn2', function(){
+    var id = $(this).data('id');
+    $('#delete_id2').val(id);
 })
 
 $(document).on('click', '.banBtn', function(){
@@ -117,6 +130,9 @@ $(document).on('change', '#sign_pilot', function(e){
 $(document).on('click', '#getDriver', function(e){
     e.preventDefault();
     var uid = $('#sign_driver_uid').val();
+    if(!uid)
+        var uid = $('#saved').val();
+
     var form = $('#form_id').val();
 
     $.ajax({
@@ -145,6 +161,8 @@ $(document).on('click', '#getDriver', function(e){
 $(document).on('click', '#getPilotUid', function(e){
     e.preventDefault();
     var uid = $('#sign_pilot_uid').val();
+    if(!uid)
+        var uid = $('#saved').val();
     var form = $('#form_id').val();
 
     $.ajax({

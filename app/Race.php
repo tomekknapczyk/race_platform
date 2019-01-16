@@ -67,4 +67,26 @@ class Race extends Model
 
         return $sorted;
     }
+
+    public function generateLaurels()
+    {
+        Laurel::where('race_id', $this->id)->delete();
+
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+
+        foreach ($order as $klasa) {
+            $rank = $this->klasa_rank($klasa)->take(3);
+
+            foreach ($rank as $key => $position) {
+                $laurel = new Laurel;
+                $laurel->user_id = $position->user->id;
+                $laurel->place = $key + 1;
+                $laurel->klasa = $klasa;
+                $laurel->year = $this->year;
+                $laurel->auto = 1;
+                $laurel->race_id = $this->id;
+                $laurel->save();
+            }
+        }
+    }
 }

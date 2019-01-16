@@ -52,7 +52,7 @@ class UserController extends Controller
 
     public function regenerateUid(Request $request)
     {
-
+        \App\SavedId::where('uid', auth()->user()->uid)->delete();
         auth()->user()->uid = $this->generate_uid();
         auth()->user()->save();
 
@@ -474,6 +474,36 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with('success', 'Użytkownik został usunięty');
+        return back()->with('success', 'Użytkownik został usunięty');
+    }
+
+    public function addLaurel(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+            'place' => 'required',
+            'klasa' => 'required',
+            'year' => 'required',
+        ]);
+
+        $laurel = new \App\Laurel;
+        $laurel->user_id = $request->id;
+        $laurel->place = $request->place;
+        $laurel->klasa = $request->klasa;
+        $laurel->year = $request->year;
+        $laurel->save();
+
+        return back()->with('success', 'Laur został dodany');
+    }
+
+    public function deleteLaurel(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:laurels',
+        ]);
+
+        $laurel = \App\Laurel::where('id', $request->id)->delete();
+
+        return back()->with('success', 'Laur został usunięty');
     }
 }

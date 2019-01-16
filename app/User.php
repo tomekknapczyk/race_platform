@@ -122,4 +122,179 @@ class User extends Authenticatable
         
         return implode(" ",$klasy->pluck('klasa')->toArray());
     }
+
+    public function savedIds()
+    {
+        return $this->hasMany(SavedID::class);
+    }
+
+    public function laurels()
+    {
+        return $this->hasMany(Laurel::class);
+    }
+
+    public function laurel_place($place)
+    {
+        return $this->hasMany(Laurel::class)->where('place', $place)->orderBy('klasa', 'asc')->orderBy('year', 'desc');
+    }
+
+    public function laurels_class()
+    {
+        $laurels_1 = $this->laurel_place(1);
+        $laurels_2 = $this->laurel_place(2);
+        $laurels_3 = $this->laurel_place(3);
+
+        $laurels[1] = [];
+        $laurels[2] = [];
+        $laurels[3] = [];
+        $laurels[1]['q'] = 0;
+        $laurels[2]['q'] = 0;
+        $laurels[3]['q'] = 0;
+
+        foreach ($laurels_1 as $laurel) {
+            
+        }
+    }
+
+    public function laurels_auto()
+    {
+        $races = Race::where('complete', 1)->get();
+        $positions = [];
+
+        if($races){
+            foreach ($races as $race) {
+                $positions[$race->year] = $this->race_position($race->id);
+            }
+        }
+
+        return $positions;
+    }
+
+    public function all_laurels()
+    {
+        $laurels_auto = $this->laurels_auto();
+        $laurels_hand = $this->laurels->toArray();
+
+        $laurels[1] = [];
+        $laurels[2] = [];
+        $laurels[3] = [];
+        $laurels[1]['q'] = 0;
+        $laurels[2]['q'] = 0;
+        $laurels[3]['q'] = 0;
+
+        foreach ($laurels_auto as $year => $auto) {
+            foreach ($auto as $miejsce => $pos) {
+                foreach ($pos as $key3 => $klasa) {
+                    if($miejsce == 1){
+                        if(!array_key_exists($klasa, $laurels[1])){
+                            $laurels[1][$klasa] = [];
+                            $laurels[1][$klasa][] = $year;
+                            $laurels[1]['q']++;
+                        }
+                        else{
+                            $laurels[1][$klasa][] = $year;
+                            $laurels[1]['q']++;
+                        }
+                    }
+
+                    if($miejsce == 2){
+                        if(!array_key_exists($klasa, $laurels[2])){
+                            $laurels[2][$klasa] = [];
+                            $laurels[2][$klasa][] = $year;
+                            $laurels[2]['q']++;
+                        }
+                        else{
+                            $laurels[2][$klasa][] = $year;
+                            $laurels[2]['q']++;
+                        }
+                    }
+
+                    if($miejsce == 3){
+                        if(!array_key_exists($klasa, $laurels[3])){
+                            $laurels[3][$klasa] = [];
+                            $laurels[3][$klasa][] = $year;
+                            $laurels[3]['q']++;
+                        }
+                        else{
+                            $laurels[3][$klasa][] = $year;
+                            $laurels[3]['q']++;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($laurels_hand as $laurel_h) {
+            if($laurel_h['place'] == 1){
+                if(!array_key_exists($laurel_h['klasa'], $laurels[1])){
+                    $laurels[1][$laurel_h['klasa']] = [];
+                    $laurels[1][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[1]['q']++;
+                }
+                else{
+                    $laurels[1][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[1]['q']++;
+                }
+            }
+
+            if($laurel_h['place'] == 2){
+                if(!array_key_exists($laurel_h['klasa'], $laurels[2])){
+                    $laurels[2][$laurel_h['klasa']] = [];
+                    $laurels[2][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[2]['q']++;
+                }
+                else{
+                    $laurels[2][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[2]['q']++;
+                }
+
+            }
+
+            if($laurel_h['place'] == 3){
+                if(!array_key_exists($laurel_h['klasa'], $laurels[3])){
+                    $laurels[3][$laurel_h['klasa']] = [];
+                    $laurels[3][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[3]['q']++;
+                }
+                else{
+                    $laurels[3][$laurel_h['klasa']][] = $laurel_h['year'];
+                    $laurels[3]['q']++;
+                }
+            }
+        }
+        return $laurels;
+    }
+
+    public function race_position($id)
+    {
+        $places = [];
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+        foreach ($order as $klasa) {
+            $race = Race::where('id', $id)->first();
+
+            $lists = [];
+
+            $rounds = $race->rounds;
+
+            foreach ($rounds as $round) {
+                if($round->startList)
+                    $lists[] = $round->startList->id;
+            }
+
+            $positions = StartListItem::where('klasa', $klasa)->whereIn('start_list_id', $lists)->groupBy('email')->with('sign', 'user', 'user.profile', 'user.profile.file')->get();
+
+            $sorted = $positions->sortByDesc(function($position) use ($rounds, $race){
+                $rp = $position->sign->race_points($race);
+                $position->rp = $rp;
+                return $rp;
+            });
+
+            foreach ($sorted as $key => $value) {
+                if($value->email == $this->email){
+                    $places[$key + 1][] = $klasa;
+                }
+            }
+        }
+        return $places;
+    }
 }

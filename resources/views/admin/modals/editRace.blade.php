@@ -22,6 +22,16 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <label for="year">Rok</label>
+                        <input type="text" name="year" id="edit_year" class="form-control" required=""> 
+                        @if ($errors->has('year'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('year') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Aktualny rajd</label>
@@ -32,6 +42,21 @@
                             @if ($errors->has('active'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('active') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Rajd zakończony</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="complete" value="1" id="edit_complete">
+                                <label class="form-check-label" for="complete">Tak</label>
+                            </div>
+                            @if ($errors->has('complete'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('complete') }}</strong>
                                 </span>
                             @endif
                         </div>
