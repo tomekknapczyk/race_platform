@@ -99,7 +99,7 @@
                                 @endif
 
                                 <button class="btn btn-sm btn-info editBtn btn-block" data-toggle="modal" data-target="#editDriverLaurels"
-                                data-text='{"laurel_id":"{{ optional($user->profile)->id }}"}'
+                                data-text='{"laurel_id":"{{ $user->id }}"}'
                                 >Dodaj laur</button>
                             </div>
                             <div class="col-md-3">
