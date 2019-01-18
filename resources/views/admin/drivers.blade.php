@@ -37,7 +37,7 @@
                                 @else
                                     data-img='{"driver_photo":""}'
                                 @endif
-                                data-tinymce='{"driver_text":{!! json_encode(optional($user->profile)->desc) !!}}'
+                                data-tinymce='{"driver_text":{!! json_encode(str_replace('""', '"', str_replace('\'', '"', optional($user->profile)->desc))) !!}}'
                                 >Edytuj</button>
                                 
                                 <p class="klasa text-uppercase mt-3">{{ $user->klasy() }}</p>

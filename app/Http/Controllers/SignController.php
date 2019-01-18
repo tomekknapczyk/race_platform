@@ -360,6 +360,7 @@ class SignController extends Controller
             $list_item->sign_id = $sign->id;
             $list_item->email = $sign->email;
             $list_item->klasa = $sign->klasa;
+            $list_item->team_id = $sign->team_id;
             $list_item->position = $max--;
             $list_item->save();
         }

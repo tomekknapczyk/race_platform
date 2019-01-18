@@ -32,6 +32,16 @@
                         @endif
                     </div>
 
+                    <div class="form-group d-none">
+                        <label for="minTeam">Minimalna ilość zespołów z teamu</label>
+                        <input type="text" name="minTeam" id="edit_minTeam" class="form-control"> 
+                        @if ($errors->has('minTeam'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('minTeam') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Aktualny rajd</label>

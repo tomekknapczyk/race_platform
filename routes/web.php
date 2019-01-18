@@ -25,6 +25,7 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');
 Route::get('sign-list/{id}', 'HomeController@signList')->name('signList');
 Route::get('rank/{id}', 'HomeController@rank')->name('rank');
+Route::get('team_rank/{id}', 'HomeController@team_rank')->name('rank');
 Route::get('rajd/{id}', 'HomeController@rajd')->name('rajd');
 
 Route::get('rank2017', function(){
@@ -62,6 +63,17 @@ Route::post('deletePilot', 'UserController@deletePilot')->name('deletePilot');
 Route::post('banUser', 'UserController@banUser')->name('banUser');
 Route::post('unbanUser', 'UserController@unbanUser')->name('unbanUser');
 Route::post('deleteProfile', 'UserController@deleteProfile')->name('deleteProfile');
+
+// Teamy
+Route::get('teams', 'TeamController@index')->name('teams');
+Route::get('team/{id}', 'TeamController@show')->name('team');
+Route::get('user-team', 'TeamController@dashboard')->name('userTeam');
+Route::post('saveTeam', 'TeamController@save')->name('saveTeam');
+Route::post('sendTeamRequest', 'TeamController@sendTeamRequest')->name('sendTeamRequest');
+Route::post('acceptRequest', 'TeamController@acceptRequest')->name('acceptRequest');
+Route::post('deleteRequest', 'TeamController@deleteRequest')->name('deleteRequest');
+Route::post('leaveTeam', 'TeamController@leaveTeam')->name('leaveTeam');
+Route::post('editTeam', 'TeamController@edit')->name('editTeam');
 
 // Admin panel
 Route::group(['middleware' => 'admin'], function() {

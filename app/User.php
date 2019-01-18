@@ -297,4 +297,30 @@ class User extends Authenticatable
         }
         return $places;
     }
+
+    public function team()
+    {
+        if($this->team_member)
+            return $this->team_member->team;
+
+        return 0;
+    }
+
+    public function team_member()
+    {
+        return $this->hasOne(TeamMember::class);
+    }
+
+    public function team_requests()
+    {
+        return $this->hasMany(TeamRequest::class);
+    }
+
+    public function team_admin()
+    {
+        if($this->team() && $this->team()->user_id == auth()->user()->id)
+            return 1;
+
+        return 0;
+    }
 }

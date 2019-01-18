@@ -8,7 +8,7 @@ class Race extends Model
 {
     public function rounds()
     {
-        return $this->hasMany(Round::class)->orderBy('date', 'desc');
+        return $this->hasMany(Round::class)->orderBy('date', 'asc');
     }
 
     public function lists()

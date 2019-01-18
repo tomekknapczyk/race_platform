@@ -73,6 +73,7 @@
                             <li><a class="nav-link" href="{{ url('aktualnosci') }}">Aktualności</a></li>
                             <li><a class="nav-link" href="{{ route('kierowcy') }}">Kierowcy</a></li>
                             <li><a class="nav-link" href="{{ route('piloci') }}">Piloci</a></li>
+                            <li><a class="nav-link" href="{{ route('teams') }}">Teams</a></li>
                             <li><a class="nav-link" href="{{ url('dokumenty') }}">Dokumenty</a></li>
                             <!-- Authentication Links -->
                             @guest
@@ -94,6 +95,7 @@
                                             @else
                                                 <a class="dropdown-item" href="{{ route('profile') }}">Profil pilota</a>
                                             @endif
+                                            <a class="dropdown-item" href="{{ route('userTeam') }}">Team</a>
                                             <a class="dropdown-item" href="{{ route('settings') }}">Ustawienia konta</a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();

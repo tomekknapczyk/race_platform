@@ -33,10 +33,14 @@ class RaceController extends Controller
             'year' => 'required|numeric',
         ]);
 
-        if(isset($request->id))
+        if(isset($request->id)){
             $race = Race::where('id', $request->id)->first();
-        else
+            $race->minTeam = $request->minTeam;
+        }
+        else{
             $race = new Race;
+            $race->minTeam = 1;
+        }
 
         $race_active = Race::where('active', 1)->first();
 

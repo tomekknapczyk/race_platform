@@ -36,7 +36,7 @@
                                 <div class="laurels">
                                     @if($user->laurel_place(1)->count())
                                         <div class="mb-1">
-                                            <p class="m-0">Złote ({{ $user->laurel_place(1)->count() }})</p>
+                                            <p class="m-0 laurel gold">{{ $user->laurel_place(1)->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
@@ -60,7 +60,7 @@
                                     @endif
                                     @if($user->laurel_place(2)->count())
                                         <div class="mb-1">
-                                            <p class="m-0">Srebrne ({{ $user->laurel_place(2)->count() }})</p>
+                                            <p class="m-0 laurel silver">{{ $user->laurel_place(2)->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
@@ -84,7 +84,7 @@
                                     @endif
                                     @if($user->laurel_place(3)->count())
                                         <div class="mb-1">
-                                            <p class="m-0">Brązowe ({{ $user->laurel_place(3)->count() }})</p>
+                                            <p class="m-0 laurel brown">{{ $user->laurel_place(3)->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
@@ -110,13 +110,13 @@
 
                                 <div class="laurels-short">
                                     @if($user->laurel_place(1)->count())
-                                        <span>Złote ({{ $user->laurel_place(1)->count() }})</span>
+                                        <span class="laurel gold mr-1">{{ $user->laurel_place(1)->count() }}</span>
                                     @endif
                                     @if($user->laurel_place(2)->count())
-                                        <span>Srebrne ({{ $user->laurel_place(2)->count() }})</span>
+                                        <span class="laurel silver mr-1">{{ $user->laurel_place(2)->count() }}</span>
                                     @endif
                                     @if($user->laurel_place(3)->count())
-                                        <span>Brązowe ({{ $user->laurel_place(3)->count() }})</span>
+                                        <span class="laurel brown">{{ $user->laurel_place(3)->count() }}</span>
                                     @endif  
                                 </div>
                             @endif

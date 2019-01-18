@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['rank', 'startList', 'signList', 'rajd']]);
+        $this->middleware('auth', ['except' => ['rank', 'team_rank', 'startList', 'signList', 'rajd']]);
     }
 
     /**
@@ -105,6 +105,29 @@ class HomeController extends Controller
         $race_id = $id;
         if($race)
             return view('rank', compact('race', 'klasy', 'race_id'));
+
+        return back()->with('warning', 'Rajd nie istnieje');
+    }
+
+    public function team_rank($id)
+    {
+        $race = \App\Race::where('id', $id)->with('rounds')->first();
+        
+        if($race){
+            $teams = \App\Team::get();
+
+            foreach ($teams as $team) {
+                $results = $team->race_results($id);
+                $team['results'] = $results;
+                $team['points'] = $results['points'];
+            }
+
+            $sorted_teams = $teams->sortByDesc(function ($team, $key) {
+                return $team['points'];
+            });
+
+            return view('team_rank', compact('race', 'sorted_teams'));
+        }
 
         return back()->with('warning', 'Rajd nie istnieje');
     }

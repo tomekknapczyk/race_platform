@@ -10,6 +10,12 @@
                     @if($user->profile->show_name){{ $user->profile->name }}@endif
                     @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
                     @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
+
+                    @auth
+                        @if(auth()->user()->team_admin() && !$user->team())
+                            <button class="btn btn-sm btn-info float-right" data-toggle="modal" data-target="#sendRequest">Zaproś do swojego Teamu</button>
+                        @endif
+                    @endauth
                 </div>
                 <div class="card-body">
                         <div class="col-sm-12">
@@ -28,6 +34,9 @@
                                         @if(!$user->profile->show_lastname && !$user->profile->show_name) Anonim @endif
                                     </h3>
                                     <p>@if($user->profile->show_email){{ $user->email }}@endif</p>
+                                    @if($user->team())
+                                        <p><strong>Team: <a href="{{ route('team', $user->team()->id) }}">{{ $user->team()->title }}</a></strong></p>
+                                    @endif
                                     <strong>O mnie:</strong>
                                     {!! $user->profile->desc !!}
                                 </div>
@@ -80,4 +89,10 @@
         </div>
     </div>
 </div>
+
+@auth
+    @if(auth()->user()->team_admin() && !$user->team())
+        @include('modals.sendRequest')
+    @endif
+@endauth
 @endsection

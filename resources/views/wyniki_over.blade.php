@@ -14,6 +14,7 @@
                             <h3>{{ $race->name }}</h3>
                             <div>
                                 <a href="{{ url('rank', $race->id) }}" class="btn btn-success">Klasyfikacja Roczna</a>
+                                <a href="{{ url('team_rank', $race->id) }}" class="btn btn-info">Klasyfikacja Teamów</a>
                             </div>
                         </div>
                         <div>
