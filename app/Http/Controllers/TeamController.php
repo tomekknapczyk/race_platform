@@ -126,6 +126,18 @@ class TeamController extends Controller
         if(!$exist)
             return back()->with('danger', 'Zaproszenie nie istnieje');
 
+        $team = Team::where('id', $request->team_id)->first();
+        $user = \App\User::where('id', $request->user_id)->first();
+
+        if($user->driver){
+            if($team->drivers()->count() == 5)
+                return back()->with('danger', 'W teamie znajduje się już 5 kierowców');
+        }
+        else{
+            if($team->pilots()->count() == 5)
+                return back()->with('danger', 'W teamie znajduje się już 5 pilotów');
+        }
+
         $team_member = new TeamMember;
         $team_member->team_id = $request->team_id;
         $team_member->user_id = $request->user_id;
