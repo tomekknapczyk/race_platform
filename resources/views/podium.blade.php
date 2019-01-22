@@ -11,6 +11,94 @@
                 <div class="col-md-4 col-lg-4 col-xl-3">
                     <div class="driver">
                         @if($driver->user)
+                            @if($driver->user->laurels->count())
+                                <div class="laurels">
+                                    @if($driver->user->laurel_place(1)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel gold">{{ $driver->user->laurel_place(1)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($driver->user->laurel_place(1)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($driver->user->laurel_place(2)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel silver">{{ $driver->user->laurel_place(2)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($driver->user->laurel_place(2)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($driver->user->laurel_place(3)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel brown">{{ $driver->user->laurel_place(3)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($driver->user->laurel_place(3)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif  
+                                </div>
+
+                                <div class="laurels-short">
+                                    @if($driver->user->laurel_place(1)->count())
+                                        <span class="laurel gold mr-1">{{ $driver->user->laurel_place(1)->count() }}</span>
+                                    @endif
+                                    @if($driver->user->laurel_place(2)->count())
+                                        <span class="laurel silver mr-1">{{ $driver->user->laurel_place(2)->count() }}</span>
+                                    @endif
+                                    @if($driver->user->laurel_place(3)->count())
+                                        <span class="laurel brown">{{ $driver->user->laurel_place(3)->count() }}</span>
+                                    @endif  
+                                </div>
+                            @endif
                             @if($driver->user->profile->show_name && $driver->user->profile->show_lastname)
                                 <a href="{{ route('kierowca', [$driver->user->id, str_slug($driver->user->profile->name.'-'.$driver->user->profile->lastname)]) }}">
                             @elseif($driver->user->profile->show_lastname)

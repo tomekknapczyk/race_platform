@@ -39,7 +39,7 @@ class RaceController extends Controller
         }
         else{
             $race = new Race;
-            $race->minTeam = 1;
+            $race->minTeam = 3;
         }
 
         $race_active = Race::where('active', 1)->first();
