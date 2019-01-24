@@ -125,7 +125,7 @@ class User extends Authenticatable
 
     public function savedIds()
     {
-        return $this->hasMany(SavedID::class);
+        return $this->hasMany(SavedId::class);
     }
 
     public function laurels()
