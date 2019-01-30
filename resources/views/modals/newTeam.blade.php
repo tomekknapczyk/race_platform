@@ -34,8 +34,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="text">Opis:</label>
-                                <textarea name="text" class="tinymce_user" rows="4"></textarea>
+                                <label for="opis">Opis:</label>
+                                <textarea name="opis" class="tinymce_user" rows="4"></textarea>
                             </div>
                         </div>
                     </div>

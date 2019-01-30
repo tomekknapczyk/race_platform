@@ -53,13 +53,14 @@ class TeamController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'photo' => 'nullable|mimes:jpeg,bmp,png',
+            'opis' => 'required',
         ]);
 
         $team = new Team;
         $team->user_id = auth()->user()->id;
 
         $team->title = $request->name;
-        $team->text = $request->text;
+        $team->text = $request->opis;
 
         if($request->photo){
             $file = $request->photo;
