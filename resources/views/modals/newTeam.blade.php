@@ -15,7 +15,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="photo">Zdjęcie teamu</label>
-                                <input type="file" name="photo" class="form-control">
+                                <input type="file" name="photo" class="form-control" required="">
                                 @if ($errors->has('photo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('photo') }}</strong>

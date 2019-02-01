@@ -194,7 +194,7 @@ class TeamController extends Controller
         ]);
 
         $team = Team::where('id', $request->id)->first();
-        $team->text = $request->text;
+        $team->text = $request->opis;
 
         if($request->photo){
             $photo = \App\File::where('id',$team->file_id)->first();
