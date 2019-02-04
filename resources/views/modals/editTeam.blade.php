@@ -20,7 +20,7 @@
                             @endif
                             <div class="form-group">
                                 <label for="photo">Zdjęcie teamu</label>
-                                <input type="file" name="photo" class="form-control" required="">
+                                <input type="file" name="photo" class="form-control">
                                 @if ($errors->has('photo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('photo') }}</strong>

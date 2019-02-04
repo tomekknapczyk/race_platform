@@ -157,6 +157,7 @@
                                             <a class="dropdown-item" href="{{ route('edit_promoted') }}">Promowani kierowcy</a>
                                             <a class="dropdown-item" href="{{ route('drivers') }}">Zawodnicy</a>
                                             <a class="dropdown-item" href="{{ route('races') }}">Rajdy</a>
+                                            <a class="dropdown-item" href="{{ route('adminTeams') }}">Teamy</a>
                                             <a class="dropdown-item" href="{{ route('tables') }}">Tabele do transmisji</a>
                                         </div>
                                     </li>

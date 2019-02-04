@@ -69,6 +69,8 @@ Route::get('teams', 'TeamController@index')->name('teams');
 Route::get('team/{id}', 'TeamController@show')->name('team');
 Route::get('user-team', 'TeamController@dashboard')->name('userTeam');
 Route::post('saveTeam', 'TeamController@save')->name('saveTeam');
+Route::post('deleteTeam', 'TeamController@delete')->name('deleteTeam');
+Route::post('saveTeamTitle', 'TeamController@saveTitle')->name('saveTeamTitle');
 Route::post('sendTeamRequest', 'TeamController@sendTeamRequest')->name('sendTeamRequest');
 Route::post('acceptRequest', 'TeamController@acceptRequest')->name('acceptRequest');
 Route::post('deleteRequest', 'TeamController@deleteRequest')->name('deleteRequest');
@@ -128,6 +130,8 @@ Route::group(['middleware' => 'admin'], function() {
 
     Route::get('edit_promoted', 'HomeController@edit_promoted')->name('edit_promoted');
     Route::post('save_promoted', 'HomeController@save_promoted')->name('save_promoted');
+
+    Route::get('edit-teams', 'HomeController@teams')->name('adminTeams');
 
     Route::get('news', 'NewsController@index')->name('news');
     Route::get('newPost', 'NewsController@new')->name('newPost');

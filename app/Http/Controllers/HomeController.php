@@ -468,4 +468,11 @@ class HomeController extends Controller
 
         return back()->with('warning', 'Rajd nie istnieje');
     }
+
+    public function teams()
+    {
+        $teams = \App\Team::get();
+
+        return view('admin.teams', compact('teams'));
+    }
 }

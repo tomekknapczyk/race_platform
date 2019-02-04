@@ -24,15 +24,15 @@
                             </div>
                         </div>
 
-                        <div class="row drivers-container p-0">
-                            <div class="col-sm-12 mt-4">
-                                <div class="card border-0 shadow">
-                                    <div class="card-header bg-yellow">
-                                        Kierowcy
-                                    </div>
-                                    <div class="card-body drivers">
-                                        <div class="row justify-content-center">
-                                            @if($team->members->count())
+                        @if($team->members->count())
+                            <div class="row drivers-container p-0">
+                                <div class="col-sm-12 mt-4">
+                                    <div class="card border-0 shadow">
+                                        <div class="card-header bg-yellow">
+                                            Kierowcy
+                                        </div>
+                                        <div class="card-body drivers">
+                                            <div class="row justify-content-center">
                                                 @foreach($team->members as $member)
                                                     @if($member->user->driver)
                                                         <div class="col-md-4">
@@ -55,22 +55,22 @@
                                                         </div>
                                                     @endif
                                                 @endforeach
-                                            @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="row drivers-container p-0">
-                            <div class="col-sm-12 mt-4">
-                                <div class="card border-0 shadow">
-                                    <div class="card-header bg-yellow">
-                                        Piloci
-                                    </div>
-                                    <div class="card-body drivers">
-                                        <div class="row justify-content-center">
-                                            @if($team->members->count())
+                        @if($team->members->count())
+                            <div class="row drivers-container p-0">
+                                <div class="col-sm-12 mt-4">
+                                    <div class="card border-0 shadow">
+                                        <div class="card-header bg-yellow">
+                                            Piloci
+                                        </div>
+                                        <div class="card-body drivers">
+                                            <div class="row justify-content-center">
                                                 @foreach($team->members as $member)
                                                     @if(!$member->user->driver)
                                                         <div class="col-md-4">
@@ -93,12 +93,16 @@
                                                         </div>
                                                     @endif
                                                 @endforeach
-                                            @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
+
+                        @if(!$team->members->count())
+                        <h3 class="text-center mt-4">Aktualnie brak załóg</h3>
+                        @endif
 
                         <div class="row drivers-container p-0">
                             <div class="col-sm-12 mt-4">

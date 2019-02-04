@@ -108,4 +108,9 @@ class Team extends Model
     {
         return $this->hasMany(StartListItem::class)->where('start_list_id', $id);
     }
+
+    public function signs()
+    {
+        return $this->hasMany(StartListItem::class);
+    }
 }

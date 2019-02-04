@@ -95,6 +95,20 @@ class TeamController extends Controller
         return back()->with('success', 'Team został stworzony');
     }
 
+    public function saveTitle(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:teams',
+            'name' => 'required|string|max:255',
+        ]);
+
+        $team = Team::where('id', $request->id)->first();
+        $team->title = $request->name;
+        $team->save();
+
+        return back()->with('success', 'Team został zapisany');
+    }
+
     public function sendTeamRequest(Request $request)
     {
         $this->validate($request, [
@@ -241,5 +255,45 @@ class TeamController extends Controller
         $team->save();
 
         return back()->with('success', 'Team został zapisany');
+    }
+
+    public function delete(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:teams',
+        ]);
+
+        $team = Team::where('id', $request->id)->first();
+            
+        if($team->file_id){
+            $photo = \App\File::where('id',$team->file_id)->first();
+            if($photo){
+                \Storage::delete('public/team/'.$photo->path);
+                \Storage::delete('public/team/thumb/'.$photo->path);
+                $photo->delete();
+            }
+        }
+
+        if($team->members->count()){
+            foreach ($team->members as $member) {
+                $member->delete();
+            }
+        }
+
+        if($team->team_requests->count()){
+            foreach ($team->team_requests as $req) {
+                $req->delete();
+            }
+        }
+
+        if($team->signs->count()){
+            foreach ($team->signs as $sign) {
+                $sign->team_id = null;
+                $sign->save();
+            }
+        }
+
+        $team->delete();
+        return back()->with('success', 'Partner został usunięty');
     }
 }
