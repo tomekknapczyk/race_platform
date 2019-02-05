@@ -17,9 +17,12 @@
                                 @endif
                             </div>
                             <h6 class="m-0 col-md-8">
-                                <p class="klasa text-uppercase mt-3">{{ $team->title }}</p>
+                                <p class="text-uppercase mt-3">{{ $team->title }}</p>
+                                <div class="mt-3">{!! $team->text !!}</div>
                                     <button class="btn btn-sm btn-success editBtn" data-toggle="modal" data-target="#editTeam"
-                                    data-text='{"team_id":"{{ $team->id }}", "team_title":"{{ $team->title }}"}'>Zmień nazwę</button>
+                                    data-text='{"team_id":"{{ $team->id }}", "team_title":"{{ $team->title }}"}'
+                                    data-tinymce='{"team_opis":{!! json_encode(str_replace('""', '"', str_replace('\'', '"', $team->text))) !!}}'
+                                    >Edytuj</button>
 
                                     <button class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteTeam"
                                     data-id='{{ $team->id }}'>Usuń</button>

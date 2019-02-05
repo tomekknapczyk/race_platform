@@ -27,7 +27,7 @@
                                         <img src="{{ url('/images/driver.png') }}" class="img-fluid">
                                     @endif
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-6">
                                     <h3 class="text-uppercase">
                                         @if($user->profile->show_name){{ $user->profile->name }}@endif
                                         @if($user->profile->show_lastname){{ $user->profile->lastname }}@endif
@@ -39,6 +39,83 @@
                                     @endif
                                     <strong>O mnie:</strong>
                                     {!! $user->profile->desc !!}
+                                </div>
+                                <div class="col-md-3">
+                                    @if($user->laurel_place(1)->count() || $user->laurel_place(2)->count() || $user->laurel_place(3)->count())
+                                        <h6 class="text-center">Laury</h6>
+                                    @endif
+                                    @if($user->laurel_place(1)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel gold">{{ $user->laurel_place(1)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(1)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($user->laurel_place(2)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel silver">{{ $user->laurel_place(2)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(2)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if($user->laurel_place(3)->count())
+                                        <div class="mb-1">
+                                            <p class="m-0 laurel brown">{{ $user->laurel_place(3)->count() }}</p>
+                                            @php
+                                                $klasa = '';
+                                                $show = true;
+                                            @endphp
+                                            @foreach($user->laurel_place(3)->get() as $laurel)
+                                                @php
+                                                    if($laurel->klasa != $klasa){
+                                                        $klasa = $laurel->klasa;
+                                                        $show = true;
+                                                    }
+                                                    else
+                                                        $show = false;
+                                                @endphp
+                                                @if($show)
+                                                    <p class="m-0"></p>
+                                                    <strong class="inline-block">{{ $klasa }}</strong>
+                                                @endif
+                                                    <span>{{ $laurel->year }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             

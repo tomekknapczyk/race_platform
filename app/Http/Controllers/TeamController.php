@@ -104,6 +104,7 @@ class TeamController extends Controller
 
         $team = Team::where('id', $request->id)->first();
         $team->title = $request->name;
+        $team->text = $request->opis;
         $team->save();
 
         return back()->with('success', 'Team został zapisany');

@@ -22,6 +22,11 @@
                         @endif
                     </div>
 
+                    <div class="form-group">
+                        <label for="opis">Opis:</label>
+                        <textarea name="opis" id="edit_team_opis" class="tinymce" rows="4"></textarea>
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-block">
