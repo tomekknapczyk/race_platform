@@ -7,7 +7,7 @@
     </tr>
     </thead>
     <tbody>
-        @foreach($round->klasy($round->startList->id) as $klasa)
+        @foreach($class as $klasa)
             @foreach($round->startPositions($round->startList->id)->where('klasa', $klasa) as $position)
                 <tr>
                     @foreach($items as $item)

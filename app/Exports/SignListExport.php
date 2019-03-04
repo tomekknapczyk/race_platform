@@ -23,7 +23,16 @@ class SignListExport implements FromView, ShouldAutoSize
         $round = \App\Round::where('id', $this->round_id)->first();
         $list = SignForm::where('round_id', $this->round_id)->first();
 
-        $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+        $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+
+        $order = explode(',', $round->order);
+
+        usort($klasy, function ($a, $b) use ($order) {
+          $pos_a = array_search($a, $order);
+          $pos_b = array_search($b, $order);
+          return $pos_a - $pos_b;
+        });
+
         $max = $round->max;
         $drivers = 0;
         $class = [];

@@ -7,8 +7,8 @@
     </tr>
     </thead>
     <tbody>
-        @foreach($class as $key => $klasa)
-            @foreach($klasa as $sign)
+        @foreach($klasy as $klasa)
+            @foreach($class[$klasa] as $sign)
                 <tr>
                     @foreach($items as $item)
                         @if($item == 'race_points')
