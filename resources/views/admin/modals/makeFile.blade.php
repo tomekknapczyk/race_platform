@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('makeFile') }}" id="makeFile">
+                <form method="POST" action="{{ route('makeFile') }}" id="makeFile" class="sortable_items">
                     @csrf
                     <input type="hidden" name="id" value="{{ $round->id }}">
                     <input type="hidden" name="items" id="file_items">
@@ -38,6 +38,7 @@
 
                     <h4>Wybrane elementy:</h4>
                     <div class="bg-info p-2 rounded d-flex justify-content-start align-items-center flex-wrap" id="dropdown">
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="id">ID</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="name">Kierowca imie</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="lastname">Kierowca nazwisko</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_name">Pilot imie</div>

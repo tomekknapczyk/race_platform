@@ -7,8 +7,8 @@
     </tr>
     </thead>
     <tbody>
-        @foreach($round->klasy() as $klasa)
-            @foreach($round->startPositions()->where('klasa', $klasa) as $position)
+        @foreach($round->klasy($round->startList->id) as $klasa)
+            @foreach($round->startPositions($round->startList->id)->where('klasa', $klasa) as $position)
                 <tr>
                     @foreach($items as $item)
                         @if($item == 'points')
