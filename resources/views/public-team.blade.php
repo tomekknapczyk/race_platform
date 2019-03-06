@@ -34,7 +34,7 @@
                                         <div class="card-body drivers">
                                             <div class="row justify-content-center">
                                                 @foreach($team->members as $member)
-                                                    @if($member->user->driver)
+                                                    @if($member->user->driver && $member->user->profile)
                                                         <div class="col-md-4">
                                                             <div class="driver bg-white shadow pb-2">
                                                                 @if($member->user->laurels->count())
@@ -158,7 +158,7 @@
                                         <div class="card-body drivers">
                                             <div class="row justify-content-center">
                                                 @foreach($team->members as $member)
-                                                    @if(!$member->user->driver)
+                                                    @if(!$member->user->driver && $member->user->profile)
                                                         <div class="col-md-4">
                                                             <div class="driver bg-white shadow pb-2">
                                                                 @if($member->user->laurels->count())
