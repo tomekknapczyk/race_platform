@@ -14,13 +14,13 @@
                         @foreach(auth()->user()->cars as $car)
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                 <h3 class="col-md-3">{{ $car->marka }} {{ $car->model }} <small>{{ $car->turbo?'/ Turbo':'' }} {{ $car->rwd?'/ RWD':'' }}</small></h3>
-                                <span class="col-md-2">{{ $car->rok }} r.<br>{{ $car->ccm }} ccm</span>
+                                <span class="col-md-2">{{ $car->rok }} r.<br>{{ $car->ccm }} ccm<br>@if($car->diesel) Diesel @else Benzyna @endif</span>
                                 <strong class="text-uppercase col-md-2">{{ $car->nr_rej }}</strong>
                                 <span class="col-md-2">oc: {{ $car->oc }}<br>nw: {{ $car->nw }}</span>
                                 <div class="col-md-3 text-right">
                                     <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editCar" 
                                         data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "car_oc":"{{ $car->oc }}", "car_nw":"{{ $car->nw }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
-                                        data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
+                                        data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}", "diesel":"{{ $car->diesel }}", "benzyna":"{{ !$car->diesel }}"}'
                                         @if($car->file_id)
                                             data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'
                                         @else

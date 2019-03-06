@@ -28,7 +28,7 @@ class TeamController extends Controller
 
     public function show($id)
     {
-        $team = Team::where('id', $id)->first();
+        $team = Team::where('id', $id)->with('members', 'members.user', 'members.user.profile.file', 'members.user.laurel_first', 'members.user.laurel_second', 'members.user.laurel_third', 'members.user.laurels', 'members.user.cars.file')->first();
 
         if(!$team)
             back()->with('danger', 'Team nie istnieje');
@@ -41,8 +41,10 @@ class TeamController extends Controller
         // jeżeli jest team to pokaż tylko team
         $team = auth()->user()->team();
             
-        if($team)
+        if($team){
+            $team = $team->load('members', 'members.user', 'members.user.profile.file', 'members.user.laurel_first', 'members.user.laurel_second', 'members.user.laurel_third', 'members.user.laurels', 'members.user.cars.file');
             return view('team', compact('team'));
+        }
         // jeżeli nie ma team pokaż zaproszenia i button do dodania swojego
             // $team_requests
         return view('newteam');

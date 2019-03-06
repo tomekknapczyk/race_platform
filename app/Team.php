@@ -38,7 +38,7 @@ class Team extends Model
 
     public function other_members()
     {
-        return $this->hasMany(TeamMember::class)->where('user_id', '!=', $this->user_id);
+        return $this->hasMany(TeamMember::class)->where('user_id', '!=', $this->user_id)->with('user.profile');
     }
 
     public function team_requests()

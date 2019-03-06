@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="model">Turbo</label>
                                         <div class="form-check">
@@ -126,7 +126,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="model">RWD</label>
                                         <div class="form-check">
@@ -136,6 +136,25 @@
                                         @if ($errors->has('rwd'))
                                             <span class="invalid-feedback">
                                                 <strong>{{ $errors->first('rwd') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Silnik</label>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="silnik" id="benzyna" value="0">
+                                          <label class="form-check-label" for="benzyna">Benzyna</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="silnik" id="diesel" value="1">
+                                          <label class="form-check-label" for="diesel">Diesel</label>
+                                        </div>
+                                        @if ($errors->has('silnik'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('silnik') }}</strong>
                                             </span>
                                         @endif
                                     </div>

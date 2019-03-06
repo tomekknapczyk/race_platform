@@ -138,6 +138,21 @@ class User extends Authenticatable
         return $this->hasMany(Laurel::class)->where('place', $place)->orderBy('klasa', 'asc')->orderBy('year', 'desc');
     }
 
+    public function laurel_first()
+    {
+        return $this->hasMany(Laurel::class)->where('place', 1)->orderBy('klasa', 'asc')->orderBy('year', 'desc');
+    }
+
+    public function laurel_second()
+    {
+       return $this->hasMany(Laurel::class)->where('place', 2)->orderBy('klasa', 'asc')->orderBy('year', 'desc');
+    }
+
+    public function laurel_third()
+    {
+        return $this->hasMany(Laurel::class)->where('place', 3)->orderBy('klasa', 'asc')->orderBy('year', 'desc');
+    }
+
     public function laurels_class()
     {
         $laurels_1 = $this->laurel_place(1);

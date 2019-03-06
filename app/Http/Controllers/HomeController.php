@@ -139,26 +139,34 @@ class HomeController extends Controller
         ]);
 
         $car = \App\Car::where('id', $request->id)->first();
+        $ccm = $car->ccm;
 
-        if($car->turbo && $car->rwd)
-            return '<option value="k4">K4</option><option value="k7">K7</option>';
+        // if($car->turbo && $car->rwd)
+        //     return '<option value="k4">K4</option><option value="k7">K7</option>';
 
-        if($car->turbo)
-            return '<option value="k4">K4</option>';
+        // if($car->turbo)
+        //     return '<option value="k4">K4</option>';
+
+        if($car->turbo){
+            if($car->diesel)
+                $ccm = $ccm * 1.4;
+            else
+                $ccm = $ccm * 1.7;
+        }
 
         if($car->rwd)
-            if($car->ccm < 800)
+            if($ccm < 800)
                 return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option>';
             else
                 return '<option value="k7">K7</option>';
 
-        if($car->ccm <= 1400)
+        if($ccm <= 1400)
             return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option>';
 
-        if($car->ccm <= 1600)
+        if($ccm <= 1600)
             return '<option value="k2">K2</option>';
 
-        if($car->ccm <= 2000)
+        if($ccm <= 2000)
             return '<option value="k3">K3</option>';
 
         return '<option value="k4">K4</option>';

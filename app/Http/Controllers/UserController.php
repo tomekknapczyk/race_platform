@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = User::where('admin', 0)->with('profile', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file')->get();
+        $users = User::where('admin', 0)->with('profile', 'laurel_first', 'laurel_second', 'laurel_third', 'profile.file', 'pilots', 'pilots.file', 'cars', 'cars.file')->get();
 
         return view('admin.drivers', compact('users'));
     }
@@ -285,6 +285,7 @@ class UserController extends Controller
             'ccm' => 'required|string|max:255',
             'photo' => 'nullable|mimes:jpeg,bmp,png',
             'oc' => 'required',
+            'silnik' => 'required|nullable',
         ]);
 
         if(auth()->user()->admin)
@@ -308,6 +309,7 @@ class UserController extends Controller
         $car->nw = $request->nw;
         $car->turbo = false;
         $car->rwd = false;
+        $car->diesel = $request->silnik;
         if(isset($request->turbo))
             $car->turbo = true;
         if(isset($request->rwd))

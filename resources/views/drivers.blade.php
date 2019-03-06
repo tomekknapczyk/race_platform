@@ -34,14 +34,14 @@
                         <div class="driver klasa" data-klasa="{{ $user->klasy() }}">
                             @if($user->laurels->count())
                                 <div class="laurels">
-                                    @if($user->laurel_place(1)->count())
+                                    @if($user->laurel_first->count())
                                         <div class="mb-1">
-                                            <p class="m-0 laurel gold">{{ $user->laurel_place(1)->count() }}</p>
+                                            <p class="m-0 laurel gold">{{ $user->laurel_first->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
                                             @endphp
-                                            @foreach($user->laurel_place(1)->get() as $laurel)
+                                            @foreach($user->laurel_first as $laurel)
                                                 @php
                                                     if($laurel->klasa != $klasa){
                                                         $klasa = $laurel->klasa;
@@ -58,14 +58,14 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    @if($user->laurel_place(2)->count())
+                                    @if($user->laurel_second->count())
                                         <div class="mb-1">
-                                            <p class="m-0 laurel silver">{{ $user->laurel_place(2)->count() }}</p>
+                                            <p class="m-0 laurel silver">{{ $user->laurel_second->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
                                             @endphp
-                                            @foreach($user->laurel_place(2)->get() as $laurel)
+                                            @foreach($user->laurel_second as $laurel)
                                                 @php
                                                     if($laurel->klasa != $klasa){
                                                         $klasa = $laurel->klasa;
@@ -82,14 +82,14 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    @if($user->laurel_place(3)->count())
+                                    @if($user->laurel_third->count())
                                         <div class="mb-1">
-                                            <p class="m-0 laurel brown">{{ $user->laurel_place(3)->count() }}</p>
+                                            <p class="m-0 laurel brown">{{ $user->laurel_third->count() }}</p>
                                             @php
                                                 $klasa = '';
                                                 $show = true;
                                             @endphp
-                                            @foreach($user->laurel_place(3)->get() as $laurel)
+                                            @foreach($user->laurel_third as $laurel)
                                                 @php
                                                     if($laurel->klasa != $klasa){
                                                         $klasa = $laurel->klasa;
@@ -109,14 +109,14 @@
                                 </div>
 
                                 <div class="laurels-short">
-                                    @if($user->laurel_place(1)->count())
-                                        <span class="laurel gold mr-1">{{ $user->laurel_place(1)->count() }}</span>
+                                    @if($user->laurel_first->count())
+                                        <span class="laurel gold mr-1">{{ $user->laurel_first->count() }}</span>
                                     @endif
-                                    @if($user->laurel_place(2)->count())
-                                        <span class="laurel silver mr-1">{{ $user->laurel_place(2)->count() }}</span>
+                                    @if($user->laurel_second->count())
+                                        <span class="laurel silver mr-1">{{ $user->laurel_second->count() }}</span>
                                     @endif
-                                    @if($user->laurel_place(3)->count())
-                                        <span class="laurel brown">{{ $user->laurel_place(3)->count() }}</span>
+                                    @if($user->laurel_third->count())
+                                        <span class="laurel brown">{{ $user->laurel_third->count() }}</span>
                                     @endif  
                                 </div>
                             @endif

@@ -55,10 +55,10 @@
                             </h6>
                             <div class="col-md-2">
                                 <h6 class="text-center">Laury</h6>
-                                @if($user->laurel_place(1)->count())
+                                @if($user->laurel_first->count())
                                     <div class="mb-1">
-                                        <p class="m-0">Złote ({{ $user->laurel_place(1)->count() }})</p>
-                                        @foreach($user->laurel_place(1)->get() as $laurel)
+                                        <p class="m-0">Złote ({{ $user->laurel_first->count() }})</p>
+                                        @foreach($user->laurel_first as $laurel)
                                             <p class="m-0">
                                                 - {{ $laurel->year }} {{ $laurel->klasa }}
                                                 @if(!$laurel->auto)
@@ -69,10 +69,10 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                @if($user->laurel_place(2)->count())
+                                @if($user->laurel_second->count())
                                     <div class="mb-1">
-                                        <p class="m-0">Srebrne ({{ $user->laurel_place(2)->count() }})</p>
-                                        @foreach($user->laurel_place(2)->get() as $laurel)
+                                        <p class="m-0">Srebrne ({{ $user->laurel_second->count() }})</p>
+                                        @foreach($user->laurel_second as $laurel)
                                             <p class="m-0">
                                                 - {{ $laurel->year }} {{ $laurel->klasa }}
                                                 @if(!$laurel->auto)
@@ -83,10 +83,10 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                @if($user->laurel_place(3)->count())
+                                @if($user->laurel_third->count())
                                     <div class="mb-1">
-                                        <p class="m-0">Brązowe ({{ $user->laurel_place(3)->count() }})</p>
-                                        @foreach($user->laurel_place(3)->get() as $laurel)
+                                        <p class="m-0">Brązowe ({{ $user->laurel_third->count() }})</p>
+                                        @foreach($user->laurel_third as $laurel)
                                             <p class="m-0">
                                                 - {{ $laurel->year }} {{ $laurel->klasa }}
                                                 @if(!$laurel->auto)
@@ -137,7 +137,7 @@
                                             <div class="col-sm-4">
                                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editCar"
                                                 data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}", "car_oc":"{{ $car->oc }}", "car_nw":"{{ $car->nw }}"}'
-                                                data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}"}'
+                                                data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}", "diesel":"{{ $car->diesel }}", "benzyna":"{{ !$car->diesel }}"}'
                                                 @if($car->file_id)
                                                     data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'
                                                 @else

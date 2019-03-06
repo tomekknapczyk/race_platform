@@ -87,14 +87,14 @@ class GuestController extends Controller
 
     public function drivers()
     {
-        $users = \App\User::where('admin', 0)->where('active', 1)->where('driver', 1)->with('profile', 'profile.file')->get();
+        $users = \App\User::where('admin', 0)->where('active', 1)->where('driver', 1)->with('profile', 'profile.file', 'laurel_first', 'laurel_second', 'laurel_third', 'laurels')->get();
 
         return view('drivers', compact('users'));
     }
 
     public function pilots()
     {
-        $pilots = \App\User::where('admin', 0)->where('active', 1)->where('driver', 0)->with('profile', 'profile.file')->get();
+        $pilots = \App\User::where('admin', 0)->where('active', 1)->where('driver', 0)->with('profile', 'profile.file', 'laurel_first', 'laurel_second', 'laurel_third', 'laurels')->get();
 
         return view('pilots-list', compact('pilots'));
     }
