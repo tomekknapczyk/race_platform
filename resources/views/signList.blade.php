@@ -4,16 +4,29 @@
 <div class="container">
     <div class="row justify-content-center overflow-auto">
         <div class="col-md-12 pb-5">
-            <div class="card border-dark">
+            <div class="card border-dark" id="sign-list">
                 <div class="card-header bg-yellow text-center">
                     <h3>{{ $round->race->name }}</a> : {{ $round->name }} - Lista zgłoszeń</h3>
                 </div>
-                <div class="card-body pb-5">
+                <div class="row justify-content-center align-items-center p-3">
+                    <div class="filter-box">
+                        <button class="search-clear btn btn-warning m-1">Wszyscy</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k1">K1</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k2">K2</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k3">K3</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k4">K4</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+                    </div>
+                </div>
+                <div class="card-body pb-5 list">
                     @php
                         $numer = 0;
                     @endphp
                     @foreach($klasy as $klasa)
-                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
+                    <div>
+                        <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="{{ $klasa }}">..:: {{ $klasa }} ::..</h2>
                         <div class="lista">
                             @foreach($class[$klasa] as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
@@ -126,11 +139,18 @@
                                 </div>  
                             @endforeach
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var options = {
+      valueNames: [{ attr: 'data-klasa', name: 'klasa' }]
+    };
 
+    var userList = new List('sign-list', options);
+</script>
 @endsection

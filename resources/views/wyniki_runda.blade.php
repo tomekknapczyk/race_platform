@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center overflow-auto">
         <div class="col-md-12">
-            <div class="card border-dark fixed-xs-width">
+            <div class="card border-dark fixed-xs-width" id="sign-list">
                 <div class="card-header bg-yellow d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('wyniki') }}" class="text-white">{{ $round->race->name }}</a> : {{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif
@@ -13,10 +13,23 @@
                         <a href="{{ $round->details }}" target="_blank" rel="nofollow" class="btn btn-info btn-sm">Szczegółowe wyniki</a>
                     @endif
                 </div>
-                <div class="card-body">
+                <div class="row justify-content-center align-items-center p-3">
+                    <div class="filter-box">
+                        <button class="search-clear btn btn-warning m-1">Wszyscy</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k1">K1</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k2">K2</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k3">K3</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k4">K4</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+                    </div>
+                </div>
+                <div class="card-body list">
                     @if($is_someone)
                         @foreach($class as $klasa)
-                            <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $klasa }} ::..</h2>
+                        <div>
+                            <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="{{ $klasa }}">..:: {{ $klasa }} ::..</h2>
                             <div class="lista"> 
                                 @foreach($endPositions->where('klasa', $klasa) as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
@@ -99,6 +112,7 @@
                                     </div>
                                 @endforeach
                             </div>
+                        </div>
                         @endforeach
                     @endif
                 </div>
@@ -106,4 +120,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    var options = {
+      valueNames: [{ attr: 'data-klasa', name: 'klasa' }]
+    };
+
+    var userList = new List('sign-list', options);
+</script>
 @endsection

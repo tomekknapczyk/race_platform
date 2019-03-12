@@ -44,7 +44,15 @@ class HomeController extends Controller
         if($round && $round->startList){
             $start_list_id = $round->startList->id;
             $is_someone = $round->startPositions($start_list_id)->count();
-            $class = $round->klasy($start_list_id);
+            $class = $round->klasy($start_list_id)->toArray();
+
+            $order = explode(',', $round->order);
+
+            usort($class, function ($a, $b) use ($order) {
+              $pos_a = array_search($a, $order);
+              $pos_b = array_search($b, $order);
+              return $pos_a - $pos_b;
+            });
             
             return view('startList', compact('round', 'is_someone', 'class', 'start_list_id'));
         }
