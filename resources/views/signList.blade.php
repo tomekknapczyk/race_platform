@@ -26,9 +26,9 @@
                         $numer = 0;
                     @endphp
                     @foreach($klasy as $klasa)
-                    <div>
+                    <div id="{{ $klasa }}-lista">
                         <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="{{ $klasa }}">..:: {{ $klasa }} ::..</h2>
-                        <div class="lista">
+                        <div class="lista list">
                             @foreach($class[$klasa] as $sign)
                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
                                     <h6 class="m-0 col-1 py-0 px-1 d-none d-md-block">
@@ -161,5 +161,22 @@
     };
 
     var userList = new List('sign-list', options);
+
+    var options2 = {
+      valueNames: [{ attr: 'data-team', name: 'team' }]
+    };
+
+    @foreach($klasy as $klasa)
+        var teamList{{ $klasa }} = new List('{{ $klasa }}-lista', options2);
+    @endforeach
+
+    function teamFilter(){
+        @foreach($klasy as $klasa)
+            teamList{{ $klasa }}.search('team');
+        @endforeach
+    }
+
+    document.getElementsByClassName('search-team')[0].onclick = teamFilter
+    
 </script>
 @endsection
