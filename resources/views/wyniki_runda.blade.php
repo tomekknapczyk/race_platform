@@ -23,14 +23,15 @@
                         <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+                        <button class="search-team btn btn-warning m-1" data-team="team">Teamy</button>
                     </div>
                 </div>
                 <div class="card-body list">
                     @if($is_someone)
                         @foreach($class as $klasa)
-                        <div>
+                        <div id="{{ $klasa }}-lista">
                             <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="{{ $klasa }}">..:: {{ $klasa }} ::..</h2>
-                            <div class="lista"> 
+                            <div class="lista list"> 
                                 @foreach($endPositions->where('klasa', $klasa) as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <div class="col-1 p-0 pr-1">
@@ -92,7 +93,7 @@
                                             @endif
                                             @if($position->sign->team)
                                                 <br>
-                                                <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
+                                                <small class="team" data-team="team"><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
                                             @endif
                                         </h6>
                                         <div class="col-2 p-0">
@@ -127,9 +128,32 @@
 
 <script>
     var options = {
-      valueNames: [{ attr: 'data-klasa', name: 'klasa' }]
+      valueNames: [{ attr: 'data-klasa', name: 'klasa' }, { attr: 'data-team', name: 'team' }]
     };
 
     var userList = new List('sign-list', options);
+
+    var options2 = {
+      valueNames: [{ attr: 'data-team', name: 'team' }]
+    };
+
+    @foreach($class as $klasa)
+        var teamList{{ $klasa }} = new List('{{ $klasa }}-lista', options2);
+    @endforeach
+
+    function teamFilter(){
+        @foreach($class as $klasa)
+            teamList{{ $klasa }}.search('team');
+        @endforeach
+    }
+
+    function clearFilter(){
+        @foreach($class as $klasa)
+            teamList{{ $klasa }}.search();
+        @endforeach
+    }
+
+    document.getElementsByClassName('search-team')[0].onclick = teamFilter;
+    document.getElementsByClassName('search-clear')[0].onclick = clearFilter;
 </script>
 @endsection

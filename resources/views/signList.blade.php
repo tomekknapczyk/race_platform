@@ -176,7 +176,13 @@
         @endforeach
     }
 
-    document.getElementsByClassName('search-team')[0].onclick = teamFilter
-    
+    function clearFilter(){
+        @foreach($klasy as $klasa)
+            teamList{{ $klasa }}.search();
+        @endforeach
+    }
+
+    document.getElementsByClassName('search-team')[0].onclick = teamFilter;
+    document.getElementsByClassName('search-clear')[0].onclick = clearFilter;
 </script>
 @endsection
