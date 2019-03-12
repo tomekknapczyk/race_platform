@@ -312,6 +312,15 @@ class SignController extends Controller
         $form->visible = $form->visible?0:1;
         $form->save();
 
+        foreach ($form->signs as $sign) {
+            if($sign->user && $sign->pilot && $sign->user->team() && $sign->pilot->team()){
+                if($sign->user->team()->id == $sign->pilot->team()->id){
+                    $sign->team_id = $sign->user->team()->id;
+                    $sign->save();
+                }
+            }
+        }
+
         return back()->with('success', 'Status został zmieniony');
     }
 
