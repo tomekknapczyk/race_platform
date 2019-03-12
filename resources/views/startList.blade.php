@@ -22,14 +22,14 @@
                                             {{ ++$numer }}.
                                         </h6>
                                         <div class="col-1 col-md-2 col-lg-1 p-0 pr-1">
-                                            @if($position->sign->user && $position->sign->user->profile->file_id)
+                                            @if($position->sign->user && $position->sign->user->profile && $position->sign->user->profile->file_id)
                                                 <img src="{{ url('public/driver/thumb/', $position->sign->user->profile->file->path) }}" class="img-fluid thumb">
                                             @else
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                             @endif
                                         </div>
                                         <div class="col-1 col-md-2 col-lg-1 p-0 pl-1">
-                                            @if($position->sign->pilot && $position->sign->pilot->profile->file_id)
+                                            @if($position->sign->pilot && $position->sign->pilot->profile && $position->sign->pilot->profile->file_id)
                                                 <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
                                             @elseif($position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
                                                 <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
@@ -38,7 +38,7 @@
                                             @endif
                                         </div>
                                         <h6 class="m-0 col-3 col-md-2 col-lg-3 text-left">
-                                            @if($position->user)
+                                            @if($position->user && $position->user->profile)
                                                 @if($position->user->profile->show_name && $position->user->profile->show_lastname)
                                                     <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
                                                 @elseif($position->user->profile->show_lastname)
