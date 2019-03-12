@@ -460,6 +460,13 @@ $('.search-clear').click(function(){
     userList.search();
 })
 
+$('.search-team').click(function(){
+    var team = $(this).data('team');
+    $('.filter-box .active').removeClass('active');
+    $(this).addClass('active');
+    userList.search(team);
+})
+
 
 function WHCreateCookie(name, value, days) {
     var date = new Date();

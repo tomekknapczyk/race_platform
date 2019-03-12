@@ -18,6 +18,7 @@
                         <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+                        <button class="search-team btn btn-warning m-1" data-team="team">Teamy</button>
                     </div>
                 </div>
                 <div class="card-body pb-5 list">
@@ -62,6 +63,10 @@
                                             </a></small>
                                         @else
                                             <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                        @endif
+                                        @if($sign['sign']->team)
+                                            <br>
+                                            <small><strong>Team:</strong> <a href="{{ route('team',$sign['sign']->team->id) }}">{{ $sign['sign']->team->title }}</a></small>
                                         @endif
                                     </h6>
                                     <div class="col-6 col-md-2 col-lg-1 p-0 pr-1">
@@ -121,6 +126,10 @@
                                         @else
                                             <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
                                         @endif
+                                        @if($sign['sign']->team)
+                                            <br>
+                                            <small class="team" data-team="team"><strong>Team:</strong> <a href="{{ route('team',$sign['sign']->team->id) }}">{{ $sign['sign']->team->title }}</a></small>
+                                        @endif
                                     </h6>
                                     <div class="col-7 col-md-3 py-0 px-2">
                                         @if($sign['sign']->car && $sign['sign']->car->file_id)
@@ -148,7 +157,7 @@
 </div>
 <script>
     var options = {
-      valueNames: [{ attr: 'data-klasa', name: 'klasa' }]
+      valueNames: [{ attr: 'data-klasa', name: 'klasa' }, { attr: 'data-team', name: 'team' }]
     };
 
     var userList = new List('sign-list', options);

@@ -363,7 +363,14 @@ class SignController extends Controller
         //     }
         // }
 
-        foreach($round->signs()->take($max) as $sign){
+        foreach($round->signs()->take($max) as $sign){           
+            if($sign->user && $sign->pilot && $sign->user->team() && $sign->pilot->team()){
+                if($sign->user->team()->id == $sign->pilot->team()->id){
+                    $sign->team_id = $sign->user->team()->id;
+                    $sign->save();
+                }
+            }
+
             $list_item = new StartListItem;
             $list_item->start_list_id = $list->id;
             $list_item->sign_id = $sign->id;

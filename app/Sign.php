@@ -31,6 +31,11 @@ class Sign extends Model
         return $this->belongsTo(Car::class, 'nr_rej', 'nr_rej');
     }
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
     public function race_points(Race $race)
     {
         $points = 0;

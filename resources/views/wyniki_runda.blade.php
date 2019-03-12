@@ -90,6 +90,10 @@
                                             @else
                                                 <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
                                             @endif
+                                            @if($position->sign->team)
+                                                <br>
+                                                <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
+                                            @endif
                                         </h6>
                                         <div class="col-2 p-0">
                                             @if($position->sign->car && $position->sign->car->file_id)
