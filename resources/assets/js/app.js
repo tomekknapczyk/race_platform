@@ -449,10 +449,14 @@ $('.datetimepicker').datetimepicker({
 
 $('.search-class').click(function(){
     var klasa = $(this).data('klasa');
+    $('.filter-box .active').removeClass('active');
+    $(this).addClass('active');
     userList.search(klasa);
 })
 
 $('.search-clear').click(function(){
+    $('.filter-box .active').removeClass('active');
+    $(this).addClass('active');
     userList.search();
 })
 

@@ -15,7 +15,7 @@
                 </div>
                 <div class="row justify-content-center align-items-center p-3">
                     <div class="filter-box">
-                        <button class="search-clear btn btn-warning m-1">Wszyscy</button>
+                        <button class="search-clear btn btn-warning m-1 active">Wszyscy</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k1">K1</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k2">K2</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k3">K3</button>
