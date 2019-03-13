@@ -122,7 +122,7 @@
                     @if($is_someone)
                         @foreach($teams as $team)
                             <div>
-                                <a href="{{ route('team',$team->id) }}" class="d-flex align-items-center justify-content-center text-dark" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
+                                <a href="{{ route('team',$team->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
                                     @if($team->file_id)
                                         <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
                                     @endif
