@@ -122,7 +122,7 @@
                     @if($is_someone)
                         @foreach($teams as $team)
                             <div>
-                                <h2 class="text-center mt-4 mb-3 text-uppercase">..:: {{ $team }} ::..</h2>
+                                <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team }} ::..</h2>
                                 <div class="lista"> 
                                     @foreach($class as $klasa)
                                         @foreach($endPositions->where('klasa', $klasa) as $position)
