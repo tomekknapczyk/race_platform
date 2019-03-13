@@ -156,7 +156,7 @@
                             @if($team->file_id)
                                 <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
                             @endif
-                            <h2 class="text-center mb-3 text-uppercase">..:: {{ $team->title }} ::..</h2>
+                            <h2 class="text-center mb-0 text-uppercase">..:: {{ $team->title }} ::..</h2>
                         </a>
                         {{-- <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team->title }} ::..</h2> --}}
                         <div class="lista">

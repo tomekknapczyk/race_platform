@@ -126,7 +126,7 @@
                                     @if($team->file_id)
                                         <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
                                     @endif
-                                    <h2 class="text-center mb-3 text-uppercase">..:: {{ $team->title }} ::..</h2>
+                                    <h2 class="text-center mb-0 text-uppercase">..:: {{ $team->title }} ::..</h2>
                                 </a>
                                 <div class="lista"> 
                                     @foreach($class as $klasa)
