@@ -76,6 +76,11 @@ class SignController extends Controller
                 $pilot = \App\User::where('uid', $request->pilot_uid)->first();
                 $sign->pilot_id = $pilot->id;
             }
+
+            if($request->saved){
+                $pilot = \App\User::where('uid', $request->saved)->first();
+                $sign->pilot_id = $pilot->id;
+            }
             $sign->user_id = auth()->user()->id;
             $sign->name = auth()->user()->profile->name;
             $sign->lastname = auth()->user()->profile->lastname;
@@ -96,8 +101,17 @@ class SignController extends Controller
             // $sign->pilot_nw = $request->nw;
         }
         else{
-            $driver = \App\User::where('uid', $request->driver_uid)->first();
-            $sign->user_id = $driver->id;
+            if($request->driver_uid){
+                $driver = \App\User::where('uid', $request->driver_uid)->first();
+                $sign->user_id = $driver->id;
+            }
+
+            if($request->saved){
+                $driver = \App\User::where('uid', $request->saved)->first();
+                $sign->user_id = $driver->id;
+            }
+            // $driver = \App\User::where('uid', $request->driver_uid)->first();
+            // $sign->user_id = $driver->id;
             $sign->pilot_id = auth()->user()->id;
             $sign->pilot_name = auth()->user()->profile->name;
             $sign->pilot_lastname = auth()->user()->profile->lastname;
