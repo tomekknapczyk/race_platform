@@ -313,11 +313,9 @@ class SignController extends Controller
         $form->save();
 
         foreach ($form->signs as $sign) {
-            if($sign->user && $sign->pilot && $sign->user->team() && $sign->pilot->team()){
-                if($sign->user->team()->id == $sign->pilot->team()->id){
-                    $sign->team_id = $sign->user->team()->id;
-                    $sign->save();
-                }
+            if($sign->user && $sign->user->team()){
+                $sign->team_id = $sign->user->team()->id;
+                $sign->save();
             }
         }
 
@@ -363,12 +361,10 @@ class SignController extends Controller
         //     }
         // }
 
-        foreach($round->signs()->take($max) as $sign){           
-            if($sign->user && $sign->pilot && $sign->user->team() && $sign->pilot->team()){
-                if($sign->user->team()->id == $sign->pilot->team()->id){
-                    $sign->team_id = $sign->user->team()->id;
-                    $sign->save();
-                }
+        foreach($round->signs()->take($max) as $sign){          
+            if($sign->user && $sign->user->team()){
+                $sign->team_id = $sign->user->team()->id;
+                $sign->save();
             }
 
             $list_item = new StartListItem;
