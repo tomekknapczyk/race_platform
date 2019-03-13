@@ -83,7 +83,17 @@ class HomeController extends Controller
                 $class[$sign->klasa][$key]['sign'] = $sign;
             }
 
-            return view('signList', compact('round', 'klasy', 'class'));
+            $teams = [];
+
+            foreach ($signs as $sign) {
+                if($sign->team){
+                    // dd($sign->team);
+                    if(!in_array($sign->team->title, $teams))
+                        $teams[] = $sign->team->title;
+                }
+            }
+
+            return view('signList', compact('round', 'klasy', 'class', 'teams'));
         }
 
         return back()->with('warning', 'Lista zgłoszeń nie jest dostępna');

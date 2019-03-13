@@ -58,4 +58,9 @@ class StartListItem extends Model
     {
         return $this->sign->pilot;
     }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
 }

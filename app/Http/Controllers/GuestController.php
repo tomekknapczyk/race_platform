@@ -197,8 +197,17 @@ class GuestController extends Controller
               $pos_b = array_search($b, $order);
               return $pos_a - $pos_b;
             });
+
+            $teams = [];
+
+            foreach ($endPositions as $sign) {
+                if($sign->team){
+                    if(!in_array($sign->team->title, $teams))
+                        $teams[] = $sign->team->title;
+                }
+            }
             
-            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions'));
+            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions', 'teams'));
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');

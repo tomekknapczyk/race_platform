@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -452,19 +451,23 @@ $('.search-class').click(function(){
     $('.filter-box .active').removeClass('active');
     $(this).addClass('active');
     userList.search(klasa);
+    $('.wszyscy').show();
+    $('.teamy').hide();
 })
 
 $('.search-clear').click(function(){
     $('.filter-box .active').removeClass('active');
     $(this).addClass('active');
     userList.search();
+    $('.wszyscy').show();
+    $('.teamy').hide();
 })
 
 $('.search-team').click(function(){
-    var team = $(this).data('team');
     $('.filter-box .active').removeClass('active');
     $(this).addClass('active');
-    userList.search(team);
+    $('.teamy').show();
+    $('.wszyscy').hide();
 })
 
 
