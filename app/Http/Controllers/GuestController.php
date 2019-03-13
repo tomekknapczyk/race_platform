@@ -202,8 +202,8 @@ class GuestController extends Controller
 
             foreach ($endPositions as $sign) {
                 if($sign->team){
-                    if(!in_array($sign->team->title, $teams))
-                        $teams[] = $sign->team->title;
+                    if(!in_array($sign->team, $teams))
+                        $teams[] = $sign->team;
                 }
             }
             

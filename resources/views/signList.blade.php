@@ -152,11 +152,17 @@
                 <div class="card-body pb-5 teamy" style="display: none;">
                     @foreach($teams as $team)
                     <div>
-                        <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team }} ::..</h2>
+                        <a href="{{ route('team',$team->id) }}" class="d-flex align-items-center justify-content-center text-dark">
+                            @if($team->file_id)
+                                <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
+                            @endif
+                            <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team->title }} ::..</h2>
+                        </a>
+                        {{-- <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team->title }} ::..</h2> --}}
                         <div class="lista">
                             @foreach($klasy as $klasa)
                                 @foreach($class[$klasa] as $sign)
-                                    @if($sign['sign']->team && $sign['sign']->team->title == $team)
+                                    @if($sign['sign']->team && $sign['sign']->team->title == $team->title)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <h6 class="m-0 col-1 py-0 px-1 d-none d-md-block text-center">
                                             {{ $klasa }}
@@ -190,6 +196,10 @@
                                                 </a></small>
                                             @else
                                                 <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                            @endif
+                                            @if($sign['sign']->team)
+                                                <br>
+                                                <small><strong>Team:</strong> <a href="{{ route('team',$sign['sign']->team->id) }}">{{ $sign['sign']->team->title }}</a></small>
                                             @endif
                                         </h6>
                                         <div class="col-6 col-md-2 col-lg-1 p-0 pr-1">
@@ -245,6 +255,10 @@
                                                 </a></small>
                                             @else
                                                 <small><strong>Pilot:</strong> {{ $sign['sign']->pilot_name }} {{ $sign['sign']->pilot_lastname }}</small>
+                                            @endif
+                                            @if($sign['sign']->team)
+                                                <br>
+                                                <small><strong>Team:</strong> <a href="{{ route('team',$sign['sign']->team->id) }}">{{ $sign['sign']->team->title }}</a></small>
                                             @endif
                                         </h6>
                                         <div class="col-7 col-md-3 py-0 px-2">

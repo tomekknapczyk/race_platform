@@ -122,11 +122,16 @@
                     @if($is_someone)
                         @foreach($teams as $team)
                             <div>
-                                <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team }} ::..</h2>
+                                <a href="{{ route('team',$team->id) }}" class="d-flex align-items-center justify-content-center text-dark">
+                                    @if($team->file_id)
+                                        <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
+                                    @endif
+                                    <h2 class="text-center mb-3 text-uppercase" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>..:: {{ $team->title }} ::..</h2>
+                                </a>
                                 <div class="lista"> 
                                     @foreach($class as $klasa)
                                         @foreach($endPositions->where('klasa', $klasa) as $position)
-                                            @if($position->team && $position->team->title == $team)
+                                            @if($position->team && $position->team->title == $team->title)
                                                 <div class="row justify-content-between align-items-center flex-wrap py-2">
                                                     <div class="col-1 p-0 pr-1 d-flex align-items-center justify-content-between">
                                                         @if($position->user && $position->user->profile->file_id)
