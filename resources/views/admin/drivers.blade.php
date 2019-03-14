@@ -30,7 +30,7 @@
                                 <br>
                                 <small>{{ $user->email }}</small>
                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editDriver"
-                                data-text='{"driver_id":"{{ optional($user->profile)->id }}", "driver_name":"{{ optional($user->profile)->name }}", "driver_lastname":"{{ optional($user->profile)->lastname }}", "driver_phone":"{{ optional($user->profile)->phone }}", "driver_id_card":"{{ optional($user->profile)->id_card }}", "driver_address":{!! json_encode(optional($user->profile)->address) !!}, "driver_driving_license":"{{ optional($user->profile)->driving_license }}", "driver_oc":"{{ optional($user->profile)->oc }}", "driver_nw":"{{ optional($user->profile)->nw }}"}'
+                                data-text='{"driver_id":"{{ optional($user->profile)->id }}", "driver_name":"{{ optional($user->profile)->name }}", "driver_lastname":"{{ optional($user->profile)->lastname }}", "driver_phone":"{{ optional($user->profile)->phone }}", "driver_id_card":"{{ optional($user->profile)->id_card }}", "driver_address":{!! json_encode(optional($user->profile)->address) !!}, "driver_driving_license":"{{ optional($user->profile)->driving_license }}"}'
                                 data-check='{"driver_showName":"{{ optional($user->profile)->show_name }}", "driver_showLastname":"{{ optional($user->profile)->show_lastname }}", "driver_showEmail":"{{ optional($user->profile)->show_email }}"}'
                                 @if($user->profile && $user->profile->file_id)
                                     data-img='{"driver_photo":"{{ url('public/driver/thumb/', $user->profile->file->path) }}"}'
@@ -136,7 +136,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <button class="btn btn-sm btn-link editBtn" data-toggle="modal" data-target="#editCar"
-                                                data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}", "car_oc":"{{ $car->oc }}", "car_nw":"{{ $car->nw }}"}'
+                                                data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}", "car_oc":{!! json_encode($car->oc) !!}, "car_nw":{!! json_encode($car->nw) !!}}'
                                                 data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}", "diesel":"{{ $car->diesel }}", "benzyna":"{{ !$car->diesel }}"}'
                                                 @if($car->file_id)
                                                     data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'

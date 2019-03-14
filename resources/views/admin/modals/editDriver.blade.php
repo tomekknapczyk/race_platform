@@ -152,7 +152,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
+{{--                             <div class="form-group">
                                 <label for="oc">Nazwa nr polisy OC</label>
                                 <input type="text" name="oc" id="edit_driver_oc" class="form-control"> 
                                 @if ($errors->has('oc'))
@@ -170,7 +170,7 @@
                                         <strong>{{ $errors->first('nw') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label for="edit_driver_text">O mnie:</label>
