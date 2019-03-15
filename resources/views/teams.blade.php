@@ -11,6 +11,8 @@
                             <a href="{{ route('team', $team->id) }}">
                             @if($team->file_id)
                                 <img src="{{ url('/public/team/thumb/', $team->file->path) }}" class="img-fluid">
+                            @else
+                                <img src="{{ url('/images/team.png') }}" class="img-fluid">
                             @endif
                             <h6 class="my-3" >{{ $team->title }}</h6>
                             </a>
