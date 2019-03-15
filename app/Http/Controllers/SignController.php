@@ -327,8 +327,12 @@ class SignController extends Controller
         $form->save();
 
         foreach ($form->signs as $sign) {
-            if($sign->user && $sign->user->team()){
-                $sign->team_id = $sign->user->team()->id;
+            if($sign->user){
+                if($sign->user->team())
+                    $sign->team_id = $sign->user->team()->id;
+                else
+                    $sign->team_id = null;
+
                 $sign->save();
             }
         }
@@ -376,8 +380,11 @@ class SignController extends Controller
         // }
 
         foreach($round->signs()->take($max) as $sign){          
-            if($sign->user && $sign->user->team()){
-                $sign->team_id = $sign->user->team()->id;
+            if($sign->user){
+                if($sign->user->team())
+                    $sign->team_id = $sign->user->team()->id;
+                else
+                    $sign->team_id = null;
                 $sign->save();
             }
 
