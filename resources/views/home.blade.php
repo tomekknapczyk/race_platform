@@ -197,7 +197,7 @@
                     @endif
                     <div class="news-body">
                         <div class="news-content">
-                            <p>{!! str_limit(strip_tags($post->text, '<p><span><br /><br><strong>'), 100) !!}</p>
+                            <p>{!! str_limit(strip_tags($post->text, '<br /><br><strong>'), 100) !!}</p>
                         </div>
 
                         <a href="{{ url('aktualnosc', $post->id) }}" class="news-btn"><span>więcej</span></a>
