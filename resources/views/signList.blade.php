@@ -85,7 +85,7 @@
                                                 <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
                                                 <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid hovered">
                                             </div>
-                                        @elseif($sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
+                                        @elseif($sign['sign']->pilot_email && $sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
                                             <div class="img_with_hover">
                                                 <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb">
                                                 <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid hovered">
@@ -218,7 +218,7 @@
                                                     <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid thumb">
                                                     <img src="{{ url('public/driver/thumb/', $sign['sign']->pilot->profile->file->path) }}" class="img-fluid hovered">
                                                 </div>
-                                            @elseif($sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
+                                            @elseif($sign['sign']->pilot_email && $sign['sign']->pilotSimple && $sign['sign']->pilotSimple->file_id)
                                                 <div class="img_with_hover">
                                                     <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid thumb">
                                                     <img src="{{ url('public/pilot/thumb/', $sign['sign']->pilotSimple->file->path) }}" class="img-fluid hovered">

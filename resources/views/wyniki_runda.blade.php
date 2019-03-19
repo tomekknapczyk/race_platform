@@ -50,7 +50,7 @@
                                                     <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
                                                     <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid hovered">
                                                 </div>
-                                            @elseif($position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
+                                            @elseif($position->sign->pilot_email && $position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
                                                 <div class="img_with_hover">
                                                     <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
                                                     <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid hovered">
@@ -149,7 +149,7 @@
                                                                 <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
                                                                 <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid hovered">
                                                             </div>
-                                                        @elseif($position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
+                                                        @elseif($position->sign->pilot_email && $position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
                                                             <div class="img_with_hover">
                                                                 <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
                                                                 <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid hovered">

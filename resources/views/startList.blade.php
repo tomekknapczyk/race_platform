@@ -44,7 +44,7 @@
                                         <div class="col-1 col-md-2 col-lg-1 p-0 pl-1">
                                             @if($position->sign->pilot && $position->sign->pilot->profile && $position->sign->pilot->profile->file_id)
                                                 <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
-                                            @elseif($position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
+                                            @elseif($position->sign->pilot_email && $position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
                                                 <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
                                             @else
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
