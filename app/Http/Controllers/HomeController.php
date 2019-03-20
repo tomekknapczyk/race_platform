@@ -53,8 +53,10 @@ class HomeController extends Controller
               $pos_b = array_search($b, $order);
               return $pos_a - $pos_b;
             });
+
+            $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
             
-            return view('startList', compact('round', 'is_someone', 'class', 'start_list_id'));
+            return view('startList', compact('round', 'is_someone', 'class', 'start_list_id', 'accreditations'));
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');
@@ -93,7 +95,9 @@ class HomeController extends Controller
                 }
             }
 
-            return view('signList', compact('round', 'klasy', 'class', 'teams'));
+            $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
+
+            return view('signList', compact('round', 'klasy', 'class', 'teams', 'accreditations'));
         }
 
         return back()->with('warning', 'Lista zgłoszeń nie jest dostępna');

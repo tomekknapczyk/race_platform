@@ -147,6 +147,14 @@
                         </div>
                     </div>
                     @endforeach
+                    @if($accreditations->count())
+                        <h2 class="text-center mt-4 mb-3 text-uppercase">..:: Media ::..</h2>
+                        @foreach($accreditations as $accreditation)
+                            <h3 class="text-center mt-4 mb-3 text-uppercase">
+                                {{ $accreditation[0]->user->profile->name }}
+                            </h3>
+                        @endforeach
+                    @endif
                 </div>
 
                 <div class="card-body pb-5 teamy" style="display: none;">
