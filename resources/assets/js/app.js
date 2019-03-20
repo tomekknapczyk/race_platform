@@ -29,6 +29,7 @@ $.ajaxSetup({
 $(document).on('click', '.editBtn', function(){
     var data_text = $(this).data('text');
     var data_check = $(this).data('check');
+    var data_radio = $(this).data('radio');
     var data_img = $(this).data('img');
     var data_tinymce = $(this).data('tinymce');
     var data_order = $(this).data('order');
@@ -44,6 +45,13 @@ $(document).on('click', '.editBtn', function(){
             check = true;
 
         $('#edit_' + key).attr("checked", check);
+    })
+
+    $.each(data_radio, function(key, value){
+        $('[name='+key+']').each(function(){
+            $(this).prop("checked", false);
+        })
+        $('[name='+key+'][value="' + value +'"]').prop("checked", true);
     })
 
     $.each(data_img, function(key, value){
@@ -94,7 +102,41 @@ $(document).on('click', '.unbanBtn', function(){
 
 $(document).on('click', '.signBtn', function(){
     var id = $(this).data('id');
+    var staff = $(this).data('staff');
+
     $('#form_id').val(id);
+})
+
+$(document).on('click', '.editSignPress', function(){
+    var id = $(this).data('id');
+    $('#edit_form_id').val(id);
+    var staff = $(this).data('staff');
+
+    $.each(staff, function(key, value){
+        $('#edit_staff_' + value).prop("checked", true);
+    })
+})
+
+
+$(document).on('click', '.editSignPressAdmin', function(){
+    var id = $(this).data('id');
+    $('#edit_form_id').val(id);
+    var user = $(this).data('user');
+    $('#edit_form_user').val(user);
+    var staff = $(this).data('staff');
+
+    $.ajax({
+        url: '/getStaff',
+        method: 'POST',
+        data: {id: user},
+    }).done(function(response){
+        $('.staff').html('');
+        $('.staff').append(response);
+
+        $.each(staff, function(key, value){
+            $('#edit_staff_' + value).prop("checked", true);
+        })
+    });
 })
 
 $(document).on('click', '.addSection', function(e){

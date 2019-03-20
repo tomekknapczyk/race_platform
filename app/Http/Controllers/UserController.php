@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Hash;
 use App\Driver;
 use App\Pilot;
+use App\Press;
 use App\Car;
 use App\User;
 
@@ -74,6 +75,11 @@ class UserController extends Controller
         return view('pilots');
     }
 
+    public function staff()
+    {
+        return view('staff');
+    }
+
     public function cars()
     {
         return view('cars');
@@ -81,17 +87,28 @@ class UserController extends Controller
 
     public function saveDriver(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'address' => 'required|max:500',
-            'id_card' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'driving_license' => 'required|string|max:255',
-            // 'oc' => 'required|string|max:255',
-            // 'nw' => 'nullable|string|max:255',
-            'photo' => 'nullable|mimes:jpeg,bmp,png',
-        ]);
+        if(auth()->user()->driver != 2){
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'address' => 'required|max:500',
+                'id_card' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'driving_license' => 'required|string|max:255',
+                // 'oc' => 'required|string|max:255',
+                // 'nw' => 'nullable|string|max:255',
+                'photo' => 'nullable|mimes:jpeg,bmp,png',
+            ]);
+        }
+        else{
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'address' => 'required|max:500',
+                'phone' => 'required|string|max:255',
+                'photo' => 'nullable|mimes:jpeg,bmp,png',
+            ]);
+        }
 
         if(auth()->user()->admin)
             $driver = Driver::where('id', $request->id)->first();
@@ -107,15 +124,18 @@ class UserController extends Controller
         $driver->name = $request->name;
         $driver->lastname = $request->lastname;
         $driver->address = $request->address;
-        $driver->id_card = $request->id_card;
         $driver->phone = $request->phone;
-        $driver->driving_license = $request->driving_license;
-        // $driver->oc = $request->oc;
-        // $driver->nw = $request->nw;
-        $driver->show_name = isset($request->showName)?1:0;
-        $driver->show_lastname = isset($request->showLastname)?1:0;
-        $driver->show_email = isset($request->showEmail)?1:0;
-        $driver->desc = $request->text;
+
+        if(auth()->user()->driver != 2){
+            $driver->id_card = $request->id_card;
+            $driver->driving_license = $request->driving_license;
+            // $driver->oc = $request->oc;
+            // $driver->nw = $request->nw;
+            $driver->show_name = isset($request->showName)?1:0;
+            $driver->show_lastname = isset($request->showLastname)?1:0;
+            $driver->show_email = isset($request->showEmail)?1:0;
+            $driver->desc = $request->text;
+        }
 
         if($request->photo){
             $photo = \App\File::where('id',$driver->file_id)->first();
@@ -273,6 +293,54 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('warning', 'Pilot nie istnieje');
+    }
+
+    public function saveStaff(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'ice' => 'required|string|max:255',
+            'type' => 'required',
+            'email' => 'required|email|max:255',
+        ]);
+
+        if(auth()->user()->admin)
+            $staff = Press::where('id', $request->id)->first();
+        else{
+            if(isset($request->id)){
+                $staff = Press::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+            }
+            else{
+                $staff = new Press;
+                $staff->user_id = auth()->user()->id;
+            }
+        }
+
+        $staff->name = $request->name;
+        $staff->phone = $request->phone;
+        $staff->email = $request->email;
+        $staff->ice = $request->ice;
+        $staff->type = $request->type;
+        $staff->save();
+
+        return redirect()->back()->with('success', 'Dziennikarz został zapisany');
+    }
+
+    public function deleteStaff(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:presses',
+        ]);
+
+        $staff = Press::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($staff){
+            $staff->delete();
+            return redirect()->back()->with('success', 'Dziennikarz został usunięty');
+        }
+
+        return redirect()->back()->with('warning', 'Dziennikarz nie istnieje');
     }
 
     public function saveCar(Request $request)

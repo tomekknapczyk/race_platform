@@ -23,12 +23,14 @@
                                             <span class="text-success mt-2 d-block">zgłoszenie wysłane</span>
                                         @endif
                                     </h5>
+                                    @if(auth()->user()->driver != 2)
                                     <h6>
                                         <p class="text-info mt-3 d-block">Koszt uczestnictwa <strong>{{ $form->round->price }} PLN.</strong></p>
                                         @if($form->round->advance) 
                                             <p  class="text-info mt-3 d-block">Wymagana zaliczka <strong>{{ $form->round->advance }} PLN.</strong></p>
                                         @endif
                                     </h6>
+                                    @endif
                                 </div>
                                 <strong class="col-md-2 text-center">{{ $form->round->date->format('Y-m-d H:i') }}</strong>
                                 @if(auth()->user()->signed($form->id))
@@ -40,11 +42,29 @@
                                     </div>
                                 @else
                                     <div class="col-md-4 text-right">
-                                        @if(auth()->user()->driver)
+                                        @if(auth()->user()->driver == 1)
                                             @if(auth()->user()->ready())
                                                 <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
                                             @else
                                                 <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić <a href="{{ url('profile') }}" class="text-warning">swoje dane</a> i <a href="{{ url('cars') }}" class="text-warning">dane samochodu</a></p>
+                                            @endif
+                                        @elseif(auth()->user()->driver == 2)
+                                            @if(auth()->user()->profile)
+                                                @if(auth()->user()->accreditation($form->round->id))
+                                                    <button class="btn btn-sm btn-outline-info editSignPress" data-toggle="modal" data-target="#editSignPress" data-id="{{ $form->round->id }}"
+                                                        data-staff = "{!! auth()->user()->roundStaff($form->round->id) !!}">
+                                                        Edytuj zgłoszenie
+                                                    </button>
+                                                    <a href="{{ route('accreditation_pdf',$form->round->id) }}" class="btn btn-sm btn-outline-danger">
+                                                        Drukuj zgłoszenie
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#signPress" data-id="{{ $form->round->id }}">
+                                                        Zgłoś swój udział
+                                                    </button>
+                                                @endif
+                                            @else
+                                                <p class="m-0 text-white bg-secondary p-2 text-center">Aby zgłosić się do rajdu musisz uzpełnić <a href="{{ url('profile') }}" class="text-warning">swoje dane</a></p>
                                             @endif
                                         @else
                                             @if(auth()->user()->profile)
@@ -111,8 +131,11 @@
     </div>
 </div>
 
-@if(auth()->user()->driver)
+@if(auth()->user()->driver == 1)
     @include('modals.sign')
+@elseif(auth()->user()->driver == 2)
+    @include('modals.signPress')
+    @include('modals.editSignPress')
 @else
     @include('modals.signPilot')
 @endif

@@ -23,6 +23,10 @@
                                   <input class="form-check-input" type="radio" name="account_type" id="pilot" value="0" required="">
                                   <label class="form-check-label" for="pilot">Pilot</label>
                                 </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="account_type" id="press" value="2" required="">
+                                  <label class="form-check-label" for="press">Redakcja</label>
+                                </div>
                             </div>
                         </div>
 

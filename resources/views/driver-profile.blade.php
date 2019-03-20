@@ -41,7 +41,7 @@
                                         @endif
                                     </div>
                                 </div>
-
+                                @if(auth()->user()->driver != 2)
                                 <hr>
                                 <h3>
                                     Profil publiczny
@@ -93,69 +93,113 @@
                                     <label for="text">O mnie:</label>
                                     <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->profile)->desc) }}</textarea>
                                 </div>
+                                @endif
                             </div>
 
                             <div class="col-sm-8">
+                                @if(auth()->user()->driver != 2)
+                                    <div class="form-group">
+                                        <label for="name">Imię</label>
+                                        <input type="text" name="name" value="{{ old('name', optional(auth()->user()->profile)->name) }}" class="form-control" required=""> 
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="name">Imię</label>
-                                    <input type="text" name="name" value="{{ old('name', optional(auth()->user()->profile)->name) }}" class="form-control" required=""> 
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                    <div class="form-group">
+                                        <label for="lastname">Nazwisko</label>
+                                        <input type="text" name="lastname" value="{{ old('lastname', optional(auth()->user()->profile)->lastname) }}" class="form-control" required=""> 
+                                        @if ($errors->has('lastname'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('lastname') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="lastname">Nazwisko</label>
-                                    <input type="text" name="lastname" value="{{ old('lastname', optional(auth()->user()->profile)->lastname) }}" class="form-control" required=""> 
-                                    @if ($errors->has('lastname'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('lastname') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                    <div class="form-group">
+                                        <label for="address">Adres</label>
 
-                                <div class="form-group">
-                                    <label for="address">Adres</label>
-                                    <textarea name="address" class="form-control" rows="2" required="">{{ old('address', optional(auth()->user()->profile)->address) }}</textarea>
-                                    @if ($errors->has('address'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('address') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                        <textarea name="address" class="form-control" rows="2" required="">{{ old('address', optional(auth()->user()->profile)->address) }}</textarea>
+                                        @if ($errors->has('address'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('address') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="id_card">Seria nr dowodu osobistego</label>
-                                    <input type="text" name="id_card" value="{{ old('id_card', optional(auth()->user()->profile)->id_card) }}" class="form-control" required=""> 
-                                    @if ($errors->has('id_card'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('id_card') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                    <div class="form-group">
+                                        <label for="id_card">Seria nr dowodu osobistego</label>
+                                        <input type="text" name="id_card" value="{{ old('id_card', optional(auth()->user()->profile)->id_card) }}" class="form-control" required=""> 
+                                        @if ($errors->has('id_card'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('id_card') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="phone">Telefon</label>
-                                    <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->profile)->phone) }}" class="form-control" required=""> 
-                                    @if ($errors->has('phone'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('phone') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                    <div class="form-group">
+                                        <label for="phone">Telefon</label>
+                                        <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->profile)->phone) }}" class="form-control" required=""> 
+                                        @if ($errors->has('phone'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="driving_license">Nr prawo jazdy</label>
-                                    <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->profile)->driving_license) }}" class="form-control" required=""> 
-                                    @if ($errors->has('driving_license'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('driving_license') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                    <div class="form-group">
+                                        <label for="driving_license">Nr prawo jazdy</label>
+                                        <input type="text" name="driving_license" value="{{ old('driving_license', optional(auth()->user()->profile)->driving_license) }}" class="form-control" required=""> 
+                                        @if ($errors->has('driving_license'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('driving_license') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <label for="name">Nazwa redakcji / Imię i Nazwisko</label>
+                                        <input type="text" name="name" value="{{ old('name', optional(auth()->user()->profile)->name) }}" class="form-control" required=""> 
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="lastname">Adres email</label>
+                                        <input type="email" name="lastname" value="{{ old('lastname', optional(auth()->user()->profile)->lastname) }}" class="form-control" required=""> 
+                                        @if ($errors->has('lastname'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('lastname') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address">Adres</label>
+                                        
+                                        <textarea name="address" class="form-control" rows="2" required="">{{ old('address', optional(auth()->user()->profile)->address) }}</textarea>
+                                        @if ($errors->has('address'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('address') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone">Telefon</label>
+                                        <input type="text" name="phone" value="{{ old('phone', optional(auth()->user()->profile)->phone) }}" class="form-control" required=""> 
+                                        @if ($errors->has('phone'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endif
 
                                 {{-- <div class="form-group">
                                     <label for="oc">Nazwa nr polisy OC</label>

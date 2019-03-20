@@ -104,9 +104,9 @@ class HomeController extends Controller
         $form = \App\SignForm::where('id', $id)->first();
 
         if($form){
-            if(auth()->user()->driver)
+            if(auth()->user()->driver == 1)
                 $data = $form->signs->where('user_id', auth()->user()->id)->first();
-            else
+            else if(auth()->user()->driver == 0)
                 $data = $form->signs->where('pilot_id', auth()->user()->id)->first();
             
             $pdf = PDF::loadView('pdf.form', compact('data', 'form'));

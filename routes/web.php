@@ -44,6 +44,11 @@ Route::post('getDriver', 'HomeController@getDriver')->name('getDriver');
 Route::post('getPilotUid', 'HomeController@getPilotUid')->name('getPilotUid');
 Route::post('getCar', 'HomeController@getCar')->name('getCar');
 Route::post('sign', 'SignController@sign')->name('sign');
+Route::post('signPress', 'SignController@signPress')->name('signPress');
+Route::post('editSignPress', 'SignController@editSignPress')->name('editSignPress');
+Route::post('editSignPressAdmin', 'SignController@editSignPressAdmin')->name('editSignPressAdmin');
+Route::post('getStaff', 'SignController@getStaff')->name('getStaff');
+Route::get('accreditation_pdf/{id}', 'SignController@accreditation_pdf')->name('accreditation_pdf');
 
 // Settings
 Route::get('settings', 'UserController@settings')->name('settings');
@@ -53,13 +58,16 @@ Route::post('regenerateUid', 'UserController@regenerateUid')->name('regenerateUi
 // Profile
 Route::get('profile', 'UserController@driverProfile')->name('profile');
 Route::get('pilots', 'UserController@pilots')->name('pilots')->middleware('driver');
+Route::get('staff', 'UserController@staff')->name('staff')->middleware('press');
 Route::get('cars', 'UserController@cars')->name('cars')->middleware('driver');
 Route::get('car', 'UserController@car')->name('car');
 Route::post('saveDriver', 'UserController@saveDriver')->name('saveDriver');
 Route::post('savePilot', 'UserController@savePilot')->name('savePilot');
+Route::post('saveStaff', 'UserController@saveStaff')->name('saveStaff');
 Route::post('saveCar', 'UserController@saveCar')->name('saveCar');
 Route::post('deleteCar', 'UserController@deleteCar')->name('deleteCar');
 Route::post('deletePilot', 'UserController@deletePilot')->name('deletePilot');
+Route::post('deleteStaff', 'UserController@deleteStaff')->name('deleteStaff');
 Route::post('banUser', 'UserController@banUser')->name('banUser');
 Route::post('unbanUser', 'UserController@unbanUser')->name('unbanUser');
 Route::post('deleteProfile', 'UserController@deleteProfile')->name('deleteProfile');
@@ -95,6 +103,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('newRound/{id}', 'RaceController@newRound')->name('newRound');
     Route::get('round/{id}', 'RaceController@round')->name('round');
     Route::get('list/{id}', 'RaceController@list')->name('list');
+    Route::get('accreditations/{id}', 'RaceController@accreditations')->name('accreditations');
     
     Route::post('signFormStatus', 'SignController@signFormStatus')->name('signFormStatus');
     Route::post('editSign', 'SignController@editSign')->name('editSign');

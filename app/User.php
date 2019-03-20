@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Pilot::class);
     }
 
+    public function staff()
+    {
+        return $this->hasMany(Press::class);
+    }
+
     public function cars()
     {
         return $this->hasMany(Car::class);
@@ -74,9 +79,10 @@ class User extends Authenticatable
 
     public function signed($form_id)
     {
-        if(auth()->user()->driver)
+        $sign = false;
+        if(auth()->user()->driver == 1)
             $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $form_id)->first();
-        else
+        elseif(auth()->user()->driver == 0)
             $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $form_id)->first();
 
         if($sign)
@@ -337,5 +343,19 @@ class User extends Authenticatable
             return 1;
 
         return 0;
+    }
+
+    public function accreditation($round_id)
+    {
+        $accreditations = \App\PressSign::where('user_id', auth()->user()->id)->where('round_id', $round_id)->count();
+        
+        return $accreditations;
+    }
+
+    public function roundStaff($round_id)
+    {
+        $accreditations = \App\PressSign::where('user_id', $this->id)->where('round_id', $round_id)->pluck('press_id');
+        return $accreditations->flatten();
+
     }
 }

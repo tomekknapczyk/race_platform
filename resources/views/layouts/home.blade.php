@@ -88,14 +88,18 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            @if(auth()->user()->driver)
+                                            @if(auth()->user()->driver == 1)
                                                 <a class="dropdown-item" href="{{ route('profile') }}">Profil kierowcy</a>
                                                 <a class="dropdown-item" href="{{ route('pilots') }}">Piloci</a>
                                                 <a class="dropdown-item" href="{{ route('cars') }}">Samochody</a>
+                                                <a class="dropdown-item" href="{{ route('userTeam') }}">Team</a>
+                                            @elseif(auth()->user()->driver == 2)
+                                                <a class="dropdown-item" href="{{ route('profile') }}">Profil redakcji</a>
+                                                <a class="dropdown-item" href="{{ route('staff') }}">Dziennikarze</a>
                                             @else
                                                 <a class="dropdown-item" href="{{ route('profile') }}">Profil pilota</a>
+                                                <a class="dropdown-item" href="{{ route('userTeam') }}">Team</a>
                                             @endif
-                                            <a class="dropdown-item" href="{{ route('userTeam') }}">Team</a>
                                             <a class="dropdown-item" href="{{ route('settings') }}">Ustawienia konta</a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();

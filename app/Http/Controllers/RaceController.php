@@ -416,6 +416,19 @@ class RaceController extends Controller
         return back()->with('warning', 'Runda nie istnieje');
     }
 
+    public function accreditations($id)
+    {
+        $round = Round::where('id', $id)->with('race')->first();
+
+        if($round){
+            $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
+
+            return view('admin.accreditations', compact('accreditations', 'round'));
+        }
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }
+
     public function editRound($id)
     {
         $round = Round::where('id', $id)->first();

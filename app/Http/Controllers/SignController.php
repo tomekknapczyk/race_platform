@@ -10,6 +10,7 @@ use App\StartListItem;
 use App\Exports\StartListExport;
 use App\Exports\SignListExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class SignController extends Controller
 {
@@ -21,7 +22,7 @@ class SignController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['except' => ['sign']]);
+        $this->middleware('admin', ['except' => ['sign', 'signPress', 'editSignPress', 'accreditation_pdf']]);
     }
 
     public function signFormStatus(Request $request)
@@ -60,9 +61,9 @@ class SignController extends Controller
         if($form->signs->where('active', 1)->count() >= $max)
             $active = false;
 
-        if(auth()->user()->driver)
+        if(auth()->user()->driver == 1)
             $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
-        else
+        elseif(auth()->user()->driver == 0)
             $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
         
         if($sign)
@@ -71,7 +72,7 @@ class SignController extends Controller
         $sign = new Sign;
         $sign->form_id = $request->form_id;
 
-        if(auth()->user()->driver){
+        if(auth()->user()->driver == 1){
             if($request->pilot_uid){
                 $pilot = \App\User::where('uid', $request->pilot_uid)->first();
                 $sign->pilot_id = $pilot->id;
@@ -100,7 +101,7 @@ class SignController extends Controller
             // $sign->pilot_oc = $request->oc;
             // $sign->pilot_nw = $request->nw;
         }
-        else{
+        elseif(auth()->user()->driver == 0){
             if($request->driver_uid){
                 $driver = \App\User::where('uid', $request->driver_uid)->first();
                 $sign->user_id = $driver->id;
@@ -315,6 +316,84 @@ class SignController extends Controller
 
         return back()->with('success', 'Uczestnik został dołączony do listy');
     }
+
+    public function signPress(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+            'staff' => 'required'
+        ]);
+
+        if(auth()->user()->driver == 2 && auth()->user()->accreditation($request->round_id))
+            return back()->with('danger', 'Twoje zgłoszenie zostało już wysłane.');
+
+        foreach ($request->staff as $key => $value) {
+            $accreditation = new \App\PressSign;
+            $accreditation->user_id = auth()->user()->id;
+            $accreditation->press_id = $key;
+            $accreditation->round_id = $request->round_id;
+            $accreditation->save();
+        }
+
+        return back()->with('success', 'Zgłoszenie zostało wysłane');
+    }
+
+    public function editSignPress(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+        ]);
+
+        \App\PressSign::where('user_id', auth()->user()->id)->where('round_id', $request->round_id)->delete();
+
+        if($request->staff)
+            foreach ($request->staff as $key => $value) {
+                $accreditation = new \App\PressSign;
+                $accreditation->user_id = auth()->user()->id;
+                $accreditation->press_id = $key;
+                $accreditation->round_id = $request->round_id;
+                $accreditation->save();
+            }
+
+        return back()->with('success', 'Zgłoszenie zostało zapisane');
+    }
+
+    public function editSignPressAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        \App\PressSign::where('user_id', $request->user_id)->where('round_id', $request->round_id)->delete();
+
+        if($request->staff)
+            foreach ($request->staff as $key => $value) {
+                $accreditation = new \App\PressSign;
+                $accreditation->user_id = $request->user_id;
+                $accreditation->press_id = $key;
+                $accreditation->round_id = $request->round_id;
+                $accreditation->save();
+            }
+
+        return back()->with('success', 'Zgłoszenie zostało zapisane');
+    }
+
+    public function getStaff(Request $request){
+        $staff = \App\Press::where('user_id', $request->id)->get();
+
+        return view('admin.getStaff', compact('staff'))->render();
+    }
+
+    public function accreditation_pdf($id){
+        $round = \App\Round::where('id', $id)->first();
+        $accreditations = \App\PressSign::where('user_id', auth()->user()->id)->where('round_id', $id)->get();
+            
+        $pdf = PDF::loadView('pdf.akredytacja', compact('accreditations', 'round'));
+        
+        return $pdf->download('akredytacja.pdf');
+    }
+    
 
     public function changeFormVisibility(Request $request)
     {

@@ -34,10 +34,11 @@
                             </strong>
                             <div class="col-md-4 text-right">
                                 @if(!$round->startList)
-                                    <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
+                                    <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zgłoszenia</a>
                                 @else
                                     <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
                                 @endif
+                                <a href="{{ url('accreditations', $round->id) }}" class="btn btn-sm btn-primary">Akredytacje</a>
                                 <a href="{{ url('editRound', $round->id) }}" class="btn btn-sm btn-info">Edytuj</a>
                                 {{-- <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
                                     data-text='{"round_id":"{{ $round->id }}", "round_name":"{{ $round->name }}", "sub_name":"{{ $round->sub_name }}", "details":"{{ $round->details }}", "date":"{{ $round->date->format('Y-m-d H:i') }}", "sign_date":"{{ $round->sign_date->format('Y-m-d H:i') }}", "max":"{{ $round->max }}", "price":"{{ $round->price }}", "advance":"{{ $round->advance }}"}'
