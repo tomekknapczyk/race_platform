@@ -93,4 +93,9 @@ class Round extends Model
     {
         return explode(',',$this->order);
     }
+
+    public function accreditations()
+    {
+        return $this->hasMany(PressSign::class, 'round_id', 'id')->groupBy('user_id');
+    }
 }

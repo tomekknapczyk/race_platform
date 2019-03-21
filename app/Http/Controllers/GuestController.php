@@ -222,4 +222,42 @@ class GuestController extends Controller
 
         return view('rank_frame', compact('path', 'name'));
     }
+
+    public function media()
+    {
+        $media = \App\User::where('admin', 0)->where('driver', 2)->where('active', 1)->get();
+
+        $race = \App\Race::where('active', 1)->first();
+
+        $accreditations = [];
+
+        foreach ($race->rounds as $round) {
+            $accreditations[$round->id] = $round->accreditations;
+        }
+
+        return view('media', compact('media', 'accreditations', 'race'));
+    }
+
+    public function redakcja($id)
+    {
+        $user = \App\User::where('admin', 0)->where('active', 1)->where('id', $id)->where('driver', 2)->with('profile', 'profile.file', 'staff')->first();
+
+        if(!$user)
+            return back()->with('danger', 'Redakcja nie istnieje');
+
+        return view('redakcja', compact('user'));
+    }
+
+    public function akredytacje($id)
+    {
+        $round = \App\Round::where('id', $id)->with('race')->first();
+
+        if($round){
+            $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
+
+            return view('akredytacje', compact('accreditations', 'round'));
+        }
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }
 }
