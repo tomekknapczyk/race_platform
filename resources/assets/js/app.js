@@ -495,6 +495,7 @@ $('.search-class').click(function(){
     userList.search(klasa);
     $('.wszyscy').show();
     $('.teamy').hide();
+    $('.press').hide();
 })
 
 $('.search-clear').click(function(){
@@ -503,12 +504,22 @@ $('.search-clear').click(function(){
     userList.search();
     $('.wszyscy').show();
     $('.teamy').hide();
+    $('.press').hide();
 })
 
 $('.search-team').click(function(){
     $('.filter-box .active').removeClass('active');
     $(this).addClass('active');
     $('.teamy').show();
+    $('.wszyscy').hide();
+    $('.press').hide();
+})
+
+$('.search-press').click(function(){
+    $('.filter-box .active').removeClass('active');
+    $(this).addClass('active');
+    $('.press').show();
+    $('.teamy').hide();
     $('.wszyscy').hide();
 })
 

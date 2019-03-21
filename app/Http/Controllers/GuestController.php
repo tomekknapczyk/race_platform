@@ -206,8 +206,10 @@ class GuestController extends Controller
                         $teams[] = $sign->team;
                 }
             }
+
+            $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
             
-            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions', 'teams'));
+            return view('wyniki_runda', compact('round', 'is_someone', 'class', 'start_list_id', 'endPositions', 'teams', 'accreditations'));
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');

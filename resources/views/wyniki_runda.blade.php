@@ -24,6 +24,9 @@
                         <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
                         <button class="search-team btn btn-warning m-1">Teamy</button>
+                        @if($accreditations->count())
+                            <button class="search-press btn btn-warning m-1">Media</button>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body list wszyscy">
@@ -117,6 +120,30 @@
                         @endforeach
                     @endif
                 </div>
+
+                @if($accreditations->count())
+                    <div class="card-body pb-5 press" style="display: none;">
+                        <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="media">..:: Media ::..</h2>
+                        @foreach($accreditations as $accreditation)
+                        <div class="row justify-content-start align-items-center flex-wrap py-2 mb-3">
+                            <div class="col-3"></div>
+                            <div class="col-2">
+                                @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
+                                    <div class="img_with_hover">
+                                        <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid thumb">
+                                        <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid hovered">
+                                    </div>
+                                @else
+                                    <img src="{{ url('images/press.png') }}" class="img-fluid thumb-big">
+                                @endif
+                            </div>
+                            <h3 class="col-3 text-center mt-4 mb-3 text-uppercase">
+                                {{ $accreditation[0]->user->profile->name }}
+                            </h3>
+                        </div>
+                        @endforeach
+                    </div>
+                @endif
 
                 <div class="card-body teamy" style="display: none;">
                     @if($is_someone)
