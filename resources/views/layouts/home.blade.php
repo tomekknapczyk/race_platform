@@ -74,7 +74,7 @@
                             <li><a class="nav-link" href="{{ route('kierowcy') }}">Kierowcy</a></li>
                             <li><a class="nav-link" href="{{ route('piloci') }}">Piloci</a></li>
                             <li><a class="nav-link" href="{{ route('teams') }}">Teams</a></li>
-                            {{-- <li><a class="nav-link" href="{{ route('media') }}">Media</a></li> --}}
+                            <li><a class="nav-link" href="{{ route('media') }}">Media</a></li>
                             <li><a class="nav-link" href="{{ url('dokumenty') }}">Dokumenty</a></li>
                             <!-- Authentication Links -->
                             @guest

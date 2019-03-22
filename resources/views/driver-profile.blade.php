@@ -199,6 +199,11 @@
                                             </span>
                                         @endif
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="text">Opis:</label>
+                                        <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->profile)->desc) }}</textarea>
+                                    </div>
                                 @endif
 
                                 {{-- <div class="form-group">

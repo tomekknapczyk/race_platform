@@ -25,6 +25,10 @@
                                 <p>{{ $user->profile->lastname }}</p>
                                 <p>{{ $user->profile->phone }}</p>
                                 <p>{{ $user->profile->address }}</p>
+                                <div class="mt-4">
+                                    <h5>Opis:</h5>
+                                    {!! $user->profile->desc !!}
+                                </div>
                             </div>
                         </div>
 
@@ -36,7 +40,7 @@
                                     </div>
                                     <div class="card-body">
                                         @if($user->staff->count())
-                                            @foreach($user->staff as $person)
+                                            @foreach($user->staff->take(1) as $person)
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap py-2">
                                                     <h3 class="col-md-3">{{ $person->name }}<br><small>{{ $person->type }}</small></h3>
                                                     <span class="col-md-2">{{ $person->email }}</span>

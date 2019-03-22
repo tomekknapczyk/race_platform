@@ -36,7 +36,7 @@
                         </div> 
                         <hr>
                         <div class="lista">
-                        @foreach($accreditation as $item)
+                        @foreach($accreditation->take(1) as $item)
                             <div class="row justify-content-around align-items-center flex-wrap py-2">
                                 <h5 class="m-0 col-3">
                                     {{ $item->staff->name }}<br>

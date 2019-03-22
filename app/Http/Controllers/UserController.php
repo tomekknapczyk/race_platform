@@ -125,6 +125,7 @@ class UserController extends Controller
         $driver->lastname = $request->lastname;
         $driver->address = $request->address;
         $driver->phone = $request->phone;
+        $driver->desc = $request->text;
 
         if(auth()->user()->driver != 2){
             $driver->id_card = $request->id_card;
@@ -134,7 +135,6 @@ class UserController extends Controller
             $driver->show_name = isset($request->showName)?1:0;
             $driver->show_lastname = isset($request->showLastname)?1:0;
             $driver->show_email = isset($request->showEmail)?1:0;
-            $driver->desc = $request->text;
         }
 
         if($request->photo){
