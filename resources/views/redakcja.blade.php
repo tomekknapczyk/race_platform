@@ -42,8 +42,8 @@
                                         @if($user->staff->count())
                                             @foreach($user->staff->take(1) as $person)
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap py-2">
-                                                    <h3 class="col-md-3">{{ $person->name }}<br><small>{{ $person->type }}</small></h3>
-                                                    <span class="col-md-2">{{ $person->email }}</span>
+                                                    <h3 class="col-md-4">{{ $person->name }}<br><small>{{ $person->type }}</small></h3>
+                                                    <span class="col-md-4 text-right">{{ $person->email }}</span>
                                                 </div>
                                             @endforeach
                                         @endif
