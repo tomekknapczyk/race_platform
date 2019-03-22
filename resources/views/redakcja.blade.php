@@ -25,10 +25,12 @@
                                 <p>{{ $user->profile->lastname }}</p>
                                 <p>{{ $user->profile->phone }}</p>
                                 <p>{{ $user->profile->address }}</p>
-                                <div class="mt-4">
-                                    <h5>Opis:</h5>
-                                    {!! $user->profile->desc !!}
-                                </div>
+                                @if($user->profile->desc)
+                                    <div class="mt-4">
+                                        <h5>Opis:</h5>
+                                        {!! $user->profile->desc !!}
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
