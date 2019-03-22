@@ -17,6 +17,12 @@
                             <td>{{ $position->sign->points() }}</td>
                         @elseif($item == 'advance')
                             <td>{{ $position->sign->remaining_payment() }}</td>
+                        @elseif($item == 'marka_model')
+                            <td>{{ $position->sign->marka }} {{ $position->sign->model }}</td>
+                        @elseif($item == 'phone')
+                            <td>{{ str_replace('+48', '', str_replace(' ', '', $position->sign->phone)) }}</td>
+                        @elseif($item == 'pilot_phone')
+                            <td>{{ str_replace('+48', '', str_replace(' ', '', $position->sign->pilot_phone)) }}</td>
                         @else
                             <td>{{ $position->sign->$item }}</td>
                         @endif

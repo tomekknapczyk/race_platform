@@ -34,6 +34,8 @@
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="rwd">RWD</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="points">Punkty za rundę</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="race_points">Punkty w całym rajdzie</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="marka">Marka</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="model">Model</div>
                     </div>
 
                     <h4>Wybrane elementy:</h4>
@@ -43,8 +45,7 @@
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="lastname">Kierowca nazwisko</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_name">Pilot imie</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_lastname">Pilot nazwisko</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="marka">Marka</div>
-                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="model">Model</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="marka_model">Marka_model</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="klasa">Klasa</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="phone">Kierowca telefon</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="pilot_phone">Pilot telefon</div>

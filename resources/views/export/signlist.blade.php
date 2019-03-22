@@ -15,6 +15,12 @@
                             <td>{{ $sign['sign']->points() }}</td>
                         @elseif($item == 'advance')
                             <td>{{ $sign['sign']->remaining_payment() }}</td>
+                        @elseif($item == 'marka_model')
+                            <td>{{ $sign['sign']->marka }} {{ $sign['sign']->model }}</td>
+                        @elseif($item == 'phone')
+                            <td>{{ str_replace('+48', '', str_replace(' ', '', $sign['sign']->phone)) }}</td>
+                        @elseif($item == 'pilot_phone')
+                            <td>{{ str_replace('+48', '', str_replace(' ', '', $sign['sign']->pilot_phone)) }}</td>
                         @else
                             <td>{{ $sign['sign']->$item }}</td>
                         @endif
