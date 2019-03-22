@@ -20,9 +20,9 @@
                         @elseif($item == 'marka_model')
                             <td>{{ $position->sign->marka }} {{ $position->sign->model }}</td>
                         @elseif($item == 'phone')
-                            <td>{{ str_replace('+48', '', str_replace(' ', '', $position->sign->phone)) }}</td>
+                            <td>{{ str_replace('-', '', str_replace('+48', '', str_replace(' ', '', $position->sign->phone))) }}</td>
                         @elseif($item == 'pilot_phone')
-                            <td>{{ str_replace('+48', '', str_replace(' ', '', $position->sign->pilot_phone)) }}</td>
+                            <td>{{ str_replace('-', '', str_replace('+48', '', str_replace(' ', '', $position->sign->pilot_phone))) }}</td>
                         @else
                             <td>{{ $position->sign->$item }}</td>
                         @endif
