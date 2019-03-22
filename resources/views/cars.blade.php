@@ -19,7 +19,7 @@
                                 <span class="col-md-2">oc: {{ $car->oc }}<br>nw: {{ $car->nw }}</span>
                                 <div class="col-md-3 text-right">
                                     <button class="btn btn-sm btn-outline-info editBtn" data-toggle="modal" data-target="#editCar" 
-                                        data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "car_oc":"{{ $car->oc }}", "car_nw":"{{ $car->nw }}", "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
+                                        data-text='{"car_id":"{{ $car->id }}", "marka":"{{ $car->marka }}", "model":"{{ $car->model }}", "rok":"{{ $car->rok }}", "car_oc":{!! json_encode($car->oc) !!}, "car_nw":{!! json_encode($car->nw) !!}, "ccm":"{{ $car->ccm }}", "nr_rej":"{{ $car->nr_rej }}"}'
                                         data-check='{"turbo":"{{ $car->turbo }}", "rwd":"{{ $car->rwd }}", "diesel":"{{ $car->diesel }}", "benzyna":"{{ !$car->diesel }}"}'
                                         @if($car->file_id)
                                             data-img='{"car_photo":"{{ url('public/car/thumb/', $car->file->path) }}"}'
