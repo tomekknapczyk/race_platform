@@ -204,6 +204,95 @@
                                         <label for="text">Opis:</label>
                                         <textarea name="text" class="tinymce_user" rows="4">{{ old('text', optional(auth()->user()->profile)->desc) }}</textarea>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            @if(auth()->user()->pressPhoto1)
+                                                <img src="{{ url('public/redakcja/thumb/', auth()->user()->pressPhoto1->path) }}" class="img-fluid">
+                                            @endif
+                                            <div class="form-group">
+                                                <label for="photo1">Zdjęcie 1</label>
+                                                <input type="file" name="photo1" class="form-control">
+                                                @if ($errors->has('photo1'))
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $errors->first('photo1') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label for="deletePhoto1">
+                                                        <input type="checkbox" name="deletePhoto1" id="deletePhoto1" value="1">
+                                                        Usuń zdjęcie
+                                                    </label>
+                                                    @if ($errors->has('deletePhoto1'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('deletePhoto1') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            @if(auth()->user()->pressPhoto2)
+                                                <img src="{{ url('public/redakcja/thumb/', auth()->user()->pressPhoto2->path) }}" class="img-fluid">
+                                            @endif
+                                            <div class="form-group">
+                                                <label for="photo2">Zdjęcie 2</label>
+                                                <input type="file" name="photo2" class="form-control">
+                                                @if ($errors->has('photo2'))
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $errors->first('photo2') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label for="deletePhoto2">
+                                                        <input type="checkbox" name="deletePhoto2" id="deletePhoto2" value="1">
+                                                        Usuń zdjęcie
+                                                    </label>
+                                                    @if ($errors->has('deletePhoto2'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('deletePhoto2') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            @if(auth()->user()->pressPhoto3)
+                                                <img src="{{ url('public/redakcja/thumb/', auth()->user()->pressPhoto3->path) }}" class="img-fluid">
+                                            @endif
+                                            <div class="form-group">
+                                                <label for="photo3">Zdjęcie 3</label>
+                                                <input type="file" name="photo3" class="form-control">
+                                                @if ($errors->has('photo3'))
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $errors->first('photo3') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label for="deletePhoto3">
+                                                        <input type="checkbox" name="deletePhoto3" id="deletePhoto3" value="1">
+                                                        Usuń zdjęcie
+                                                    </label>
+                                                    @if ($errors->has('deletePhoto3'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('deletePhoto3') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endif
 
                                 {{-- <div class="form-group">

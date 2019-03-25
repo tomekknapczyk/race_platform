@@ -33,6 +33,39 @@
                                 @endif
                             </div>
                         </div>
+                        @if($user->pressPhoto1)
+                            <div class="row">
+                                <div class="col-lg-12 mt-4">
+                                    <div class="card border-0 shadow">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center flex-wrap py-2">
+                                                <div class="col-12 col-md-4">
+                                                    @if($user->pressPhoto1)
+                                                        <a href="{{ url('public/redakcja', $user->pressPhoto1->path) }}" target="_blank">
+                                                            <img src="{{ url('public/redakcja', $user->pressPhoto1->path) }}" class="img-fluid">
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    @if($user->pressPhoto2)
+                                                        <a href="{{ url('public/redakcja', $user->pressPhoto2->path) }}" target="_blank">
+                                                            <img src="{{ url('public/redakcja', $user->pressPhoto2->path) }}" class="img-fluid">
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    @if($user->pressPhoto3)
+                                                        <a href="{{ url('public/redakcja', $user->pressPhoto3->path) }}" target="_blank">
+                                                            <img src="{{ url('public/redakcja', $user->pressPhoto3->path) }}" class="img-fluid">
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="row">
                             <div class="col-lg-12 mt-4">

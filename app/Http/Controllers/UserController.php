@@ -180,6 +180,121 @@ class UserController extends Controller
 
         $driver->save();
 
+        // galeria redakcji
+        if($request->photo1){
+            $photo1 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->first();
+            if($photo1){
+                \Storage::delete('public/redakcja/'.$photo1->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo1->path);
+                $photo1->delete();
+            }
+
+            $file = $request->photo1;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/redakcja/';
+
+            \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/redakcja/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(600, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 95);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
+
+            $storeFile = new \App\PressPhoto();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->user_id = $driver->user_id;
+            $storeFile->save();
+        }
+
+        if($request->photo2){
+            $photo2 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->skip(1)->first();
+            if($photo2){
+                \Storage::delete('public/redakcja/'.$photo2->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo2->path);
+                $photo2->delete();
+            }
+
+            $file = $request->photo2;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/redakcja/';
+
+            \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/redakcja/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(600, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 95);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
+
+            $storeFile = new \App\PressPhoto();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->user_id = $driver->user_id;
+            $storeFile->save();
+        }
+
+        if($request->photo3){
+            $photo3 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->skip(2)->first();
+            if($photo3){
+                \Storage::delete('public/redakcja/'.$photo3->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo3->path);
+                $photo3->delete();
+            }
+
+            $file = $request->photo3;
+            $originalName = $file->getClientOriginalName();
+            $name = $file->hashName();
+            $path = 'public/redakcja/';
+
+            \Storage::put($path, $file);
+
+            $pathThumbnail = $file->hashName('public/redakcja/thumb');
+            $thumbnail = \Image::make($file);
+            $thumb = $thumbnail->widen(600, function ($constraint) {
+                                    $constraint->upsize();
+                                })->encode('jpg', 95);
+            \Storage::put($pathThumbnail, (string) $thumb->encode());
+
+            $storeFile = new \App\PressPhoto();
+            $storeFile->name = $originalName;
+            $storeFile->path = $name;
+            $storeFile->user_id = $driver->user_id;
+            $storeFile->save();
+        }
+
+        if($request->deletePhoto3){
+            $photo3 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->skip(2)->first();
+            if($photo3){
+                \Storage::delete('public/redakcja/'.$photo3->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo3->path);
+                $photo3->delete();
+            }
+        }
+
+        if($request->deletePhoto2){
+            $photo2 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->skip(1)->first();
+            if($photo2){
+                \Storage::delete('public/redakcja/'.$photo2->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo2->path);
+                $photo2->delete();
+            }
+        }
+
+        if($request->deletePhoto1){
+            $photo1 = \App\PressPhoto::where('user_id',$driver->user_id)->orderBy('id', 'asc')->first();
+            if($photo1){
+                \Storage::delete('public/redakcja/'.$photo1->path);
+                \Storage::delete('public/redakcja/thumb/'.$photo1->path);
+                $photo1->delete();
+            }
+        }
+
         return redirect()->back()->with('success', 'Profil został zapisany');
     }
 

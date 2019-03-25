@@ -356,6 +356,20 @@ class User extends Authenticatable
     {
         $accreditations = \App\PressSign::where('user_id', $this->id)->where('round_id', $round_id)->pluck('press_id');
         return $accreditations->flatten();
+    }
 
+    public function pressPhoto1()
+    {
+        return $this->hasOne(PressPhoto::class,'user_id', 'id')->orderBy('id', 'asc');
+    }
+
+    public function pressPhoto2()
+    {
+        return $this->hasOne(PressPhoto::class,'user_id', 'id')->orderBy('id', 'asc')->skip(1);
+    }
+
+    public function pressPhoto3()
+    {
+        return $this->hasOne(PressPhoto::class,'user_id', 'id')->orderBy('id', 'asc')->skip(2);
     }
 }
