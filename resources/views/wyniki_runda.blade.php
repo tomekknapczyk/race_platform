@@ -126,8 +126,8 @@
                         <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="media">..:: Media ::..</h2>
                         @foreach($accreditations as $accreditation)
                         <div class="row justify-content-start align-items-center flex-wrap py-2 mb-3">
-                            <div class="col-12 col-md-3"></div>
-                            <div class="col-6 col-md-2">
+                            <div class="col-12 col-lg-3"></div>
+                            <div class="col-6 col-lg-2">
                                 <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                     @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
                                         <div class="img_with_hover">
@@ -139,7 +139,7 @@
                                     @endif
                                 </a>
                             </div>
-                            <h3 class="col-6 col-md-3 text-center mt-4 mb-3 text-uppercase">
+                            <h3 class="col-6 col-lg-3 text-center mt-4 mb-3 text-uppercase">
                                 <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
                                     {{ $accreditation[0]->user->profile->name }}
                                 </a>
