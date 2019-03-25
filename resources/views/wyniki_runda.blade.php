@@ -126,19 +126,23 @@
                         <h2 class="text-center mt-4 mb-3 text-uppercase klasa" data-klasa="media">..:: Media ::..</h2>
                         @foreach($accreditations as $accreditation)
                         <div class="row justify-content-start align-items-center flex-wrap py-2 mb-3">
-                            <div class="col-3"></div>
-                            <div class="col-2">
-                                @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
-                                    <div class="img_with_hover">
-                                        <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid thumb">
-                                        <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid hovered">
-                                    </div>
-                                @else
-                                    <img src="{{ url('images/press.png') }}" class="img-fluid thumb-big">
-                                @endif
+                            <div class="col-12 col-md-3"></div>
+                            <div class="col-6 col-md-2">
+                                <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
+                                    @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
+                                        <div class="img_with_hover">
+                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
+                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid hovered">
+                                        </div>
+                                    @else
+                                        <img src="{{ url('images/press.png') }}" class="img-fluid">
+                                    @endif
+                                </a>
                             </div>
-                            <h3 class="col-3 text-center mt-4 mb-3 text-uppercase">
-                                {{ $accreditation[0]->user->profile->name }}
+                            <h3 class="col-6 col-md-3 text-center mt-4 mb-3 text-uppercase">
+                                <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
+                                    {{ $accreditation[0]->user->profile->name }}
+                                </a>
                             </h3>
                         </div>
                         @endforeach
