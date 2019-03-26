@@ -33,7 +33,7 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="col-12 col-md-4 text-center mt-4 mb-3 text-uppercase">
+                                <h3 class="col-12 col-md-5 text-center mt-4 mb-3 text-uppercase">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
                                         {{ $accreditation[0]->user->profile->name }}
                                     </a>
