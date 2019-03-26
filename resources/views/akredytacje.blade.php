@@ -29,6 +29,7 @@
                                         {{ $accreditation[0]->user->profile->name }}
                                     </a>
                                 </h3>
+                            </div>
                             <div>
                             @foreach($accreditation->take(1) as $item)
                                 <div class="row justify-content-around align-items-center flex-wrap py-2">
