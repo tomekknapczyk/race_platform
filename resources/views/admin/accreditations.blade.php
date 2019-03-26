@@ -34,8 +34,7 @@
                             <h6 class="m-0 col-3 text-center">
                                 Kontakt w razie wypadku (ICE)
                             </h6>
-                        </div> 
-                        <hr>
+                        </div>
                         <div class="lista">
                         @foreach($accreditation as $item)
                             <div class="row justify-content-between align-items-center flex-wrap py-2">
@@ -55,6 +54,7 @@
                             </div>
                         @endforeach
                         </div>
+                        <hr>
                     @endforeach
                 </div>
             </div>
