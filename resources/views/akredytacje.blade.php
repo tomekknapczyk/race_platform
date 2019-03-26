@@ -14,7 +14,6 @@
                     @foreach($accreditations as $accreditation)
                         <div class="row py-4">
                             <div class="d-flex col-12 justify-content-start align-items-center flex-wrap py-2 mb-4">
-                                <div class="col-12 col-md-3"></div>
                                 <div class="col-6 col-md-2 mx-auto">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
