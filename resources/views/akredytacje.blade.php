@@ -14,7 +14,8 @@
                     @foreach($accreditations as $accreditation)
                         <div class="row py-4">
                             <div class="d-flex col-12 justify-content-start align-items-center flex-wrap py-2 mb-4">
-                                <div class="col-6 col-md-2 mx-auto">
+                                <div class="col-12 col-md-3"></div>
+                                <div class="col-6 col-md-2 mx-auto sm-visible">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
                                             <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
@@ -23,7 +24,16 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="col-12 col-md-6 text-left mt-4 mb-3 text-uppercase">
+                                <div class="col-6 col-md-2 mx-auto sm-hidden">
+                                    <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
+                                        @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
+                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
+                                        @else
+                                            <img src="{{ url('images/press.png') }}" class="img-fluid">
+                                        @endif
+                                    </a>
+                                </div>
+                                <h3 class="col-12 col-md-3 text-center mt-4 mb-3 text-uppercase">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
                                         {{ $accreditation[0]->user->profile->name }}
                                     </a>
