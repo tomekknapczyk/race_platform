@@ -13,7 +13,7 @@
                 <div class="card-body lista">
                     @foreach($accreditations as $accreditation)
                         <div class="row">
-                            <div class="justify-content-start align-items-center flex-wrap py-2 mb-4">
+                            <div class="d-flex col-12 justify-content-start align-items-center flex-wrap py-2 mb-4">
                                 <div class="col-3"></div>
                                 <div class="col-2">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
@@ -30,7 +30,7 @@
                                     </a>
                                 </h3>
                             </div>
-                            <div>
+                            <div class="col-12">
                             @foreach($accreditation->take(1) as $item)
                                 <div class="row justify-content-around align-items-center flex-wrap py-2">
                                     <h5 class="m-0 col-6">
