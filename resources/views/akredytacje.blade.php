@@ -15,7 +15,7 @@
                         <div class="row py-4">
                             <div class="d-flex col-12 justify-content-start align-items-center flex-wrap py-2 mb-4">
                                 <div class="col-12 col-md-3"></div>
-                                <div class="col-6 mx-auto d-block d-sm-none">
+                                <div class="col-6 mx-auto d-block d-md-none">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
                                             <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
@@ -24,7 +24,7 @@
                                         @endif
                                     </a>
                                 </div>
-                                <div class="col-md-2 d-none d-sm-block">
+                                <div class="col-md-2 d-none d-md-block">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
                                             <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
@@ -33,7 +33,7 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="col-12 col-md-3 text-center mt-4 mb-3 text-uppercase">
+                                <h3 class="col-12 col-md-4 text-center mt-4 mb-3 text-uppercase">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
                                         {{ $accreditation[0]->user->profile->name }}
                                     </a>
