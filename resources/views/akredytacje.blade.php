@@ -18,9 +18,9 @@
                                 <div class="col-2">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
-                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
                                         @else
-                                            <img src="{{ url('images/press.png') }}" class="img-fluid thumb-big">
+                                            <img src="{{ url('images/press.png') }}" class="img-fluid">
                                         @endif
                                     </a>
                                 </div>
@@ -33,7 +33,7 @@
                             <div class="col-12">
                             @foreach($accreditation->take(1) as $item)
                                 <div class="row justify-content-around align-items-center flex-wrap py-2">
-                                    <h5 class="m-0 col-6">
+                                    <h5 class="m-0 col-6 text-center">
                                         {{ $item->staff->name }}<br>
                                         <small>{{ $item->staff->type }}</small>
                                     </h5>
