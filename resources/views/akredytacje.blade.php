@@ -12,22 +12,23 @@
                 </div>
                 <div class="card-body lista">
                     @foreach($accreditations as $accreditation)
-                        <div class="row justify-content-start align-items-center flex-wrap py-2 mb-4">
-                            <div class="col-3"></div>
-                            <div class="col-2">
-                                <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
-                                    @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
-                                        <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid thumb">
-                                    @else
-                                        <img src="{{ url('images/press.png') }}" class="img-fluid thumb-big">
-                                    @endif
-                                </a>
-                            </div>
-                            <h3 class="col-3 text-center mt-4 mb-3 text-uppercase">
-                                <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
-                                    {{ $accreditation[0]->user->profile->name }}
-                                </a>
-                            </h3>
+                        <div class="row">
+                            <div class="justify-content-start align-items-center flex-wrap py-2 mb-4">
+                                <div class="col-3"></div>
+                                <div class="col-2">
+                                    <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
+                                        @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
+                                            <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid thumb">
+                                        @else
+                                            <img src="{{ url('images/press.png') }}" class="img-fluid thumb-big">
+                                        @endif
+                                    </a>
+                                </div>
+                                <h3 class="col-3 text-center mt-4 mb-3 text-uppercase">
+                                    <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
+                                        {{ $accreditation[0]->user->profile->name }}
+                                    </a>
+                                </h3>
                             <div>
                             @foreach($accreditation->take(1) as $item)
                                 <div class="row justify-content-around align-items-center flex-wrap py-2">
@@ -41,7 +42,6 @@
                                 </div>
                             @endforeach
                             </div>
-                            <hr>
                         </div>
                     @endforeach
                 </div>
