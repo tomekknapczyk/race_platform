@@ -4,7 +4,7 @@
 <div class="container py-3">
     <div class="row justify-content-center overflow-auto">
         <div class="col-md-12">
-            <div class="card border-dark fixed-width">
+            <div class="card border-dark">
                 <div class="card-header bg-yellow d-flex justify-content-between align-items-center flex-wrap">
                     <div>
                         <a href="{{ url('media') }}" class="text-white">Akredytacje na rajd</a> : {{ $round->race->name }} : {{ $round->name }}
@@ -14,8 +14,8 @@
                     @foreach($accreditations as $accreditation)
                         <div class="row py-4">
                             <div class="d-flex col-12 justify-content-start align-items-center flex-wrap py-2 mb-4">
-                                <div class="col-3"></div>
-                                <div class="col-2">
+                                <div class="col-12 col-md-3"></div>
+                                <div class="col-12 col-md-2">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}"> 
                                         @if($accreditation[0]->user && $accreditation[0]->user->profile->file_id)
                                             <img src="{{ url('public/driver/thumb/', $accreditation[0]->user->profile->file->path) }}" class="img-fluid">
@@ -24,7 +24,7 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="col-3 text-center mt-4 mb-3 text-uppercase">
+                                <h3 class="col-12 col-md-3 text-center mt-4 mb-3 text-uppercase">
                                     <a href="{{ route('redakcja', $accreditation[0]->user->id) }}" class="text-dark"> 
                                         {{ $accreditation[0]->user->profile->name }}
                                     </a>
