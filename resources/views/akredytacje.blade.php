@@ -10,7 +10,7 @@
                         <a href="{{ url('media') }}" class="text-white">Akredytacje na rajd</a> : {{ $round->race->name }} : {{ $round->name }}
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body lista">
                     @foreach($accreditations as $accreditation)
                         <div class="row justify-content-start align-items-center flex-wrap py-2 mb-4">
                             <div class="col-3"></div>
@@ -28,19 +28,19 @@
                                     {{ $accreditation[0]->user->profile->name }}
                                 </a>
                             </h3>
-                        </div>
-                        <div class="lista">
-                        @foreach($accreditation->take(1) as $item)
-                            <div class="row justify-content-around align-items-center flex-wrap py-2">
-                                <h5 class="m-0 col-3">
-                                    {{ $item->staff->name }}<br>
-                                    <small>{{ $item->staff->type }}</small>
-                                </h5>
-                                <h5 class="m-0 col-3 text-center">
-                                    {{ $item->staff->email }}
-                                </h5>
+                            <div>
+                                @foreach($accreditation->take(1) as $item)
+                                    <div class="row justify-content-around align-items-center flex-wrap py-2">
+                                        <h5 class="m-0 col-3">
+                                            {{ $item->staff->name }}<br>
+                                            <small>{{ $item->staff->type }}</small>
+                                        </h5>
+                                        <h5 class="m-0 col-3 text-center">
+                                            {{ $item->staff->email }}
+                                        </h5>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
                         </div>
                         <hr>
                     @endforeach
