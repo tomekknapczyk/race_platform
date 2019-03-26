@@ -28,21 +28,21 @@
                                     {{ $accreditation[0]->user->profile->name }}
                                 </a>
                             </h3>
-                        </div>
-                        <div>
-                        @foreach($accreditation->take(1) as $item)
-                            <div class="row justify-content-around align-items-center flex-wrap py-2">
-                                <h5 class="m-0 col-3">
-                                    {{ $item->staff->name }}<br>
-                                    <small>{{ $item->staff->type }}</small>
-                                </h5>
-                                <h5 class="m-0 col-3 text-center">
-                                    {{ $item->staff->email }}
-                                </h5>
+                            <div>
+                            @foreach($accreditation->take(1) as $item)
+                                <div class="row justify-content-around align-items-center flex-wrap py-2">
+                                    <h5 class="m-0 col-6">
+                                        {{ $item->staff->name }}<br>
+                                        <small>{{ $item->staff->type }}</small>
+                                    </h5>
+                                    <h5 class="m-0 col-6 text-center">
+                                        {{ $item->staff->email }}
+                                    </h5>
+                                </div>
+                            @endforeach
                             </div>
-                        @endforeach
+                            <hr>
                         </div>
-                        <hr>
                     @endforeach
                 </div>
             </div>
