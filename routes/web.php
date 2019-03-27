@@ -106,6 +106,10 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('newRound/{id}', 'RaceController@newRound')->name('newRound');
     Route::get('round/{id}', 'RaceController@round')->name('round');
     Route::get('list/{id}', 'RaceController@list')->name('list');
+    Route::get('osy/{id}', 'RaceController@osy')->name('osy');
+    Route::post('saveOs', 'RaceController@saveOs')->name('saveOs');
+    Route::post('deleteOs', 'RaceController@deleteOs')->name('deleteOs');
+    Route::post('updateOs', 'RaceController@updateOs')->name('updateOs');
     Route::get('accreditations/{id}', 'RaceController@accreditations')->name('accreditations');
     
     Route::post('signFormStatus', 'SignController@signFormStatus')->name('signFormStatus');

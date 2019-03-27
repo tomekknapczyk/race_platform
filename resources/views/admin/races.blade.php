@@ -51,6 +51,7 @@
                                                 <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
                                             @else
                                                 <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
+                                                <a href="{{ url('osy', $round->id) }}" class="btn btn-sm btn-success">Os-y</a>
                                             @endif
                                                 <a href="{{ url('accreditations', $round->id) }}" class="btn btn-sm btn-primary">Akredytacje</a>
                                                 <a href="{{ url('editRound', $round->id) }}" class="btn btn-sm btn-info">Edytuj</a>

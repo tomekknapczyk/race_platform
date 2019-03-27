@@ -15,4 +15,14 @@ class Driver extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getNameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
 }

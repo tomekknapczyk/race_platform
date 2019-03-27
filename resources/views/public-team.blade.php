@@ -332,7 +332,21 @@
                                                     @foreach($round['crew'] as $crew)
                                                         <div class="row d-flex align-items-center justify-content-between flex-wrap m-0 py-2">
                                                             <h6 class="col-md-3 m-0">
-                                                                {{ $crew->sign->name }} {{ $crew->sign->lastname }}<br>
+                                                                {{-- {{ $crew->sign->name }} {{ $crew->sign->lastname }}<br> --}}
+                                                                @if($crew->user)
+                                                                    @if($crew->user->profile->show_name && $crew->user->profile->show_lastname)
+                                                                        <a href="{{ route('kierowca', [$crew->user->id, str_slug($crew->user->profile->name.'-'.$crew->user->profile->lastname)]) }}">
+                                                                    @elseif($crew->user->profile->show_lastname)
+                                                                        <a href="{{ route('kierowca', [$crew->user->id, $crew->user->profile->lastname]) }}">
+                                                                    @else
+                                                                        <a href="{{ route('kierowca', $crew->user->id) }}">
+                                                                    @endif
+                                                                        {{ $crew->sign->name }} {{ $crew->sign->lastname }}
+                                                                    </a>
+                                                                @else
+                                                                    {{ $crew->sign->name }} {{ $crew->sign->lastname }}
+                                                                @endif
+                                                                <br>
                                                                 @if($crew->sign->pilot)
                                                                     <small><strong>Pilot:</strong>
                                                                     @if($crew->sign->pilot->profile->show_name && $crew->sign->pilot->profile->show_lastname)

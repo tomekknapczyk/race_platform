@@ -43,7 +43,7 @@
                                             @if(isset($team['results']['rounds'][$round->id]))
                                                 <small>{{ $team['results']['rounds'][$round->id]['points'] }} pkt.</small>
                                             @else
-                                                <small>0 pkt.</small>
+                                                <small> -- </small>
                                             @endif
                                         </h6>
                                     @endforeach

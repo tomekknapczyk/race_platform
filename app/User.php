@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function pilotSigns()
     {
-        return $this->hasMany(Sign::class, 'pilot_id', 'id');
+        return $this->hasMany(Sign::class, 'pilot_email', 'email');
     }
 
     public function pilots()

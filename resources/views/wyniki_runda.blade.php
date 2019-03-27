@@ -62,38 +62,51 @@
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
                                             @endif
                                         </div>
-                                        <h6 class="m-0 col-3">
+                                        <h6 class="m-0 col-3 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                @if($position->user)
+                                                    @if($position->user->profile->show_name && $position->user->profile->show_lastname)
+                                                        <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
+                                                    @elseif($position->user->profile->show_lastname)
+                                                        <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}">
+                                                    @else
+                                                        <a href="{{ route('kierowca', $position->user->id) }}">
+                                                    @endif
+                                                        {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                                    </a>
+                                                @else
+                                                    {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                                @endif
+                                                <br>
+                                                @if($position->sign->pilot)
+                                                    <small><strong>Pilot:</strong>
+                                                    @if($position->sign->pilot->profile->show_name && $position->sign->pilot->profile->show_lastname)
+                                                        <a href="{{ route('pilot', [$position->sign->pilot->id, str_slug($position->sign->pilot->profile->name.'-'.$position->sign->pilot->profile->lastname)]) }}">
+                                                    @elseif($position->sign->pilot->profile->show_lastname)
+                                                        <a href="{{ route('pilot', [$position->sign->pilot->id, $position->sign->pilot->profile->lastname]) }}">
+                                                    @else
+                                                        <a href="{{ route('pilot', $position->sign->pilot->id) }}">
+                                                    @endif
+                                                        {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}
+                                                    </a></small>
+                                                @else
+                                                    <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
+                                                @endif
+                                                @if($position->sign->team)
+                                                    <br>
+                                                    <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
+                                                @endif
+                                            </div>
                                             @if($position->user)
                                                 @if($position->user->profile->show_name && $position->user->profile->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
+                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}#stats" class="btn btn-sm btn-warning">
                                                 @elseif($position->user->profile->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}">
+                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}#stats" class="btn btn-sm btn-warning">
                                                 @else
-                                                    <a href="{{ route('kierowca', $position->user->id) }}">
+                                                    <a href="{{ route('kierowca', $position->user->id) }}#stats" class="btn btn-sm btn-warning">
                                                 @endif
-                                                    {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                                    Statystyki
                                                 </a>
-                                            @else
-                                                {{ $position->sign->name }} {{ $position->sign->lastname }}
-                                            @endif
-                                            <br>
-                                            @if($position->sign->pilot)
-                                                <small><strong>Pilot:</strong>
-                                                @if($position->sign->pilot->profile->show_name && $position->sign->pilot->profile->show_lastname)
-                                                    <a href="{{ route('pilot', [$position->sign->pilot->id, str_slug($position->sign->pilot->profile->name.'-'.$position->sign->pilot->profile->lastname)]) }}">
-                                                @elseif($position->sign->pilot->profile->show_lastname)
-                                                    <a href="{{ route('pilot', [$position->sign->pilot->id, $position->sign->pilot->profile->lastname]) }}">
-                                                @else
-                                                    <a href="{{ route('pilot', $position->sign->pilot->id) }}">
-                                                @endif
-                                                    {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}
-                                                </a></small>
-                                            @else
-                                                <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
-                                            @endif
-                                            @if($position->sign->team)
-                                                <br>
-                                                <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
                                             @endif
                                         </h6>
                                         <div class="col-2 p-0">
@@ -106,12 +119,13 @@
                                                 <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
                                             @endif
                                         </div>
-                                        <h6 class="m-0 col-3">
-                                            {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
+                                        <h6 class="m-0 col-2">
+                                            {{ $position->sign->marka }} {{ $position->sign->model }}<br>{{ $position->sign->ccm }}ccm<br>
                                             <small>@if($position->sign->turbo) <strong>Turbo</strong> @endif @if($position->sign->rwd) <strong>RWD</strong> @endif</small>
                                         </h6>
-                                        <h6 class="m-0 col-2">
-                                            Miejsce {{ $position->rank() }}
+                                        <h6 class="m-0 col-3">
+                                            Poz. w klasie : <strong>{{ $position->sign->total_class_rank($round->id) }}</strong><br>
+                                            Poz. w generalce : <strong>{{ $position->sign->total_rank($round->id) }}</strong>
                                         </h6>
                                     </div>
                                 @endforeach

@@ -557,3 +557,8 @@ $(document).on('click', '#accept-cookies-checkbox', function(){
     WHCreateCookie('cookies_accepted', 'T', 365);
     document.getElementById('cookies-message-container').removeChild(document.getElementById('cookies-message'));
 });
+
+$(document).on('click', '.details-btn', function(){
+    $(this).find('.details').slideToggle(300);
+    $(this).find('.arrow_down').toggleClass('open');
+})

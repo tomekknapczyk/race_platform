@@ -120,35 +120,6 @@
                             </div>
 
                             <div class="row">
-                                {{-- <div class="col-lg-6 mt-4">
-                                    <div class="card border-0 shadow">
-                                        <div class="card-header bg-yellow">
-                                            Piloci
-                                        </div>
-                                        <div class="card-body pilots">
-                                            @if($user->pilots->count())
-                                                @foreach($user->pilots as $pilot)
-                                                    <div class="d-flex justify-content-start align-items-center flex-wrap py-2">
-                                                        <div class="col-md-5">
-                                                            @if($pilot->file_id)
-                                                                <img src="{{ url('/public/pilot', $pilot->file->path) }}" class="img-fluid">
-                                                            @else
-                                                                <img src="{{ url('/images/driver.png') }}" class="img-fluid">
-                                                            @endif
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            @if($pilot->show_name){{ $pilot->name }}@endif
-                                                            @if($pilot->show_lastname){{ $pilot->lastname }}@endif
-                                                            @if(!$pilot->show_lastname && !$pilot->show_name) Anonim @endif
-                                                            <p>@if($pilot->show_email){{ $pilot->email }}@endif</p>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="col-lg-12 mt-4">
                                     <div class="card border-0 shadow">
                                         <div class="card-header bg-yellow">
@@ -179,19 +150,19 @@
                                 </div>
                             </div>
                             
-                            <div class="card border-0 shadow mt-4">
+                            <div class="card border-0 shadow mt-4" id="stats">
                                 <div class="card-header bg-yellow">
                                     Rajdy
                                 </div>
                                 <div class="card-body lista p-0">
                                     @if($user->races->count())
                                         @foreach($user->races as $race)
-                                        <div class="row d-flex align-items-center justify-content-between flex-wrap m-0 py-3">
+                                        <div class="row d-flex align-items-center justify-content-between flex-wrap m-0 py-3 details-btn">
                                             <h6 class="col-md-4 m-0">
                                                 {{ $race->startList->round->name }} @if($race->startList->round->sub_name) - {{ $race->startList->round->sub_name }}@endif<br>
                                                 <small>{{ $race->startList->round->race->name }}</small></h5>
                                             </h6>
-                                            <h6 class="col-md-3 m-0">
+                                            <h6 class="col-md-2 m-0">
                                                 {{ $race->sign->name }} {{ $race->sign->lastname }}<br>
                                                 @if($race->sign->pilot)
                                                     <small><strong>Pilot:</strong>
@@ -212,9 +183,103 @@
                                                 {{ $race->sign->marka }} {{ $race->sign->model }}<br>
                                                 <small>{{ $race->sign->ccm }}ccm</small>
                                             </h6>
-                                            <h6 class="col-md-2 m-0">
-                                                Miejsce: {{ $race->rank() }}
+                                            <h6 class="col-md-3 m-0 d-flex align-items-center justify-content-between">
+                                                <div>
+                                                    Poz. w klasie {{ $race->sign->klasa }} :: <strong>{{ $race->sign->total_class_rank($race->startList->round->id) }}</strong>
+                                                    <br>
+                                                    Poz. w generalce :: <strong>{{ $race->sign->total_rank($race->startList->round->id) }}</strong>
+                                                </div>
+                                                @if($race->sign->result($race->startList->round->id))
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        Więcej<span class="arrow_down"></span>
+                                                    </div>
+                                                @endif
                                             </h6>
+                                            <div class="details col-sm-12 mt-2" style="display: none;">
+                                                @if($race->sign->result($race->startList->round->id))
+                                                    <div class="w-100 bg-white d-flex align-items-center small text-center py-1">
+                                                        <div class="col-md-1 px-1">
+                                                            <strong>Os</strong>
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            <strong>Łączny czas</strong>
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                            <strong>Kara</strong>
+                                                        </div>
+                                                        <div class="col-md-2 px-2">
+                                                            <strong>Strata do lidera w klasyfikacji generalnej</strong>
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                            <strong>Czas reakcji</strong>
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            <strong>Średnia prędkość</strong>
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                            <strong>Poz. w {{ $race->sign->klasa }}</strong>
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            <strong>Poz. w generalce</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="lista bg-secondary text-white"> 
+                                                    @foreach($race->startList->round->osy as $os)
+                                                        <div class="w-100 mx-0 py-2 row align-items-center text-monospace text-center">
+                                                            <div class="col-md-1 px-1">
+                                                                OS {{ $loop->iteration }}
+                                                            </div>
+                                                            <div class="col-md-2 px-1">
+                                                                {{ $race->sign->os($os->id)->brutto }}
+                                                            </div>
+                                                            <div class="col-md-1 px-1">
+                                                                {{ $race->sign->os($os->id)->penalty }}
+                                                            </div>
+                                                            <div class="col-md-2 px-1">
+                                                                {{ $race->sign->os($os->id)->leading_lose }}
+                                                            </div>
+                                                            <div class="col-md-1 px-1">
+                                                                {{ $race->sign->os($os->id)->reaction }}s
+                                                            </div>
+                                                            <div class="col-md-2 px-1">
+                                                                {{ $race->sign->os($os->id)->speed }}km/h
+                                                            </div>
+                                                            <div class="col-md-1 px-1">
+                                                                {{ $race->sign->os_class_rank($os->id) }}
+                                                            </div>
+                                                            <div class="col-md-2 px-1">
+                                                                {{ $race->sign->os_rank($os->id) }}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    </div>
+                                                    <div class="w-100 py-2 d-flex align-items-center border-top text-monospace text-center bg-dark text-white bg-dark text-white">
+                                                        <div class="col-md-1 px-1">
+                                                            Total
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            {{ $race->sign->result($race->startList->round->id)->brutto }}
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                            {{ $race->sign->result($race->startList->round->id)->penalty }}
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            {{ $race->sign->result($race->startList->round->id)->leading_lose }}
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            {{ $race->sign->result($race->startList->round->id)->speed }}km/h
+                                                        </div>
+                                                        <div class="col-md-1 px-1">
+                                                            {{ $race->sign->total_class_rank($race->startList->round->id) }}
+                                                        </div>
+                                                        <div class="col-md-2 px-1">
+                                                            {{ $race->sign->total_rank($race->startList->round->id) }}
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                         @endforeach
                                     @endif

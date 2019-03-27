@@ -138,10 +138,16 @@ class HomeController extends Controller
         if($race){
             $teams = \App\Team::get();
 
-            foreach ($teams as $team) {
+            foreach ($teams as $key => $team) {
                 $results = $team->race_results($id);
-                $team['results'] = $results;
-                $team['points'] = $results['points'];
+                if($results['rounds']){
+                    $team['results'] = $results;
+                    $team['points'] = $results['points'];
+                }
+                else{
+                    $teams->forget($key);
+                }
+                
             }
 
             $sorted_teams = $teams->sortByDesc(function ($team, $key) {

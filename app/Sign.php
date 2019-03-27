@@ -6,6 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sign extends Model
 {
+    public function getNameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
+    public function getPilotNameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
+    public function getPilotLastnameAttribute($value)
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
     public function form()
     {
         return $this->belongsTo(SignForm::class);
@@ -34,6 +54,72 @@ class Sign extends Model
     public function team()
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
+    public function os($os)
+    {
+        return OsData::where('sign_id', $this->id)->where('os_id', $os)->first();
+    }
+
+    public function result($round_id)
+    {
+        return RoundResult::where('sign_id', $this->id)->where('round_id', $round_id)->first();
+    }
+
+    public function os_class_rank($os)
+    {
+        $rank_klasa = OsData::where('klasa', $this->klasa)->where('os_id', $os)->orderBy('brutto_s', 'asc')->get();
+
+        $position = $rank_klasa->search(function ($person, $key){
+            return $person->sign_id == $this->id;
+        });
+
+        if($position !== false)
+            return $position + 1;
+
+        return "-";
+    }
+
+    public function os_rank($os)
+    {
+        $rank = OsData::where('os_id', $os)->orderBy('brutto_s', 'asc')->get();
+
+        $position = $rank->search(function ($person, $key){
+            return $person->sign_id == $this->id;
+        });
+
+        if($position !== false)
+            return $position + 1;
+
+        return "-";
+    }
+
+    public function total_class_rank($round)
+    {
+        $rank_klasa = RoundResult::where('klasa', $this->klasa)->where('round_id', $round)->orderBy('brutto_s', 'asc')->get();
+
+        $position = $rank_klasa->search(function ($person, $key){
+            return $person->sign_id == $this->id;
+        });
+
+        if($position !== false)
+            return $position + 1;
+
+        return "-";
+    }
+
+    public function total_rank($round)
+    {
+        $rank = RoundResult::where('round_id', $round)->orderBy('brutto_s', 'asc')->get();
+
+        $position = $rank->search(function ($person, $key){
+            return $person->sign_id == $this->id;
+        });
+
+        if($position !== false)
+            return $position + 1;
+
+        return "-";
     }
 
     public function race_points(Race $race)

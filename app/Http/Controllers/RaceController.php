@@ -416,6 +416,299 @@ class RaceController extends Controller
         return back()->with('warning', 'Runda nie istnieje');
     }
 
+    public function osy($id)
+    {
+        $round = Round::where('id', $id)->with('race')->first();
+
+        if(!$round->startList)
+            return redirect()->route('race', $round->race_id)->with('info', 'Lista os-ów jest niedostępna ponieważ nie została wygenerowana lista startowa.');
+
+        if($round)
+            return view('admin.osy', compact('round'));
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }
+
+    public function saveOs(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:rounds',
+            'length' => 'required|string|max:255',
+            'results' => 'required|file|max:10000',
+        ]);
+
+        $round = Round::where('id', $request->id)->first();
+        $length = floatval(str_replace(',', '.', $request->length));
+
+        $file = $request->results;
+        $originalName = $file->getClientOriginalName();
+        $name = $file->hashName();
+        $path = 'public/os/';
+
+        \Storage::put($path, $file);
+
+        $os = new \App\Os;
+        $os->round_id = $round->id;
+        $os->length = $length;
+        $os->path = $name;
+        $os->save();
+
+        $this->processResults($os);
+
+        $this->updatePlaces($round);
+
+        $this->updateTotalSpeed($round);
+
+        return back()->with('success', 'Os został dodany');
+    }
+
+    public function processResults(\App\Os $os)
+    {
+        if (($handle = fopen('public/os/'.$os->path, "r")) !== FALSE) {
+          while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+            $sign_id = $data[17];
+            $netto = $this->preprocessTime($data[9]);
+            $penalty = $this->preprocessTime($data[10]);
+            $brutto = $this->preprocessTime($data[11]);
+            $leading_lose = $this->preprocessTime($data[12]);
+            $next_lose = $this->preprocessTime($data[13]);
+            $reaction = floatval(str_replace(',', '.', $data[16]));
+            
+            $sign = \App\Sign::where('id', $sign_id)->first();
+            if($sign){
+                $result = new \App\OsData;
+                $result->os_id = $os->id;
+                $result->sign_id = $sign_id;
+                $result->netto = $netto;
+                $result->penalty = $penalty;
+                $result->brutto = $brutto;
+                $result->leading_lose = $leading_lose;
+                $result->next_lose = $next_lose;
+                $result->reaction = $reaction;
+                $result->speed = $this->calcSpeed($os->length, $this->timeToSecs($brutto));
+                $result->netto_s = $this->timeToSecs($netto);
+                $result->penalty_s = $this->timeToSecs($penalty);
+                $result->brutto_s = $this->timeToSecs($brutto);
+                $result->leading_lose_s = $this->timeToSecs($leading_lose);
+                $result->klasa = $sign->klasa;
+                $result->save();
+            }
+          }
+          fclose($handle);
+        }
+    }
+
+    protected function calcSpeed($length, $time)
+    {
+        $s = $time;
+
+        $speed = $length * 3600/$s;
+        return $speed;
+    }
+
+    protected function preprocessTime($time)
+    {
+        $new = str_replace(',', '.', $time);
+
+        if(substr_count($time,":") == 1)
+            return '00:'.$new;
+
+        return $new;
+    }
+
+    public function updatePlaces(Round $round)
+    {
+        $signs = [];
+        foreach ($round->osy as $os) {
+            foreach ($os->items as $item) {
+                if(!array_key_exists($item->sign_id, $signs)){
+                    $signs[$item->sign_id]['sign'] = $item->sign;
+                    $signs[$item->sign_id]['brutto'] = $this->timeToSecs($item->brutto);
+                    $signs[$item->sign_id]['penalty'] = $this->timeToSecs($item->penalty);
+                    $signs[$item->sign_id]['netto'] = $this->timeToSecs($item->netto);
+                    $signs[$item->sign_id]['leading_lose'] = $this->timeToSecs($item->leading_lose);
+                }
+                else{
+                    $signs[$item->sign_id]['brutto'] += $this->timeToSecs($item->brutto);
+                    $signs[$item->sign_id]['penalty'] += $this->timeToSecs($item->penalty);
+                    $signs[$item->sign_id]['netto'] += $this->timeToSecs($item->netto);
+                    $signs[$item->sign_id]['leading_lose'] += $this->timeToSecs($item->leading_lose);
+                }
+            }
+        }
+
+        foreach ($signs as $key => $value) {
+            $result = \App\RoundResult::where('round_id', $round->id)->where('sign_id', $key)->first();
+
+            if(!$result){
+                $result = new \App\RoundResult;
+                $result->round_id = $round->id;
+                $result->sign_id = $key;
+            }
+
+            $result->netto = $this->secsToTime($value['netto']);
+            $result->penalty = $this->secsToTime($value['penalty']);
+            $result->brutto = $this->secsToTime($value['brutto']);
+            $result->leading_lose = $this->secsToTime($value['leading_lose']);
+            $result->netto_s = $value['netto'];
+            $result->penalty_s = $value['penalty'];
+            $result->brutto_s = $value['brutto'];
+            $result->leading_lose_s = $value['leading_lose'];
+            $result->klasa = $value['sign']->klasa;
+            $result->save();
+        }
+
+        foreach ($round->results->groupBy('klasa') as $key => $value) {
+            $place = 1;
+            foreach ($value->take(8) as $value) {
+                $star_list_item = \App\StartListItem::where('sign_id', $value->sign_id)->first();
+                $star_list_item->points = $this->placeToPoints($place);
+                $star_list_item->save();
+                $place++;
+            }
+        };
+    }
+
+    public function placeToPoints($place)
+    {
+        switch ($place) {
+            case 1:
+                return 10;
+                break;
+            case 2:
+                return 8;
+                break;
+            case 3:
+                return 6;
+                break;
+            case 4:
+                return 5;
+                break;
+            case 5:
+                return 4;
+                break;
+            case 6:
+                return 3;
+                break;
+            case 7:
+                return 2;
+                break;
+            case 8:
+                return 1;
+                break;
+            default:
+                return '-';
+                break;
+        }
+    }
+
+    protected function timeToSecs($time)
+    {
+        if($time){
+            $time = explode(".", $time);
+            $miliseconds = $time[1];
+
+            $time = explode(":", $time[0]);
+
+            $total_sec = $time[0] * 3600 + $time[1] * 60 + $time[2];
+            $total = $total_sec.".".$miliseconds;
+
+            return (float)$total;
+        }
+        return 0;
+    }
+
+    protected function secsToTime($time)
+    {
+        if($time){
+            $time = explode(".", $time);
+            $miliseconds = sprintf("%02d", $time[1]);
+
+            $h = sprintf("%02d", floor($time[0]/3600));
+            $i = sprintf("%02d", floor($time[0]/60%60));
+            $s = sprintf("%02d", floor($time[0]%60));
+
+            $total = $h.":".$i.":".$s.".".$miliseconds;
+
+            return $total;
+        }
+        return 0;
+    }
+
+    public function deleteOs(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:os',
+        ]);
+
+        $os = \App\Os::where('id', $request->id)->first();
+
+        foreach ($os->items as $item) {
+            $item->delete();
+        }
+
+        \Storage::delete('public/os/'.$os->path);
+
+        $os->delete();
+
+        return back()->with('success', 'Os został usunięty');
+    }
+
+    public function updateOs(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:os',
+        ]);
+        $length = floatval(str_replace(',', '.', $request->length));
+
+        $os = \App\Os::where('id', $request->id)->first();
+        $os->length = $length;
+        $os->save();
+
+        $this->updateSpeed($os);
+        $this->updateTotalSpeed($os->round);
+
+        return back()->with('success', 'Os został zapisany');
+    }
+
+    protected function updateSpeed(\App\Os $os)
+    {
+        foreach ($os->items as $item) {
+            $speed = $this->calcSpeed($os->length, $this->timeToSecs($item->brutto));
+            $item->speed = $speed;
+            $item->save();
+        }
+    }
+
+    protected function updateTotalSpeed(Round $round)
+    {
+        $length = 0;
+        $signs = [];
+
+        foreach ($round->osy as $os) {
+            $length += $os->length;
+
+            foreach ($os->items as $item) {
+                if(!array_key_exists($item->sign_id, $signs)){
+                    $signs[$item->sign_id] = $this->timeToSecs($item->brutto);
+                }
+                else{
+                    $signs[$item->sign_id] += $this->timeToSecs($item->brutto);
+                }
+            }
+        }
+
+        foreach ($signs as $key => $value) {
+            $result = \App\RoundResult::where('round_id', $round->id)->where('sign_id', $key)->first();
+            if($result){
+                $speed = $this->calcSpeed($length, $value);
+
+                $result->speed = $speed;
+                $result->save();
+            }
+        }
+    }
+
     public function accreditations($id)
     {
         $round = Round::where('id', $id)->with('race')->first();
