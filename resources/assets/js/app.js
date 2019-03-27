@@ -559,6 +559,6 @@ $(document).on('click', '#accept-cookies-checkbox', function(){
 });
 
 $(document).on('click', '.details-btn', function(){
-    $(this).find('.details').slideToggle(300);
-    $(this).find('.arrow_down').toggleClass('open');
+    $(this).parent().find('.details').slideToggle(300);
+    $(this).parent().find('.arrow_down').toggleClass('open');
 })
