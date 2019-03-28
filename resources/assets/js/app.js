@@ -562,3 +562,7 @@ $(document).on('click', '.details-btn', function(){
     $(this).parent().find('.details').slideToggle(300);
     $(this).parent().find('.arrow_down').toggleClass('open');
 })
+
+$(document).on('click', '.switch-img', function(){
+    $(this).parent().toggleClass('no-images');
+})

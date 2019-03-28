@@ -13,6 +13,7 @@
                         <a href="{{ $round->details }}" target="_blank" rel="nofollow" class="btn btn-info btn-sm">Szczegółowe wyniki</a>
                     @endif
                 </div>
+                <button class="switch-img btn btn-default">UKRYJ ZDJĘCIA</button>
                 <div class="row justify-content-center align-items-center p-3">
                     <div class="filter-box">
                         <button class="search-clear btn btn-warning m-1 active">Wszyscy</button>

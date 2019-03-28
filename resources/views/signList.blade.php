@@ -8,6 +8,7 @@
                 <div class="card-header bg-yellow text-center">
                     <h3>{{ $round->race->name }}</a> : {{ $round->name }} - Lista zgłoszeń</h3>
                 </div>
+                <button class="switch-img btn btn-default">UKRYJ ZDJĘCIA</button>
                 <div class="row justify-content-center align-items-center p-3">
                     <div class="filter-box">
                         <button class="search-clear btn btn-warning m-1 active">Wszyscy</button>

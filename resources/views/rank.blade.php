@@ -8,6 +8,7 @@
                 <div class="card-header bg-yellow text-center">
                     <h3>Klasyfikacja Generalna: {{ $race->name }}</h3>
                 </div>
+                <button class="switch-img btn btn-default">UKRYJ ZDJĘCIA</button>
                 <div class="card-body">
                     @foreach($klasy as $klasa)
                         @php

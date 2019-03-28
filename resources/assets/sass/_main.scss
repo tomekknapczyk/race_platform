@@ -896,3 +896,7 @@ body{
         transform: rotate(180deg);
     }
 }
+
+.no-images img{
+    display: none;
+}
