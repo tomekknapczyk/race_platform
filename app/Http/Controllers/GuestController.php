@@ -128,7 +128,7 @@ class GuestController extends Controller
 
     public function wyniki()
     {
-        $races = \App\Race::with('rounds', 'rounds.startList')->get();
+        $races = \App\Race::with('rounds', 'rounds.startList')->latest()->get();
 
         return view('wyniki_over', compact('races'));
 
