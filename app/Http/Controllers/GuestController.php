@@ -220,7 +220,7 @@ class GuestController extends Controller
                     $team['points'] = $results;
                 }
                 else{
-                    $teams->forget($key);
+                    $teams->unset($key);
                 }
             }
 
