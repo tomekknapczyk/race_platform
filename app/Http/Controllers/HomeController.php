@@ -200,6 +200,46 @@ class HomeController extends Controller
         return '<option value="k4">K4</option>';
     }
 
+    public function getKlasaByNr(Request $request)
+    {
+        $this->validate($request, [
+            'car' => 'required|exists:cars,nr_rej',
+        ]);
+
+        $car = \App\Car::where('nr_rej', $request->car)->first();
+        $ccm = $car->ccm;
+
+        // if($car->turbo && $car->rwd)
+        //     return '<option value="k4">K4</option><option value="k7">K7</option>';
+
+        // if($car->turbo)
+        //     return '<option value="k4">K4</option>';
+
+        if($car->turbo){
+            if($car->diesel)
+                $ccm = $ccm * 1.4;
+            else
+                $ccm = $ccm * 1.7;
+        }
+
+        if($car->rwd)
+            if($ccm < 800)
+                return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option>';
+            else
+                return '<option value="k7">K7</option>';
+
+        if($ccm <= 1400)
+            return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option>';
+
+        if($ccm <= 1600)
+            return '<option value="k2">K2</option>';
+
+        if($ccm <= 2000)
+            return '<option value="k3">K3</option>';
+
+        return '<option value="k4">K4</option>';
+    }
+
     public function getPilot(Request $request)
     {
         $this->validate($request, [
@@ -207,6 +247,53 @@ class HomeController extends Controller
         ]);
 
         $pilot = \App\Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($pilot){
+            return response()->json($pilot);
+        }
+
+        return back()->with('warning', 'Pilot nie istnieje');
+    }
+
+    public function getPilotById(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+        ]);
+
+        $pilot = \App\User::where('id', $request->id)->where('driver', 0)->where('active', 1)->first();
+
+        if($pilot){
+            $sign = \App\Sign::where('pilot_id', $pilot->id)->where('form_id', $request->form)->first();
+
+            if(!$sign){
+                $profile = \App\Driver::where('user_id', $pilot->id)->first();
+                $profile->uid = $pilot->uid;
+                return response()->json($profile);
+            }
+            else
+                return 'blad';
+        }
+        else
+            return 'blad';
+
+        $pilot = \App\Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
+        
+        if($pilot){
+            return response()->json($pilot);
+        }
+
+        return back()->with('warning', 'Pilot nie istnieje');
+    }
+
+    public function getPilotByName(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|exists:pilots,name',
+            'lastname' => 'required|exists:pilots,lastname',
+        ]);
+
+        $pilot = \App\Pilot::where('name', $request->name)->where('lastname', $request->lastname)->where('user_id', auth()->user()->id)->first();
         
         if($pilot){
             return response()->json($pilot);
@@ -288,6 +375,21 @@ class HomeController extends Controller
         ]);
 
         $car = \App\Car::where('id', $request->id)->first();
+        
+        if($car){
+            return response()->json($car);
+        }
+
+        return back()->with('warning', 'Samochód nie istnieje');
+    }
+
+    public function getCarByNr(Request $request)
+    {
+        $this->validate($request, [
+            'car' => 'required|exists:cars,nr_rej',
+        ]);
+
+        $car = \App\Car::where('nr_rej', $request->car)->first();
         
         if($car){
             return response()->json($car);

@@ -13,35 +13,47 @@
                     @if($forms->count())
                         @foreach($forms as $form)
                             <div class="row justify-content-between align-items-center flex-wrap">
-                                <div class="col-md-6">
-                                    <h5 class="m-0">
-                                        {{ $form->round->name }} @if($form->round->sub_name) - {{ $form->round->sub_name }}@endif <a href="{{ route('rajd', $form->round->id) }}" class="ml-3 btn btn-sm btn-outline-primary">Szczegóły rajdu</a>
-                                        <br>
-                                        <small>{{ $form->round->race->name }}</small>
-                                        <br>
-                                        @if(auth()->user()->signed($form->id))
-                                            <span class="text-success mt-2 d-block">zgłoszenie wysłane</span>
-                                        @endif
-                                    </h5>
+                                <div class="col-md-4">
+                                    <h4>{{ $form->round->name }}
+                                        @if($form->round->sub_name)<br><small>{{ $form->round->sub_name }}</small>@endif
+                                    </h4>
+                                    <p class="my-1"><strong>{{ $form->round->date->format('Y-m-d H:i') }}</strong></p>
                                     @if(auth()->user()->driver != 2)
                                     <h6>
-                                        <p class="text-info mt-3 d-block">Koszt uczestnictwa <strong>{{ $form->round->price }} PLN.</strong></p>
+                                        <p class="text-info my-1 d-block">Koszt uczestnictwa <strong>{{ $form->round->price }} PLN.</strong></p>
                                         @if($form->round->advance) 
-                                            <p  class="text-info mt-3 d-block">Wymagana zaliczka <strong>{{ $form->round->advance }} PLN.</strong></p>
+                                            <p  class="text-info my-1 d-block">Wymagana zaliczka <strong>{{ $form->round->advance }} PLN.</strong></p>
                                         @endif
                                     </h6>
                                     @endif
+                                    @if(auth()->user()->signed($form->id))
+                                        <h6 class="text-success mt-1 d-block">Zgłoszenie wysłane</h6>
+                                    @endif
                                 </div>
-                                <strong class="col-md-2 text-center">{{ $form->round->date->format('Y-m-d H:i') }}</strong>
                                 @if(auth()->user()->signed($form->id))
-                                    <div class="col-md-4 text-right">
+                                    <div class="col-md-8 text-right">
+                                        <a href="{{ route('rajd', $form->round->id) }}" class="ml-3 btn btn-sm btn-outline-primary">Szczegóły rajdu</a>
+                                        @if(auth()->user()->driver == 1)
+                                            <button class="btn btn-sm btn-outline-info editSignUser" data-toggle="modal" data-target="#editSignUser" data-form-id="{{ $form->id }}" data-pilot-id="{{ auth()->user()->signId($form->id)->pilot_id }}" data-pilot-name="{{ auth()->user()->signId($form->id)->pilot_name }}" data-pilot-lastname="{{ auth()->user()->signId($form->id)->pilot_lastname }}" data-car="{{ auth()->user()->signId($form->id)->nr_rej }}">
+                                                Edytuj zgłoszenie
+                                            </button>
+                                        @elseif(auth()->user()->driver == 0)
+                                            <button class="btn btn-sm btn-outline-info editSignPilot" data-toggle="modal" data-target="#editSignPilot" data-id="{{ auth()->user()->signId($form->id)->id }}">
+                                                Edytuj zgłoszenie
+                                            </button>
+                                        @endif
                                         <a href="{{ url('register_form', $form->id) }}" class="btn btn-sm btn-outline-danger">Pobierz formularz</a>
                                         @if($form->round->file_id)
                                             <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
                                         @endif
+
+                                        <button class="btn btn-sm btn-outline-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ auth()->user()->signId($form->id)->id }}">
+                                            Usuń
+                                        </button>
                                     </div>
                                 @else
-                                    <div class="col-md-4 text-right">
+                                    <div class="col-md-8 text-right">
+                                        <a href="{{ route('rajd', $form->round->id) }}" class="ml-3 btn btn-sm btn-outline-primary">Szczegóły rajdu</a>
                                         @if(auth()->user()->driver == 1)
                                             @if(auth()->user()->ready())
                                                 <button class="btn btn-sm btn-outline-info signBtn" data-toggle="modal" data-target="#sign" data-id="{{ $form->id }}">Zgłoś swój udział</button>
@@ -133,10 +145,13 @@
 
 @if(auth()->user()->driver == 1)
     @include('modals.sign')
+    @include('modals.editSignUser')
 @elseif(auth()->user()->driver == 2)
     @include('modals.signPress')
     @include('modals.editSignPress')
 @else
     @include('modals.signPilot')
+    {{-- @include('modals.editSignPilot') --}}
 @endif
+@include('modals.deleteSign')
 @endsection

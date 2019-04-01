@@ -91,6 +91,20 @@ class User extends Authenticatable
         return false;
     }
 
+    public function signId($form_id)
+    {
+        $sign = false;
+        if(auth()->user()->driver == 1)
+            $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $form_id)->first();
+        elseif(auth()->user()->driver == 0)
+            $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $form_id)->first();
+
+        if($sign)
+            return $sign;
+
+        return false;
+    }
+
     public function onList($list_id)
     {
         $sign = StartListItem::where('email', auth()->user()->email)->where('start_list_id', $list_id)->first();

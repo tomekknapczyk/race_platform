@@ -168,6 +168,20 @@ $(document).on('change', '#sign_pilot', function(e){
     });
 })
 
+$(document).on('change', '#edit_sign_pilot', function(e){
+    var id = $(this).val();
+
+    $.ajax({
+        url: '/getPilot',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $.each(response, function(key, value){
+            $('#edit_pilot_' + key).val(value);
+        })
+    });
+})
+
 $(document).on('click', '#getDriver', function(e){
     e.preventDefault();
     var uid = $('#sign_driver_uid').val();
@@ -224,6 +238,31 @@ $(document).on('click', '#getPilotUid', function(e){
     });
 })
 
+$(document).on('click', '#edit_getPilotUid', function(e){
+    e.preventDefault();
+    var uid = $('#edit_sign_pilot_uid').val();
+    if(!uid)
+        var uid = $('#edit_saved').val();
+    var form = $('#edit_form_id').val();
+
+    $.ajax({
+        url: '/getPilotUid',
+        method: 'POST',
+        data: {uid: uid, form: form},
+    }).done(function(response){
+        $('#edit_noPilot').remove();
+        if(response != 'blad'){
+            $.each(response, function(key, value){
+                $('#edit_pilot_' + key).val(value);
+            });
+        }
+        else
+        {
+            $('#edit_pilot_uid_container').append('<p class="text-danger" id="edit_noPilot">Pilot nie istnieje lub jest już zgłoszony</p>');
+        }
+    });
+})
+
 $(document).on('change', '#sign_car', function(){
     var id = $(this).val();
 
@@ -257,6 +296,39 @@ $(document).on('change', '#sign_car', function(){
     });
 })
 
+$(document).on('change', '#edit_sign_car', function(){
+    var id = $(this).val();
+
+    $.ajax({
+        url: '/getCar',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $.each(response, function(key, value){
+            $('#edit_car_' + key).val(value);
+        })
+
+        $.each(response, function(key, value){
+            var check = false;
+            
+            if(value == 1)
+                check = true;
+
+            $('.car_' + key).attr("checked", check);
+            $('.car_' + key).val(value);
+        })
+    });
+
+    $.ajax({
+        url: '/getKlasa',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $('#edit_sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
+        $('#edit_sign_klasa').append(response);
+    });
+})
+
 $(document).on('click', '.editSign', function(){
     var id = $(this).data('id');
     $('#sign_id').val(id);
@@ -279,6 +351,70 @@ $(document).on('click', '.editSign', function(){
 
         $('#' + key).attr("checked", check);
     })
+})
+
+$(document).on('click', '.editSignUser', function(){
+    var form_id = $(this).data('form-id');
+    var pilot = $(this).data('pilot-id');
+
+    var name = $(this).data('pilot-name');
+    var lastname = $(this).data('pilot-lastname');
+
+    var car = $(this).data('car');
+    $('#edit_form_id').val(form_id);
+
+    if(pilot){
+        $.ajax({
+            url: '/getPilotById',
+            method: 'POST',
+            data: {id: pilot},
+        }).done(function(response){
+            $('#edit_saved option[value="'+response.uid+'"]').attr('selected', 'selected');
+            $.each(response, function(key, value){
+                $('#edit_pilot_' + key).val(value);
+            })
+        });
+    }
+    else{
+        $.ajax({
+            url: '/getPilotByName',
+            method: 'POST',
+            data: {name: name, lastname: lastname},
+        }).done(function(response){
+            $.each(response, function(key, value){
+                $('#edit_pilot_' + key).val(value);
+            })
+        });
+    }
+
+    $.ajax({
+        url: '/getCarByNr',
+        method: 'POST',
+        data: {car: car},
+    }).done(function(response){
+        $.each(response, function(key, value){
+            $('#edit_car_' + key).val(value);
+        })
+
+        $.each(response, function(key, value){
+            var check = false;
+            
+            if(value == 1)
+                check = true;
+
+            $('.car_' + key).attr("checked", check);
+            $('.car_' + key).val(value);
+        })
+    });
+
+    $.ajax({
+        url: '/getKlasaByNr',
+        method: 'POST',
+        data: {car: car},
+    }).done(function(response){
+        $('#edit_sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
+        $('#edit_sign_klasa').append(response);
+    });
 })
 
 $(document).on('click', '.cancelSign', function(){

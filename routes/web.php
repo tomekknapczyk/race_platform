@@ -42,14 +42,20 @@ Route::get('rank2016', function(){
 });
 Route::get('register_form/{id}', 'HomeController@register_form')->name('register_form');
 Route::post('getKlasa', 'HomeController@getKlasa')->name('getKlasa');
+Route::post('getKlasaByNr', 'HomeController@getKlasaByNr')->name('getKlasa');
 Route::post('getPilot', 'HomeController@getPilot')->name('getPilot');
+Route::post('getPilotByName', 'HomeController@getPilotByName')->name('getPilotByName');
+Route::post('getPilotById', 'HomeController@getPilotById')->name('getPilotById');
 Route::post('getDriver', 'HomeController@getDriver')->name('getDriver');
 Route::post('getPilotUid', 'HomeController@getPilotUid')->name('getPilotUid');
 Route::post('getCar', 'HomeController@getCar')->name('getCar');
+Route::post('getCarByNr', 'HomeController@getCarByNr')->name('getCar');
 Route::post('sign', 'SignController@sign')->name('sign');
+Route::post('editSignUser', 'SignController@editSignUser')->name('editSignUser');
 Route::post('signPress', 'SignController@signPress')->name('signPress');
 Route::post('editSignPress', 'SignController@editSignPress')->name('editSignPress');
 Route::post('editSignPressAdmin', 'SignController@editSignPressAdmin')->name('editSignPressAdmin');
+Route::post('deleteSign', 'SignController@deleteSign')->name('deleteSign');
 Route::post('getStaff', 'SignController@getStaff')->name('getStaff');
 Route::get('accreditation_pdf/{id}', 'SignController@accreditation_pdf')->name('accreditation_pdf');
 
@@ -116,7 +122,6 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('editSign', 'SignController@editSign')->name('editSign');
     Route::post('addSign', 'SignController@addSign')->name('addSign');
     Route::post('cancelSign', 'SignController@cancelSign')->name('cancelSign');
-    Route::post('deleteSign', 'SignController@deleteSign')->name('deleteSign');
     Route::post('enableSign', 'SignController@enableSign')->name('enableSign');
     Route::post('update-position', 'SignController@updatePosition')->name('updatePosition');
 
