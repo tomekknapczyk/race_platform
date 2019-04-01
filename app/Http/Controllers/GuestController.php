@@ -212,8 +212,6 @@ class GuestController extends Controller
                     if(!in_array($result->sign->team, $teams))
                         $teams[] = $result->sign->team;
                 }
-
-
             }
 
             foreach ($teams as $key => $team) {

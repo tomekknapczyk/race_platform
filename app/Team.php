@@ -106,7 +106,7 @@ class Team extends Model
 
     public function round_results($round_id)
     {
-        $round = Round::where('id', $round_id)->first()
+        $round = Round::where('id', $round_id)->first();
 
         $points = 0;
 
