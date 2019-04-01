@@ -101,22 +101,23 @@ class Team extends Model
             }
         }
 
-       return $best;
+        return $best;
     }
 
     public function round_results($round_id)
     {
         $round = Round::where('id', $round_id)->first();
+        $best['points'] = 0;
+        $best['rounds'] = 0;
 
-        $points = 0;
-
-        $crews = $this->crews($round_id);
+        $crews = $this->crews($round->startList->id);
         $min = $round->race->minTeam;
         if($crews->count() >= $min){
-            $points = $crews->where('points', '>', 0)->orderBy('points', 'desc')->take(2)->get()->sum('points');
+            $best['rounds'] = 1;
+            $best['points'] = $crews->where('points', '>', 0)->orderBy('points', 'desc')->take(2)->get()->sum('points');
         }
 
-       return $points;
+        return $best;
     }
 
     public function round($id)

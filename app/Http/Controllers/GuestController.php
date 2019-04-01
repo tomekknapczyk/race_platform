@@ -216,17 +216,15 @@ class GuestController extends Controller
 
             foreach ($teams as $key => $team) {
                 $results = $team->round_results($id);
-                if($results){
+                if($results['rounds']){
                     $team['points'] = $results;
                 }
                 else{
-                    $teams->unset($key);
+                    unset($teams[$key]);
                 }
             }
 
-            $teams = $teams->sortByDesc(function ($team, $key) {
-                return $team['points'];
-            });
+            usort($teams, array($this, "compare"));
 
             $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
             
@@ -234,6 +232,11 @@ class GuestController extends Controller
         }
 
         return back()->with('warning', 'Lista startowa nie istnieje');
+    }
+
+    public function compare($a, $b)
+    {
+       return ($a['points']< $b['points']);
     }
 
     public function rank_frame(Request $request)
