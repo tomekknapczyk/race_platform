@@ -104,6 +104,21 @@ class Team extends Model
        return $best;
     }
 
+    public function round_results($round_id)
+    {
+        $round = Round::where('id', $round_id)->first()
+
+        $points = 0;
+
+        $crews = $this->crews($round_id);
+        $min = $round->race->minTeam;
+        if($crews->count() >= $min){
+            $points = $crews->where('points', '>', 0)->orderBy('points', 'desc')->take(2)->get()->sum('points');
+        }
+
+       return $points;
+    }
+
     public function round($id)
     {
         return $this->hasMany(StartListItem::class)->where('start_list_id', $id);

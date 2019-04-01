@@ -212,7 +212,23 @@ class GuestController extends Controller
                     if(!in_array($result->sign->team, $teams))
                         $teams[] = $result->sign->team;
                 }
+
+
             }
+
+            foreach ($teams as $key => $team) {
+                $results = $team->round_results($id);
+                if($results){
+                    $team['points'] = $results;
+                }
+                else{
+                    $teams->forget($key);
+                }
+            }
+
+            $teams = $teams->sortByDesc(function ($team, $key) {
+                return $team['points'];
+            });
 
             $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
             
