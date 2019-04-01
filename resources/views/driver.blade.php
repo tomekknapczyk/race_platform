@@ -189,14 +189,14 @@
                                                     <br>
                                                     Poz. w generalce :: <strong>{{ $race->sign->total_rank($race->startList->round->id) }}</strong>
                                                 </div>
-                                                @if($race->sign->result($race->startList->round->id))
+                                                @if($race->sign->osData($race->startList->round))
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         Więcej<span class="arrow_down"></span>
                                                     </div>
                                                 @endif
                                             </h6>
                                             <div class="details col-sm-12 mt-2 overflow-auto" style="display: none;">
-                                                @if($race->sign->result($race->startList->round->id))
+                                                @if($race->sign->osData($race->startList->round))
                                                     <div class="fixed-width bg-white d-flex align-items-center small text-center py-1">
                                                         <div class="col-1 px-1">
                                                             <strong>Os</strong>
@@ -229,55 +229,59 @@
                                                             <div class="col-1 px-1">
                                                                 OS {{ $loop->iteration }}
                                                             </div>
-                                                            <div class="col-2 px-1">
-                                                                {{ $race->sign->os($os->id)->brutto }}
-                                                            </div>
-                                                            <div class="col-1 px-1">
-                                                                {{ $race->sign->os($os->id)->penalty }}
-                                                            </div>
-                                                            <div class="col-2 px-1">
-                                                                {{ $race->sign->os($os->id)->leading_lose }}
-                                                            </div>
-                                                            <div class="col-1 px-1">
-                                                                {{ $race->sign->os($os->id)->reaction }}s
-                                                            </div>
-                                                            <div class="col-2 px-1">
-                                                                {{ $race->sign->os($os->id)->speed }}km/h
-                                                            </div>
-                                                            <div class="col-1 px-1">
-                                                                {{ $race->sign->os_class_rank($os->id) }}
-                                                            </div>
-                                                            <div class="col-2 px-1">
-                                                                {{ $race->sign->os_rank($os->id) }}
-                                                            </div>
+                                                            @if($race->sign->os($os->id))
+                                                                <div class="col-2 px-1">
+                                                                    {{ $race->sign->os($os->id)->brutto }}
+                                                                </div>
+                                                                <div class="col-1 px-1">
+                                                                    {{ substr($race->sign->os($os->id)->penalty,3,5) }}
+                                                                </div>
+                                                                <div class="col-2 px-1">
+                                                                    {{ $race->sign->os($os->id)->leading_lose }}
+                                                                </div>
+                                                                <div class="col-1 px-1">
+                                                                    {{ $race->sign->os($os->id)->reaction }}s
+                                                                </div>
+                                                                <div class="col-2 px-1">
+                                                                    {{ $race->sign->os($os->id)->speed }}km/h
+                                                                </div>
+                                                                <div class="col-1 px-1">
+                                                                    {{ $race->sign->os_class_rank($os->id) }}
+                                                                </div>
+                                                                <div class="col-2 px-1">
+                                                                    {{ $race->sign->os_rank($os->id) }}
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     @endforeach
                                                     </div>
-                                                    <div class="fixed-width py-2 d-flex align-items-center border-top text-monospace text-center bg-dark text-white bg-dark text-white">
-                                                        <div class="col-1 px-1">
-                                                            Total
+                                                    @if($race->sign->result($race->startList->round->id))
+                                                        <div class="fixed-width py-2 d-flex align-items-center border-top text-monospace text-center bg-dark text-white bg-dark text-white">
+                                                            <div class="col-1 px-1">
+                                                                Total
+                                                            </div>
+                                                            <div class="col-2 px-1">
+                                                                {{ $race->sign->result($race->startList->round->id)->brutto }}
+                                                            </div>
+                                                            <div class="col-1 px-1">
+                                                                {{ substr($race->sign->result($race->startList->round->id)->penalty,3,5) }}
+                                                            </div>
+                                                            <div class="col-2 px-1">
+                                                                {{ $race->sign->result($race->startList->round->id)->leading_lose }}
+                                                            </div>
+                                                            <div class="col-1 px-1">
+                                                            </div>
+                                                            <div class="col-2 px-1">
+                                                                {{ $race->sign->result($race->startList->round->id)->speed }}km/h
+                                                            </div>
+                                                            <div class="col-1 px-1">
+                                                                {{ $race->sign->total_class_rank($race->startList->round->id) }}
+                                                            </div>
+                                                            <div class="col-2 px-1">
+                                                                {{ $race->sign->total_rank($race->startList->round->id) }}
+                                                            </div>
                                                         </div>
-                                                        <div class="col-2 px-1">
-                                                            {{ $race->sign->result($race->startList->round->id)->brutto }}
-                                                        </div>
-                                                        <div class="col-1 px-1">
-                                                            {{ $race->sign->result($race->startList->round->id)->penalty }}
-                                                        </div>
-                                                        <div class="col-2 px-1">
-                                                            {{ $race->sign->result($race->startList->round->id)->leading_lose }}
-                                                        </div>
-                                                        <div class="col-1 px-1">
-                                                        </div>
-                                                        <div class="col-2 px-1">
-                                                            {{ $race->sign->result($race->startList->round->id)->speed }}km/h
-                                                        </div>
-                                                        <div class="col-1 px-1">
-                                                            {{ $race->sign->total_class_rank($race->startList->round->id) }}
-                                                        </div>
-                                                        <div class="col-2 px-1">
-                                                            {{ $race->sign->total_rank($race->startList->round->id) }}
-                                                        </div>
-                                                    </div>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

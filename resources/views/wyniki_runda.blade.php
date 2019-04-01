@@ -39,10 +39,10 @@
                                 @foreach($endPositions->where('klasa', $klasa) as $position)
                                     <div class="row justify-content-between align-items-center flex-wrap py-2">
                                         <div class="col-1 p-0 pr-1">
-                                            @if($position->user && $position->user->profile->file_id)
+                                            @if($position->sign->user && $position->sign->user->profile->file_id)
                                                 <div class="img_with_hover">
-                                                    <img src="{{ url('public/driver/thumb/', $position->user->profile->file->path) }}" class="img-fluid thumb">
-                                                    <img src="{{ url('public/driver/thumb/', $position->user->profile->file->path) }}" class="img-fluid hovered">
+                                                    <img src="{{ url('public/driver/thumb/', $position->sign->user->profile->file->path) }}" class="img-fluid thumb">
+                                                    <img src="{{ url('public/driver/thumb/', $position->sign->user->profile->file->path) }}" class="img-fluid hovered">
                                                 </div>
                                             @else
                                                 <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
@@ -65,13 +65,13 @@
                                         </div>
                                         <h6 class="m-0 col-3 d-flex align-items-center justify-content-between">
                                             <div>
-                                                @if($position->user)
-                                                    @if($position->user->profile->show_name && $position->user->profile->show_lastname)
-                                                        <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}">
-                                                    @elseif($position->user->profile->show_lastname)
-                                                        <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}">
+                                                @if($position->sign && $position->sign->user)
+                                                    @if($position->sign->user->profile->show_name && $position->sign->user->profile->show_lastname)
+                                                        <a href="{{ route('kierowca', [$position->sign->user->id, str_slug($position->sign->user->profile->name.'-'.$position->sign->user->profile->lastname)]) }}">
+                                                    @elseif($position->sign->user->profile->show_lastname)
+                                                        <a href="{{ route('kierowca', [$position->sign->user->id, $position->sign->user->profile->lastname]) }}">
                                                     @else
-                                                        <a href="{{ route('kierowca', $position->user->id) }}">
+                                                        <a href="{{ route('kierowca', $position->sign->user->id) }}">
                                                     @endif
                                                         {{ $position->sign->name }} {{ $position->sign->lastname }}
                                                     </a>
@@ -98,13 +98,13 @@
                                                     <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
                                                 @endif
                                             </div>
-                                            @if($position->user)
-                                                @if($position->user->profile->show_name && $position->user->profile->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, str_slug($position->user->profile->name.'-'.$position->user->profile->lastname)]) }}#stats" class="btn btn-sm btn-warning">
-                                                @elseif($position->user->profile->show_lastname)
-                                                    <a href="{{ route('kierowca', [$position->user->id, $position->user->profile->lastname]) }}#stats" class="btn btn-sm btn-warning">
+                                            @if($position->sign && $position->sign->user)
+                                                @if($position->sign->user->profile->show_name && $position->sign->user->profile->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->sign->user->id, str_slug($position->sign->user->profile->name.'-'.$position->sign->user->profile->lastname)]) }}#stats" class="btn btn-sm btn-warning">
+                                                @elseif($position->sign->user->profile->show_lastname)
+                                                    <a href="{{ route('kierowca', [$position->sign->user->id, $position->sign->user->profile->lastname]) }}#stats" class="btn btn-sm btn-warning">
                                                 @else
-                                                    <a href="{{ route('kierowca', $position->user->id) }}#stats" class="btn btn-sm btn-warning">
+                                                    <a href="{{ route('kierowca', $position->sign->user->id) }}#stats" class="btn btn-sm btn-warning">
                                                 @endif
                                                     Statystyki
                                                 </a>

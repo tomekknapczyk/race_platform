@@ -63,4 +63,9 @@ class StartListItem extends Model
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
+
+    public function result()
+    {
+        return $this->hasMany(OsData::class, 'sign_id', 'sign_id');
+    }
 }

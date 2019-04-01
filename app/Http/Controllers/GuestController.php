@@ -185,11 +185,18 @@ class GuestController extends Controller
 
         if($round){
             $start_list_id = $round->startList->id;
-            $endPositions = $round->endPositions($start_list_id)->load('user.profile.file', 'sign.car.file');
+            
+            $ukonczyli = [];
+            $osy = $round->osy->count();
+
+            foreach ($round->startPositions($start_list_id) as $key => $value) {                
+                if($value->result->count() == $osy)
+                    $ukonczyli[] = $value->sign_id;
+            }
+            $endPositions = $round->results->whereIn('sign_id', $ukonczyli)->load('sign.user.profile.file', 'sign.car.file');
             $is_someone = $endPositions->count();
             $class = $endPositions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
-            // $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
             $order = explode(',', $round->order);
 
             usort($class, function ($a, $b) use ($order) {
@@ -200,10 +207,10 @@ class GuestController extends Controller
 
             $teams = [];
 
-            foreach ($endPositions as $sign) {
-                if($sign->team){
-                    if(!in_array($sign->team, $teams))
-                        $teams[] = $sign->team;
+            foreach ($endPositions as $result) {
+                if($result->sign->team){
+                    if(!in_array($result->sign->team, $teams))
+                        $teams[] = $result->sign->team;
                 }
             }
 

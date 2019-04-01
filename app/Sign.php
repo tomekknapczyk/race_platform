@@ -61,6 +61,12 @@ class Sign extends Model
         return OsData::where('sign_id', $this->id)->where('os_id', $os)->first();
     }
 
+    public function osData(\App\Round $round)
+    {
+        $osy = $round->osy->pluck('id')->toArray();
+        return OsData::where('sign_id', $this->id)->whereIn('os_id', $osy)->count();
+    }
+
     public function result($round_id)
     {
         return RoundResult::where('sign_id', $this->id)->where('round_id', $round_id)->first();

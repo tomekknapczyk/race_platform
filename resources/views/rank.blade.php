@@ -61,7 +61,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-3 p-1">
-                                                    @if($position->sign->pilot && $position->sign->pilot->profile->file_id)
+                                                    @if($position->sign->pilot && $position->sign->pilot->profile && $position->sign->pilot->profile->file_id)
                                                         <div class="img_with_hover">
                                                             <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
                                                             <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid hovered">
@@ -92,7 +92,7 @@
                                                         {{ $position->sign->name }} {{ $position->sign->lastname }}
                                                     @endif
                                                     <br>
-                                                    @if($position->sign->pilot)
+                                                    @if($position->sign->pilot && $position->sign->pilot->profile)
                                                         <small><strong>Pilot:</strong>
                                                         @if($position->sign->pilot->profile->show_name && $position->sign->pilot->profile->show_lastname)
                                                             <a href="{{ route('pilot', [$position->sign->pilot->id, str_slug($position->sign->pilot->profile->name.'-'.$position->sign->pilot->profile->lastname)]) }}">

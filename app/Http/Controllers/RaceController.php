@@ -519,9 +519,12 @@ class RaceController extends Controller
     public function updatePlaces(Round $round)
     {
         $signs = [];
+        $osy = $round->osy->count();
+
         foreach ($round->osy as $os) {
             foreach ($os->items as $item) {
                 if(!array_key_exists($item->sign_id, $signs)){
+                    $signs[$item->sign_id]['os'] = 1;
                     $signs[$item->sign_id]['sign'] = $item->sign;
                     $signs[$item->sign_id]['brutto'] = $this->timeToSecs($item->brutto);
                     $signs[$item->sign_id]['penalty'] = $this->timeToSecs($item->penalty);
@@ -529,6 +532,7 @@ class RaceController extends Controller
                     $signs[$item->sign_id]['leading_lose'] = $this->timeToSecs($item->leading_lose);
                 }
                 else{
+                    $signs[$item->sign_id]['os']++;
                     $signs[$item->sign_id]['brutto'] += $this->timeToSecs($item->brutto);
                     $signs[$item->sign_id]['penalty'] += $this->timeToSecs($item->penalty);
                     $signs[$item->sign_id]['netto'] += $this->timeToSecs($item->netto);
@@ -537,26 +541,31 @@ class RaceController extends Controller
             }
         }
 
-        foreach ($signs as $key => $value) {
-            $result = \App\RoundResult::where('round_id', $round->id)->where('sign_id', $key)->first();
+        \App\RoundResult::where('round_id', $round->id)->delete();
 
-            if(!$result){
+        foreach ($signs as $key => $value) {
+            if($value['os'] == $osy){ 
                 $result = new \App\RoundResult;
                 $result->round_id = $round->id;
                 $result->sign_id = $key;
+                $result->netto = $this->secsToTime($value['netto']);
+                $result->penalty = $this->secsToTime($value['penalty']);
+                $result->brutto = $this->secsToTime($value['brutto']);
+                $result->leading_lose = $this->secsToTime($value['leading_lose']);
+                $result->netto_s = $value['netto'];
+                $result->penalty_s = $value['penalty'];
+                $result->brutto_s = $value['brutto'];
+                $result->leading_lose_s = $value['leading_lose'];
+                $result->klasa = $value['sign']->klasa;
+                $result->save();
             }
-
-            $result->netto = $this->secsToTime($value['netto']);
-            $result->penalty = $this->secsToTime($value['penalty']);
-            $result->brutto = $this->secsToTime($value['brutto']);
-            $result->leading_lose = $this->secsToTime($value['leading_lose']);
-            $result->netto_s = $value['netto'];
-            $result->penalty_s = $value['penalty'];
-            $result->brutto_s = $value['brutto'];
-            $result->leading_lose_s = $value['leading_lose'];
-            $result->klasa = $value['sign']->klasa;
-            $result->save();
         }
+
+        $lista = \App\StartListItem::where('start_list_id', $round->startList->id)->get();
+        foreach ($lista as $value) {
+            $value->points = 0;
+            $value->save();
+        };
 
         foreach ($round->results->groupBy('klasa') as $key => $value) {
             $place = 1;
@@ -621,7 +630,7 @@ class RaceController extends Controller
     protected function secsToTime($time)
     {
         if($time){
-            $time = explode(".", $time);
+            $time = explode(".", number_format((float)$time, 2, '.', ''));
             $miliseconds = sprintf("%02d", $time[1]);
 
             $h = sprintf("%02d", floor($time[0]/3600));
@@ -648,8 +657,12 @@ class RaceController extends Controller
         }
 
         \Storage::delete('public/os/'.$os->path);
-
+        $round = $os->round;
         $os->delete();
+
+        $this->updatePlaces($round);
+
+        $this->updateTotalSpeed($round);
 
         return back()->with('success', 'Os został usunięty');
     }
