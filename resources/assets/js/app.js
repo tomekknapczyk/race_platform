@@ -766,6 +766,7 @@ $('.search-class').click(function(){
     $('.wszyscy').show();
     $('.teamy').hide();
     $('.press').hide();
+    $('.generalka').hide();
 })
 
 $('.search-clear').click(function(){
@@ -775,6 +776,7 @@ $('.search-clear').click(function(){
     $('.wszyscy').show();
     $('.teamy').hide();
     $('.press').hide();
+    $('.generalka').hide();
 })
 
 $('.search-team').click(function(){
@@ -783,6 +785,16 @@ $('.search-team').click(function(){
     $('.teamy').show();
     $('.wszyscy').hide();
     $('.press').hide();
+    $('.generalka').hide();
+})
+
+$('.search-generalka').click(function(){
+    $('.filter-box .active').removeClass('active');
+    $(this).addClass('active');
+    $('.generalka').show();
+    $('.wszyscy').hide();
+    $('.press').hide();
+    $('.teamy').hide();
 })
 
 $('.search-press').click(function(){
@@ -791,6 +803,7 @@ $('.search-press').click(function(){
     $('.press').show();
     $('.teamy').hide();
     $('.wszyscy').hide();
+    $('.generalka').hide();
 })
 
 

@@ -25,6 +25,7 @@
                         <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
                         <button class="search-team btn btn-warning m-1">Teamy</button>
+                        <button class="search-generalka btn btn-warning m-1">Generalka</button>
                         @if($accreditations->count())
                             <button class="search-press btn btn-warning m-1">Media</button>
                         @endif
@@ -263,6 +264,106 @@
                             </div>
                         @endforeach
                     @endif
+                </div>
+
+                <div class="card-body generalka" style="display: none;">
+                    <h2 class="text-center mb-0 text-uppercase">Klasyfikacja generalna</h2>
+                    <div class="lista"> 
+                        @foreach($endPositions as $position)
+                            <div class="row justify-content-between align-items-center flex-wrap py-2">
+                                <div class="col-1 p-0 pr-1">
+                                    @if($position->sign->user && $position->sign->user->profile->file_id)
+                                        <div class="img_with_hover">
+                                            <img src="{{ url('public/driver/thumb/', $position->sign->user->profile->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/driver/thumb/', $position->sign->user->profile->file->path) }}" class="img-fluid hovered">
+                                        </div>
+                                    @else
+                                        <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                    @endif
+                                </div>
+                                <div class="col-1 p-0 pl-1">
+                                    @if($position->sign->pilot && $position->sign->pilot->profile && $position->sign->pilot->profile->file_id)
+                                        <div class="img_with_hover">
+                                            <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/driver/thumb/', $position->sign->pilot->profile->file->path) }}" class="img-fluid hovered">
+                                        </div>
+                                    @elseif($position->sign->pilot_email && $position->sign->pilotSimple && $position->sign->pilotSimple->file_id)
+                                        <div class="img_with_hover">
+                                            <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/pilot/thumb/', $position->sign->pilotSimple->file->path) }}" class="img-fluid hovered">
+                                        </div>
+                                    @else
+                                        <img src="{{ url('images/driver.png') }}" class="img-fluid thumb">
+                                    @endif
+                                </div>
+                                <h6 class="m-0 col-3 d-flex align-items-center justify-content-between">
+                                    <div>
+                                        @if($position->sign && $position->sign->user)
+                                            @if($position->sign->user->profile->show_name && $position->sign->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$position->sign->user->id, str_slug($position->sign->user->profile->name.'-'.$position->sign->user->profile->lastname)]) }}">
+                                            @elseif($position->sign->user->profile->show_lastname)
+                                                <a href="{{ route('kierowca', [$position->sign->user->id, $position->sign->user->profile->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('kierowca', $position->sign->user->id) }}">
+                                            @endif
+                                                {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                            </a>
+                                        @else
+                                            {{ $position->sign->name }} {{ $position->sign->lastname }}
+                                        @endif
+                                        <br>
+                                        @if($position->sign->pilot && $position->sign->pilot->profile)
+                                            <small><strong>Pilot:</strong>
+                                            @if($position->sign->pilot->profile->show_name && $position->sign->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$position->sign->pilot->id, str_slug($position->sign->pilot->profile->name.'-'.$position->sign->pilot->profile->lastname)]) }}">
+                                            @elseif($position->sign->pilot->profile->show_lastname)
+                                                <a href="{{ route('pilot', [$position->sign->pilot->id, $position->sign->pilot->profile->lastname]) }}">
+                                            @else
+                                                <a href="{{ route('pilot', $position->sign->pilot->id) }}">
+                                            @endif
+                                                {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}
+                                            </a></small>
+                                        @else
+                                            <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
+                                        @endif
+                                        @if($position->sign->team)
+                                            <br>
+                                            <small><strong>Team:</strong> <a href="{{ route('team',$position->sign->team->id) }}">{{ $position->sign->team->title }}</a></small>
+                                        @endif
+                                    </div>
+                                    @if($position->sign && $position->sign->user)
+                                        @if($position->sign->user->profile->show_name && $position->sign->user->profile->show_lastname)
+                                            <a href="{{ route('kierowca', [$position->sign->user->id, str_slug($position->sign->user->profile->name.'-'.$position->sign->user->profile->lastname)]) }}#stats" class="btn btn-sm btn-warning">
+                                        @elseif($position->sign->user->profile->show_lastname)
+                                            <a href="{{ route('kierowca', [$position->sign->user->id, $position->sign->user->profile->lastname]) }}#stats" class="btn btn-sm btn-warning">
+                                        @else
+                                            <a href="{{ route('kierowca', $position->sign->user->id) }}#stats" class="btn btn-sm btn-warning">
+                                        @endif
+                                            Statystyki
+                                        </a>
+                                    @endif
+                                </h6>
+                                <div class="col-2 p-0">
+                                    @if($position->sign->car && $position->sign->car->file_id)
+                                        <div class="img_with_hover">
+                                            <img src="{{ url('public/car/thumb/', $position->sign->car->file->path) }}" class="img-fluid thumb">
+                                            <img src="{{ url('public/car/thumb/', $position->sign->car->file->path) }}" class="img-fluid hovered">
+                                        </div>
+                                    @else
+                                        <img src="{{ url('images/car.png') }}" class="img-fluid thumb">
+                                    @endif
+                                </div>
+                                <h6 class="m-0 col-2">
+                                    {{ $position->sign->marka }} {{ $position->sign->model }}<br>{{ $position->sign->ccm }}ccm<br>
+                                    <small>@if($position->sign->turbo) <strong>Turbo</strong> @endif @if($position->sign->rwd) <strong>RWD</strong> @endif</small>
+                                </h6>
+                                <h6 class="m-0 col-3">
+                                    Poz. w klasie : <strong>{{ $position->sign->total_class_rank($round->id) }}</strong><br>
+                                    Poz. w generalce : <strong>{{ $position->sign->total_rank($round->id) }}</strong>
+                                </h6>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
