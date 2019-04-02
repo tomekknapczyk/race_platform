@@ -394,7 +394,7 @@ class GuestController extends Controller
                         $oesy[$key]['reaction'] = min($oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
                         $oesy[$key]['speed'] = max($oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
                         $oesy[$key]['leading_lose'] = min($oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
-                        $$oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']), array(null)));
+                        $oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']), array(null)));
                     }
                     else{
                         $oesy[$key]['brutto'] = $oesy[$key]['c3']['brutto'];
