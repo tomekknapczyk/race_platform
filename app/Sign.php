@@ -61,6 +61,11 @@ class Sign extends Model
         return OsData::where('sign_id', $this->id)->where('os_id', $os)->first();
     }
 
+    public function osDataFull()
+    {
+        return $this->hasMany(OsData::class, 'sign_id', 'id');
+    }
+
     public function osData(\App\Round $round)
     {
         $osy = $round->osy->pluck('id')->toArray();

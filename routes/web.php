@@ -23,6 +23,7 @@ Route::post('rank_frame', 'GuestController@rank_frame')->name('rank_frame');
 Route::get('media', 'GuestController@media')->name('media');
 Route::get('redakcja/{id}', 'GuestController@redakcja')->name('redakcja');
 Route::get('akredytacje/{id}', 'GuestController@akredytacje')->name('akredytacje');
+Route::post('comparsion', 'GuestController@comparsion')->name('comparsion');
 
 Route::get('dashboard', 'HomeController@index')->name('home');
 Route::get('start-list/{id}', 'HomeController@startList')->name('startList');

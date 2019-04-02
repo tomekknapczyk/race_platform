@@ -85,6 +85,14 @@ img.thumb-big{
     // box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
 }
 
+img.thumb-bigger{
+    height: 250px;
+    width: 100%;
+    object-fit: contain;
+    padding: 5px;
+    // box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
 .full-news-body{
     img{
         max-width: 100%;

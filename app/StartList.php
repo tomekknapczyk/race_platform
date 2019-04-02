@@ -15,4 +15,9 @@ class StartList extends Model
     {
         return $this->hasMany(StartListItem::class);
     }
+
+    public function klasy()
+    {
+        return $this->items->sortBy('klasa')->pluck('klasa', 'klasa');
+    }
 }

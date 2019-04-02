@@ -283,6 +283,55 @@
                                                         </div>
                                                     @endif
                                                 @endif
+                                                <div class="mt-3 pb-2">
+                                                    <h5>Porównaj wyniki</h5>
+                                                    <form method="POST" action="{{ route('comparsion') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="round" value="{{ $race->startList->round->id }}">
+                                                        <div class="d-flex align-items-end justify-content-between flex-wrap">
+                                                            <div class="col-3">
+                                                                <label>Kierowca 1</label>
+                                                                <select name="compare1" class="form-control text-center" required="">
+                                                                    <option selected value>---</option>
+                                                                    @foreach($race->startList->klasy() as $klasa)
+                                                                    <optgroup label="{{ $klasa }}"></optgroup>
+                                                                        @foreach($race->startList->items->where('klasa', $klasa) as $item)
+                                                                            <option value="{{ $item->sign->id }}">{{ $item->sign->name }} {{ $item->sign->lastname}}</option>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col-3">
+                                                                <label>Kierowca 2</label>
+                                                                <select name="compare2" class="form-control text-center" required="">
+                                                                    <option selected value>---</option>
+                                                                    @foreach($race->startList->klasy() as $klasa)
+                                                                    <optgroup label="{{ $klasa }}"></optgroup>
+                                                                        @foreach($race->startList->items->where('klasa', $klasa) as $item)
+                                                                            <option value="{{ $item->sign->id }}">{{ $item->sign->name }} {{ $item->sign->lastname}}</option>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col-3">
+                                                                <label>Kierowca 3</label>
+                                                                <select name="compare3" class="form-control text-center">
+                                                                    <option selected value>---</option>
+                                                                    @foreach($race->startList->klasy() as $klasa)
+                                                                    <optgroup label="{{ $klasa }}"></optgroup>
+                                                                        @foreach($race->startList->items->where('klasa', $klasa) as $item)
+                                                                            <option value="{{ $item->sign->id }}">{{ $item->sign->name }} {{ $item->sign->lastname}}</option>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            <button class="btn btn-success">Porównaj</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                         @endforeach
