@@ -44,7 +44,7 @@
                             </div>
 
                             @foreach($oesy as $os)
-                                @if($os['c1'])
+                                @if(array_key_exists('c1', $os))
                                     <div class="card">
                                         <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
                                         <div class="col-sm-12 lista bg-secondary text-white">
@@ -93,7 +93,7 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c1']['total_rank'] }}
+                                                    {{ $os['c1']['total_rank']?$os['c1']['total_rank']:"-" }}
                                                 </p>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                             </div>
 
                             @foreach($oesy as $os)
-                                @if($os['c2'])
+                                @if(array_key_exists('c2', $os))
                                     <div class="card">
                                         <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
                                         <div class="col-sm-12 lista bg-secondary text-white">
@@ -185,7 +185,7 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c2']['total_rank'] }}
+                                                    {{ $os['c2']['total_rank']?$os['c2']['total_rank']:"-" }}
                                                 </p>
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@
                                 </div>
 
                                 @foreach($oesy as $os)
-                                    @if($os['c3'])
+                                    @if(array_key_exists('c3', $os))
                                         <div class="card">
                                             <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
                                             <div class="col-sm-12 lista bg-secondary text-white">
@@ -277,7 +277,7 @@
                                                 <div class="row flex-wrap justify-content-between border-bottom">
                                                     <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
                                                     <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                        {{ $os['c3']['total_rank'] }}
+                                                        {{ $os['c3']['total_rank']?$os['c3']['total_rank']:"-" }}
                                                     </p>
                                                 </div>
                                             </div>
