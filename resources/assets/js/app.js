@@ -213,6 +213,40 @@ $(document).on('click', '#getDriver', function(e){
     });
 })
 
+$(document).on('click', '#editP_getDriver', function(e){
+    e.preventDefault();
+    var uid = $('#editP_sign_driver_uid').val();
+    if(!uid)
+        var uid = $('#editP_saved').val();
+
+    var form = $('#editP_form_id').val();
+
+    $.ajax({
+        url: '/getDriver',
+        method: 'POST',
+        data: {uid: uid, form: form},
+    }).done(function(response){
+        $('#editP_noDriver').remove();
+        $('.car_option').remove();
+        $('#editP_sign_car').empty();
+        $('#editP_sign_car').append('<option disabled selected value>Wybierz samochód</option>');
+
+        if(response != 'blad'){
+            $.each(response, function(key, value){
+                $('#editP_driver_' + key).val(value);
+            })
+
+            $.each(response['cars'], function(key, value){
+                $('#editP_sign_car').append('<option class="car_option" value="' + value['id'] + '">' + value['marka'] + ' ' + value['model'] + '</option>');
+            })
+        }
+        else
+        {
+            $('#editP_driver_uid_container').append('<p class="text-danger" id="editP_noDriver">Kierowca nie istnieje lub jest już zgłoszony</p>');
+        }
+    });
+})
+
 $(document).on('click', '#getPilotUid', function(e){
     e.preventDefault();
     var uid = $('#sign_pilot_uid').val();
@@ -329,6 +363,39 @@ $(document).on('change', '#edit_sign_car', function(){
     });
 })
 
+$(document).on('change', '#editP_sign_car', function(){
+    var id = $(this).val();
+
+    $.ajax({
+        url: '/getCar',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $.each(response, function(key, value){
+            $('#editP_car_' + key).val(value);
+        })
+
+        $.each(response, function(key, value){
+            var check = false;
+            
+            if(value == 1)
+                check = true;
+
+            $('.car_' + key).attr("checked", check);
+            $('.car_' + key).val(value);
+        })
+    });
+
+    $.ajax({
+        url: '/getKlasa',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $('#editP_sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
+        $('#editP_sign_klasa').append(response);
+    });
+})
+
 $(document).on('click', '.editSign', function(){
     var id = $(this).data('id');
     $('#sign_id').val(id);
@@ -414,6 +481,73 @@ $(document).on('click', '.editSignUser', function(){
     }).done(function(response){
         $('#edit_sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
         $('#edit_sign_klasa').append(response);
+    });
+})
+
+$(document).on('click', '.editSignPilot', function(){
+    var form_id = $(this).data('form-id');
+    var user = $(this).data('user-id');
+
+    var car = $(this).data('car');
+    $('#editP_form_id').val(form_id);
+
+    if(user){
+        $.ajax({
+            url: '/getDriverById',
+            method: 'POST',
+            data: {id: user},
+        }).done(function(response){
+            $('.car_option').remove();
+            $('#editP_noDriver').remove();
+            if(response != 'blad'){
+                $('#editP_saved option[value="'+response.uid+'"]').attr('selected', 'selected');
+                $.each(response, function(key, value){
+                    $('#editP_driver_' + key).val(value);
+                })
+
+                $.each(response['cars'], function(key, value){
+                    if(value['nr_rej'] == car)
+                        $('#editP_sign_car').append('<option class="car_option" selected value="' + value['id'] + '">' + value['marka'] + ' ' + value['model'] + '</option>');
+                    else
+                        $('#editP_sign_car').append('<option class="car_option" value="' + value['id'] + '">' + value['marka'] + ' ' + value['model'] + '</option>');
+                })
+            }
+            else
+            {
+                $('#driver_uid_container').append('<p class="text-danger" id="editP_noDriver">Kierowca nie istnieje lub jest już zgłoszony</p>');
+            }
+        });
+    }
+
+
+
+    $.ajax({
+        url: '/getCarByNr',
+        method: 'POST',
+        data: {car: car},
+    }).done(function(response){
+        $.each(response, function(key, value){
+            $('#editP_car_' + key).val(value);
+        })
+
+        $.each(response, function(key, value){
+            var check = false;
+            
+            if(value == 1)
+                check = true;
+
+            $('.car_' + key).attr("checked", check);
+            $('.car_' + key).val(value);
+        })
+    });
+
+    $.ajax({
+        url: '/getKlasaByNr',
+        method: 'POST',
+        data: {car: car},
+    }).done(function(response){
+        $('#editP_sign_klasa').html('<option disabled="" selected="" value="">Wybierz klasę</option>');
+        $('#editP_sign_klasa').append(response);
     });
 })
 

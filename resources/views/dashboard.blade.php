@@ -38,7 +38,7 @@
                                                 Edytuj zgłoszenie
                                             </button>
                                         @elseif(auth()->user()->driver == 0)
-                                            <button class="btn btn-sm btn-outline-info editSignPilot" data-toggle="modal" data-target="#editSignPilot" data-id="{{ auth()->user()->signId($form->id)->id }}">
+                                            <button class="btn btn-sm btn-outline-info editSignPilot" data-toggle="modal" data-target="#editSignPilot" data-form-id="{{ $form->id }}" data-user-id="{{ auth()->user()->signId($form->id)->user_id }}" data-car="{{ auth()->user()->signId($form->id)->nr_rej }}">
                                                 Edytuj zgłoszenie
                                             </button>
                                         @endif
@@ -151,7 +151,7 @@
     @include('modals.editSignPress')
 @else
     @include('modals.signPilot')
-    {{-- @include('modals.editSignPilot') --}}
+    @include('modals.editSignPilot')
 @endif
 @include('modals.deleteSign')
 @endsection

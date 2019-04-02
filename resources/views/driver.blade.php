@@ -128,7 +128,7 @@
                                         <div class="card-body d-flex flex-wrap align-items-start">
                                             @if($user->cars->count())
                                                 @foreach($user->cars as $car)
-                                                    <div class="col-6 d-flex justify-content-start align-items-center flex-wrap py-2">
+                                                    <div class="col-12 col-md-6 d-flex justify-content-start align-items-center flex-wrap py-2">
                                                         <div class="col-md-5">
                                                             @if($car->file_id)
                                                                 <img src="{{ url('/public/car/thumb/', $car->file->path) }}" class="img-fluid">

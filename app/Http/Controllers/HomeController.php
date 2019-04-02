@@ -264,24 +264,13 @@ class HomeController extends Controller
         $pilot = \App\User::where('id', $request->id)->where('driver', 0)->where('active', 1)->first();
 
         if($pilot){
-            $sign = \App\Sign::where('pilot_id', $pilot->id)->where('form_id', $request->form)->first();
-
-            if(!$sign){
-                $profile = \App\Driver::where('user_id', $pilot->id)->first();
-                $profile->uid = $pilot->uid;
-                return response()->json($profile);
-            }
-            else
-                return 'blad';
+            $profile = \App\Driver::where('user_id', $pilot->id)->first();
+            $profile->uid = $pilot->uid;
+            return response()->json($profile);
         }
         else
             return 'blad';
 
-        $pilot = \App\Pilot::where('id', $request->id)->where('user_id', auth()->user()->id)->first();
-        
-        if($pilot){
-            return response()->json($pilot);
-        }
 
         return back()->with('warning', 'Pilot nie istnieje');
     }
@@ -333,6 +322,28 @@ class HomeController extends Controller
         }
         else
             return 'blad';
+    }
+
+    public function getDriverById(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:users',
+        ]);
+
+        $driver = \App\User::where('id', $request->id)->where('driver', 1)->where('active', 1)->first();
+
+        if($driver){
+            $profile = \App\Driver::where('user_id', $driver->id)->first();
+            $profile->uid = $driver->uid;
+            $profile->email = $driver->email;
+            $profile->cars = $driver->cars;
+
+            return response()->json($profile);
+        }
+        else
+            return 'blad';
+
+        return back()->with('warning', 'Kierowca nie istnieje');
     }
 
     public function getPilotUid(Request $request)

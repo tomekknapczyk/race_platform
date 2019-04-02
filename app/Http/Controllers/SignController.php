@@ -22,7 +22,7 @@ class SignController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['except' => ['sign', 'signPress', 'editSignPress', 'accreditation_pdf', 'deleteSign', 'editSignUser']]);
+        $this->middleware('admin', ['except' => ['sign', 'signPress', 'editSignPress', 'accreditation_pdf', 'deleteSign', 'editSignUser', 'editSignPilot']]);
     }
 
     public function signFormStatus(Request $request)
@@ -244,7 +244,97 @@ class SignController extends Controller
         
         $sign->save();
 
-        return back()->with('success', 'Zgłoszenie zostało wysłane');
+        return back()->with('success', 'Zgłoszenie zostało zapisane');
+    }
+
+    public function editSignPilot(Request $request)
+    {
+        $this->validate($request, [
+            'form_id' => 'required|exists:sign_forms,id',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'marka' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'rok' => 'required|max:255',
+            'nr_rej' => 'required|string|max:255',
+            'ccm' => 'required|string|max:255',
+            'klasa' => 'required',
+            'oc' => 'required',
+            'payment' => 'nullable|file|mimes:jpeg,png,pdf,jpg|max:3000',
+        ]);
+
+        $form = SignForm::where('id', $request->form_id)->first();
+        $max = $form->round->max;
+        $active = true;
+
+        if($form->signs->where('active', 1)->count() >= $max)
+            $active = false;
+
+        if(auth()->user()->driver == 1)
+            $sign = Sign::where('user_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
+        elseif(auth()->user()->driver == 0)
+            $sign = Sign::where('pilot_id', auth()->user()->id)->where('form_id', $request->form_id)->first();
+
+        if(auth()->user()->driver == 1){
+            if($request->pilot_uid){
+                $pilot = \App\User::where('uid', $request->pilot_uid)->first();
+                $sign->pilot_id = $pilot->id;
+            }
+            else if($request->saved){
+                $pilot = \App\User::where('uid', $request->saved)->first();
+                $sign->pilot_id = $pilot->id;
+            }
+            else{
+                $sign->pilot_id = null;
+            }
+            $sign->pilot_name = $request->name;
+            $sign->pilot_lastname = $request->lastname;
+            $sign->pilot_address = $request->address;
+            $sign->pilot_id_card = $request->id_card;
+            $sign->pilot_phone = $request->phone;
+            $sign->pilot_email = $request->email;
+            $sign->pilot_driving_license = $request->driving_license;
+        }
+        elseif(auth()->user()->driver == 0){
+            if($request->driver_uid){
+                $driver = \App\User::where('uid', $request->driver_uid)->first();
+                $sign->user_id = $driver->id;
+            }
+
+            if($request->saved){
+                $driver = \App\User::where('uid', $request->saved)->first();
+                $sign->user_id = $driver->id;
+            }
+
+            $sign->name = $request->name;
+            $sign->lastname = $request->lastname;
+            $sign->address = $request->address;
+            $sign->id_card = $request->id_card;
+            $sign->phone = $request->phone;
+            $sign->email = $request->email;
+            $sign->driving_license = $request->driving_license;
+        }
+
+        $sign->marka = $request->marka;
+        $sign->model = $request->model;
+        $sign->nr_rej = $request->nr_rej;
+        $sign->ccm = $request->ccm;
+        $sign->rok = $request->rok;
+        $sign->turbo = $request->turbo;
+        $sign->rwd = $request->rwd;
+        $sign->klasa = $request->klasa;
+        $sign->oc = $request->oc;
+        $sign->nw = $request->nw;
+        $sign->active = $active;
+
+        if(isset($request->payment)){
+            $path = $request->file('payment')->store('public/payments');
+            $sign->payment = $path;
+        }
+        
+        $sign->save();
+
+        return back()->with('success', 'Zgłoszenie zostało zapisane');
     }
 
     public function addSign(Request $request)
