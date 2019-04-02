@@ -304,48 +304,97 @@ class GuestController extends Controller
 
         foreach ($round->osy as $key => $os) {
             $oesy[$key] = [];
-            $oesy[$key]['c1']['brutto'] = $c1->osDataFull->where('os_id', $os->id)?$c1->osDataFull->where('os_id', $os->id)->first()->brutto:null;
-            $oesy[$key]['c2']['brutto'] = $c2->osDataFull->where('os_id', $os->id)?$c2->osDataFull->where('os_id', $os->id)->first()->brutto:null;
-            $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto']);
-            
-            $oesy[$key]['c1']['penalty'] = $c1->osDataFull->where('os_id', $os->id)?$c1->osDataFull->where('os_id', $os->id)->first()->penalty:null;
-            $oesy[$key]['c2']['penalty'] = $c2->osDataFull->where('os_id', $os->id)?$c2->osDataFull->where('os_id', $os->id)->first()->penalty:null;
-            $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty']);
+            $oesy[$key]['brutto'] = 0;
+            $oesy[$key]['penalty'] = 0;
+            $oesy[$key]['reaction'] = 0;
+            $oesy[$key]['speed'] = 0;
+            $oesy[$key]['leading_lose'] = 0;
+            $oesy[$key]['total_rank'] = 0;
 
-            $oesy[$key]['c1']['reaction'] = $c1->osDataFull->where('os_id', $os->id)?$c1->osDataFull->where('os_id', $os->id)->first()->reaction:null;
-            $oesy[$key]['c2']['reaction'] = $c2->osDataFull->where('os_id', $os->id)?$c2->osDataFull->where('os_id', $os->id)->first()->reaction:null;
-            $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction']);
+            if($c1->osDataFull->where('os_id', $os->id)->first()){
+                $oesy[$key]['c1']['brutto'] = $c1->osDataFull->where('os_id', $os->id)->first()->brutto;
+                $oesy[$key]['c1']['penalty'] = $c1->osDataFull->where('os_id', $os->id)->first()->penalty;
+                $oesy[$key]['c1']['reaction'] = $c1->osDataFull->where('os_id', $os->id)->first()->reaction;
+                $oesy[$key]['c1']['speed'] = $c1->osDataFull->where('os_id', $os->id)->first()->speed;
+                $oesy[$key]['c1']['leading_lose'] = $c1->osDataFull->where('os_id', $os->id)->first()->leading_lose;
+                $oesy[$key]['c1']['total_rank'] = $c1->total_rank($round->id);
 
-            $oesy[$key]['c1']['speed'] = $c1->osDataFull->where('os_id', $os->id)?$c1->osDataFull->where('os_id', $os->id)->first()->speed:null;
-            $oesy[$key]['c2']['speed'] = $c2->osDataFull->where('os_id', $os->id)?$c2->osDataFull->where('os_id', $os->id)->first()->speed:null;
-            $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed']);
+                $oesy[$key]['brutto'] = $oesy[$key]['c1']['brutto'];
+                $oesy[$key]['penalty'] = $oesy[$key]['c1']['penalty'];
+                $oesy[$key]['reaction'] = $oesy[$key]['c1']['reaction'];
+                $oesy[$key]['speed'] = $oesy[$key]['c1']['speed'];
+                $oesy[$key]['leading_lose'] = $oesy[$key]['c1']['leading_lose'];
+                $oesy[$key]['total_rank'] = $oesy[$key]['c1']['total_rank'];
+            }
 
-            $oesy[$key]['c1']['leading_lose'] = $c1->osDataFull->where('os_id', $os->id)?$c1->osDataFull->where('os_id', $os->id)->first()->leading_lose:null;
-            $oesy[$key]['c2']['leading_lose'] = $c2->osDataFull->where('os_id', $os->id)?$c2->osDataFull->where('os_id', $os->id)->first()->leading_lose:null;
-            $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose']);
+            if($c2->osDataFull->where('os_id', $os->id)->first()){
+                $oesy[$key]['c2']['brutto'] = $c2->osDataFull->where('os_id', $os->id)->first()->brutto;
+                $oesy[$key]['c2']['penalty'] = $c2->osDataFull->where('os_id', $os->id)->first()->penalty;
+                $oesy[$key]['c2']['reaction'] = $c2->osDataFull->where('os_id', $os->id)->first()->reaction;
+                $oesy[$key]['c2']['speed'] = $c2->osDataFull->where('os_id', $os->id)->first()->speed;
+                $oesy[$key]['c2']['leading_lose'] = $c2->osDataFull->where('os_id', $os->id)->first()->leading_lose;
+                $oesy[$key]['c2']['total_rank'] = $c2->total_rank($round->id);
 
-            $oesy[$key]['c1']['total_rank'] = $c1->total_rank($round->id);
-            $oesy[$key]['c2']['total_rank'] = $c2->total_rank($round->id);
-            $oesy[$key]['total_rank'] = min($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank']);
+                if($c1->osDataFull->where('os_id', $os->id)->first()){
+                    $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto']);
+                    $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty']);
+                    $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction']);
+                    $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed']);
+                    $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose']);
+                    $oesy[$key]['total_rank'] = min($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank']);
+                }
+                else{
+                    $oesy[$key]['brutto'] = $oesy[$key]['c2']['brutto'];
+                    $oesy[$key]['penalty'] = $oesy[$key]['c2']['penalty'];
+                    $oesy[$key]['reaction'] = $oesy[$key]['c2']['reaction'];
+                    $oesy[$key]['speed'] = $oesy[$key]['c2']['speed'];
+                    $oesy[$key]['leading_lose'] = $oesy[$key]['c2']['leading_lose'];
+                    $oesy[$key]['total_rank'] = $oesy[$key]['c2']['total_rank'];
+                }
+            }
 
             if($c3){
-                $oesy[$key]['c3']['brutto'] = $c3->osDataFull->where('os_id', $os->id)?$c3->osDataFull->where('os_id', $os->id)->first()->brutto:null;
-                $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto'], $oesy[$key]['c3']['brutto']);
+                if($c3->osDataFull->where('os_id', $os->id)->first()){
+                    $oesy[$key]['c3']['brutto'] = $c3->osDataFull->where('os_id', $os->id)->first()->brutto;
+                    $oesy[$key]['c3']['penalty'] = $c3->osDataFull->where('os_id', $os->id)->first()->penalty;
+                    $oesy[$key]['c3']['reaction'] = $c3->osDataFull->where('os_id', $os->id)->first()->reaction;
+                    $oesy[$key]['c3']['speed'] = $c3->osDataFull->where('os_id', $os->id)->first()->speed;
+                    $oesy[$key]['c3']['leading_lose'] = $c3->osDataFull->where('os_id', $os->id)->first()->leading_lose;
+                    $oesy[$key]['c3']['total_rank'] = $c3->total_rank($round->id);
 
-                $oesy[$key]['c3']['penalty'] = $c3->osDataFull->where('os_id', $os->id)?$c3->osDataFull->where('os_id', $os->id)->first()->penalty:null;
-                $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty'], $oesy[$key]['c3']['penalty']);
-
-                $oesy[$key]['c3']['reaction'] = $c3->osDataFull->where('os_id', $os->id)?$c3->osDataFull->where('os_id', $os->id)->first()->reaction:null;
-                $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
-
-                $oesy[$key]['c3']['speed'] = $c3->osDataFull->where('os_id', $os->id)?$c3->osDataFull->where('os_id', $os->id)->first()->speed:null;
-                $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
-
-                $oesy[$key]['c3']['leading_lose'] = $c3->osDataFull->where('os_id', $os->id)?$c3->osDataFull->where('os_id', $os->id)->first()->leading_lose:null;
-                $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
-
-                $oesy[$key]['c3']['total_rank'] = $c3->total_rank($round->id);
-                $oesy[$key]['total_rank'] = min($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']);
+                    if($c1->osDataFull->where('os_id', $os->id)->first() && $c2->osDataFull->where('os_id', $os->id)->first()) {
+                        $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto'], $oesy[$key]['c3']['brutto']);
+                        $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty'], $oesy[$key]['c3']['penalty']);
+                        $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
+                        $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
+                        $oesy[$key]['total_rank'] = min($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']);
+                    }
+                    elseif($c1->osDataFull->where('os_id', $os->id)->first()){
+                        $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c3']['brutto']);
+                        $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c3']['penalty']);
+                        $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c3']['speed']);
+                        $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
+                        $oesy[$key]['total_rank'] = min($oesy[$key]['c1']['total_rank'], $oesy[$key]['c3']['total_rank']);
+                    }
+                    elseif($c2->osDataFull->where('os_id', $os->id)->first()){
+                        $oesy[$key]['brutto'] = min($oesy[$key]['c2']['brutto'], $oesy[$key]['c3']['brutto']);
+                        $oesy[$key]['penalty'] = min($oesy[$key]['c2']['penalty'], $oesy[$key]['c3']['penalty']);
+                        $oesy[$key]['reaction'] = min($oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['speed'] = max($oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
+                        $oesy[$key]['leading_lose'] = min($oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
+                        $oesy[$key]['total_rank'] = min($oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']);
+                    }
+                    else{
+                        $oesy[$key]['brutto'] = $oesy[$key]['c3']['brutto'];
+                        $oesy[$key]['penalty'] = $oesy[$key]['c3']['penalty'];
+                        $oesy[$key]['reaction'] = $oesy[$key]['c3']['reaction'];
+                        $oesy[$key]['speed'] = $oesy[$key]['c3']['speed'];
+                        $oesy[$key]['leading_lose'] = $oesy[$key]['c3']['leading_lose'];
+                        $oesy[$key]['total_rank'] = $oesy[$key]['c3']['total_rank'];
+                    }
+                }
             }
         }
 

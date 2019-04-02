@@ -44,59 +44,61 @@
                             </div>
 
                             @foreach($oesy as $os)
-                                <div class="card">
-                                    <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
-                                    <div class="col-sm-12 lista bg-secondary text-white">
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
-                                                {{ $os['c1']['brutto'] }}
-                                            </p>
-                                        </div>
+                                @if($os['c1'])
+                                    <div class="card">
+                                        <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
+                                        <div class="col-sm-12 lista bg-secondary text-white">
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c1']['brutto'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Kara</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
-                                                {{ substr($os['c1']['penalty'],3,5) }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Kara</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
+                                                    {{ substr($os['c1']['penalty'],3,5) }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                {{ $os['c1']['reaction'] }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c1']['reaction'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
-                                                {{ $os['c1']['speed'] }}km/h
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c1']['speed'] }}km/h
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
-                                                {{ $os['c1']['leading_lose'] }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c1']['leading_lose'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                {{ $c1->klasa }} : {{ $c1->total_class_rank($round->id) }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
+                                                    {{ $c1->klasa }} : {{ $c1->total_class_rank($round->id) }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                {{ $os['c1']['total_rank'] }}
-                                            </p>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c1']['total_rank'] }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
 
@@ -134,59 +136,61 @@
                             </div>
 
                             @foreach($oesy as $os)
-                                <div class="card">
-                                    <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
-                                    <div class="col-sm-12 lista bg-secondary text-white">
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
-                                                {{ $os['c2']['brutto'] }}
-                                            </p>
-                                        </div>
+                                @if($os['c2'])
+                                    <div class="card">
+                                        <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
+                                        <div class="col-sm-12 lista bg-secondary text-white">
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c2']['brutto'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Kara</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
-                                                {{ substr($os['c2']['penalty'],3,5) }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Kara</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
+                                                    {{ substr($os['c2']['penalty'],3,5) }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                {{ $os['c2']['reaction'] }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c2']['reaction'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
-                                                {{ $os['c2']['speed'] }}km/h
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c2']['speed'] }}km/h
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
-                                                {{ $os['c2']['leading_lose'] }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c2']['leading_lose'] }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                {{ $c2->klasa }} : {{ $c2->total_class_rank($round->id) }}
-                                            </p>
-                                        </div>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
+                                                    {{ $c2->klasa }} : {{ $c2->total_class_rank($round->id) }}
+                                                </p>
+                                            </div>
 
-                                        <div class="row flex-wrap justify-content-between border-bottom">
-                                            <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
-                                            <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                {{ $os['c2']['total_rank'] }}
-                                            </p>
+                                            <div class="row flex-wrap justify-content-between border-bottom">
+                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
+                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
+                                                    {{ $os['c2']['total_rank'] }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                         @if($c3)
@@ -224,59 +228,61 @@
                                 </div>
 
                                 @foreach($oesy as $os)
-                                    <div class="card">
-                                        <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
-                                        <div class="col-sm-12 lista bg-secondary text-white">
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c3']['brutto'] }}
-                                                </p>
-                                            </div>
+                                    @if($os['c3'])
+                                        <div class="card">
+                                            <h5 class="text-center card-header bg-yellow py-1">OS {{ $loop->iteration}}</h5>
+                                            <div class="col-sm-12 lista bg-secondary text-white">
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Łączny czas</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['brutto'] == $os['brutto']) bg-success @else bg-danger @endif">
+                                                        {{ $os['c3']['brutto'] }}
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Kara</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
-                                                    {{ substr($os['c3']['penalty'],3,5) }}
-                                                </p>
-                                            </div>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Kara</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['penalty'] == $os['penalty']) bg-success @else bg-danger @endif">
+                                                        {{ substr($os['c3']['penalty'],3,5) }}
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c3']['reaction'] }}
-                                                </p>
-                                            </div>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
+                                                        {{ $os['c3']['reaction'] }}
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c3']['speed'] }}km/h
-                                                </p>
-                                            </div>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Średnia prędkość</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['speed'] == $os['speed']) bg-success @else bg-danger @endif">
+                                                        {{ $os['c3']['speed'] }}km/h
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c3']['leading_lose'] }}
-                                                </p>
-                                            </div>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Strata do lidera w generalce</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['leading_lose'] == $os['leading_lose']) bg-success @else bg-danger @endif">
+                                                        {{ $os['c3']['leading_lose'] }}
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                    {{ $c3->klasa }} : {{ $c3->total_class_rank($round->id) }}
-                                                </p>
-                                            </div>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
+                                                        {{ $c3->klasa }} : {{ $c3->total_class_rank($round->id) }}
+                                                    </p>
+                                                </div>
 
-                                            <div class="row flex-wrap justify-content-between border-bottom">
-                                                <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
-                                                <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c3']['total_rank'] }}
-                                                </p>
+                                                <div class="row flex-wrap justify-content-between border-bottom">
+                                                    <p class="m-0 py-1 px-2 w-50 small">Pozycja w generalce</p>
+                                                    <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['total_rank'] == $os['total_rank']) bg-success @else bg-danger @endif">
+                                                        {{ $os['c3']['total_rank'] }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endforeach
                             </div>
                         @endif
