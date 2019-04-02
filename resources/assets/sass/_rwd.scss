@@ -247,6 +247,10 @@
     .lista{
         .row > *{
             margin-bottom: 10px !important;
+
+            &.m-0{
+                margin-bottom: 0 !important;
+            }
         }
     }
 
