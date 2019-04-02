@@ -86,7 +86,7 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                    {{ $c1->klasa }} : {{ $c1->total_class_rank($round->id) }}
+                                                    {{ $c1->klasa }} : {{ $c1->os_class_rank($os['os_id']) }}
                                                 </p>
                                             </div>
 
@@ -178,7 +178,7 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                    {{ $c2->klasa }} : {{ $c2->total_class_rank($round->id) }}
+                                                    {{ $c2->klasa }} : {{ $c2->os_class_rank($os['os_id']) }}
                                                 </p>
                                             </div>
 
@@ -270,7 +270,7 @@
                                                 <div class="row flex-wrap justify-content-between border-bottom">
                                                     <p class="m-0 py-1 px-2 w-50 small">Pozycja w klasie</p>
                                                     <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center">
-                                                        {{ $c3->klasa }} : {{ $c3->total_class_rank($round->id) }}
+                                                        {{ $c3->klasa }} : {{ $c3->os_class_rank($os['os_id']) }}
                                                     </p>
                                                 </div>
 
