@@ -127,7 +127,8 @@
                                         </h6>
                                         <h6 class="m-0 col-3">
                                             Poz. w klasie : <strong>{{ $position->sign->total_class_rank($round->id) }}</strong><br>
-                                            Poz. w generalce : <strong>{{ $position->sign->total_rank($round->id) }}</strong>
+                                            Poz. w generalce : <strong>{{ $position->sign->total_rank($round->id) }}</strong><br>
+                                            Nr startowy : <strong>{{ $position->start_nr() }}</strong>
                                         </h6>
                                     </div>
                                 @endforeach
