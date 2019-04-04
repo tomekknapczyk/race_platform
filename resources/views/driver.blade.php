@@ -240,7 +240,11 @@
                                                                     {{ $race->sign->os($os->id)->leading_lose }}
                                                                 </div>
                                                                 <div class="col-1 px-1">
-                                                                    {{ $race->sign->os($os->id)->reaction }}s
+                                                                    @if($race->sign->os($os->id)->reaction > 0)
+                                                                        {{ $race->sign->os($os->id)->reaction }}s
+                                                                    @else
+                                                                        <span class="text-red">Falstart</span>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="col-2 px-1">
                                                                     {{ $race->sign->os($os->id)->speed }}km/h
