@@ -189,6 +189,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveTable', 'TabelaController@save')->name('saveTable');
     Route::post('saveTableUsers', 'TabelaController@saveTableUsers')->name('saveTableUsers');
     Route::post('deleteTable', 'TabelaController@delete')->name('deleteTable');
+    Route::post('addTableUsers', 'TabelaController@addTableUsers')->name('addTableUsers');
 });
 
 Route::get('aktywna', 'TabelaController@active')->name('active_table');

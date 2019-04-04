@@ -621,6 +621,17 @@ if(el4 != null && el4.length){
     var dropped = Sortable.create(bar, { group: "items", animation: 240 });
 }
 
+$(document).on('click', '.select_all', function(e){
+    e.preventDefault();
+    $(this).toggleClass('check');
+
+    if(!$(this).hasClass('check'))
+        $(this).closest('form').find('input').prop('checked', false);
+    else
+        $(this).closest('form').find('input').prop('checked', true);
+    
+})
+
 $(document).on('click', '#saveTable', function(e){
     e.preventDefault();
     var order = items.toArray();

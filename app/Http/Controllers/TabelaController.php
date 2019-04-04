@@ -229,4 +229,23 @@ class TabelaController extends Controller
 
         return back();
     }
+
+    public function addTableUsers(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:tabelas',
+        ]);
+
+        $i = tabela_user::where('tabela_id', $request->id)->max('order') + 1;
+
+        foreach ($request->multiadd as $key => $item) {
+            $tabela_user = new tabela_user;
+            $tabela_user->tabela_id = $request->id;
+            $tabela_user->user_id = $key;
+            $tabela_user->order = $i++;
+            $tabela_user->save();
+        }
+
+        return back();
+    }
 }
