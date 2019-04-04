@@ -65,7 +65,11 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small">Czas reakcji</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c1']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c1']['reaction'] }}
+                                                    @if($os['c1']['reaction'] > 0)
+                                                        {{ $os['c1']['reaction'] }}
+                                                    @else
+                                                        Falstart
+                                                    @endif
                                                 </p>
                                             </div>
 

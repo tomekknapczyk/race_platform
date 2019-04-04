@@ -243,7 +243,7 @@
                                                                     @if($race->sign->os($os->id)->reaction > 0)
                                                                         {{ $race->sign->os($os->id)->reaction }}s
                                                                     @else
-                                                                        <span class="text-red">Falstart</span>
+                                                                        <span class="bg-danger p-1">Falstart</span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-2 px-1">

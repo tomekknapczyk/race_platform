@@ -325,7 +325,7 @@ class GuestController extends Controller
 
                 $oesy[$key]['brutto'] = $oesy[$key]['c1']['brutto'];
                 $oesy[$key]['penalty'] = $oesy[$key]['c1']['penalty'];
-                $oesy[$key]['reaction'] = $oesy[$key]['c1']['reaction'];
+                $oesy[$key]['reaction'] = ($oesy[$key]['c1']['reaction']>0)?$oesy[$key]['c1']['reaction']:0;
                 $oesy[$key]['speed'] = $oesy[$key]['c1']['speed'];
                 $oesy[$key]['leading_lose'] = $oesy[$key]['c1']['leading_lose'];
                 $oesy[$key]['total_rank'] = $oesy[$key]['c1']['total_rank'];
@@ -345,7 +345,7 @@ class GuestController extends Controller
                 if($c1->osDataFull->where('os_id', $os->id)->first()){
                     $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto']);
                     $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty']);
-                    $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction']);
+                    $oesy[$key]['reaction'] = min(($oesy[$key]['c1']['reaction']>0)?$oesy[$key]['c1']['reaction']:9999, ($oesy[$key]['c2']['reaction']>0)?$oesy[$key]['c2']['reaction']:9999);
                     $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed']);
                     $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose']);
                     $oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank']), array(null)));
@@ -353,7 +353,7 @@ class GuestController extends Controller
                 else{
                     $oesy[$key]['brutto'] = $oesy[$key]['c2']['brutto'];
                     $oesy[$key]['penalty'] = $oesy[$key]['c2']['penalty'];
-                    $oesy[$key]['reaction'] = $oesy[$key]['c2']['reaction'];
+                    $oesy[$key]['reaction'] = ($oesy[$key]['c2']['reaction']>0)?$oesy[$key]['c2']['reaction']:0;
                     $oesy[$key]['speed'] = $oesy[$key]['c2']['speed'];
                     $oesy[$key]['leading_lose'] = $oesy[$key]['c2']['leading_lose'];
                     $oesy[$key]['total_rank'] = $oesy[$key]['c2']['total_rank'];
@@ -375,7 +375,7 @@ class GuestController extends Controller
                     if($c1->osDataFull->where('os_id', $os->id)->first() && $c2->osDataFull->where('os_id', $os->id)->first()) {
                         $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c2']['brutto'], $oesy[$key]['c3']['brutto']);
                         $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c2']['penalty'], $oesy[$key]['c3']['penalty']);
-                        $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['reaction'] = min(($oesy[$key]['c1']['reaction']>0)?$oesy[$key]['c1']['reaction']:9999, ($oesy[$key]['c2']['reaction']>0)?$oesy[$key]['c2']['reaction']:9999, ($oesy[$key]['c3']['reaction']>0)?$oesy[$key]['c3']['reaction']:9999);
                         $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
                         $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
                         $oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c1']['total_rank'], $oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']), array(null)));
@@ -383,7 +383,7 @@ class GuestController extends Controller
                     elseif($c1->osDataFull->where('os_id', $os->id)->first()){
                         $oesy[$key]['brutto'] = min($oesy[$key]['c1']['brutto'], $oesy[$key]['c3']['brutto']);
                         $oesy[$key]['penalty'] = min($oesy[$key]['c1']['penalty'], $oesy[$key]['c3']['penalty']);
-                        $oesy[$key]['reaction'] = min($oesy[$key]['c1']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['reaction'] = min(($oesy[$key]['c1']['reaction']>0)?$oesy[$key]['c1']['reaction']:9999, ($oesy[$key]['c3']['reaction']>0)?$oesy[$key]['c3']['reaction']:9999);
                         $oesy[$key]['speed'] = max($oesy[$key]['c1']['speed'], $oesy[$key]['c3']['speed']);
                         $oesy[$key]['leading_lose'] = min($oesy[$key]['c1']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
                         $oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c1']['total_rank'], $oesy[$key]['c3']['total_rank']), array(null)));
@@ -391,7 +391,7 @@ class GuestController extends Controller
                     elseif($c2->osDataFull->where('os_id', $os->id)->first()){
                         $oesy[$key]['brutto'] = min($oesy[$key]['c2']['brutto'], $oesy[$key]['c3']['brutto']);
                         $oesy[$key]['penalty'] = min($oesy[$key]['c2']['penalty'], $oesy[$key]['c3']['penalty']);
-                        $oesy[$key]['reaction'] = min($oesy[$key]['c2']['reaction'], $oesy[$key]['c3']['reaction']);
+                        $oesy[$key]['reaction'] = min(($oesy[$key]['c2']['reaction']>0)?$oesy[$key]['c2']['reaction']:9999, ($oesy[$key]['c3']['reaction']>0)?$oesy[$key]['c3']['reaction']:9999);
                         $oesy[$key]['speed'] = max($oesy[$key]['c2']['speed'], $oesy[$key]['c3']['speed']);
                         $oesy[$key]['leading_lose'] = min($oesy[$key]['c2']['leading_lose'], $oesy[$key]['c3']['leading_lose']);
                         $oesy[$key]['total_rank'] = min(array_diff(array($oesy[$key]['c2']['total_rank'], $oesy[$key]['c3']['total_rank']), array(null)));
@@ -399,7 +399,7 @@ class GuestController extends Controller
                     else{
                         $oesy[$key]['brutto'] = $oesy[$key]['c3']['brutto'];
                         $oesy[$key]['penalty'] = $oesy[$key]['c3']['penalty'];
-                        $oesy[$key]['reaction'] = $oesy[$key]['c3']['reaction'];
+                        $oesy[$key]['reaction'] = ($oesy[$key]['c3']['reaction']>0)?$oesy[$key]['c3']['reaction']:0;
                         $oesy[$key]['speed'] = $oesy[$key]['c3']['speed'];
                         $oesy[$key]['leading_lose'] = $oesy[$key]['c3']['leading_lose'];
                         $oesy[$key]['total_rank'] = $oesy[$key]['c3']['total_rank'];
