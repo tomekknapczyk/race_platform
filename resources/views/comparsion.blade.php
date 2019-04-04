@@ -161,7 +161,11 @@
                                             <div class="row flex-wrap justify-content-between border-bottom">
                                                 <p class="m-0 py-1 px-2 w-50 small d-flex align-items-center">Czas reakcji</p>
                                                 <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c2']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                    {{ $os['c2']['reaction'] }}
+                                                    @if($os['c2']['reaction'] > 0)
+                                                        {{ $os['c2']['reaction'] }}
+                                                    @else
+                                                        Falstart
+                                                    @endif
                                                 </p>
                                             </div>
 
@@ -253,7 +257,11 @@
                                                 <div class="row flex-wrap justify-content-between border-bottom">
                                                     <p class="m-0 py-1 px-2 w-50 small d-flex align-items-center">Czas reakcji</p>
                                                     <p class="m-0 py-1 px-2 w-50 d-flex justify-content-center align-items-center @if($os['c3']['reaction'] == $os['reaction']) bg-success @else bg-danger @endif">
-                                                        {{ $os['c3']['reaction'] }}
+                                                        @if($os['c3']['reaction'] > 0)
+                                                            {{ $os['c3']['reaction'] }}
+                                                        @else
+                                                            Falstart
+                                                        @endif
                                                     </p>
                                                 </div>
 
