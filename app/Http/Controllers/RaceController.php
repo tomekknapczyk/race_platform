@@ -687,7 +687,7 @@ class RaceController extends Controller
     protected function updateSpeed(\App\Os $os)
     {
         foreach ($os->items as $item) {
-            $speed = $this->calcSpeed($os->length, $this->timeToSecs($item->brutto));
+            $speed = $this->calcSpeed($os->length, $this->timeToSecs($item->netto));
             $item->speed = $speed;
             $item->save();
         }
@@ -703,10 +703,10 @@ class RaceController extends Controller
 
             foreach ($os->items as $item) {
                 if(!array_key_exists($item->sign_id, $signs)){
-                    $signs[$item->sign_id] = $this->timeToSecs($item->brutto);
+                    $signs[$item->sign_id] = $this->timeToSecs($item->netto);
                 }
                 else{
-                    $signs[$item->sign_id] += $this->timeToSecs($item->brutto);
+                    $signs[$item->sign_id] += $this->timeToSecs($item->netto);
                 }
             }
         }
