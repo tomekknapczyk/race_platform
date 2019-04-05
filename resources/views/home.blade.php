@@ -48,16 +48,19 @@
     </div>
 </div>
 @if($podium && $podium->count())
-<div class="drivers-container">
+<div class="drivers-container container px-0">
     @if($promoted_race && $promoted_race->value == 'race')
         <h3>Klasyfikacja roczna</h3>
     @else
         <h3>Zwycięzcy {{ $last->name }}</h3>
     @endif
-    <h2 class="text-center mb-3 text-uppercase text-white">..:: {{ $random }} ::..</h2>
-    <div class="row justify-content-center">
+    <h2 class="text-center mb-4 text-uppercase text-white">..:: {{ $random }} ::..</h2>
+    <div class="row justify-content-start align-items-end mb-5">
+        @php
+         $order = 2;
+        @endphp
         @foreach($podium->take(3) as $driver)
-            <div class="col-md-4 col-lg-4 col-xl-3">
+            <div class="col-md-4 col-lg-4 col-xl-4 order-{{ $order }} @if($order == 2) mb-5 @endif">
                 <div class="driver"> 
                     @if($driver->user)
                         @if($driver->user->laurels->count())
@@ -174,6 +177,17 @@
                         </h6>
                     @endif
                 </div>
+                <h4 class="text-white text-center">Miejsce : {{ $loop->iteration }}</h4>
+                @php
+                    switch ($order) {
+                        case 2:
+                            $order = 1;
+                            break;
+                        case 1:
+                            $order = 3;
+                            break;
+                    }
+                @endphp
             </div>
         @endforeach
     </div>

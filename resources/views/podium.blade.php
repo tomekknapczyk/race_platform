@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="drivers-container">
+<div class="drivers-container container px-0">
     <h3>Zwycięzcy {{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif</h3>
 
     @foreach($klasy as $klasa)
-        <h2 class="text-center mb-3 text-uppercase text-white">..:: {{ $klasa }} ::..</h2>
-        <div class="row justify-content-center">
+        <h2 class="text-center mb-4 text-uppercase text-white">..:: {{ $klasa }} ::..</h2>
+        <div class="row justify-content-start align-items-end mb-5">
+            @php
+             $order = 2;
+            @endphp
             @foreach($round->podium($start_list_id, $klasa) as $driver)
-                <div class="col-md-4 col-lg-4 col-xl-3">
+                <div class="col-md-4 col-lg-4 col-xl-4 order-{{ $order }} @if($order == 2) mb-5 @endif">
                     <div class="driver">
                         @if($driver->user)
                             @if($driver->user->laurels->count())
@@ -125,6 +128,17 @@
                             </h6>
                         @endif
                     </div>
+                    <h4 class="text-white text-center">Miejsce : {{ $loop->iteration }}</h4>
+                    @php
+                        switch ($order) {
+                            case 2:
+                                $order = 1;
+                                break;
+                            case 1:
+                                $order = 3;
+                                break;
+                        }
+                    @endphp
                 </div>
             @endforeach
         </div>
