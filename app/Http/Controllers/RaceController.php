@@ -485,7 +485,7 @@ class RaceController extends Controller
                 $result->leading_lose = $leading_lose;
                 $result->next_lose = $next_lose;
                 $result->reaction = $reaction;
-                $result->speed = $this->calcSpeed($os->length, $this->timeToSecs($brutto));
+                $result->speed = $this->calcSpeed($os->length, $this->timeToSecs($netto));
                 $result->netto_s = $this->timeToSecs($netto);
                 $result->penalty_s = $this->timeToSecs($penalty);
                 $result->brutto_s = $this->timeToSecs($brutto);
