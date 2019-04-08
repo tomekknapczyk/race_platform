@@ -4,13 +4,6 @@
 <div class="drivers-container">
     <h3>Live wyniki</h3>
     <div class="d-flex align-items-start justify-content-between flex-wrap">
-        <div class="container">
-            <div class="row justify-content-center">
-                @if($liveWyniki)
-                    {!! $liveWyniki->value !!}
-                @endif
-            </div>
-        </div>
         @if($komunikaty->count())
         <div class="card border-dark mt-3 flex-1 komunikaty">
             <div class="card-header bg-yellow">
@@ -25,6 +18,13 @@
             </div>
         </div>
         @endif
+        <div class="container">
+            <div class="row justify-content-center">
+                @if($liveWyniki)
+                    {!! $liveWyniki->value !!}
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 @endsection
