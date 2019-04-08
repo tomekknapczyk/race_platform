@@ -61,7 +61,7 @@ class Team extends Model
 
     public function crews($round)
     {
-        return $this->hasMany(StartListItem::class)->where('start_list_id', $round);
+        return $this->hasMany(StartListItem::class)->where('start_list_id', $round)->has('result');
     }
 
     public function results()
