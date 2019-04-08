@@ -33,7 +33,7 @@
                     </div>
                     <div class="card-body lista">
                         @if($rounds_old->count())
-                            @foreach($rounds as $round)
+                            @foreach($rounds_old as $round)
                             <div class="row justify-content-between align-items-center flex-wrap py-2">
                                 <h5 class="col-md-8">
                                     <a href="{{ route('rajd', $round->id) }}">{{ $round->name }} @if($round->sub_name) - {{ $round->sub_name }}@endif</a><br>
