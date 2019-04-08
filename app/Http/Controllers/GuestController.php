@@ -174,9 +174,10 @@ class GuestController extends Controller
     public function terminarz()
     {
         $today = date('Y-m-d');
-        $rounds = \App\Round::whereDate('date', '>', $today)->with('race')->orderBy('date', 'asc')->get();
+        $rounds = \App\Round::whereDate('date', '>=', $today)->with('race')->orderBy('date', 'asc')->get();
+        $rounds_old = \App\Round::whereDate('date', '<', $today)->with('race')->orderBy('date', 'desc')->get();
 
-        return view('terminarz', compact('rounds'));
+        return view('terminarz', compact('rounds', 'rounds_old'));
     }
 
     public function runda($id)
