@@ -167,8 +167,9 @@ class GuestController extends Controller
     public function live_wyniki()
     {
         $liveWyniki = \App\SiteInfo::where('name', 'live_wyniki')->first();
+        $komunikaty = \App\Note::latest()->get();
 
-        return view('live_wyniki', compact('liveWyniki'));
+        return view('live_wyniki', compact('liveWyniki', 'komunikaty'));
     }
 
     public function terminarz()

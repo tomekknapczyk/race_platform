@@ -908,3 +908,13 @@ body{
 .no-images img{
     display: none;
 }
+
+.komunikaty{
+    flex: 1;
+    min-width: 300px;
+
+    .card-body{
+        max-height: 600px;
+        overflow: auto;
+    }
+}

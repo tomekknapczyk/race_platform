@@ -164,6 +164,7 @@
                                             <a class="dropdown-item" href="{{ route('races') }}">Rajdy</a>
                                             <a class="dropdown-item" href="{{ route('adminTeams') }}">Teamy</a>
                                             <a class="dropdown-item" href="{{ route('tables') }}">Tabele do transmisji</a>
+                                            <a class="dropdown-item" href="{{ route('notes') }}">Komunikaty live</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown nav-y">

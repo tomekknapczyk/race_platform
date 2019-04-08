@@ -190,6 +190,14 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('saveTableUsers', 'TabelaController@saveTableUsers')->name('saveTableUsers');
     Route::post('deleteTable', 'TabelaController@delete')->name('deleteTable');
     Route::post('addTableUsers', 'TabelaController@addTableUsers')->name('addTableUsers');
+
+    // komunikaty live
+    Route::get('komunikaty', 'NoteController@index')->name('notes');
+    Route::get('komunikat/{id}', 'NoteController@show')->name('editNote');
+    Route::post('saveNote', 'NoteController@save')->name('saveNote');
+    Route::post('deleteNote', 'NoteController@delete')->name('deleteNote');
+    Route::get('clearNotes', 'NoteController@clearNotes')->name('clearNotes');
+
 });
 
 Route::get('aktywna', 'TabelaController@active')->name('active_table');
