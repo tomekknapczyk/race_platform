@@ -185,11 +185,14 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('add_import_users', 'TabelaController@add_import_users')->name('add_import_users');
     Route::post('clear_import_users', 'TabelaController@clear_import_users')->name('clear_import_users');
     Route::post('set_active_table', 'TabelaController@set_active_table')->name('set_active_table');
+    Route::post('set_active_custom_table', 'TabelaController@set_active_custom_table')->name('set_active_custom_table');
 
     Route::post('saveTable', 'TabelaController@save')->name('saveTable');
     Route::post('saveTableUsers', 'TabelaController@saveTableUsers')->name('saveTableUsers');
     Route::post('deleteTable', 'TabelaController@delete')->name('deleteTable');
     Route::post('addTableUsers', 'TabelaController@addTableUsers')->name('addTableUsers');
+    Route::post('saveCustomTable', 'TabelaController@saveCustom')->name('saveCustomTable');
+    Route::post('deleteCustomTable', 'TabelaController@deleteCustom')->name('deleteCustomTable');
 
     // komunikaty live
     Route::get('komunikaty', 'NoteController@index')->name('notes');
@@ -202,6 +205,9 @@ Route::group(['middleware' => 'admin'], function() {
 
 Route::get('aktywna', 'TabelaController@active')->name('active_table');
 Route::get('tabela/{id}', 'TabelaController@show')->name('table');
+
+Route::get('aktywnaA', 'TabelaController@activeCustom')->name('active_tableA');
+Route::get('tabelaA/{id}', 'TabelaController@showCustom')->name('tableA');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      // \UniSharp\LaravelFilemanager\Lfm::routes();

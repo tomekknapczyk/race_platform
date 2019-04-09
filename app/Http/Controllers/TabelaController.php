@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\tabela;
 use App\import_user;
 use App\tabela_user;
+use App\CustomTable;
 
 class TabelaController extends Controller
 {
@@ -23,8 +24,9 @@ class TabelaController extends Controller
     public function index()
     {
         $tabele = tabela::get();
+        $customTables = CustomTable::get();
 
-        return view('admin.tabele', compact('tabele'));
+        return view('admin.tabele', compact('tabele', 'customTables'));
     }
 
     public function active()
@@ -45,6 +47,32 @@ class TabelaController extends Controller
             return back()->with('danger', 'brak tabeli z podanym id');
 
         return view('tabela', compact('tabela'));
+    }
+
+    public function activeCustom()
+    {
+        $tabela = CustomTable::where('active', 1)->first();
+
+        if(!$tabela)
+            return back()->with('danger', 'brak aktywnej tabeli');
+
+        $header = explode(',', $tabela->header);
+        $body = explode(';', $tabela->body);
+
+        return view('tabelaA', compact('tabela', 'header', 'body'));
+    }
+
+    public function showCustom($id)
+    {
+        $tabela = CustomTable::where('id', $id)->first();
+
+        if(!$tabela)
+            return back()->with('danger', 'brak tabeli z podanym id');
+
+        $header = explode(',', $tabela->header);
+        $body = explode(';', $tabela->body);
+
+        return view('tabelaA', compact('tabela', 'header', 'body'));
     }
 
     public function edycja_tabeli($id)
@@ -172,6 +200,55 @@ class TabelaController extends Controller
         return back();
     }
 
+    public function saveCustom(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        if(isset($request->id))
+            $table = CustomTable::where('id', $request->id)->first();
+        else
+            $table = new CustomTable;
+
+        $table->name = $request->name;
+        $table->subname = $request->subname;
+
+        if($request->data_file){
+            $file = $request->data_file;
+
+            $handle = fopen($file->getRealPath(), "r");
+
+            $r = 0;
+            $header = '';
+            $body = '';
+
+            while ($csvLine = fgetcsv($handle, 1000, ",")) {
+                $fields = count($csvLine);
+
+                if(!$r){
+                    for ($i=0; $i < $fields; $i++)
+                        $header .= $csvLine[$i].',';
+                }
+                else{
+                    for ($i=0; $i < $fields; $i++)
+                        $body .= $csvLine[$i].',';
+
+                    $body = substr($body, 0, -1).';';
+                }
+
+                $r++;
+            }
+
+            $table->header = substr($header, 0, -1);
+            $table->body = substr($body, 0, -1);
+        }
+
+        $table->save();
+
+        return back();
+    }
+
     public function delete(Request $request)
     {
         $this->validate($request, [
@@ -184,6 +261,17 @@ class TabelaController extends Controller
             $item->delete();
         }
         $tabela->delete();
+
+        return back();
+    }
+
+    public function deleteCustom(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:custom_tables',
+        ]);
+
+        CustomTable::where('id', $request->id)->delete();
 
         return back();
     }
@@ -208,6 +296,25 @@ class TabelaController extends Controller
         return back();
     }
 
+    public function set_active_custom_table(Request $request)
+    {
+        $this->validate($request, [
+            'active' => 'required|exists:custom_tables,id',
+        ]);
+        
+        $tabele = CustomTable::get();
+
+        foreach ($tabele as $tabela) {
+            if($tabela->id != $request->active)
+                $tabela->active = 0;
+            else
+                $tabela->active = 1;
+
+            $tabela->save();
+        }
+
+        return back();
+    }
     public function saveTableUsers(Request $request)
     {
         $this->validate($request, [
