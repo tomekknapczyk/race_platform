@@ -146,6 +146,7 @@ class SignController extends Controller
         $sign->oc = $request->oc;
         $sign->nw = $request->nw;
         $sign->active = $active;
+        $sign->position = $this->getMinPostion($request->form_id, $request->klasa) -1;
 
         if(isset($request->payment)){
             $path = $request->file('payment')->store('public/payments');
@@ -397,9 +398,17 @@ class SignController extends Controller
         if($request->advance)
             $sign->advance = floatval(str_replace(',', '.', $request->advance));
         $sign->active = $active;
+        $sign->position = $this->getMinPostion($request->id, $request->klasa) -1;
         $sign->save();
 
         return back()->with('success', 'Zgłoszenie zostało dodane');
+    }
+
+    protected function getMinPostion($form, $klasa)
+    {
+        $min = Sign::where('form_id', $form)->where('klasa', $klasa)->min('position');
+
+        return $min;
     }
 
     public function editSign(Request $request)

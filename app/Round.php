@@ -60,13 +60,24 @@ class Round extends Model
 
     public function signs()
     {
-        $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
+        // $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
 
         // $sorted = $signs->sortByDesc(function($sign){
         //     return $sign->race_points($this->race);
         // });
 
-        return $signs;
+        // return $signs;
+
+        $signs = Sign::where('form_id', $this->form->id)->where('active', 1)->orderBy('position', 'desc')->oldest()->get();
+
+        $sorted = $signs->sortByDesc(function($sign){
+            $rp = $sign->race_points($this->race);
+            if(!$rp)
+                return $sign->position;
+            return $rp + 100; // +100 żeby pozycja 2 nie była większa od ilości punktów 1
+        });
+
+        return $sorted;
     }
 
     public function canceled()
