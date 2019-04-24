@@ -182,7 +182,7 @@
                 @endif
 
                 <div class="card-body pb-5 teamy" style="display: none;">
-                    <h3 class="text-center" style="margin-bottom: 100px;">>Teamy liczące się do klasyfikacji</h3>
+                    <h3 class="text-center" style="margin-bottom: 100px; margin-top: 50px;">Teamy liczące się do klasyfikacji</h3>
                     @foreach($teams as $team)
                         @if($team['count'] >= $minTeam)
                             <div>
@@ -317,7 +317,7 @@
                             </div>
                         @endif
                     @endforeach
-                    <h3 class="text-center mt-2" style="margin-bottom: 100px;">Teamy nie liczące się do klasyfikacji</h3>
+                    <h3 class="text-center mt-2" style="margin-bottom: 100px; margin-top: 50px;">Teamy nie liczące się do klasyfikacji</h3>
                     @foreach($teams as $team)
                         @if($team['count'] < $minTeam)
                             <div>
