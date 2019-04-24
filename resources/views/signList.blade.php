@@ -182,8 +182,8 @@
                 @endif
 
                 <div class="card-body pb-5 teamy" style="display: none;">
+                    <h3 class="text-center">Teamy liczące się do klasyfikacji</h3>
                     @foreach($teams as $team)
-                        <h3 class="text-center">Teamy liczące się do klasyfikacji</h3>
                         @if($team['count'] >= $minTeam)
                             <div>
                                 <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
@@ -316,7 +316,9 @@
                                 </div>
                             </div>
                         @endif
-                        <h3 class="text-center mt-2">Teamy nie liczące się do klasyfikacji</h3>
+                    @endforeach
+                    <h3 class="text-center mt-2">Teamy nie liczące się do klasyfikacji</h3>
+                    @foreach($teams as $team)
                         @if($team['count'] < $minTeam)
                             <div>
                                 <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
