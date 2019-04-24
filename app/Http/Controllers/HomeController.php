@@ -65,6 +65,7 @@ class HomeController extends Controller
     public function signList($id)
     {
         $round = \App\Round::where('id', $id)->first();
+        $minTeam = $round->race->minTeam;
 
         if($round && $round->form->visible){
             $signs = $round->signs()->load('user.profile.file', 'car.file');
@@ -89,7 +90,7 @@ class HomeController extends Controller
 
             foreach ($signs as $sign) {
                 if($sign->team){
-                    if(!in_array($sign->team, $teams)){
+                    if(!array_key_exists($sign->team->id, $teams)){
                         $teams[$sign->team->id]['team'] = $sign->team;
                         $teams[$sign->team->id]['count'] = 1;
                     }
@@ -99,9 +100,13 @@ class HomeController extends Controller
                 }
             }
 
+            usort($teams, function ($a, $b){
+              return $b['count'] - $a['count'];
+            });
+
             $accreditations = \App\PressSign::where('round_id', $round->id)->get()->groupBy('user_id');
 
-            return view('signList', compact('round', 'klasy', 'class', 'teams', 'accreditations'));
+            return view('signList', compact('round', 'klasy', 'class', 'teams', 'accreditations', 'minTeam'));
         }
 
         return back()->with('warning', 'Lista zgłoszeń nie jest dostępna');
