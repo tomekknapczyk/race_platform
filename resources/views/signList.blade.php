@@ -182,11 +182,11 @@
                 @endif
 
                 <div class="card-body pb-5 teamy" style="display: none;">
-                    <h3 class="text-center">Teamy liczące się do klasyfikacji</h3>
+                    <h3 class="text-center" style="margin-bottom: 100px;">>Teamy liczące się do klasyfikacji</h3>
                     @foreach($teams as $team)
                         @if($team['count'] >= $minTeam)
                             <div>
-                                <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
+                                <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3 mt-5">
                                     @if($team['team']->file_id)
                                         <img src="{{ url('/public/team/thumb/', $team['team']->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
                                     @endif
@@ -317,11 +317,11 @@
                             </div>
                         @endif
                     @endforeach
-                    <h3 class="text-center mt-2">Teamy nie liczące się do klasyfikacji</h3>
+                    <h3 class="text-center mt-2" style="margin-bottom: 100px;">Teamy nie liczące się do klasyfikacji</h3>
                     @foreach($teams as $team)
                         @if($team['count'] < $minTeam)
                             <div>
-                                <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3" @if(!$loop->first) style="margin-top: 100px;" @else style="margin-top: 1.5rem;"  @endif>
+                                <a href="{{ route('team',$team['team']->id) }}" class="d-flex align-items-center justify-content-center text-dark mb-3 mt-5">
                                     @if($team['team']->file_id)
                                         <img src="{{ url('/public/team/thumb/', $team['team']->file->path) }}" class="img-fluid mr-2" style="width: 100px;">
                                     @endif
