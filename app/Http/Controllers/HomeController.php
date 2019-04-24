@@ -89,9 +89,13 @@ class HomeController extends Controller
 
             foreach ($signs as $sign) {
                 if($sign->team){
-                    // dd($sign->team);
-                    if(!in_array($sign->team, $teams))
-                        $teams[] = $sign->team;
+                    if(!in_array($sign->team, $teams)){
+                        $teams[$sign->team->id]['team'] = $sign->team;
+                        $teams[$sign->team->id]['count'] = 1;
+                    }
+                    else{
+                        $teams[$sign->team->id]['count']++;
+                    }
                 }
             }
 
