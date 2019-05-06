@@ -18,11 +18,11 @@ class Driver extends Model
 
     public function getNameAttribute($value)
     {
-        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+        return mb_convert_case(str_replace("\"", "'", $value), MB_CASE_TITLE, "UTF-8");
     }
 
     public function getLastnameAttribute($value)
     {
-        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+        return mb_convert_case(str_replace("\"", "'", $value), MB_CASE_TITLE, "UTF-8");
     }
 }

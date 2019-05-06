@@ -13,17 +13,17 @@ class Sign extends Model
 
     public function getLastnameAttribute($value)
     {
-        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+        return mb_convert_case(str_replace("\"", "'", $value), MB_CASE_TITLE, "UTF-8");
     }
 
     public function getPilotNameAttribute($value)
     {
-        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+        return mb_convert_case(str_replace("\"", "'", $value), MB_CASE_TITLE, "UTF-8");
     }
 
     public function getPilotLastnameAttribute($value)
     {
-        return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+        return mb_convert_case(str_replace("\"", "'", $value), MB_CASE_TITLE, "UTF-8");
     }
 
     public function form()
