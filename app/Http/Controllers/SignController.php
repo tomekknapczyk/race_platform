@@ -9,6 +9,7 @@ use App\StartList;
 use App\StartListItem;
 use App\Exports\StartListExport;
 use App\Exports\SignListExport;
+use App\Exports\ServiceListExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -22,7 +23,7 @@ class SignController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['except' => ['sign', 'signPress', 'editSignPress', 'accreditation_pdf', 'deleteSign', 'editSignUser', 'editSignPilot']]);
+        $this->middleware('admin', ['except' => ['sign', 'signPress', 'editSignPress', 'accreditation_pdf', 'deleteSign', 'editSignUser', 'editSignPilot', 'getSigns', 'editSignService']]);
     }
 
     public function signFormStatus(Request $request)
@@ -582,6 +583,119 @@ class SignController extends Controller
         return view('admin.getStaff', compact('staff'))->render();
     }
 
+    public function getSigns(Request $request){
+        $round = \App\Round::where('id', $request->id)->first();
+
+        $collection = $round->startPositions($round->startList->id);
+
+        $items = $collection->filter(function ($value, $key) use ($request){
+            return $value->sign_id != $request->sign;
+        });
+
+        return view('admin.getSigns', compact('items'))->render();
+    }
+
+    public function getReserveSigns(Request $request){
+        $round = \App\Round::where('id', $request->id)->first();
+
+        return view('admin.getReserveSigns', compact('round'))->render();
+    }
+
+    public function editSignService(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+            'sign_id' => 'required|exists:signs,id'
+        ]);
+
+        if($request->signs)
+            foreach ($request->signs as $key => $value) {
+                $service = new \App\Service;
+                $service->sign_id = $request->sign_id;
+                $service->partner_sign_id = $key;
+                $service->round_id = $request->round_id;
+                $service->save();
+            }
+
+        return back()->with('success', 'Lista została zapisana');
+    }
+
+    public function editSignServiceAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+            'sign_id' => 'required|exists:signs,id'
+        ]);
+
+        if($request->signs)
+            foreach ($request->signs as $key => $value) {
+                $service = new \App\Service;
+                $service->sign_id = $request->sign_id;
+                $service->partner_sign_id = $key;
+                $service->round_id = $request->round_id;
+                $service->save();
+            }
+
+        return back()->with('success', 'Lista została zapisana');
+    }
+
+    public function deleteService(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|exists:services',
+        ]);
+        
+        \App\Service::where('id', $request->id)->delete();
+
+        return back()->with('success', 'Uczestnik został usunięty');
+    }
+
+    public function changeSignAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'round_id' => 'required|exists:rounds,id',
+            'sign_id' => 'required|exists:signs,id',
+            'new_sign_id' => 'required|exists:signs,id',
+        ]);
+        
+        $item = \App\StartListItem::where('sign_id', $request->sign_id)->first();
+        $new = \App\Sign::where('id', $request->new_sign_id)->first();
+        $old = \App\Sign::where('id', $request->sign_id)->first();
+
+        $old->active = 0;
+        $old->save();
+
+        $item->sign_id = $new->id;
+        $item->email = $new->email;
+        $item->klasa = $new->klasa;
+
+        $new->active = 1;
+
+        if($new->user){
+            if($new->user->team())
+                $new->team_id = $new->user->team()->id;
+            else
+                $new->team_id = null;
+        }
+
+        $new->save();
+
+        $item->team_id = $new->team_id;
+        $item->save();
+
+        return back()->with('success', 'Uczestnik został zmieniony');
+    }
+
+    public function makeServiceList($id)
+    {
+        $round = \App\Round::where('id', $id)->first();
+
+        if($round)
+            return Excel::download(new ServiceListExport($round->id), 'servicelist.xlsx');
+
+        return back()->with('error', 'Runda nie istnieje');
+    }
+
     public function accreditation_pdf($id){
         $round = \App\Round::where('id', $id)->first();
         $accreditations = \App\PressSign::where('user_id', auth()->user()->id)->where('round_id', $id)->get();
@@ -636,7 +750,7 @@ class SignController extends Controller
         $form->save();
 
         $round = \App\Round::where('id', $request->id)->first();
-        $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa');
+        $klasy = $round->signs()->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
 
         $max = $round->signs()->count();
 
@@ -654,24 +768,38 @@ class SignController extends Controller
         //         $list_item->save();
         //     }
         // }
+        $i = 1;
 
-        foreach($round->signs()->take($max) as $sign){          
-            if($sign->user){
-                if($sign->user->team())
-                    $sign->team_id = $sign->user->team()->id;
-                else
-                    $sign->team_id = null;
-                $sign->save();
+        $order = explode(',', $round->order);
+
+        usort($klasy, function ($a, $b) use ($order) {
+            $pos_a = array_search($a, $order);
+            $pos_b = array_search($b, $order);
+            return $pos_a - $pos_b;
+        });
+
+        $all_signs = $round->signs()->take($max);
+
+        foreach ($klasy as $klasa) {
+            foreach($all_signs->where('klasa', $klasa) as $sign){
+                if($sign->user){
+                    if($sign->user->team())
+                        $sign->team_id = $sign->user->team()->id;
+                    else
+                        $sign->team_id = null;
+                    $sign->save();
+                }
+
+                $list_item = new StartListItem;
+                $list_item->start_list_id = $list->id;
+                $list_item->sign_id = $sign->id;
+                $list_item->email = $sign->email;
+                $list_item->klasa = $sign->klasa;
+                $list_item->team_id = $sign->team_id;
+                $list_item->position = $max--;
+                $list_item->nr = $i++;
+                $list_item->save();
             }
-
-            $list_item = new StartListItem;
-            $list_item->start_list_id = $list->id;
-            $list_item->sign_id = $sign->id;
-            $list_item->email = $sign->email;
-            $list_item->klasa = $sign->klasa;
-            $list_item->team_id = $sign->team_id;
-            $list_item->position = $max--;
-            $list_item->save();
         }
 
         return redirect()->route('list', $list->round_id);

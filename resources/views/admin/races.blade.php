@@ -48,13 +48,14 @@
                                         </strong>
                                         <div class="col-md-4 text-right">
                                             @if(!$round->startList)
-                                                <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success">Zobacz zgłoszenia</a>
+                                                <a href="{{ url('round', $round->id) }}" class="btn btn-sm btn-success m-1">Zobacz zgłoszenia</a>
                                             @else
-                                                <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success">Lista startowa</a>
-                                                <a href="{{ url('osy', $round->id) }}" class="btn btn-sm btn-success">Os-y</a>
+                                                <a href="{{ url('service', $round->id) }}" class="btn btn-sm btn-danger mb-1">Park serwisowy</a>
+                                                <a href="{{ url('list', $round->id) }}" class="btn btn-sm btn-success mb-1">Lista startowa</a>
+                                                <a href="{{ url('osy', $round->id) }}" class="btn btn-sm btn-success mb-1">Os-y</a>
                                             @endif
-                                                <a href="{{ url('accreditations', $round->id) }}" class="btn btn-sm btn-primary">Akredytacje</a>
-                                                <a href="{{ url('editRound', $round->id) }}" class="btn btn-sm btn-info">Edytuj</a>
+                                                <a href="{{ url('accreditations', $round->id) }}" class="btn btn-sm btn-primary mb-1">Akredytacje</a>
+                                                <a href="{{ url('editRound', $round->id) }}" class="btn btn-sm btn-info mb-1">Edytuj</a>
                                             {{-- <button class="btn btn-sm btn-info editBtn" data-toggle="modal" data-target="#editRound" 
                                                 data-text='{"round_id":"{{ $round->id }}", "round_name":"{{ $round->name }}", "sub_name":"{{ $round->sub_name }}", "details":"{{ $round->details }}", "date":"{{ $round->date->format('Y-m-d H:i') }}", "sign_date":"{{ $round->sign_date->format('Y-m-d H:i') }}", "max":"{{ $round->max }}", "price":"{{ $round->price }}", "advance":"{{ $round->advance }}"}'
                                                 data-order='{"items":"{{ $round->order }}"}'

@@ -794,4 +794,30 @@ class RaceController extends Controller
         return view('admin.addSection', compact('id'))->render();
     }
     
+
+    public function service($id)
+    {
+        $round = Round::where('id', $id)->first();
+
+        if($round){
+            $items = \App\Service::where('round_id', $round->id)->with('sign', 'partner')->orderBy('sign_id', 'asc')->get();
+
+            $collection = [];
+
+            foreach ($items as $item) {
+                if(!array_key_exists($item->sign_id, $collection)){
+                    $collection[$item->sign_id]['item'] = $item->sign;
+                    $collection[$item->sign_id]['partners'] = [];
+                    $collection[$item->sign_id]['partners'][] = $item;
+                }
+                else{
+                    $collection[$item->sign_id]['partners'][] = $item;
+                }
+            }
+
+            return view('admin.service', compact('collection', 'round'));
+        }
+
+        return back()->with('warning', 'Runda nie istnieje');
+    }   
 }

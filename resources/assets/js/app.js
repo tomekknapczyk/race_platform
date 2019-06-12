@@ -117,6 +117,54 @@ $(document).on('click', '.editSignPress', function(){
     })
 })
 
+$(document).on('click', '.editSignService', function(){
+    var id = $(this).data('round-id');
+    var sign = $(this).data('sign-id');
+    $('#service_round_id').val(id);
+    $('#service_sign_id').val(sign);
+
+    $.ajax({
+        url: '/getSigns',
+        method: 'POST',
+        data: {id: id, sign: sign},
+    }).done(function(response){
+        $('#service_list').html('');
+        $('#service_list').append(response);
+    });
+})
+
+$(document).on('click', '.changeSignAdmin', function(e){
+    e.preventDefault();
+    var id = $(this).data('round-id');
+    var sign = $(this).data('sign-id');
+    $('#change_round_id').val(id);
+    $('#change_sign_id').val(sign);
+
+    $.ajax({
+        url: '/getReserveSigns',
+        method: 'POST',
+        data: {id: id},
+    }).done(function(response){
+        $('#reserve_list').html('');
+        $('#reserve_list').append(response);
+    });
+})
+
+$(document).on('click', '.editSignServiceAdmin', function(){
+    var id = $(this).data('round-id');
+    var sign = $(this).data('sign-id');
+    $('#service_round_id').val(id);
+    $('#service_sign_id').val(sign);
+
+    $.ajax({
+        url: '/getSigns',
+        method: 'POST',
+        data: {id: id, sign: sign},
+    }).done(function(response){
+        $('#service_list').html('');
+        $('#service_list').append(response);
+    });
+})
 
 $(document).on('click', '.editSignPressAdmin', function(){
     var id = $(this).data('id');

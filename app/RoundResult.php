@@ -23,6 +23,9 @@ class RoundResult extends Model
 
     public function start_nr()
     {
+        if($this->nr && $this->nr->nr)
+            return $this->nr->nr;
+        
         $positions = $this->round->startPositions($this->round->startList->id);
 
         $i = 1;

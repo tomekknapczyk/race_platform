@@ -115,6 +115,26 @@ class User extends Authenticatable
         return false;
     }
 
+    public function onListId($list_id)
+    {
+        $sign = StartListItem::where('email', auth()->user()->email)->where('start_list_id', $list_id)->first();
+
+        if($sign)
+            return $sign->sign_id;
+
+        return false;
+    }
+
+    public function onService($round_id, $sign_id)
+    {
+        $item = Service::where('sign_id', $sign_id)->where('round_id', $round_id)->first();
+
+        if($item)
+            return true;
+
+        return false;
+    }
+
     public function racesTaken()
     {
         return StartListItem::where('email', $this->email)->count();

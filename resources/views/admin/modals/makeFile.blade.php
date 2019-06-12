@@ -40,6 +40,7 @@
 
                     <h4>Wybrane elementy:</h4>
                     <div class="bg-info p-2 rounded d-flex justify-content-start align-items-center flex-wrap" id="dropdown">
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="nr">Numer startowy</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="id">ID</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="name">Kierowca imie</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="lastname">Kierowca nazwisko</div>

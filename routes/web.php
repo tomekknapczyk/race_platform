@@ -60,7 +60,15 @@ Route::post('editSignPress', 'SignController@editSignPress')->name('editSignPres
 Route::post('editSignPressAdmin', 'SignController@editSignPressAdmin')->name('editSignPressAdmin');
 Route::post('deleteSign', 'SignController@deleteSign')->name('deleteSign');
 Route::post('getStaff', 'SignController@getStaff')->name('getStaff');
+Route::post('getSigns', 'SignController@getSigns')->name('getSigns');
+Route::post('getReserveSigns', 'SignController@getReserveSigns')->name('getReserveSigns');
+Route::post('editSignService', 'SignController@editSignService')->name('editSignService');
+Route::post('editSignServiceAdmin', 'SignController@editSignServiceAdmin')->name('editSignServiceAdmin');
+Route::post('deleteService', 'SignController@deleteService')->name('deleteService');
+Route::post('changeSignAdmin', 'SignController@changeSignAdmin')->name('changeSignAdmin');
+Route::get('makeServiceList/{id}', 'SignController@makeServiceList')->name('makeServiceList');
 Route::get('accreditation_pdf/{id}', 'SignController@accreditation_pdf')->name('accreditation_pdf');
+
 
 // Settings
 Route::get('settings', 'UserController@settings')->name('settings');
@@ -102,6 +110,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('races', 'RaceController@races')->name('races');
     Route::post('saveRace', 'RaceController@saveRace')->name('saveRace');
     Route::post('deleteRace', 'RaceController@deleteRace')->name('deleteRace');
+
+    Route::get('service/{id}', 'RaceController@service')->name('service');
 
     Route::get('race/{id}', 'RaceController@race')->name('race');
     Route::post('saveRound', 'RaceController@saveRound')->name('saveRound');

@@ -46,6 +46,11 @@
                                         @if($form->round->file_id)
                                             <a href="{{ url('public/terms', $form->round->file->path) }}" class="btn btn-sm btn-outline-secondary" target="_blank">Regulamin</a>
                                         @endif
+                                        @if($form->round->startList)
+                                            <button class="btn btn-sm btn-outline-info editSignPilot" data-toggle="modal" data-target="#editSignPilot" data-form-id="{{ $form->id }}" data-user-id="{{ auth()->user()->signId($form->id)->user_id }}" data-car="{{ auth()->user()->signId($form->id)->nr_rej }}">
+                                                Park serwisowy
+                                            </button>
+                                        @endif
 
                                         <button class="btn btn-sm btn-outline-danger deleteSign" data-toggle="modal" data-target="#deleteSign" data-id="{{ auth()->user()->signId($form->id)->id }}">
                                             Usuń
@@ -93,6 +98,27 @@
                                 <hr class="col-12 p-0 my-2">
                             </div>
                         @endforeach
+                    @elseif($start_lists->count())
+                        @if(auth()->user()->driver == 1)
+                            @foreach($start_lists as $start_list)
+                                <div class="row justify-content-between align-items-center flex-wrap">
+                                    <div class="col-md-4">
+                                        <h4>{{ $start_list->round->name }}
+                                            @if($start_list->round->sub_name)<br><small>{{ $start_list->round->sub_name }}</small>@endif
+                                        </h4>
+                                        <p class="my-1"><strong>{{ $start_list->round->date->format('Y-m-d H:i') }}</strong></p>
+                                    </div>
+                                    <div class="col-md-8 text-right">
+                                        <a href="{{ route('rajd', $start_list->round->id) }}" class="ml-3 btn btn-sm btn-outline-primary">Szczegóły rajdu</a>
+                                        @if(auth()->user()->onListId($start_list->id) && !auth()->user()->onService($start_list->round->id, auth()->user()->onListId($start_list->id)))
+                                            <button class="btn btn-sm btn-outline-danger editSignService" data-toggle="modal" data-target="#editSignService" data-sign-id="{{ auth()->user()->onListId($start_list->id) }}" data-round-id="{{ $start_list->round->id }}">
+                                                    Park serwisowy
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     @else
                         <h5 class="text-center">Aktualnie brak dostępnych formularzy</h5>
                     @endif
@@ -154,4 +180,5 @@
     @include('modals.editSignPilot')
 @endif
 @include('modals.deleteSign')
+@include('modals.editSignService')
 @endsection

@@ -23,6 +23,8 @@
                             <td>{{ str_replace('-', '', str_replace('+48', '', str_replace(' ', '', $position->sign->phone))) }}</td>
                         @elseif($item == 'pilot_phone')
                             <td>{{ str_replace('-', '', str_replace('+48', '', str_replace(' ', '', $position->sign->pilot_phone))) }}</td>
+                        @elseif($item == 'nr')
+                            <td>{{ $position->sign->start_nr() }}</td>
                         @else
                             <td>{{ $position->sign->$item }}</td>
                         @endif

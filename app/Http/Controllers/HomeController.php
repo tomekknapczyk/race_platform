@@ -33,8 +33,13 @@ class HomeController extends Controller
 
         $races = \App\Race::latest()->get();
 
+        $now = \Carbon\Carbon::now();
 
-        return view('dashboard', compact('forms', 'races', 'closest', 'lists'));
+        $start_lists = \App\StartList::whereHas('round', function ($query) use ($now) {
+            $query->whereDate('date', '>', $now);
+        })->get();
+
+        return view('dashboard', compact('forms', 'races', 'closest', 'lists', 'start_lists'));
     }
 
     public function startList($id)

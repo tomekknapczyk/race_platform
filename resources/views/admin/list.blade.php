@@ -32,11 +32,18 @@
                                     @foreach($startPositions->where('klasa', $klasa) as $position)
                                         <div class="row justify-content-between align-items-center flex-wrap py-2">
                                             <h6 class="m-0 col-1">
-                                                {{ ++$numer }}.
+                                                {{ $position->sign->start_nr() }}.
                                             </h6>
                                             <h6 class="m-0 col-4">
-                                                {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
-                                                <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <div>
+                                                        {{ $position->sign->name }} {{ $position->sign->lastname }}<br>
+                                                        <small><strong>Pilot:</strong> {{ $position->sign->pilot_name }} {{ $position->sign->pilot_lastname }}</small>
+                                                    </div>
+                                                    <button class="btn btn-sm btn-outline-danger changeSignAdmin" data-toggle="modal" data-target="#changeSignAdmin" data-sign-id="{{ $position->sign->id }}" data-round-id="{{ $round->id }}">
+                                                        Zmień
+                                                    </button>
+                                                </div>
                                             </h6>
                                             <h6 class="m-0 col-3">
                                                 {{ $position->sign->marka }} {{ $position->sign->model }} - {{ $position->sign->ccm }}ccm<br>
@@ -72,4 +79,5 @@
 
 @include('admin.modals.deleteList')
 @include('admin.modals.makeFile')
+@include('admin.modals.changeSign')
 @endsection

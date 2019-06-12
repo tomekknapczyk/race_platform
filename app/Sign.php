@@ -192,4 +192,48 @@ class Sign extends Model
         else
             return 1;
     }
+
+    public function nr()
+    {
+        return $this->hasOne(StartListItem::class);
+    }
+
+    public function start_nr()
+    {
+        if($this->nr && $this->nr->nr)
+            return $this->nr->nr;
+
+        $positions = $this->form->round->startPositions($this->form->round->startList->id);
+
+        $i = 1;
+
+        $class = $positions->sortBy('klasa')->pluck('klasa', 'klasa')->toArray();
+        $order = explode(',', $this->form->round->order);
+
+        usort($class, function ($a, $b) use ($order) {
+            $pos_a = array_search($a, $order);
+            $pos_b = array_search($b, $order);
+            return $pos_a - $pos_b;
+        });
+
+        foreach ($class as $cl) {
+            foreach ($positions->where('klasa', $cl) as $position){
+                if($position->sign_id == $this->id)
+                    return $i;
+                $i++;
+            }
+        }
+
+        return $i;
+    }
+
+    public function services($round_id)
+    {
+        $is = \App\Service::where('round_id', $round_id)->where('sign_id', $this->id)->first();
+        
+        if($is)
+            return \App\Service::where('round_id', $round_id)->where('partner_sign_id', $this->id)->count() + 1;
+
+        return \App\Service::where('round_id', $round_id)->where('partner_sign_id', $this->id)->count();
+    }
 }
