@@ -109,6 +109,7 @@
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k5">K5</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k6">K6</div>
                         <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="k7">K7</div>
+                        <div class="btn btn-sm btn-light m-2 shadow btn-move" data-id="open">Open</div>
                     </div>
 
                     <div class="d-flex flex-wrap">

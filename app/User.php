@@ -323,7 +323,7 @@ class User extends Authenticatable
     public function race_position($id)
     {
         $places = [];
-        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5', 'open');
         foreach ($order as $klasa) {
             $race = Race::where('id', $id)->first();
 

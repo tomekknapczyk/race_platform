@@ -35,7 +35,7 @@ class Race extends Model
             }
         }
 
-        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5', 'open');
 
         usort($klasy, function ($a, $b) use ($order) {
           $pos_a = array_search($a, $order);
@@ -72,7 +72,7 @@ class Race extends Model
     {
         Laurel::where('race_id', $this->id)->delete();
 
-        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5');
+        $order = array('k4', 'k7', 'k3', 'k2', 'k1', 'k6', 'k5', 'open');
 
         foreach ($order as $klasa) {
             $rank = $this->klasa_rank($klasa)->take(3);

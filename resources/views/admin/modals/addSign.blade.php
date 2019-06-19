@@ -358,6 +358,7 @@
                                     <option value="k5">K5</option>
                                     <option value="k6">K6</option>
                                     <option value="k7">K7</option>
+                                    <option value="open">Open</option>
                                 </select>
                                 @if ($errors->has('klasa'))
                                     <span class="invalid-feedback">

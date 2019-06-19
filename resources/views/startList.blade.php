@@ -18,6 +18,7 @@
                         <button class="search-class btn btn-warning m-1" data-klasa="k5">K5</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k6">K6</button>
                         <button class="search-class btn btn-warning m-1" data-klasa="k7">K7</button>
+                        <button class="search-class btn btn-warning m-1" data-klasa="open">Open</button>
                     </div>
                 </div>
                 <div class="card-body list">

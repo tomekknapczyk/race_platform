@@ -198,20 +198,20 @@ class HomeController extends Controller
 
         if($car->rwd)
             if($ccm < 800)
-                return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option>';
+                return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option><option value="open">Open</option>';
             else
-                return '<option value="k7">K7</option>';
+                return '<option value="k7">K7</option><option value="open">Open</option>';
 
         if($ccm <= 1400)
-            return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option>';
+            return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option><option value="open">Open</option>';
 
         if($ccm <= 1600)
-            return '<option value="k2">K2</option>';
+            return '<option value="k2">K2</option><option value="open">Open</option>';
 
         if($ccm <= 2000)
-            return '<option value="k3">K3</option>';
+            return '<option value="k3">K3</option><option value="open">Open</option>';
 
-        return '<option value="k4">K4</option>';
+        return '<option value="k4">K4</option><option value="open">Open</option>';
     }
 
     public function getKlasaByNr(Request $request)
@@ -238,20 +238,20 @@ class HomeController extends Controller
 
         if($car->rwd)
             if($ccm < 800)
-                return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option>';
+                return '<option value="k5">Fiat 126p z silnikiem markowym</option><option value="k7">K7</option><option value="open">Open</option>';
             else
-                return '<option value="k7">K7</option>';
+                return '<option value="k7">K7</option><option value="open">Open</option>';
 
         if($ccm <= 1400)
-            return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option>';
+            return '<option value="k1">K1</option><option value="k6">Fiat SC i CC z silnikiem do poj. 1242 cm3 8v</option><option value="open">Open</option>';
 
         if($ccm <= 1600)
-            return '<option value="k2">K2</option>';
+            return '<option value="k2">K2</option><option value="open">Open</option>';
 
         if($ccm <= 2000)
-            return '<option value="k3">K3</option>';
+            return '<option value="k3">K3</option><option value="open">Open</option>';
 
-        return '<option value="k4">K4</option>';
+        return '<option value="k4">K4</option><option value="open">Open</option>';
     }
 
     public function getPilot(Request $request)
