@@ -9,6 +9,7 @@
                     <a href="{{ url('races') }}" class="text-white">Rajdy</a> : {{ $race->name }}
                     {{-- <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#newRound">Dodaj nową rundę</button> --}}
                     <a href="{{ url('newRound', $race->id) }}" class="btn btn-sm btn-primary float-right">Dodaj nową rundę</a>
+                    <a href="{{ url('bk', $race->id) }}" class="btn btn-sm btn-info float-right mr-2">Badania kontrolne</a>
                 </div>
                 <div class="card-body">
                     @foreach($race->rounds as $round)

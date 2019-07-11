@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Race;
 use App\Round;
 use App\SignForm;
+use App\Exports\BkExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RaceController extends Controller
 {
@@ -114,6 +116,79 @@ class RaceController extends Controller
             return view('admin.race', compact('race'));
 
         return back()->with('warning', 'Rajd nie istnieje');
+    }
+
+    public function bk($id)
+    {
+        $race = Race::where('id', $id)->first();
+
+        if($race)
+            return view('admin.bk', compact('race'));
+
+        return back()->with('warning', 'Rajd nie istnieje');
+    }
+
+    public function show_bk(Request $request)
+    {
+        $this->validate($request, [
+            'round' => 'required',
+        ]);
+
+        $list_id = \App\StartList::whereIn('round_id', $request->round)->pluck('id');
+
+        $items = \App\StartListItem::whereIn('start_list_id', $list_id)->groupBy('email')->get();
+
+        foreach ($items as $key => $item) {
+            $list_items = \App\StartListItem::where('email', $item->email)->whereIn('start_list_id', $list_id)->count();
+            if($list_items != count($request->round))
+                $items->forget($key);
+        }
+
+        $drivers = [];
+
+        foreach ($items as $key => $driver) {
+            $sign_ids = \App\StartListItem::where('email', $driver->email)->whereIn('start_list_id', $list_id)->pluck('sign_id');
+            $model = null;
+            $marka = null;
+            $nr_rej = null;
+            $ok = true;
+
+            $signs = \App\Sign::whereIn('id', $sign_ids)->get();
+
+            foreach ($signs as $sign) {
+                if(null != $model){
+                    if($sign->model != $model || $sign->marka != $marka || $sign->nr_rej != $nr_rej)
+                        $ok = false;
+                }
+                else{
+                    $model = $sign->model;
+                    $marka = $sign->marka;
+                    $nr_rej = $sign->nr_rej;
+                }
+            }
+
+            if(!$ok)
+                $items->forget($key);
+            else
+                $drivers[] = $sign;
+        }
+
+        $ids = implode(array_pluck($drivers, 'id'), ',');
+
+        return view('admin.bk_list', compact('drivers', 'ids'));
+    }
+
+    public function makeFileBk(Request $request)
+    {   
+        $this->validate($request, [
+            'drivers' => 'required',
+        ]);
+
+        $drivers = explode(",", $request->drivers);
+
+        $signs = \App\Sign::whereIn('id', $drivers)->get();
+
+        return Excel::download(new BkExport($signs), 'lista.xlsx');
     }
 
     public function saveRound(Request $request)

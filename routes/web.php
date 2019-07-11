@@ -114,6 +114,9 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('service/{id}', 'RaceController@service')->name('service');
 
     Route::get('race/{id}', 'RaceController@race')->name('race');
+    Route::get('bk/{id}', 'RaceController@bk')->name('bk');
+    Route::post('show_bk', 'RaceController@show_bk')->name('show_bk');
+    Route::post('makeFileBk', 'RaceController@makeFileBk')->name('makeFileBk');
     Route::post('saveRound', 'RaceController@saveRound')->name('saveRound');
     Route::post('deleteRound', 'RaceController@deleteRound')->name('deleteRound');
     Route::post('addSection', 'RaceController@addSection')->name('addSection');
