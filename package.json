@@ -27,6 +27,6 @@
         "owl.carousel": "^2.3.4",
         "sortablejs": "^1.7.0",
         "summernote": "^0.8.10",
-        "tinymce": "^4.8.2"
+        "tinymce": "^5.10.7"
     }
 }
